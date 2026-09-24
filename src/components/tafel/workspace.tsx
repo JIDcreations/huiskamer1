@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
@@ -137,6 +137,8 @@ function SaveState({ status }: { status: "idle" | "saving" | "saved" }) {
   );
 }
 
+const openPages = new Map<string, number>();
+
 function PageView({ page, viewer, otherId, basePath }: { page: TablePage; viewer: Viewer; otherId: ID; basePath: string }) {
   const router = useRouter();
   const name = usePersonName();
@@ -154,6 +156,20 @@ function PageView({ page, viewer, otherId, basePath }: { page: TablePage; viewer
   const blocksSave = useAutosave<Block[]>((blocks) => actions.updatePage(page.id, { blocks }));
   const titleSave = useAutosave<string>((t) => actions.updatePage(page.id, { title: t }));
   const status = blocksSave.status === "saving" || titleSave.status === "saving" ? "saving" : blocksSave.status === "saved" || titleSave.status === "saved" ? "saved" : "idle";
+
+  // Een nieuwe pagina die leeg blijft, verdwijnt bij het verlaten. Pas als ze echt nergens meer open staat.
+  useEffect(() => {
+    openPages.set(page.id, (openPages.get(page.id) ?? 0) + 1);
+    return () => {
+      blocksSave.flush();
+      titleSave.flush();
+      openPages.set(page.id, (openPages.get(page.id) ?? 1) - 1);
+      setTimeout(() => {
+        if (!openPages.get(page.id)) actions.prunePage(page.id);
+      }, 0);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page.id]);
 
   const last = lastEditor(page);
   const canDelete = page.createdBy === viewer.id;

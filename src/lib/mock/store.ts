@@ -39,6 +39,8 @@ type Actions = {
   updatePage: (id: ID, patch: Partial<Pick<TablePage, "title" | "blocks">>) => void;
   togglePin: (id: ID) => void;
   deletePage: (id: ID) => void;
+  /** Verwijdert een pagina als ze helemaal leeg is. */
+  prunePage: (id: ID) => void;
 
   // Logboek
   createJournal: (clientId: ID) => ID;
@@ -119,6 +121,10 @@ export const useStore = create<StoreState>()(
       togglePin: (id) =>
         set((s) => ({ tablePages: s.tablePages.map((p) => (p.id === id ? { ...p, pinned: !p.pinned } : p)) })),
       deletePage: (id) => set((s) => ({ tablePages: s.tablePages.filter((p) => p.id !== id) })),
+      prunePage: (id) =>
+        set((s) => ({
+          tablePages: s.tablePages.filter((p) => p.id !== id || p.blocks.length > 0 || Boolean(p.title.trim())),
+        })),
 
       // ------------------------------------------------------------ Logboek
       createJournal: (clientId) => {

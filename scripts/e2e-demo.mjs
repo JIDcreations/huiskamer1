@@ -65,6 +65,15 @@ await page.click("button:has-text('Taak')");
 await wait(200);
 await page.keyboard.type("DEMOTAFEL vraag over de examenweek", { delay: 5 });
 await wait(900);
+// 4b. Lege nieuwe pagina verdwijnt bij verlaten
+const before = await page.locator("aside a[href^='/c/tafel/']").count();
+await page.click("text=Nieuwe pagina");
+await wait(700);
+await page.click("aside a[href='/c/tafel/tp3']");
+await wait(700);
+const after = await page.locator("aside a[href^='/c/tafel/']").count();
+ok(`lege Tafel-pagina opgeruimd (${before} -> ${after})`, before === after);
+
 await page.goto(B + "/c/home", { waitUntil: "networkidle" });
 
 // 5. Rolwissel naar psycholoog
