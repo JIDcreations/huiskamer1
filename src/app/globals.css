@@ -387,3 +387,7 @@ blockquote .hk-author {
     --hk-gutter: 44px;
   }
 }
+
+.hk-prose input[type="checkbox"]:disabled {
+  cursor: default;
+}

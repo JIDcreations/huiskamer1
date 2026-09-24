@@ -386,6 +386,13 @@ export function seed(now = new Date()): Database {
     "Een goed gesprek met een patiënt. Nieuwe sokken. Stilte.",
     "Wandelen in de regen, en dat het oké was.",
   ];
+  const answers: Record<string, string[]> = {
+    k8: [
+      "Supermarkt, lange rij aan de kassa. Een 5. Even naar buiten gestapt.",
+      "Trein, vertraging in Gent. Een 7. De 5-4-3-2-1 oefening hielp.",
+      "Geen paniek vandaag, wel onrustig in de ochtend.",
+    ],
+  };
   for (const t of tasks) {
     const created = startOfDay(new Date(t.createdAt));
     for (let d = created; d < today; d = addDays(d, 1)) {
@@ -400,7 +407,7 @@ export function seed(now = new Date()): Database {
         date: key,
         completed: true,
         scale: t.kind === "schaal" ? 4 + ((key.charCodeAt(9) + key.charCodeAt(8)) % 5) : undefined,
-        answer: t.kind === "tekst" ? gratitude[key.charCodeAt(9) % gratitude.length] : undefined,
+        answer: t.kind === "tekst" ? (answers[t.id] ?? gratitude)[key.charCodeAt(9) % (answers[t.id] ?? gratitude).length] : undefined,
         updatedAt: iso(setHours(d, 21)),
       });
     }

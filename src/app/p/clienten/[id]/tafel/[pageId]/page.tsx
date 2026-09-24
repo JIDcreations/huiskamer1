@@ -1,6 +1,9 @@
-import { Placeholder } from "@/components/placeholder";
+"use client";
 
-export default async function Page({ params }: { params: Promise<{ id: string; pageId: string }> }) {
-  const { pageId } = await params;
-  return <Placeholder eyebrow={`Tafel, pagina ${pageId}`} title="Tafel" note="Een gedeelde pagina" step={6} />;
+import { use } from "react";
+import { Dossier } from "@/components/psy/dossier/dossier";
+
+export default function Page({ params }: { params: Promise<{ id: string; pageId: string }> }) {
+  const { id, pageId } = use(params);
+  return <Dossier clientId={id} tab="tafel" pageId={pageId} />;
 }
