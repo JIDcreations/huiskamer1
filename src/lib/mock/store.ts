@@ -44,6 +44,8 @@ type Actions = {
   createJournal: (clientId: ID) => ID;
   updateJournal: (id: ID, patch: Partial<Pick<JournalEntry, "title" | "blocks" | "mood" | "tags" | "sharedWithPsychologist">>) => void;
   deleteJournal: (id: ID) => void;
+  /** Verwijdert een entry als ze helemaal leeg is. */
+  pruneJournal: (id: ID) => void;
   setJournalNote: (id: ID, text: string) => void;
 
   // Sessienotities
@@ -70,6 +72,7 @@ type Actions = {
   // Cliënten en praktijk
   createClient: (input: Pick<Client, "firstName" | "lastName" | "email" | "phone"> & { reason?: string }) => ID;
   setClientStatus: (id: ID, status: ClientStatus) => void;
+  updateClient: (id: ID, patch: Partial<Client>) => void;
   updatePsychologist: (patch: Partial<Psychologist>) => void;
 
   // Overig
@@ -129,6 +132,12 @@ export const useStore = create<StoreState>()(
       updateJournal: (id, patch) =>
         set((s) => ({ journal: s.journal.map((j) => (j.id === id ? { ...j, ...patch, updatedAt: now() } : j)) })),
       deleteJournal: (id) => set((s) => ({ journal: s.journal.filter((j) => j.id !== id) })),
+      pruneJournal: (id) =>
+        set((s) => ({
+          journal: s.journal.filter(
+            (j) => j.id !== id || j.blocks.length > 0 || Boolean(j.title?.trim()) || Boolean(j.mood) || j.tags.length > 0
+          ),
+        })),
       setJournalNote: (id, text) =>
         set((s) => ({
           journal: s.journal.map((j) =>
@@ -248,6 +257,7 @@ export const useStore = create<StoreState>()(
       },
       setClientStatus: (id, status) =>
         set((s) => ({ clients: s.clients.map((c) => (c.id === id ? { ...c, status } : c)) })),
+      updateClient: (id, patch) => set((s) => ({ clients: s.clients.map((c) => (c.id === id ? { ...c, ...patch } : c)) })),
       updatePsychologist: (patch) => set((s) => ({ psychologist: { ...s.psychologist, ...patch } })),
 
       // ------------------------------------------------------------ Overig

@@ -346,7 +346,7 @@ export function seed(now = new Date()): Database {
     J("j4", "c1", 24 * 4 + 1, ["Drie avonden op rij gewandeld. Sliep donderdag voor het eerst in weken door tot de wekker."], { mood: 4, tags: ["wandelen", "slaap"] }),
     J("j5", "c1", 24 * 2 + 6, ["Collega vroeg of ik zaterdag wilde overnemen. Ik zei dat ik erover zou nadenken in plaats van meteen ja. Klein, maar het voelde groot."], { title: "Nee zeggen, bijna", mood: 3, tags: ["werk"] }),
     J("j6", "c1", 24 + 4, ["Moe vandaag. Niet slecht, gewoon moe."], { mood: 3, tags: [], sharedWithPsychologist: false }),
-    J("j7", "c1", 3.5, ["Rustige ochtend. Koffie op het balkon voor iedereen wakker was. Merk dat ik minder snel mijn telefoon pak."], { title: "Rustige ochtend", mood: 4, tags: ["ochtend"] }),
+    J("j7", "c1", 3.5, ["Koffie op het balkon voor iedereen wakker was. Merk dat ik minder snel mijn telefoon pak."], { title: "Rustige ochtend", mood: 4, tags: ["ochtend"] }),
     J("j8", "c2", 24 * 3, ["Zijn verjaardag vandaag. Naar het kerkhof geweest met mijn zus. Minder zwaar dan ik dacht."], { mood: 3, tags: ["rouw"] }),
     J("j9", "c3", 6, ["Examen statistiek achter de rug. Handen trilden bij het begin, daarna ging het."], { mood: 4, tags: ["examen"] }),
     J("j10", "c5", 2, ["Vandaag de trein naar Brussel genomen, alleen. Halverwege even kort paniek, de oefening gedaan. Ik ben aangekomen."], { title: "Trein naar Brussel", mood: 4, tags: ["trein", "paniek"] }),
