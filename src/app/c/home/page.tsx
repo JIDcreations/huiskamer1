@@ -120,7 +120,7 @@ export default function ClientHome() {
                           {psy.firstName} schreef {plural(blocks.length, "blok", "blokken")}, {formatWhen(blocks[0].updatedAt)}
                         </span>
                       </span>
-                      <ChevronRight className="size-4 stroke-[1.5] text-faint" />
+                      <ChevronRight className="size-4 stroke-[1.5] text-taupe" />
                     </Link>
                   </li>
                 ))}
@@ -139,7 +139,7 @@ export default function ClientHome() {
                 <span className="block text-[14px] font-medium">{plural(open.length, "openstaande factuur", "openstaande facturen")}</span>
                 <span className="block text-[13px] text-muted">{formatMoney(open.reduce((s, f) => s + f.amount, 0))}, bekijk en betaal</span>
               </span>
-              <ChevronRight className="size-4 stroke-[1.5] text-faint" />
+              <ChevronRight className="size-4 stroke-[1.5] text-taupe" />
             </Link>
           )}
         </div>

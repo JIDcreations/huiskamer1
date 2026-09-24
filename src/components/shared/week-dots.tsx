@@ -14,7 +14,7 @@ export function WeekDots({ days, className }: { days: WeekDay[]; className?: str
             aria-label={`${names[i]}: ${d.done ? "gedaan" : d.due ? (d.future ? "nog te doen" : "niet gedaan") : "geen opdracht"}`}
             className={cn(
               "size-3 rounded-full transition-colors",
-              d.done ? "bg-accent" : d.due ? "ring-[1.5px] ring-inset ring-faint" : "bg-surface-2/70",
+              d.done ? "bg-accent" : d.due ? "ring-[1.5px] ring-inset ring-taupe" : "bg-surface-2/70",
               d.isToday && !d.done && d.due && "ring-muted"
             )}
           />

@@ -74,7 +74,7 @@ function PaySheet({ invoice, onClose }: { invoice: Invoice | null; onClose: () =
                     <span className="block text-[15px] font-medium">{m.label}</span>
                     <span className="block text-[13px] text-muted">{m.hint}</span>
                   </span>
-                  <span className={cn("size-4 rounded-full ring-[1.5px] ring-inset", method === m.id ? "bg-accent ring-accent" : "ring-faint")} />
+                  <span className={cn("size-4 rounded-full ring-[1.5px] ring-inset", method === m.id ? "bg-accent ring-accent" : "ring-taupe")} />
                 </button>
               ))}
             </div>

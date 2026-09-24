@@ -46,7 +46,7 @@ function MoodStrip({ client }: { client: Client }) {
         {days.map((d) => (
           <div key={d.key} className="flex flex-1 flex-col items-center justify-end gap-1" title={d.mood ? `${formatRelativeDay(d.d)}: ${moodLabel(d.mood as 1)}` : undefined}>
             {d.mood ? (
-              <span className="w-full max-w-4 rounded-full bg-faint/70" style={{ height: `${d.mood * 12}px` }} />
+              <span className="w-full max-w-4 rounded-full bg-taupe/70" style={{ height: `${d.mood * 12}px` }} />
             ) : (
               <span className="size-1 rounded-full bg-surface-2" />
             )}

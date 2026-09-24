@@ -18,7 +18,7 @@ function Setting({ title, hint, defaultOn }: { title: string; hint: string; defa
         <span className="block text-[14px] font-medium">{title}</span>
         <span className="block text-[13px] text-muted">{hint}</span>
       </span>
-      <Toggle checked={on} onCheckedChange={setOn} />
+      <Toggle checked={on} onCheckedChange={setOn} aria-label={title} />
     </label>
   );
 }

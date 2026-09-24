@@ -153,7 +153,7 @@ export default function Stijlgids() {
                 {shared ? "Sarah kan deze entry lezen." : "Enkel jij ziet deze entry."}
               </span>
             </span>
-            <Toggle checked={shared} onCheckedChange={setShared} />
+            <Toggle checked={shared} onCheckedChange={setShared} aria-label="Delen met Sarah" />
           </label>
         </div>
       </Section>

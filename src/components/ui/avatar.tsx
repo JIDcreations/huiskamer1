@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 const tones = {
   psy: "bg-surface-2 text-muted",
-  client: "bg-surface text-muted ring-1 ring-inset ring-faint/50",
+  client: "bg-surface text-muted ring-1 ring-inset ring-taupe/50",
   neutral: "bg-oat-soft text-muted",
 } as const;
 

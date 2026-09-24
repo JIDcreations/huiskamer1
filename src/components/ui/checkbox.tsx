@@ -30,7 +30,7 @@ export function Checkbox({
       className={cn(
         "inline-flex shrink-0 items-center justify-center rounded-full transition-colors duration-200",
         s,
-        checked ? "bg-accent text-on-accent" : "bg-surface ring-[1.5px] ring-inset ring-faint hover:ring-muted",
+        checked ? "bg-accent text-on-accent" : "bg-surface ring-[1.5px] ring-inset ring-taupe hover:ring-muted",
         className
       )}
     >

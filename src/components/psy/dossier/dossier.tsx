@@ -71,9 +71,9 @@ export function Dossier({ clientId, tab, pageId }: { clientId: string; tab: Doss
             <div className="flex flex-wrap items-center gap-2.5">
               <h1 className="font-display text-[26px] leading-tight md:text-[30px]">{name}</h1>
               <Menu>
-                <MenuTrigger className="inline-flex items-center gap-1 rounded-full outline-none" aria-label="Status wijzigen">
+                <MenuTrigger className="inline-flex items-center gap-1 rounded-full outline-none" aria-label={`Status: ${clientStatusLabel[client.status]}, wijzigen`}>
                   <ClientStatusBadge status={client.status} />
-                  <ChevronDown className="size-3.5 stroke-[1.5] text-faint" />
+                  <ChevronDown className="size-3.5 stroke-[1.5] text-taupe" />
                 </MenuTrigger>
                 <MenuContent align="start">
                   {(Object.keys(clientStatusLabel) as ClientStatus[]).map((s) => (
@@ -92,11 +92,11 @@ export function Dossier({ clientId, tab, pageId }: { clientId: string; tab: Doss
             </div>
             <div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-[13px] text-muted">
               <a href={`mailto:${client.email}`} className="inline-flex items-center gap-1.5 hover:text-text">
-                <Mail className="size-3.5 stroke-[1.5] text-faint" /> {client.email}
+                <Mail className="size-3.5 stroke-[1.5] text-taupe" /> {client.email}
               </a>
               {client.phone && (
                 <a href={`tel:${client.phone.replace(/\s/g, "")}`} className="inline-flex items-center gap-1.5 hover:text-text">
-                  <Phone className="size-3.5 stroke-[1.5] text-faint" /> {client.phone}
+                  <Phone className="size-3.5 stroke-[1.5] text-taupe" /> {client.phone}
                 </a>
               )}
               <span>In begeleiding sinds {formatFullDate(client.startedAt)}</span>

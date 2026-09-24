@@ -212,6 +212,8 @@ export function Editor({
       attributes: {
         class: cn("hk-prose outline-none", showAuthors && "hk-with-authors"),
         "aria-label": title ?? "Tekst",
+        role: "textbox",
+        "aria-multiline": "true",
       },
     },
     onUpdate: ({ editor: e }) => {

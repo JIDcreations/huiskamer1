@@ -53,11 +53,12 @@ function AppointmentBlock({ a, name, onOpen }: { a: Appointment; name: string; o
       className={cn(
         "absolute inset-x-1 z-[2] overflow-hidden rounded-lg px-2.5 py-1.5 text-left text-[12px] leading-tight transition-shadow hover:shadow-soft",
         cancelled
-          ? "bg-transparent text-faint ring-1 ring-inset ring-dashed ring-faint/60"
-          : a.mode === "online"
-            ? "bg-surface text-text ring-1 ring-inset ring-faint/70"
-            : "bg-surface-2 text-text",
-        past && !cancelled && "opacity-70"
+          ? "bg-transparent text-faint ring-1 ring-inset ring-dashed ring-taupe/60"
+          : past
+            ? "bg-oat-soft text-muted ring-1 ring-inset ring-surface-2"
+            : a.mode === "online"
+              ? "bg-surface text-text ring-1 ring-inset ring-taupe/70"
+              : "bg-surface-2 text-text"
       )}
     >
       <span className={cn("block truncate font-medium", cancelled && "line-through")}>{name}</span>
@@ -242,7 +243,7 @@ export default function Agenda() {
           <span className="size-3 rounded bg-surface-2" /> In de praktijk
         </span>
         <span className="inline-flex items-center gap-2">
-          <span className="size-3 rounded bg-surface ring-1 ring-inset ring-faint/70" /> Online
+          <span className="size-3 rounded bg-surface ring-1 ring-inset ring-taupe/70" /> Online
         </span>
         <span className="inline-flex items-center gap-2">
           <span className="size-3 rounded bg-surface ring-1 ring-inset ring-surface-2" /> Beschikbaar

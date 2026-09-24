@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const fieldBase =
-  "w-full rounded-xl bg-oat-soft px-4 text-[15px] text-text placeholder:text-faint outline-none transition-[background-color,box-shadow] duration-200 focus:bg-surface focus:ring-1 focus:ring-faint disabled:opacity-50";
+  "w-full rounded-xl bg-oat-soft px-4 text-[15px] text-text placeholder:text-faint outline-none transition-[background-color,box-shadow] duration-200 focus:bg-surface focus:ring-1 focus:ring-taupe disabled:opacity-50";
 
 function Input({ className, ...props }: React.ComponentProps<"input">) {
   return <input className={cn(fieldBase, "h-11", className)} {...props} />;

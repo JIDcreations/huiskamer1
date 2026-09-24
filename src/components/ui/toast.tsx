@@ -29,7 +29,7 @@ export function Toaster() {
             transition={{ duration: 0.22 }}
             className="flex items-center gap-2 rounded-full bg-surface px-4 py-2.5 text-[14px] text-text shadow-soft ring-1 ring-surface-2"
           >
-            <Check className="size-4 stroke-[2] text-faint" />
+            <Check className="size-4 stroke-[2] text-taupe" />
             {t.text}
           </motion.div>
         ))}

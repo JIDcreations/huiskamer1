@@ -101,7 +101,7 @@ function SidebarContent({ homeHref, context, nav, footerNav }: Omit<ShellProps, 
 }
 
 const menuItem =
-  "flex h-9 cursor-pointer items-center gap-3 rounded-lg px-3 text-[14px] text-text outline-none transition-colors data-[highlighted]:bg-oat-soft [&_svg]:size-4 [&_svg]:stroke-[1.5] [&_svg]:text-faint";
+  "flex h-9 cursor-pointer items-center gap-3 rounded-lg px-3 text-[14px] text-text outline-none transition-colors data-[highlighted]:bg-oat-soft [&_svg]:size-4 [&_svg]:stroke-[1.5] [&_svg]:text-taupe";
 
 function UserMenu({ user }: { user: ShellUser }) {
   return (
@@ -114,7 +114,7 @@ function UserMenu({ user }: { user: ShellUser }) {
         <span className="hidden text-left leading-tight md:block">
           <span className="block text-[13px] font-medium">{user.name}</span>
         </span>
-        <ChevronDown className="hidden size-3.5 stroke-[1.5] text-faint md:block" />
+        <ChevronDown className="hidden size-3.5 stroke-[1.5] text-taupe md:block" />
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content
@@ -184,7 +184,15 @@ function MobileDrawer({
                 >
                   <X className="size-4 stroke-[1.5]" />
                 </Dialog.Close>
-                <SidebarContent {...sidebar} />
+                <div className="flex h-full flex-col">
+                  <div className="min-h-0 flex-1">
+                    <SidebarContent {...sidebar} />
+                  </div>
+                  <div className="border-t border-surface-2 px-4 py-4 md:hidden">
+                    <p className="mb-2 text-[11px] font-medium tracking-[0.08em] text-faint uppercase">Demo: bekijk als</p>
+                    <RoleSwitch className="flex w-full" />
+                  </div>
+                </div>
               </motion.div>
             </Dialog.Content>
           </Dialog.Portal>
@@ -229,7 +237,7 @@ export function PlatformShell({ user, topbarStart, topbarEnd, children, ...sideb
 
       <main className="mx-auto max-w-6xl px-5 pb-24 pt-8 md:px-8 md:pt-10">{ready ? children : <PageSkeleton />}</main>
 
-      <RoleSwitch floating className="fixed bottom-4 right-4 z-40" />
+      <RoleSwitch floating className="fixed bottom-4 right-4 z-40 hidden md:inline-flex" />
       <Toaster />
     </div>
   );

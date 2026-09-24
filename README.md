@@ -1,37 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Huiskamer
 
-## Getting Started
+Praktijkplatform voor psychologen en hun cliënten. Fase 1: klikbaar prototype met mockdata, zonder backend, betalingen of echte login. Zie [PLAN.md](PLAN.md) voor het volledige plan.
 
-First, run the development server:
+## Starten
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) en meld je aan als cliënt of psycholoog (de velden staan al ingevuld). Rechtsonder wissel je van rol; op een smal scherm zit die wissel in het menu.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Demo
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+De demodata wordt elke dag opnieuw gegenereerd rond vandaag: 1 psycholoog, 8 cliënten, drie weken afspraken, Tafel-pagina's, logboekentries, opdrachten en facturen. Wat je in de demo doet, blijft bewaard in je browser. Terugzetten kan via **Instellingen, Demo opnieuw beginnen**.
 
-## Learn More
+Een goede demoflow:
 
-To learn more about Next.js, take a look at the following resources:
+1. Als **Lotte** (cliënt): kies een stemming op het overzicht en schrijf een logboekentry, vink een opdracht af, schrijf iets op de Tafel.
+2. Wissel naar **Sarah** (psycholoog): alles staat in **Vandaag** en in de **tijdlijn** van Lotte. Nieuwe blokken op de Tafel zijn gemarkeerd.
+3. Zet een logboekentry op "enkel voor jou": ze verschijnt nergens bij de psycholoog.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Deze flow is ook een test: start de dev-server en draai `npm run test:demo` (headless Chrome; `BASE_URL` en `CHROME_PATH` kan je overschrijven).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Structuur
 
-## Deploy on Vercel
+| Map | Wat |
+|---|---|
+| `src/app/c/*` | Cliëntomgeving |
+| `src/app/p/*` | Psycholoog |
+| `src/components/editor` | De gedeelde editor (Tafel, Logboek, Sessienotities): `/`-menu, opmaak bij selectie, checklist, auteur per blok |
+| `src/components/tafel` | Tafel: paginalijst, pagina, opzetten |
+| `src/components/shell` | Platform-shell: sidebar, topbalk, lade op smalle schermen |
+| `src/lib/types.ts` | Datamodel |
+| `src/lib/data` | De enige toegang tot data voor componenten (hooks, afgeleide logica, acties) |
+| `src/lib/mock` | Seed en Zustand store. Later te vervangen door een echte API |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`/stijlgids` en `/stijlgids/editor` tonen de basiscomponenten en de editor los.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# huiskamer1
+## Stack
+
+Next.js 16 (App Router), TypeScript, Tailwind CSS 4, Radix UI, Tiptap 3, Framer Motion, date-fns (`nl-BE`), Zustand.

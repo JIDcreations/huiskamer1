@@ -27,7 +27,7 @@ export function MenuItem({ className, ...props }: React.ComponentProps<typeof Dr
   return (
     <DropdownMenu.Item
       className={cn(
-        "flex h-9 cursor-pointer items-center gap-3 rounded-lg px-3 text-[14px] text-text outline-none transition-colors data-[highlighted]:bg-oat-soft data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:size-4 [&_svg]:stroke-[1.5] [&_svg]:text-faint",
+        "flex h-9 cursor-pointer items-center gap-3 rounded-lg px-3 text-[14px] text-text outline-none transition-colors data-[highlighted]:bg-oat-soft data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:size-4 [&_svg]:stroke-[1.5] [&_svg]:text-taupe",
         className
       )}
       {...props}

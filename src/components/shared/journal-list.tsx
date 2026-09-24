@@ -46,7 +46,7 @@ export function JournalCard({
       href={href}
       className={cn(
         "block rounded-card bg-surface px-5 py-4 shadow-soft ring-1 ring-surface-2/60 transition-colors hover:bg-oat-soft/40",
-        active && "ring-faint/60"
+        active && "ring-taupe/60"
       )}
     >
       <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
@@ -78,7 +78,7 @@ export function JournalCard({
         )}
         {entry.psychologistNote && (
           <span className="inline-flex w-full items-center gap-1.5 text-muted">
-            <MessageSquareText className="size-3.5 stroke-[1.5] text-faint" />
+            <MessageSquareText className="size-3.5 stroke-[1.5] text-taupe" />
             {psyName} schreef een kanttekening
           </span>
         )}

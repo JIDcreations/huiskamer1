@@ -41,11 +41,11 @@ export default function Login() {
           <div className="mt-7 space-y-4">
             <div>
               <Label htmlFor="email">E-mail</Label>
-              <Input id="email" type="email" key={role} defaultValue={demo[role].email} autoComplete="off" />
+              <Input id="email" type="email" key={role} defaultValue={demo[role].email} autoComplete="username" />
             </div>
             <div>
               <Label htmlFor="wachtwoord">Wachtwoord</Label>
-              <Input id="wachtwoord" type="password" defaultValue="demodemo" autoComplete="off" />
+              <Input id="wachtwoord" type="password" defaultValue="demodemo" autoComplete="current-password" />
             </div>
           </div>
 

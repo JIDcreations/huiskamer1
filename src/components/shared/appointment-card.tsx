@@ -19,7 +19,7 @@ export function ModeLine({ appointment, className }: { appointment: Appointment;
   const Icon = appointment.mode === "online" ? Video : MapPin;
   return (
     <span className={cn("inline-flex items-center gap-1.5 text-[14px] text-muted", className)}>
-      <Icon className="size-4 shrink-0 stroke-[1.5] text-faint" />
+      <Icon className="size-4 shrink-0 stroke-[1.5] text-taupe" />
       {appointment.mode === "online" ? "Online, de link verschijnt hier 10 minuten op voorhand" : psy.address}
     </span>
   );

@@ -14,7 +14,9 @@
   --oat-soft: #f1ece4;
   --text: var(--charcoal);
   --text-muted: var(--mocha);
-  --text-faint: var(--taupe);
+  /* Taupe voor kleine tekst haalt geen AA (2,98:1). Deze donkerdere taupe wel (5:1 op Milk).
+     Taupe zelf blijft voor iconen, randen en bolletjes. */
+  --text-faint: #75695d;
   --line: var(--oat);
   --accent: var(--mocha);
   --on-accent: var(--milk);
@@ -38,6 +40,7 @@
   --color-text: var(--text);
   --color-muted: var(--text-muted);
   --color-faint: var(--text-faint);
+  --color-taupe: var(--taupe);
   --color-line: var(--line);
   --color-accent: var(--accent);
   --color-on-accent: var(--on-accent);

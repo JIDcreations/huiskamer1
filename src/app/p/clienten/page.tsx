@@ -101,7 +101,7 @@ export default function Clienten() {
         />
         <label className="relative w-full sm:w-64">
           <span className="sr-only">Zoeken</span>
-          <Search className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 stroke-[1.5] text-faint" />
+          <Search className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 stroke-[1.5] text-taupe" />
           <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Zoek op naam" className="h-10 pl-10" />
         </label>
       </div>

@@ -56,6 +56,7 @@ export default function Entry({ params }: { params: Promise<{ id: string }> }) {
 
   return (
     <div className="mx-auto max-w-[760px]">
+      <h1 className="sr-only">Logboekentry van {formatLongDate(entry.createdAt)}</h1>
       <div className="mb-4 flex items-center justify-between gap-2">
         <Link href="/c/logboek" className="inline-flex items-center gap-1.5 text-[14px] text-muted hover:text-text">
           <ArrowLeft className="size-4 stroke-[1.5]" /> Logboek
@@ -93,7 +94,7 @@ export default function Entry({ params }: { params: Promise<{ id: string }> }) {
       {/* Delen: altijd zichtbaar, nooit verstopt. */}
       <label className="mb-4 flex cursor-pointer items-center justify-between gap-4 rounded-card bg-surface px-5 py-4 shadow-soft ring-1 ring-surface-2/60">
         <span className="flex items-start gap-3">
-          {!entry.sharedWithPsychologist && <Lock className="mt-0.5 size-4 shrink-0 stroke-[1.5] text-faint" />}
+          {!entry.sharedWithPsychologist && <Lock className="mt-0.5 size-4 shrink-0 stroke-[1.5] text-taupe" />}
           <span>
             <span className="block text-[15px] font-medium">Delen met {psy.firstName}</span>
             <span className="block text-[13px] text-muted">
@@ -102,6 +103,7 @@ export default function Entry({ params }: { params: Promise<{ id: string }> }) {
           </span>
         </span>
         <Toggle
+          aria-label={`Delen met ${psy.firstName}`}
           checked={entry.sharedWithPsychologist}
           onCheckedChange={(v) => {
             actions.updateJournal(id, { sharedWithPsychologist: v });

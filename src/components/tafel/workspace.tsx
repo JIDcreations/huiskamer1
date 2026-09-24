@@ -385,7 +385,7 @@ export function TafelWorkspace({ clientId, viewer, otherId, pageId, basePath }: 
 export function TafelIntro({ other }: { other: string }) {
   return (
     <p className="mt-2 flex items-center gap-2 text-[14px] text-muted">
-      <FileText className="size-4 stroke-[1.5] text-faint" />
+      <FileText className="size-4 stroke-[1.5] text-taupe" />
       Gedeelde pagina&apos;s met {other}. Jullie schrijven samen, niet in een gesprek.
     </p>
   );

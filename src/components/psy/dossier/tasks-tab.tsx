@@ -82,7 +82,7 @@ function TaskCard({ task }: { task: Task }) {
             .map((e) => (
               <div key={e.id} className="flex flex-col items-center gap-1">
                 <span className="w-5 rounded-sm bg-surface-2" style={{ height: `${(e.scale ?? 0) * 4}px` }} title={`${e.scale} op 10`}>
-                  <span className="block h-full w-full rounded-sm bg-faint/60" />
+                  <span className="block h-full w-full rounded-sm bg-taupe/60" />
                 </span>
                 <span className="text-[10px] tabular-nums text-faint">{e.scale}</span>
               </div>
