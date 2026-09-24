@@ -1,26 +1,380 @@
 @import "tailwindcss";
 
+/* Huiskamer: Milk, Oat, Taupe. Eén lichte uitstraling. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --milk: #fbf7f4;
+  --oat: #e5ded2;
+  --taupe: #a39382;
+  --mocha: #685d54;
+  --charcoal: #232323;
+
+  --bg: var(--milk);
+  --surface: #ffffff;
+  --surface-2: var(--oat);
+  --oat-soft: #f1ece4;
+  --text: var(--charcoal);
+  --text-muted: var(--mocha);
+  --text-faint: var(--taupe);
+  --line: var(--oat);
+  --accent: var(--mocha);
+  --on-accent: var(--milk);
+  --accent-soft: var(--oat);
+  --calm: var(--taupe);
+  --author-psy: var(--mocha);
+  --author-client: var(--taupe);
+  --urgent: #c9a08e;
+
+  --shadow-soft: 0 1px 2px rgba(31, 30, 28, 0.03), 0 6px 20px rgba(31, 30, 28, 0.04);
+  --glass: rgba(251, 247, 244, 0.78);
+
+  color-scheme: light;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-oat-soft: var(--oat-soft);
+  --color-text: var(--text);
+  --color-muted: var(--text-muted);
+  --color-faint: var(--text-faint);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-calm: var(--calm);
+  --color-author-psy: var(--author-psy);
+  --color-author-client: var(--author-client);
+  --color-urgent: var(--urgent);
+
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --radius-card: 14px;
+  --radius-sheet: 20px;
+
+  --shadow-soft: var(--shadow-soft);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (min-width: 768px) {
+    body {
+      font-size: 16px;
+    }
+  }
+
+  ::selection {
+    background: var(--oat);
+    color: var(--charcoal);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--taupe);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Koppen: dezelfde sans, iets zwaarder en strakker */
+@utility font-display {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+@utility glass {
+  background: var(--glass);
+  backdrop-filter: saturate(1.2) blur(20px);
+  -webkit-backdrop-filter: saturate(1.2) blur(20px);
+}
+
+@theme {
+  --animate-pop: pop 180ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: scale(0.97) translateY(-4px);
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Editor: Tafel, Logboek en Sessienotities                            */
+/* ------------------------------------------------------------------ */
+
+.hk-editor {
+  --hk-gutter: 0px;
+  --hk-task: 28px;
+  --hk-quote: 18px;
+}
+
+.hk-prose {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  min-height: 8rem;
+  caret-color: var(--mocha);
+}
+
+.hk-prose.hk-with-authors {
+  padding-left: var(--hk-gutter);
+}
+
+.hk-editor:has(.hk-with-authors) {
+  --hk-gutter: 36px;
+}
+
+@media (min-width: 768px) {
+  .hk-editor:has(.hk-with-authors) {
+    --hk-gutter: 44px;
+  }
+}
+
+.hk-prose > * + * {
+  margin-top: 0.35em;
+}
+
+.hk-prose p {
+  position: relative;
+}
+
+.hk-prose h2,
+.hk-prose h3 {
+  position: relative;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+}
+
+.hk-prose h2 {
+  font-size: 21px;
+  margin-top: 1.3em;
+}
+
+.hk-prose h3 {
+  font-size: 17px;
+  margin-top: 1.1em;
+}
+
+.hk-prose > :first-child {
+  margin-top: 0;
+}
+
+.hk-prose strong {
+  font-weight: 600;
+}
+
+.hk-prose s {
+  color: var(--text-muted);
+}
+
+.hk-prose blockquote {
+  position: relative;
+  padding-left: calc(var(--hk-quote) - 2px);
+  border-left: 2px solid var(--taupe);
+  color: var(--text-muted);
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+
+.hk-prose hr {
+  border: 0;
+  height: 1px;
+  background: var(--oat);
+  margin: 1.4em 0;
+  position: relative;
+  overflow: visible;
+}
+
+.hk-prose hr.ProseMirror-selectednode {
+  background: var(--taupe);
+}
+
+/* Checklist */
+.hk-prose ul[data-type="taskList"] {
+  list-style: none;
+  padding: 0;
+  margin: 0.5em 0;
+}
+
+.hk-prose li[data-type="taskItem"] {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.hk-prose li[data-type="taskItem"] + li[data-type="taskItem"] {
+  margin-top: 0.2em;
+}
+
+.hk-prose li[data-type="taskItem"] > label {
+  flex: none;
+  display: flex;
+  height: 1lh;
+  align-items: center;
+  user-select: none;
+}
+
+.hk-prose li[data-type="taskItem"] > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.hk-prose li[data-type="taskItem"] input[type="checkbox"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  border-radius: 6px;
+  border: 1.5px solid var(--taupe);
+  background: var(--surface);
+  cursor: pointer;
+  transition:
+    background-color 200ms var(--ease-out-soft),
+    border-color 200ms var(--ease-out-soft);
+}
+
+.hk-prose li[data-type="taskItem"] input[type="checkbox"]:checked {
+  border-color: var(--mocha);
+  background-color: var(--mocha);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FBF7F4' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+  background-size: 12px;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: hk-tick 260ms var(--ease-out-soft);
+}
+
+@keyframes hk-tick {
+  40% {
+    transform: scale(0.86);
+  }
+}
+
+.hk-prose li[data-checked="true"] > div {
+  color: var(--text-faint);
+  text-decoration: line-through;
+  text-decoration-color: var(--oat);
+}
+
+/* Placeholder */
+.hk-prose .is-empty::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  color: var(--text-faint);
+  pointer-events: none;
+}
+
+/* Auteur-markering */
+.hk-block {
+  --hk-author-color: var(--author-client);
+}
+
+.hk-block[data-role="psy"] {
+  --hk-author-color: var(--author-psy);
+}
+
+.hk-block::after {
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: 0.3em;
+  bottom: 0.3em;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--hk-author-color);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+blockquote.hk-block::after {
+  left: -16px;
+}
+
+.hk-author {
+  position: absolute;
+  left: calc(-1 * var(--hk-gutter));
+  top: calc((1lh - 22px) / 2);
+  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-size: 9.5px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  font-style: normal;
+  text-decoration: none;
+  user-select: none;
+  cursor: default;
+  background: var(--oat);
+  color: var(--mocha);
+}
+
+.hk-author[data-role="client"] {
+  background: var(--surface);
+  color: var(--mocha);
+  box-shadow: inset 0 0 0 1px var(--taupe);
+}
+
+li[data-type="taskItem"] .hk-author {
+  left: calc(-1 * var(--hk-gutter) - var(--hk-task));
+}
+
+blockquote .hk-author {
+  left: calc(-1 * var(--hk-gutter) - var(--hk-quote));
+}
+
+.hk-author-tip {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 6px);
+  white-space: nowrap;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow-soft), inset 0 0 0 1px var(--oat);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0;
+  opacity: 0;
+  transform: translateY(2px);
+  transition:
+    opacity 150ms,
+    transform 150ms;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.hk-author:hover .hk-author-tip {
+  opacity: 1;
+  transform: none;
 }

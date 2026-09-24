@@ -1,0 +1,22 @@
+import { cn } from "@/lib/utils";
+
+export function EmptyState({
+  title,
+  description,
+  action,
+  className,
+}: {
+  title: string;
+  description?: string;
+  action?: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn("flex flex-col items-center px-6 py-14 text-center", className)}>
+      <div aria-hidden className="mb-5 h-px w-10 bg-faint/50" />
+      <p className="font-display text-[17px] text-text">{title}</p>
+      {description && <p className="mt-2 max-w-xs text-[14px] text-muted">{description}</p>}
+      {action && <div className="mt-6">{action}</div>}
+    </div>
+  );
+}
