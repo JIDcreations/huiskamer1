@@ -1,18 +1,45 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import type { Editor as TiptapEditor } from "@tiptap/core";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { TaskItem, TaskList } from "@tiptap/extension-list";
 import { Placeholder } from "@tiptap/extensions";
 import { Lock } from "lucide-react";
-import { Authorship, type EditorAuthor } from "@/components/editor/authorship";
+import { Authorship, type EditorAuthor, type Highlight } from "@/components/editor/authorship";
 import { blocksToHTML, editorToBlocks } from "@/components/editor/blocks";
 import { FormatBubble } from "@/components/editor/bubble";
 import { SlashMenuExtension, type SlashState } from "@/components/editor/slash";
 import { SlashMenu } from "@/components/editor/slash-menu";
 import type { Block } from "@/lib/types";
 import { cn } from "@/lib/utils";
+
+export type AppendKind = "paragraph" | "heading" | "checklist" | "quote";
+
+export type EditorApi = {
+  /** Voeg onderaan een nieuw blok toe en zet de cursor erin. */
+  append: (kind: AppendKind) => void;
+  focusEnd: () => void;
+  focusStart: () => void;
+};
+
+function appendBlock(editor: TiptapEditor, kind: AppendKind) {
+  const { doc } = editor.state;
+  const last = doc.lastChild;
+  const lastIsEmpty = last?.type.name === "paragraph" && last.content.size === 0;
+  let chain = editor.chain();
+  chain = lastIsEmpty ? chain.focus("end") : chain.insertContentAt(doc.content.size, { type: "paragraph" }).focus("end");
+  if (kind === "heading") chain = chain.setNode("heading", { level: 2 });
+  if (kind === "checklist") chain = chain.toggleTaskList();
+  if (kind === "quote") chain = chain.toggleBlockquote();
+  chain.scrollIntoView().run();
+}
+
+/** Vergelijkbare sleutel voor blokken, los van de volgorde van velden. */
+function blocksKey(blocks: Block[]) {
+  return JSON.stringify(blocks.map((b) => [b.id, b.type, b.content, b.authorId, b.updatedAt, b.checked ?? null, b.level ?? null]));
+}
 
 export type EditorProps = {
   /** Beginwaarde. De editor is daarna ongecontroleerd: geef een `key` mee om te herladen. */
@@ -31,10 +58,14 @@ export type EditorProps = {
   titlePlaceholder?: string;
   /** Sessienotities: enkel voor de psycholoog, visueel anders. */
   private?: boolean;
+  /** Markeer blokken van anderen die nieuw zijn sinds dit moment. */
+  highlight?: Highlight | null;
+  onReady?: (api: EditorApi) => void;
+  autoFocus?: boolean;
   className?: string;
 };
 
-function TitleField({
+export function TitleField({
   value,
   onChange,
   placeholder,
@@ -88,18 +119,25 @@ export function Editor({
   onTitleChange,
   titlePlaceholder = "Zonder titel",
   private: isPrivate = false,
+  highlight = null,
+  onReady,
+  autoFocus = false,
   className,
 }: EditorProps) {
   // Refs zodat de extensies altijd de laatste waarden zien zonder de editor te herbouwen.
   const authorRef = useRef(authorId);
   const authorsRef = useRef(authors);
   const onChangeRef = useRef(onChange);
+  const highlightRef = useRef(highlight);
   useEffect(() => {
     authorRef.current = authorId;
     authorsRef.current = authors;
     onChangeRef.current = onChange;
+    highlightRef.current = highlight;
   });
 
+  const [initialKey] = useState(() => blocksKey(blocks));
+  const lastEmitted = useRef<string>(initialKey);
   const [slash, setSlash] = useState<SlashState | null>(null);
   const [active, setActive] = useState(0);
   const slashRef = useRef<{ slash: SlashState | null; active: number }>({ slash: null, active: 0 });
@@ -110,6 +148,7 @@ export function Editor({
   const editor = useEditor({
     immediatelyRender: false,
     editable,
+    autofocus: autoFocus ? "end" : false,
     content: blocksToHTML(blocks),
     extensions: [
       StarterKit.configure({
@@ -124,7 +163,10 @@ export function Editor({
         underline: false,
       }),
       TaskList,
-      TaskItem.configure({ nested: false }),
+      TaskItem.configure({
+        nested: false,
+        a11y: { checkboxLabel: (node, checked) => `${checked ? "Afgevinkt" : "Afvinken"}: ${node.textContent || "lege taak"}` },
+      }),
       Placeholder.configure({
         showOnlyCurrent: true,
         placeholder: ({ editor: e, node }) => {
@@ -137,6 +179,7 @@ export function Editor({
       Authorship.configure({
         getAuthor: () => authorRef.current,
         getAuthors: () => authorsRef.current,
+        getHighlight: () => highlightRef.current,
         showAuthors,
       }),
       // Refs worden enkel in editor-callbacks gelezen, nooit tijdens render.
@@ -171,12 +214,32 @@ export function Editor({
         "aria-label": title ?? "Tekst",
       },
     },
-    onUpdate: ({ editor: e }) => onChangeRef.current?.(editorToBlocks(e)),
+    onUpdate: ({ editor: e }) => {
+      // De editor voegt bij het laden zelf een lege alinea toe: dat is geen wijziging.
+      const next = editorToBlocks(e);
+      const json = blocksKey(next);
+      if (json === lastEmitted.current) return;
+      lastEmitted.current = json;
+      onChangeRef.current?.(next);
+    },
   });
 
   useEffect(() => {
     editor?.setEditable(editable);
   }, [editor, editable]);
+
+  const onReadyRef = useRef(onReady);
+  useEffect(() => {
+    onReadyRef.current = onReady;
+  });
+  useEffect(() => {
+    if (!editor) return;
+    onReadyRef.current?.({
+      append: (kind) => appendBlock(editor, kind),
+      focusEnd: () => editor.chain().focus("end").run(),
+      focusStart: () => editor.chain().focus("start").run(),
+    });
+  }, [editor]);
 
   return (
     <div

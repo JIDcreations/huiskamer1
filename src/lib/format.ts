@@ -34,6 +34,11 @@ export function formatDayMonth(d: DateInput) {
   return format(date, isThisYear(date) ? "d MMM" : "d MMM yyyy", locale).replace(/\./g, "");
 }
 
+/** "24 september" */
+export function formatDayLong(d: DateInput) {
+  return format(toDate(d), "d MMMM", locale);
+}
+
 /** "24 september 2026" */
 export function formatFullDate(d: DateInput) {
   return format(toDate(d), "d MMMM yyyy", locale);

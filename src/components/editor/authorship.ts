@@ -2,15 +2,18 @@ import { Extension } from "@tiptap/core";
 import { Plugin, PluginKey } from "@tiptap/pm/state";
 import { Decoration, DecorationSet } from "@tiptap/pm/view";
 import type { Node as PMNode } from "@tiptap/pm/model";
-import { format, isToday, isYesterday } from "date-fns";
-import { nlBE } from "date-fns/locale";
+import { formatWhen as formatWhenDate } from "@/lib/format";
 import type { Role } from "@/lib/types";
 
 export type EditorAuthor = { name: string; role: Role };
 
+export type Highlight = { viewerId: string; since: string };
+
 type AuthorshipOptions = {
   getAuthor: () => string;
   getAuthors: () => Record<string, EditorAuthor>;
+  /** Blokken van anderen sinds dit moment krijgen een zachte markering. */
+  getHighlight: () => Highlight | null;
   showAuthors: boolean;
 };
 
@@ -52,13 +55,9 @@ export function initials(name: string) {
     .join("");
 }
 
-export function formatWhen(iso: string) {
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return "";
-  const time = format(d, "HH:mm");
-  if (isToday(d)) return `vandaag, ${time}`;
-  if (isYesterday(d)) return `gisteren, ${time}`;
-  return `${format(d, "d MMM", { locale: nlBE })}, ${time}`;
+function formatWhen(iso: string | null) {
+  if (!iso || Number.isNaN(Date.parse(iso))) return "";
+  return formatWhenDate(iso);
 }
 
 function authorWidget(author: EditorAuthor, when: string) {
@@ -68,7 +67,10 @@ function authorWidget(author: EditorAuthor, when: string) {
     el.contentEditable = "false";
     el.dataset.role = author.role;
     el.setAttribute("aria-label", `${author.name}, ${when}`);
-    el.textContent = initials(author.name);
+    const dot = document.createElement("span");
+    dot.className = "hk-author-dot";
+    dot.textContent = initials(author.name);
+    el.appendChild(dot);
     const tip = document.createElement("span");
     tip.className = "hk-author-tip";
     tip.textContent = `${author.name}, ${when}`;
@@ -81,7 +83,7 @@ export const Authorship = Extension.create<AuthorshipOptions>({
   name: "authorship",
 
   addOptions() {
-    return { getAuthor: () => "", getAuthors: () => ({}), showAuthors: false };
+    return { getAuthor: () => "", getAuthors: () => ({}), getHighlight: () => null, showAuthors: false };
   },
 
   addGlobalAttributes() {
@@ -113,7 +115,7 @@ export const Authorship = Extension.create<AuthorshipOptions>({
   },
 
   addProseMirrorPlugins() {
-    const { getAuthor, getAuthors, showAuthors } = this.options;
+    const { getAuthor, getAuthors, getHighlight, showAuthors } = this.options;
 
     return [
       new Plugin({
@@ -181,6 +183,8 @@ export const Authorship = Extension.create<AuthorshipOptions>({
 
             eachBlock(state.doc, (node, pos) => {
               if (node.type.name === "horizontalRule") return;
+              // Lege regels (zoals de laatste, waar je verder typt) krijgen geen initialen.
+              if (node.textContent.length === 0) return;
               const id = node.attrs.author as string | null;
               const author = id ? authors[id] : undefined;
               if (!id || !author) {
@@ -188,8 +192,14 @@ export const Authorship = Extension.create<AuthorshipOptions>({
                 return;
               }
 
+              const highlight = getHighlight();
+              const isNew =
+                highlight && id !== highlight.viewerId && node.attrs.updatedAt && node.attrs.updatedAt > highlight.since;
               decos.push(
-                Decoration.node(pos, pos + node.nodeSize, { class: "hk-block", "data-role": author.role })
+                Decoration.node(pos, pos + node.nodeSize, {
+                  class: isNew ? "hk-block hk-new" : "hk-block",
+                  "data-role": author.role,
+                })
               );
 
               if (id !== prev) {

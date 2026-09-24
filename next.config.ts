@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Rustige demo: geen Next-indicator in de hoek.
+  devIndicators: false,
 };
 
 export default nextConfig;

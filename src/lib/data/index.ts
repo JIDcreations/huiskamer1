@@ -138,6 +138,16 @@ export function useLastSeen(role: Role, id: ID | undefined) {
   return seen ?? new Date(new Date(seededAt).getTime() - 86_400_000).toISOString();
 }
 
+/** Opzoekfunctie voor laatste bezoeken, voor lijsten. */
+export function useSeenLookup(role: Role) {
+  const seen = useStore((s) => s.seen);
+  const seededAt = useStore((s) => s.seededAt);
+  return useMemo(() => {
+    const fallback = new Date(new Date(seededAt).getTime() - 86_400_000).toISOString();
+    return (id: ID) => seen[`${role}:${id}`] ?? fallback;
+  }, [seen, seededAt, role]);
+}
+
 /** Legt de waarde van het laatste bezoek vast bij het openen, en markeert het item als gezien. */
 export function useVisit(role: Role, id: ID | undefined) {
   const lastSeen = useLastSeen(role, id);

@@ -38,10 +38,6 @@ function chance(seed: string, p: number) {
 
 export function seed(now = new Date()): Database {
   const today = startOfDay(now);
-  const at = (dayOffset: number, time = "10:00") => {
-    const [h, m] = time.split(":").map(Number);
-    return setMinutes(setHours(addDays(today, dayOffset), h), m);
-  };
   const iso = (d: Date) => d.toISOString();
   const hoursAgo = (h: number) => iso(addMinutes(now, -h * 60));
   const day = (offset: number) => format(addDays(today, offset), "yyyy-MM-dd");

@@ -1,5 +1,10 @@
-import { Placeholder } from "@/components/placeholder";
+"use client";
+
+import { TafelWorkspace } from "@/components/tafel/workspace";
+import { CURRENT_CLIENT_ID, PSY_ID } from "@/lib/data";
 
 export default function Page() {
-  return <Placeholder eyebrow="Samen met Sarah" title="Tafel" note="Pagina's die jullie samen schrijven" step={5} />;
+  return (
+    <TafelWorkspace clientId={CURRENT_CLIENT_ID} viewer={{ id: CURRENT_CLIENT_ID, role: "client" }} otherId={PSY_ID} basePath="/c/tafel" />
+  );
 }

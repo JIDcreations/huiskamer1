@@ -9,6 +9,9 @@ import { ChevronDown, LogOut, Menu, X } from "lucide-react";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { RoleSwitch } from "@/components/role-switch";
+import { PageSkeleton } from "@/components/ui/skeleton";
+import { Toaster } from "@/components/ui/toast";
+import { useHydrateStore } from "@/lib/data";
 import { isActive, type NavGroup, type NavItem } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 
@@ -194,6 +197,7 @@ function MobileDrawer({
 export function PlatformShell({ user, topbarStart, topbarEnd, children, ...sidebar }: ShellProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const pathname = usePathname();
+  const ready = useHydrateStore();
 
   // Sluit het menu na navigatie.
   // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -223,9 +227,10 @@ export function PlatformShell({ user, topbarStart, topbarEnd, children, ...sideb
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-5 pb-24 pt-8 md:px-8 md:pt-10">{children}</main>
+      <main className="mx-auto max-w-6xl px-5 pb-24 pt-8 md:px-8 md:pt-10">{ready ? children : <PageSkeleton />}</main>
 
       <RoleSwitch floating className="fixed bottom-4 right-4 z-40" />
+      <Toaster />
     </div>
   );
 }
