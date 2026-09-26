@@ -1,6 +1,6 @@
 # Dagrun 26 september: voortgang
 
-Laatste update: 2026-09-26 14:23
+Laatste update: 2026-09-26 14:24
 
 ## Fases
 - [x] 1. UX-herwerking cliëntkant
@@ -12,13 +12,14 @@ Laatste update: 2026-09-26 14:23
 - [x] 7. Toegankelijkheid, responsive, PWA
 - [x] 8. Demo-klaar
 - [x] 9. Code opruimen
-- [ ] 10. Eindrapport (SUMMARY.md)
+- [x] 10. Eindrapport (SUMMARY.md)
+- [ ] Extra: tweede polish-ronde (fase 3 en 4, scherm per scherm)
 
 ## Nu bezig
-Fase 10: eindrapport (SUMMARY.md).
+Tweede polish-ronde.
 
 ## Volgende stap
-SUMMARY.md schrijven, daarna tweede polish-ronde door fase 3 en 4, scherm per scherm.
+Psycholoog Vandaag: "Tussen de sessies" korter maken (minder regels per cliënt, rest via link). Daarna scherm per scherm verder, en telkens noteren in SUMMARY.md.
 
 ## Open punten voor later
 - Demotest `npm run test:demo` is herschreven naar de nieuwe flow en slaagt volledig (27 checks, nu ook de reset).
