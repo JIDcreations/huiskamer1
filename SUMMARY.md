@@ -44,3 +44,5 @@ Keuzes die ik zelf maakte, staan kort in **DECISIONS.md**. De voortgang per fase
 Scherm per scherm, wat ik verbeterde:
 
 - **Psycholoog, Vandaag:** "Tussen de sessies" toont per cliënt alles wat nieuw is sinds je laatste bezoek, aangevuld tot drie regels. De rest zit achter "Nog 3 in het logboek van Elise". De lijst werd zo ongeveer een derde korter, zonder dat er iets nieuws verdwijnt.
+- **Sessiepagina, reacties:** zodra er reacties staan, verdween de plek om te schrijven (de placeholder toont enkel in een lege editor). Nu staat er een stille knop "Reactie schrijven" die een nieuwe regel onderaan opent.
+- **Logboek, beide kanten:** de tijdlijn toont een week aan dagen, met "Oudere dagen tonen" eronder. Drie weken in één scroll was te veel voor een rustige pagina. Een andere filter kiezen begint weer bij de laatste week.

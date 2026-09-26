@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { CalendarCheck, CalendarPlus, CalendarX, MessageSquareText, MoreHorizontal } from "lucide-react";
 import { MoodDots } from "@/components/shared/mood";
 import { ShareBadge, ShareIcon } from "@/components/shared/share";
+import { Button } from "@/components/ui/button";
 import { Segmented } from "@/components/ui/segmented";
 import { Menu, MenuContent, MenuItem, MenuSeparator, MenuTrigger } from "@/components/ui/menu";
 import { toast } from "@/components/ui/toast";
@@ -199,6 +200,9 @@ export function JournalRow({
 
 // ------------------------------------------------------------------ Tijdlijn
 
+/** Een week aan dagen tegelijk; oudere dagen komen er op vraag bij. */
+const DAYS_PER_PAGE = 7;
+
 /** Eén tijdlijn, nieuwste bovenaan, per dag gegroepeerd. Zelfde vorm bij cliënt en psycholoog. */
 export function JournalTimeline({
   entries,
@@ -212,13 +216,19 @@ export function JournalTimeline({
   empty: React.ReactNode;
 }) {
   const [filter, setFilter] = useState<JournalFilter>("alles");
+  const [days, setDays] = useState(DAYS_PER_PAGE);
   const visible = useMemo(() => entries.filter((e) => filter === "alles" || e.kind === filter), [entries, filter]);
-  const groups = groupByDay(visible);
+  const allGroups = groupByDay(visible);
+  const groups = allGroups.slice(0, days);
+  const changeFilter = (f: JournalFilter) => {
+    setFilter(f);
+    setDays(DAYS_PER_PAGE);
+  };
 
   return (
     <div>
       <div className="-mx-1 overflow-x-auto px-1 pb-1">
-        <Segmented label="Toon" size="sm" value={filter} onChange={setFilter} options={filterOptions} />
+        <Segmented label="Toon" size="sm" value={filter} onChange={changeFilter} options={filterOptions} />
       </div>
 
       <AnimatePresence mode="wait" initial={false}>
@@ -241,6 +251,11 @@ export function JournalTimeline({
               </ul>
             </section>
           ))}
+          {allGroups.length > days && (
+            <Button variant="soft" size="sm" className="self-center" onClick={() => setDays((d) => d + DAYS_PER_PAGE)}>
+              Oudere dagen tonen
+            </Button>
+          )}
         </motion.div>
       </AnimatePresence>
     </div>

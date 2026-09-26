@@ -1,10 +1,10 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import Link from "next/link";
-import { ArrowLeft, Check, MapPin, Video } from "lucide-react";
+import { ArrowLeft, Check, MapPin, PenLine, Video } from "lucide-react";
 import { BlocksView } from "@/components/editor/blocks-view";
-import { Editor } from "@/components/editor/editor";
+import { Editor, type EditorApi } from "@/components/editor/editor";
 import { entryLabel } from "@/components/shared/journal-list";
 import { RhythmLabel } from "@/components/shared/rhythm";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -128,6 +128,7 @@ export function SessionView({
   const pageId = () => page?.id ?? actions.ensureSessionPage(appointmentId);
   const summarySave = useAutosave<Block[]>((summary) => actions.updateSessionPage(pageId(), { summary }));
   const reactionsSave = useAutosave<Block[]>((reactions) => actions.updateSessionPage(pageId(), { reactions }));
+  const reactionsApi = useRef<EditorApi | null>(null);
   const status =
     summarySave.status === "saving" || reactionsSave.status === "saving"
       ? "saving"
@@ -235,8 +236,14 @@ export function SessionView({
               highlight={highlight}
               placeholder="Schrijf een reactie of een vraag. Typ / voor een kop, taak of citaat."
               onChange={reactionsSave.schedule}
+              onReady={(api) => (reactionsApi.current = api)}
               className="max-w-none"
             />
+            {(page?.reactions.length ?? 0) > 0 && (
+              <Button variant="quiet" size="sm" className="mt-3 -ml-3" onClick={() => reactionsApi.current?.append("paragraph")}>
+                <PenLine /> Reactie schrijven
+              </Button>
+            )}
           </section>
         </article>
 
