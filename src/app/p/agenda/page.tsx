@@ -9,7 +9,7 @@ import { AppointmentDetailSheet, NewAppointmentSheet } from "@/components/psy/ap
 import { Button } from "@/components/ui/button";
 import { Segmented } from "@/components/ui/segmented";
 import { useAppointments, useClientsRaw, usePsychologist, weekdayOf } from "@/lib/data";
-import { capitalize, formatLongDate, formatTime } from "@/lib/format";
+import { capitalize, formatLongDate, formatTime, plural } from "@/lib/format";
 import type { Appointment } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -112,13 +112,14 @@ export default function Agenda() {
       : `${format(weekStart, "d MMM", { locale: nlBE })} tot ${format(addDays(weekStart, 6), "d MMM yyyy", { locale: nlBE })}`.replace(/\./g, "");
 
   const hours = Array.from({ length: END - START }, (_, i) => START + i);
-  const count = all.filter((a) => a.status === "gepland" && days.some((d) => isSameDay(parseISO(a.start), d))).length;
+  // Alles wat doorgaat of doorging, zodat het aantal klopt met wat je ziet.
+  const count = all.filter((a) => a.status !== "geannuleerd" && days.some((d) => isSameDay(parseISO(a.start), d))).length;
 
   return (
     <>
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="mb-1 text-[13px] text-muted">{count ? `${count} gepland` : "Niets gepland"}</p>
+          <p className="mb-1 text-[13px] text-muted">{count ? plural(count, "afspraak", "afspraken") : "Niets gepland"}</p>
           <h1 className="type-title">{title}</h1>
         </div>
         <div className="flex flex-wrap items-center gap-2">

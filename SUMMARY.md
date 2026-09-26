@@ -48,3 +48,5 @@ Scherm per scherm, wat ik verbeterde:
 - **Logboek, beide kanten:** de tijdlijn toont een week aan dagen, met "Oudere dagen tonen" eronder. Drie weken in één scroll was te veel voor een rustige pagina. Een andere filter kiezen begint weer bij de laatste week.
 - **Dossier, Overzicht:** twee eigen kolommen (links de volgende sessie en "Voor volgende keer", rechts opdrachten en stemming) in plaats van een raster. Korte kaarten rekten eerst mee en lieten een groot leeg vlak.
 - **Cliënt, Sessies:** de volgende sessie heet nu "Maandag 28 september" zoals overal, in plaats van "Maandag, 28 sep". Enkel vandaag en morgen krijgen nog de korte vorm ("Morgen, 27 sep").
+- **Agenda:** bovenaan stond "1 gepland" op een dag met drie afspraken (twee al voorbij). Nu "3 afspraken": alles wat doorgaat of doorging, zonder de geannuleerde.
+- **Nagekeken zonder wijziging:** Facturatie, Agenda (week en dag, ook op 375px), logboekentry op mobiel, Cliëntenlijst. Die ogen af.
