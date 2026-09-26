@@ -1,6 +1,6 @@
 # Dagrun 26 september: voortgang
 
-Laatste update: 2026-09-26 14:39
+Laatste update: 2026-09-26 14:42
 
 ## Fases
 - [x] 1. UX-herwerking cliëntkant
@@ -13,13 +13,13 @@ Laatste update: 2026-09-26 14:39
 - [x] 8. Demo-klaar
 - [x] 9. Code opruimen
 - [x] 10. Eindrapport (SUMMARY.md)
-- [ ] Extra: tweede polish-ronde (fase 3 en 4, scherm per scherm)
+- [x] Extra: tweede polish-ronde (fase 3 en 4, scherm per scherm)
 
 ## Nu bezig
-Tweede polish-ronde.
+Niets. Alle fases en de tweede polish-ronde zijn klaar.
 
 ## Volgende stap
-Polish verder: Opdrachtenbibliotheek, Instellingen, cliënt Betalingen, Opdrachten, onboarding. Telkens noteren in SUMMARY.md onder Tweede polish-ronde.
+Voor een volgende run: de twee open ideeën onderaan SUMMARY.md (label stemmingsgrafiek, Openstaand op mobiel). Anders wachten op Jasper.
 
 ## Open punten voor later
 - Demotest `npm run test:demo` is herschreven naar de nieuwe flow en slaagt volledig (27 checks, nu ook de reset).

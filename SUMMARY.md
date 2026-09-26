@@ -50,3 +50,7 @@ Scherm per scherm, wat ik verbeterde:
 - **Cliënt, Sessies:** de volgende sessie heet nu "Maandag 28 september" zoals overal, in plaats van "Maandag, 28 sep". Enkel vandaag en morgen krijgen nog de korte vorm ("Morgen, 27 sep").
 - **Agenda:** bovenaan stond "1 gepland" op een dag met drie afspraken (twee al voorbij). Nu "3 afspraken": alles wat doorgaat of doorging, zonder de geannuleerde.
 - **Nagekeken zonder wijziging:** Facturatie, Agenda (week en dag, ook op 375px), logboekentry op mobiel, Cliëntenlijst. Die ogen af.
+- **Cliënt, Betalingen op mobiel:** in de historiek werd "Sessie van 14 sep" op 375px één woord per regel. De rij loopt nu door naar een tweede regel en het label "Betaald" valt weg op smalle schermen ("betaald op 17 sep" staat er al).
+- **Ook nagekeken:** Opdrachtenbibliotheek, alle opdrachten bij de cliënt, onboarding op mobiel. Geen wijzigingen nodig.
+
+Wat ik nog zou doen met meer tijd: de stemmingsgrafiek in het dossier een duidelijker label geven (nu "Zwaar tot licht" in het midden), en de rijen bij "Openstaand" in Betalingen op mobiel iets ruimer zetten.

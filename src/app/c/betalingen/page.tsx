@@ -138,15 +138,18 @@ export default function Betalingen() {
               {paid.map((f) => {
                 const s = sessionOf(f);
                 return (
-                  <li key={f.id} className="flex items-center gap-4 py-3">
-                    <div className="min-w-0 flex-1">
+                  <li key={f.id} className="flex flex-wrap items-center gap-x-4 gap-y-1 py-3">
+                    <div className="min-w-44 flex-1">
                       <p className="text-[14px] font-medium">Sessie van {s ? formatDayMonth(s.start) : formatDayMonth(f.issuedAt)}</p>
                       <p className="text-[12px] text-muted">
                         {f.number}, betaald op {f.paidAt ? formatDayMonth(f.paidAt) : "onbekend"}
                       </p>
                     </div>
                     <span className="text-[14px] tabular-nums text-muted">{formatMoney(f.amount)}</span>
-                    <InvoiceStatus invoice={f} />
+                    {/* Op smalle schermen zegt "betaald op" al genoeg. */}
+                    <span className="hidden sm:inline-flex">
+                      <InvoiceStatus invoice={f} />
+                    </span>
                     <AttestButton invoice={f} />
                   </li>
                 );
