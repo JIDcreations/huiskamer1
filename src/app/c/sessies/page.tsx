@@ -33,8 +33,9 @@ function NextSession({ appointment, onFlow }: { appointment: Appointment; onFlow
     <div>
       <p className="text-[13px] text-muted">Volgende sessie</p>
       <p className="mt-1 type-title">
-        {capitalize(formatRelativeDay(appointment.start))}
-        {!/\d/.test(formatRelativeDay(appointment.start)) && `, ${formatDayMonth(appointment.start)}`}
+        {/^(vandaag|morgen)$/.test(formatRelativeDay(appointment.start))
+          ? `${capitalize(formatRelativeDay(appointment.start))}, ${formatDayMonth(appointment.start)}`
+          : capitalize(formatLongDate(appointment.start))}
       </p>
       <p className="mt-2 text-[15px] tabular-nums">
         {formatTime(appointment.start)} tot {formatTime(appointment.end)}

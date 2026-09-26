@@ -59,56 +59,60 @@ export function Overview({ client, onPlan }: { client: Client; onPlan: () => voi
   const sinceLast = last ? journal.filter((j) => j.createdAt > last.end).length : journal.length;
 
   return (
-    <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-      <Panel title="Volgende sessie">
-        {next ? (
-          <>
-            <p className="text-[20px] font-semibold tracking-tight tabular-nums">{formatAppointment(next.start)}</p>
-            <p className="mt-1 text-[14px] text-muted">
-              {typeLabel[next.type]}, {next.mode}, {minutesOf(next)} minuten
-            </p>
-          </>
-        ) : (
-          <>
-            <p className="text-[14px] text-muted">Niets gepland.</p>
-            <Button size="sm" className="mt-3" onClick={onPlan}>
-              Afspraak plannen
-            </Button>
-          </>
-        )}
-        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-[13px] text-muted">
-          {last && (
-            <Link href={`/p/clienten/${client.id}/sessies/${last.id}`} className="underline decoration-surface-2 underline-offset-4 hover:text-text">
-              Laatste sessie: {formatRelativeDay(parseISO(last.start))}
-            </Link>
+    <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-2">
+      <div className="flex flex-col gap-5">
+        <Panel title="Volgende sessie">
+          {next ? (
+            <>
+              <p className="text-[20px] font-semibold tracking-tight tabular-nums">{formatAppointment(next.start)}</p>
+              <p className="mt-1 text-[14px] text-muted">
+                {typeLabel[next.type]}, {next.mode}, {minutesOf(next)} minuten
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="text-[14px] text-muted">Niets gepland.</p>
+              <Button size="sm" className="mt-3" onClick={onPlan}>
+                Afspraak plannen
+              </Button>
+            </>
           )}
-          <Link href={`/p/clienten/${client.id}?tab=logboek`} className={cn("underline decoration-surface-2 underline-offset-4 hover:text-text", !sinceLast && "no-underline")}>
-            {sinceLast ? `${plural(sinceLast, "gedeelde entry", "gedeelde entries")} sindsdien` : "Sindsdien niets gedeeld"}
-          </Link>
-        </div>
-      </Panel>
+          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-[13px] text-muted">
+            {last && (
+              <Link href={`/p/clienten/${client.id}/sessies/${last.id}`} className="underline decoration-surface-2 underline-offset-4 hover:text-text">
+                Laatste sessie: {formatRelativeDay(parseISO(last.start))}
+              </Link>
+            )}
+            <Link href={`/p/clienten/${client.id}?tab=logboek`} className={cn("underline decoration-surface-2 underline-offset-4 hover:text-text", !sinceLast && "no-underline")}>
+              {sinceLast ? `${plural(sinceLast, "gedeelde entry", "gedeelde entries")} sindsdien` : "Sindsdien niets gedeeld"}
+            </Link>
+          </div>
+        </Panel>
 
-      <Panel title="Voor volgende keer" description="Wat jullie willen bespreken" className="scroll-mt-24" >
-        <div id="voor-volgende-keer" className="scroll-mt-24">
-          <AgendaList clientId={client.id} viewer="psy" entryHref={(id) => `/p/clienten/${client.id}?tab=logboek&entry=${id}`} />
-        </div>
-      </Panel>
+        <Panel title="Voor volgende keer" description="Wat jullie willen bespreken" className="scroll-mt-24" >
+          <div id="voor-volgende-keer" className="scroll-mt-24">
+            <AgendaList clientId={client.id} viewer="psy" entryHref={(id) => `/p/clienten/${client.id}?tab=logboek&entry=${id}`} />
+          </div>
+        </Panel>
+      </div>
+      <div className="flex flex-col gap-5">
 
-      <Panel title="Open opdrachten" href={`/p/clienten/${client.id}?tab=opdrachten`} hrefLabel="Opdrachten" bodyClassName="pt-1">
-        {open.length ? (
-          <ul className="divide-y divide-surface-2/70">
-            {open.map((t) => (
-              <SessionTaskRow key={t.id} task={t} journal={journal} />
-            ))}
-          </ul>
-        ) : (
-          <p className="py-3 text-[14px] text-muted">Geen open opdrachten.</p>
-        )}
-      </Panel>
+        <Panel title="Open opdrachten" href={`/p/clienten/${client.id}?tab=opdrachten`} hrefLabel="Opdrachten" bodyClassName="pt-1">
+          {open.length ? (
+            <ul className="divide-y divide-surface-2/70">
+              {open.map((t) => (
+                <SessionTaskRow key={t.id} task={t} journal={journal} />
+              ))}
+            </ul>
+          ) : (
+            <p className="py-3 text-[14px] text-muted">Geen open opdrachten.</p>
+          )}
+        </Panel>
 
-      <Panel title="Stemming" description="Uit gedeelde check-ins, laatste twee weken">
-        <MoodStrip clientId={client.id} />
-      </Panel>
+        <Panel title="Stemming" description="Uit gedeelde check-ins, laatste twee weken">
+          <MoodStrip clientId={client.id} />
+        </Panel>
+      </div>
     </div>
   );
 }

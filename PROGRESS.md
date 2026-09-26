@@ -1,6 +1,6 @@
 # Dagrun 26 september: voortgang
 
-Laatste update: 2026-09-26 14:31
+Laatste update: 2026-09-26 14:36
 
 ## Fases
 - [x] 1. UX-herwerking cliëntkant
@@ -19,7 +19,7 @@ Laatste update: 2026-09-26 14:31
 Tweede polish-ronde.
 
 ## Volgende stap
-Polish verder: dossier Overzicht en Opdrachten, cliënt Sessies-lijst, Agenda. Telkens noteren in SUMMARY.md onder Tweede polish-ronde.
+Polish verder: Agenda, Opdrachtenbibliotheek, Facturatie, cliënt Betalingen en mobiele weergaven. Telkens noteren in SUMMARY.md onder Tweede polish-ronde.
 
 ## Open punten voor later
 - Demotest `npm run test:demo` is herschreven naar de nieuwe flow en slaagt volledig (27 checks, nu ook de reset).
