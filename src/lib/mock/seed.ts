@@ -153,6 +153,8 @@ export function seed(now = new Date()): Database {
     );
     let status: Invoice["status"] = age > 10 ? "betaald" : isLatest ? "open" : "betaald";
     if (a.status === "no-show") status = "vervallen";
+    // Randgeval voor de demo: Lotte heeft één factuur waarvan de termijn voorbij is.
+    if (a.clientId === "c1" && age > 14 && age < 24) status = "vervallen";
     invoices.push({
       id: `f-${a.id}`,
       number: `${now.getFullYear()}-0${invoiceNo++}`,

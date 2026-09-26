@@ -1,12 +1,12 @@
 # Dagrun 26 september: voortgang
 
-Laatste update: 2026-09-26 10:47
+Laatste update: 2026-09-26 10:51
 
 ## Fases
 - [x] 1. UX-herwerking cliëntkant
 - [x] 2. UX-herwerking psycholoogkant (samen met fase 1 gecommit: het datamodel raakt beide kanten)
 - [x] 3. UI naar professioneel niveau (eerste ronde; tweede ronde na fase 10)
-- [ ] 4. Elk detail uitwerken
+- [x] 4. Elk detail uitwerken
 - [ ] 5. Mockdata rijker
 - [ ] 6. Copy-pass
 - [ ] 7. Toegankelijkheid, responsive, PWA
@@ -15,11 +15,11 @@ Laatste update: 2026-09-26 10:47
 - [ ] 10. Eindrapport (SUMMARY.md)
 
 ## Nu bezig
-Fase 4: elk detail uitwerken (randgevallen, lege en laadstaten, microinteracties, editor, nood-link).
+Fase 5: mockdata rijker. De verhalen per cliënt staan al in `src/lib/mock/stories.ts` (gebouwd in fase 1); nu nalopen en aanvullen.
 
 ## Volgende stap
-Randgevallen doorlopen: annuleren binnen termijn, geen vrije slots, vervallen factuur, opdracht na deadline.
+Per cliënt controleren: sessies met samenvatting, gelinkte opdrachten, check-ins, notities, Voor volgende keer.
 
 ## Open punten voor later
-- `npm run test:demo` (scripts/e2e-demo.mjs) test nog de oude Tafel-flow. Herschrijven in fase 8.
+- Demotest `npm run test:demo` is herschreven naar de nieuwe flow en slaagt volledig (25 checks).
 - VOORTGANG.md en README.md beschrijven nog de oude structuur. Bijwerken in fase 9/10.

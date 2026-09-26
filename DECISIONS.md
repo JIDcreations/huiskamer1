@@ -17,3 +17,6 @@ Keuzes die ik zelf maakte bij twijfel. Telkens kort, zodat je ze snel kan naleze
 - **Instrument Serif enkel voor paginatitels, sheet-titels en grote datums.** Al de rest (knoppen, lijsten, sectiekoppen) blijft Inter. Zo blijft het rustig en leesbaar. Dit draait de eerdere keuze "enkel sans-serif" terug, op vraag van DAGRUN.md.
 - **Kaarten krijgen een fijne Taupe-rand (22% dekking) in plaats van een schaduw.** Geen nieuwe kleur, wel meer precisie.
 - **Nieuw merkteken**: een huisje met een warm raam in Mocha, Oat en Milk, in plaats van de letter H.
+- **"Tussen de sessies" bij de psycholoog** toont per cliënt tot vijf regels. Punten op "Voor volgende keer" die naar een entry wijzen, laat ik daar weg: de entry zelf staat er al.
+- **Demo-randgeval**: Lotte heeft één factuur waarvan de betaaltermijn voorbij is. De tekst blijft neutraal: "De termijn is voorbij, je kan gewoon nog betalen."
+- **Demotest** zoekt Chrome eerst op de Mac-locatie en valt terug op Chromium (`/opt/pw-browsers/chromium`), zodat hij ook in de cloud draait.

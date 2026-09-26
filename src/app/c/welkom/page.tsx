@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import { EmergencyLink } from "@/components/emergency";
 import { ReminderPicker } from "@/components/shared/reminder-picker";
 import { ShareIcon, shareText } from "@/components/shared/share";
 import { Button } from "@/components/ui/button";
@@ -88,11 +89,14 @@ export default function Welkom() {
               <li key={i} className={cn("h-1 rounded-full transition-all duration-300", i === step ? "w-6 bg-accent" : "w-1.5 bg-surface-2")} />
             ))}
           </ol>
-          {!last && (
-            <Button variant="quiet" size="sm" onClick={finish}>
-              Overslaan
-            </Button>
-          )}
+          <div className="flex items-center gap-1">
+            <EmergencyLink />
+            {!last && (
+              <Button variant="quiet" size="sm" onClick={finish}>
+                Overslaan
+              </Button>
+            )}
+          </div>
         </div>
 
         <div className="mt-12 flex-1 md:mt-10 md:flex-none">

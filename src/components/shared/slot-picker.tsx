@@ -44,9 +44,16 @@ export function SlotPicker({ value, onChange, excludeId }: { value: Date | null;
       </div>
 
       {byDay.length === 0 ? (
-        <p className="rounded-xl bg-oat-soft px-4 py-6 text-center text-[14px] text-muted">
-          Geen vrije momenten meer deze week. Kijk eens naar de volgende.
-        </p>
+        <div className="rounded-xl bg-oat-soft px-4 py-6 text-center">
+          <p className="text-[14px] text-muted">
+            {week >= 5 ? "Verder vooruit kan je nog niet boeken. Bel gerust om iets af te spreken." : "Geen vrije momenten meer in deze week."}
+          </p>
+          {week < 5 && (
+            <Button variant="secondary" size="sm" className="mt-3" onClick={() => setWeek((w) => w + 1)}>
+              Bekijk de week erna
+            </Button>
+          )}
+        </div>
       ) : (
         <div className="flex flex-col gap-4">
           {byDay.map(([day, times]) => (

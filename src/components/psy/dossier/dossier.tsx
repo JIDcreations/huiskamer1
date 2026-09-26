@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowLeft, ChevronDown, Lock, Mail, Phone } from "lucide-react";
 import { AssignTaskSheet } from "@/components/psy/assign-task";
 import { NewAppointmentSheet } from "@/components/psy/appointment-sheet";
@@ -136,13 +137,19 @@ export function Dossier({ clientId, tab }: { clientId: string; tab: DossierTab }
         </ul>
       </nav>
 
-      <div className="pt-7">
+      <motion.div
+        key={tab}
+        initial={{ opacity: 0, y: 4 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+        className="pt-7"
+      >
         {tab === "overzicht" && <Overview client={client} onPlan={() => setPlanning(true)} />}
         {tab === "logboek" && <JournalTab client={client} />}
         {tab === "sessies" && <SessionsTab client={client} onPlan={() => setPlanning(true)} />}
         {tab === "opdrachten" && <TasksTab client={client} />}
         {tab === "betalingen" && <InvoicesTab client={client} />}
-      </div>
+      </motion.div>
 
       {planning && <NewAppointmentSheet open={planning} onOpenChange={setPlanning} clientId={client.id} />}
       {assigning && <AssignTaskSheet open={assigning} onOpenChange={setAssigning} clientId={client.id} />}

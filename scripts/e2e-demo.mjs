@@ -1,9 +1,14 @@
 // Demoflow uit sectie 10 van het plan, van cliënt tot psycholoog.
-// Gebruik: npm run dev, daarna npm run test:demo
+// Gebruik: npm run dev (of npm run build && npm start), daarna npm run test:demo
 // BASE_URL en CHROME_PATH kan je overschrijven.
+import { existsSync } from "node:fs";
 import { chromium } from "playwright-core";
+
 const B = process.env.BASE_URL ?? "http://localhost:3000";
-const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH ?? "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", headless: true });
+const chrome =
+  process.env.CHROME_PATH ??
+  ["/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", "/opt/pw-browsers/chromium", "/usr/bin/google-chrome"].find((p) => existsSync(p));
+const browser = await chromium.launch({ executablePath: chrome, headless: true });
 const page = await (await browser.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
 const errors = [];
 page.on("pageerror", (e) => errors.push(e.message));
@@ -14,109 +19,146 @@ const ok = (name, cond) => {
   console.log(cond ? "PASS" : "FAIL", name);
 };
 const wait = (ms) => page.waitForTimeout(ms);
+const text = () => page.evaluate(() => document.body.innerText);
+
+const SECRET = "GEHEIMZIN enkel voor mij";
+const PRIVATE_NOTE = "Aandachtspunt: relatie met moeder";
+
+// ------------------------------------------------------------------ Cliënt
 
 await page.goto(B + "/", { waitUntil: "networkidle" });
 await page.evaluate(() => localStorage.clear());
-// Login als cliënt
 await page.click("button[type=submit]");
-await page.waitForURL("**/c/home");
-await wait(500);
-
-// 1. Gedeelde logboekentry via stemming op home
-await page.click("role=radio[name=/Rustig/]");
-await page.waitForURL("**/c/logboek/**");
-await wait(600);
-await page.keyboard.type("Demo gedeeld: vandaag de trein genomen zonder paniek.", { delay: 5 });
-await wait(900);
-await page.goto(B + "/c/logboek", { waitUntil: "networkidle" });
-ok("gedeelde entry in lijst", await page.isVisible("text=Demo gedeeld"));
-
-// 2. Niet-gedeelde entry
-await page.click("text=Nieuwe entry");
-await page.waitForURL("**/c/logboek/**");
-await wait(600);
-await page.keyboard.type("GEHEIMZIN enkel voor mij.", { delay: 5 });
-await page.click("role=switch");
-await wait(900);
-await page.goto(B + "/c/logboek", { waitUntil: "networkidle" });
-ok("privé entry in lijst met slot", await page.isVisible("text=GEHEIMZIN"));
-
-// 2b. Lege entry verdwijnt
-await page.click("text=Nieuwe entry");
-await page.waitForURL("**/c/logboek/**");
-await wait(500);
-await page.goto(B + "/c/logboek", { waitUntil: "networkidle" });
-await wait(300);
-const count = await page.locator("a[href^='/c/logboek/']").count();
-ok(`lege entry opgeruimd (${count} entries)`, count === 9);
-
-// 3. Opdracht afvinken: meditatie
-await page.goto(B + "/c/opdrachten", { waitUntil: "networkidle" });
-await page.click("text=Start, 10 min");
+await page.waitForURL("**/c/welkom");
+ok("onboarding bij de eerste keer", await page.isVisible("text=Welkom, Lotte"));
+await page.click("text=Volgende");
+await wait(350);
+ok("onboarding legt delen uit", await page.isVisible("text=Enkel voor mij"));
+await page.click("text=Volgende");
+await wait(350);
+await page.click("text=Aan de slag");
+await page.waitForURL("**/c/vandaag");
 await wait(400);
-await page.click("text=Ik deed het al");
-await wait(500);
-ok("meditatie afgevinkt", (await page.locator("role=checkbox[name='Meditatie 10 minuten']").getAttribute("aria-checked")) === "true");
 
-// 4. Tafel: taak toevoegen
-await page.goto(B + "/c/tafel/tp1", { waitUntil: "networkidle" });
+// 1. Check-in
+await page.click("role=radio[name=/Rustig/]");
+await wait(300);
+await page.fill("textarea[aria-label='Wil je er iets bij zeggen?']", "Demo check-in: rustige ochtend.");
+await page.click("button:has-text('Bewaren')");
 await wait(500);
-await page.click("button:has-text('Taak')");
-await wait(200);
-await page.keyboard.type("DEMOTAFEL vraag over de examenweek", { delay: 5 });
+ok("check-in bewaard, compacte samenvatting", await page.isVisible("text=Vandaag:"));
+
+// 2. Opdracht invullen in een sheet
+const row = page.locator("li", { hasText: "Gedachtenschema" });
+ok("eenmalige opdracht staat in Voor vandaag", (await row.count()) > 0);
+await row.getByRole("button", { name: "Invullen" }).click();
+await wait(400);
+await page.fill("textarea[aria-label='Je antwoord']", "Demo antwoord: ik dacht dat ik tekortschoot.");
+await page.click("role=dialog >> button:has-text('Bewaren')");
+await wait(500);
+ok("opdracht afgewerkt", (await page.locator("li", { hasText: "Gedachtenschema" }).getByRole("button", { name: "Invullen" }).count()) === 0);
+
+// 3. Vrije notitie, gedeeld, en meenemen naar de sessie
+await page.goto(B + "/c/logboek", { waitUntil: "networkidle" });
+await page.click("text=Schrijf iets");
+await page.waitForURL("**/c/logboek/**");
+await wait(600);
+await page.keyboard.type("Demo gedeeld: vandaag de trein genomen zonder paniek.", { delay: 4 });
 await wait(900);
-// 4b. Lege nieuwe pagina verdwijnt bij verlaten
-const before = await page.locator("aside a[href^='/c/tafel/']").count();
-await page.click("text=Nieuwe pagina");
-await wait(700);
-await page.click("aside a[href='/c/tafel/tp3']");
-await wait(700);
-const after = await page.locator("aside a[href^='/c/tafel/']").count();
-ok(`lege Tafel-pagina opgeruimd (${before} -> ${after})`, before === after);
+await page.click("text=Neem mee naar de sessie");
+await wait(400);
+ok("label Op de agenda", await page.isVisible("text=/Op de agenda voor/"));
 
-await page.goto(B + "/c/home", { waitUntil: "networkidle" });
+// 4. Niet-gedeelde notitie, ook meegenomen (enkel als geheugensteun)
+await page.goto(B + "/c/logboek", { waitUntil: "networkidle" });
+await page.click("text=Schrijf iets");
+await page.waitForURL("**/c/logboek/**");
+await wait(600);
+await page.keyboard.type(SECRET, { delay: 4 });
+await page.click("role=switch[name=/Delen met/]");
+await wait(900);
+await page.click("text=Neem mee naar de sessie");
+await wait(300);
+await page.goto(B + "/c/logboek", { waitUntil: "networkidle" });
+ok("beide entries in het logboek", (await text()).includes("Demo gedeeld") && (await text()).includes("GEHEIMZIN"));
+ok("opdracht-antwoord staat in het logboek", (await text()).includes("Demo antwoord"));
 
-// 5. Rolwissel naar psycholoog
-await page.click("role=radio[name='Psycholoog']");
-await page.waitForURL("**/p/vandaag");
-await wait(700);
-const vandaag = await page.textContent("main");
-ok("Vandaag toont gedeelde entry", vandaag.includes("Demo gedeeld"));
-ok("Vandaag toont Tafel-wijziging", vandaag.includes("DEMOTAFEL") || vandaag.includes("Vragen voor volgende keer"));
-ok("Vandaag toont afgevinkte meditatie", vandaag.includes("Meditatie 10 minuten gedaan"));
-ok("Vandaag toont GEEN privé entry", !vandaag.includes("GEHEIMZIN"));
+// 5. Sessies: vraag op Voor volgende keer, reactie op de laatste sessie
+await page.goto(B + "/c/sessies", { waitUntil: "networkidle" });
+await page.fill("input[placeholder^='Typ een vraag']", "Demo vraag voor de sessie");
+await page.keyboard.press("Enter");
+await wait(300);
+ok("vraag op Voor volgende keer", await page.isVisible("text=Demo vraag voor de sessie"));
+await page.locator("a[href^='/c/sessies/']").first().click();
+await page.waitForURL("**/c/sessies/**");
+await wait(600);
+await page.locator(".ProseMirror").last().click();
+await page.keyboard.press("Control+End");
+await page.keyboard.press("Enter");
+await page.keyboard.type("Demo reactie op de sessie.", { delay: 4 });
+await wait(900);
 
-await page.goto(B + "/p/clienten/c1?tab=tijdlijn", { waitUntil: "networkidle" });
-await wait(500);
-const tl = await page.textContent("main");
-ok("Tijdlijn toont entry + tafel + opdracht", tl.includes("Demo gedeeld") && tl.includes("DEMOTAFEL") && tl.includes("Meditatie 10 minuten gedaan"));
-ok("Tijdlijn toont GEEN privé entry", !tl.includes("GEHEIMZIN"));
+// Nooit privénotities van de psycholoog aan cliëntkant
+let leak = false;
+for (const p of ["/c/vandaag", "/c/logboek", "/c/sessies", "/c/opdrachten", "/c/betalingen", "/c/privacy", "/c/profiel", "/c/herinneringen"]) {
+  await page.goto(B + p, { waitUntil: "networkidle" });
+  await wait(250);
+  if ((await text()).includes(PRIVATE_NOTE)) leak = true;
+}
+await page.goto(B + "/c/sessies", { waitUntil: "networkidle" });
+const sessionLinks = await page.$$eval("a[href^='/c/sessies/']", (as) => as.map((a) => a.getAttribute("href")));
+for (const href of sessionLinks) {
+  await page.goto(B + href, { waitUntil: "networkidle" });
+  await wait(250);
+  if ((await text()).includes(PRIVATE_NOTE) || (await text()).includes("Sessienotities")) leak = true;
+}
+ok("sessienotities nergens aan cliëntkant", !leak);
+
+// ------------------------------------------------------------------ Psycholoog
+
+await page.goto(B + "/p/vandaag", { waitUntil: "networkidle" });
+await wait(400);
+const vandaag = await text();
+ok("Vandaag toont de gedeelde notitie", vandaag.includes("Demo gedeeld"));
+ok("Vandaag toont het opdracht-antwoord", vandaag.includes("Demo antwoord"));
+ok("Vandaag toont de check-in", vandaag.includes("Demo check-in"));
+ok("Vandaag toont de reactie", vandaag.includes("Demo reactie"));
+ok("Vandaag toont niets privés", !vandaag.includes("GEHEIMZIN"));
+
+await page.goto(B + "/p/clienten/c1", { waitUntil: "networkidle" });
+await wait(400);
+const overzicht = await text();
+ok("dossier: Voor volgende keer met vraag en entry", overzicht.includes("Demo vraag") && overzicht.includes("Demo gedeeld"));
+ok("dossier: privé-entry staat niet op de agenda", !overzicht.includes("GEHEIMZIN"));
 
 await page.goto(B + "/p/clienten/c1?tab=logboek", { waitUntil: "networkidle" });
 await wait(400);
-ok("Logboek-tab zonder privé entry", !(await page.textContent("main")).includes("GEHEIMZIN"));
+const logboek = await text();
+ok("dossier-logboek toont gedeelde entries", logboek.includes("Demo gedeeld") && logboek.includes("Demo antwoord"));
+ok("dossier-logboek toont geen privé-entry", !logboek.includes("GEHEIMZIN"));
+ok("geen 'enkel voor mij' bij de psycholoog", !logboek.includes("Enkel voor mij"));
 
-// 6. Tafel bij psycholoog: nieuw-markering
-await page.goto(B + "/p/clienten/c1/tafel/tp1", { waitUntil: "networkidle" });
-await wait(500);
-ok("psycholoog ziet nieuw-markering", await page.isVisible("text=/nieuwe? blok/"));
-ok("nieuw blok gemarkeerd", (await page.locator(".hk-new").count()) > 0);
-
-// 7. Sessienotities nooit in cliëntomgeving
-await page.goto(B + "/c/home", { waitUntil: "networkidle" });
-let leak = false;
-for (const p of ["/c/home", "/c/tafel", "/c/logboek", "/c/opdrachten", "/c/afspraken", "/c/betalingen", "/c/profiel"]) {
+let psyLeak = false;
+for (const p of ["/p/clienten", "/p/clienten/c1?tab=sessies", "/p/clienten/c1?tab=opdrachten", "/p/agenda", "/p/facturatie"]) {
   await page.goto(B + p, { waitUntil: "networkidle" });
-  await wait(300);
-  const t = await page.textContent("body");
-  if (t.includes("Opvallend rustiger") || t.includes("Aandachtspunt")) leak = true;
+  await wait(250);
+  if ((await text()).includes("GEHEIMZIN")) psyLeak = true;
 }
-ok("geen sessienotities in cliëntomgeving", !leak);
+ok("privé-entry nergens bij de psycholoog", !psyLeak);
 
-// 8. Geen chat
+await page.goto(B + "/p/clienten/c1?tab=sessies", { waitUntil: "networkidle" });
+await page.locator("a[href*='/sessies/']").first().click();
+await page.waitForURL("**/sessies/**");
+await wait(500);
+ok("sessiepagina toont de reactie", (await text()).includes("Demo reactie"));
+ok("sessiepagina toont privénotities voor de psycholoog", await page.isVisible("text=Enkel voor jou. Nooit zichtbaar voor je cliënt."));
+
+// Geen chat
 const html = await page.content();
-ok("geen chat-elementen", !/typt\.\.\.|gelezen|chat/i.test(html));
+ok("geen chat-interface", !/typt\.\.\.|gelezen om|chatbericht/i.test(html));
 
-if (errors.length) console.log("ERRORS:\n" + [...new Set(errors)].join("\n"));
-if (failures) process.exitCode = 1;
+ok("geen fouten in de console", errors.length === 0);
+if (errors.length) console.log(errors.slice(0, 5));
 await browser.close();
+console.log(failures ? `${failures} mislukt` : "Alles geslaagd");
+process.exit(failures ? 1 : 0);

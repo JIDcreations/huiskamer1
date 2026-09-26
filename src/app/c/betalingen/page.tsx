@@ -114,7 +114,9 @@ export default function Betalingen() {
                       <div className="min-w-0 flex-1">
                         <p className="text-[15px] font-medium">Sessie van {s ? formatDayMonth(s.start) : formatDayMonth(f.issuedAt)}</p>
                         <p className="text-[13px] text-muted">
-                          Factuur {f.number}, te betalen tegen {formatRelativeDay(f.dueAt)}
+                          {f.status === "vervallen" || new Date(f.dueAt) < new Date()
+                            ? `Factuur ${f.number}. De termijn is voorbij, je kan gewoon nog betalen.`
+                            : `Factuur ${f.number}, te betalen tegen ${formatRelativeDay(f.dueAt)}`}
                         </p>
                       </div>
                       <p className="text-[15px] font-semibold tabular-nums">{formatMoney(f.amount)}</p>
@@ -131,6 +133,7 @@ export default function Betalingen() {
           </Panel>
 
           <Panel title="Historiek" bodyClassName="pt-1">
+            {!paid.length && <p className="py-3 text-[14px] text-muted">Nog niets betaald. Je betaalde facturen en attesten vind je hier.</p>}
             <ul className="divide-y divide-surface-2/70">
               {paid.map((f) => {
                 const s = sessionOf(f);

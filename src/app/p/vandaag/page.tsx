@@ -87,7 +87,7 @@ export default function Vandaag() {
 
   // Wat er tussen de sessies gebeurde: laatste drie dagen, zonder je eigen werk.
   const activity = useMemo(
-    () => activityFor(source, { since: subDays(new Date(), 3).toISOString(), viewerId: psy.id }).filter((a) => a.kind !== "appointment"),
+    () => activityFor(source, { since: subDays(new Date(), 3).toISOString(), viewerId: psy.id }).filter((a) => a.kind !== "appointment" && !(a.kind === "agenda" && a.entry)),
     [source, psy.id]
   );
   const fresh = activity.filter((a) => a.at > since);
@@ -171,10 +171,10 @@ export default function Vandaag() {
                       {c.firstName} {c.lastName}
                     </Link>
                     <div className="flex flex-col">
-                      {items.slice(0, 3).map(({ activity: a, count }, i) => (
+                      {items.slice(0, 5).map(({ activity: a, count }, i) => (
                         <ActivityItem key={i} activity={a} count={count} isNew={a.at > since} />
                       ))}
-                      {items.length > 3 && (
+                      {items.length > 5 && (
                         <Link href={`/p/clienten/${clientId}?tab=logboek`} className="px-2 pt-1 text-[13px] text-muted hover:text-text">
                           Meer in het logboek van {c.firstName}
                         </Link>
