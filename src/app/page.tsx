@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input, Label } from "@/components/ui/input";
+import { Mark } from "@/components/shell/platform-shell";
 import { RoleSwitch, type Role } from "@/components/role-switch";
 
 const demo: Record<Role, { email: string; home: string }> = {
@@ -19,18 +20,13 @@ export default function Login() {
     <main className="flex min-h-dvh flex-col items-center justify-center px-5 py-16">
       <div className="w-full max-w-[380px]">
         <div className="flex flex-col items-center text-center">
-          <span
-            aria-hidden
-            className="flex size-11 items-center justify-center rounded-xl bg-accent text-[20px] font-semibold text-on-accent"
-          >
-            H
-          </span>
-          <h1 className="font-display mt-5 text-[28px] leading-tight">Aanmelden bij Huiskamer</h1>
+          <Mark className="size-12" />
+          <h1 className="type-title mt-5">Aanmelden bij Huiskamer</h1>
           <p className="mt-2 text-[15px] text-muted">Het platform van je praktijk, ook tussen de sessies door.</p>
         </div>
 
         <form
-          className="mt-10 rounded-sheet bg-surface p-6 shadow-soft ring-1 ring-inset ring-surface-2/60 md:p-8"
+          className="mt-10 rounded-sheet bg-surface p-6 shadow-[0_0_0_1px_var(--edge)] md:p-8"
           onSubmit={(e) => {
             e.preventDefault();
             router.push(demo[role].home);

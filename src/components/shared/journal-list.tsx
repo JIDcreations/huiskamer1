@@ -234,7 +234,7 @@ export function JournalTimeline({
           {groups.map((g) => (
             <section key={g.day} aria-label={dayHeading(g.day)}>
               <h2 className="mb-2 px-1 text-[13px] font-medium text-muted">{dayHeading(g.day)}</h2>
-              <ul className="divide-y divide-surface-2/70 overflow-hidden rounded-card bg-surface shadow-soft ring-1 ring-surface-2/60">
+              <ul className="divide-y divide-surface-2/70 overflow-hidden card">
                 {g.items.map((e) => (
                   <JournalRow key={e.id} entry={e} viewer={viewer} href={hrefFor(e)} />
                 ))}

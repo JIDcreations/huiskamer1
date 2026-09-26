@@ -137,7 +137,7 @@ export function SessionView({
 
   if (!appointment) {
     return (
-      <div className="rounded-card bg-surface shadow-soft ring-1 ring-surface-2/60">
+      <div className="card">
         <EmptyState
           title="Deze sessie bestaat niet"
           action={
@@ -163,10 +163,10 @@ export function SessionView({
       </div>
 
       <div className={cn(aside && "grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]")}>
-        <article className="hk-tafel min-w-0 rounded-card bg-surface px-5 pb-8 pt-7 shadow-soft ring-1 ring-surface-2/60 sm:px-8 md:px-10 md:pt-9">
+        <article className="hk-tafel min-w-0 card px-5 pb-8 pt-7 sm:px-8 md:px-10 md:pt-9">
           <header>
             <p className="text-[13px] text-muted">{appointment.type === "intake" ? "Intake" : "Sessie"}</p>
-            <h1 className="mt-1 font-display text-[26px] leading-tight md:text-[30px]">{capitalize(formatLongDate(appointment.start))}</h1>
+            <h1 className="mt-1 type-title">{capitalize(formatLongDate(appointment.start))}</h1>
             <p className="mt-2 inline-flex items-center gap-1.5 text-[13px] text-muted tabular-nums">
               <Icon className="size-3.5 stroke-[1.5] text-taupe" />
               {formatTime(appointment.start)} tot {formatTime(appointment.end)}, {appointment.mode === "online" ? "online" : "in de praktijk"}

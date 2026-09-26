@@ -13,7 +13,7 @@ export default function Sessie({ params }: { params: Promise<{ id: string }> }) 
 
   if (!appointment || appointment.clientId !== CURRENT_CLIENT_ID) {
     return (
-      <div className="rounded-card bg-surface shadow-soft ring-1 ring-surface-2/60">
+      <div className="card">
         <EmptyState
           title="Deze sessie vind je hier niet"
           action={

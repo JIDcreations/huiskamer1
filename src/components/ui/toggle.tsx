@@ -8,7 +8,7 @@ function Toggle({ className, ...props }: React.ComponentProps<typeof SwitchPrimi
   return (
     <SwitchPrimitive.Root
       className={cn(
-        "peer inline-flex h-[26px] w-[44px] shrink-0 cursor-pointer items-center rounded-full p-[3px] transition-colors duration-200 data-[state=checked]:bg-accent data-[state=unchecked]:bg-surface-2 disabled:cursor-not-allowed disabled:opacity-50",
+        "peer inline-flex h-[26px] w-[44px] shrink-0 cursor-pointer items-center rounded-full p-[3px] outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-taupe focus-visible:ring-offset-2 focus-visible:ring-offset-bg data-[state=checked]:bg-accent data-[state=checked]:hover:bg-accent/92 data-[state=unchecked]:bg-surface-2 data-[state=unchecked]:hover:bg-taupe/45 disabled:cursor-not-allowed disabled:opacity-40",
         className
       )}
       {...props}

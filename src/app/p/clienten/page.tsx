@@ -106,7 +106,7 @@ export default function Clienten() {
         </label>
       </div>
 
-      <div className="mt-5 overflow-hidden rounded-card bg-surface shadow-soft ring-1 ring-surface-2/60">
+      <div className="mt-5 overflow-hidden card">
         {shown.length === 0 ? (
           <EmptyState title="Niemand gevonden" description="Probeer een andere naam of filter." />
         ) : (

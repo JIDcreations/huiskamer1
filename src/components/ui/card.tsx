@@ -9,7 +9,7 @@ function Card({
   return (
     <div
       className={cn(
-        "rounded-card bg-surface shadow-soft",
+        "card",
         interactive &&
           "transition-colors duration-200 hover:bg-oat-soft/40",
         className

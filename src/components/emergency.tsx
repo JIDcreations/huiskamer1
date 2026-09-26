@@ -42,7 +42,7 @@ export function EmergencyLink({ className }: { className?: string }) {
                 <span className="block text-[15px] font-medium">{l.name}</span>
                 <span className="block text-[13px] text-muted">{l.note}</span>
               </span>
-              <span className="font-display text-[26px] leading-none tabular-nums">{l.number}</span>
+              <span className="font-display text-[32px] leading-none tabular-nums">{l.number}</span>
             </a>
           ))}
           <p className="pt-3 text-[13px] text-muted">Bij direct gevaar: bel 112.</p>

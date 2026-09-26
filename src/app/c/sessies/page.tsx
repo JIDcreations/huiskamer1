@@ -32,7 +32,7 @@ function NextSession({ appointment, onFlow }: { appointment: Appointment; onFlow
   return (
     <div>
       <p className="text-[13px] text-muted">Volgende sessie</p>
-      <p className="mt-1 font-display text-[26px] leading-tight md:text-[30px]">
+      <p className="mt-1 type-title">
         {capitalize(formatRelativeDay(appointment.start))}
         {!/\d/.test(formatRelativeDay(appointment.start)) && `, ${formatDayMonth(appointment.start)}`}
       </p>
@@ -116,7 +116,7 @@ export default function Sessies() {
           Voorbije sessies
         </h2>
         {history.length ? (
-          <ul className="divide-y divide-surface-2/70 overflow-hidden rounded-card bg-surface shadow-soft ring-1 ring-surface-2/60">
+          <ul className="divide-y divide-surface-2/70 overflow-hidden card">
             {history.map((a) => {
               const page = pages.find((p) => p.appointmentId === a.id);
               const fresh = page ? newBlocks([...page.summary, ...page.reactions], CURRENT_CLIENT_ID, seen(`session:${a.id}`)).length : 0;

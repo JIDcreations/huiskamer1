@@ -104,7 +104,7 @@ export default function Welkom() {
               exit={{ opacity: 0, x: -12 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             >
-              <h1 className="font-display text-[32px] leading-tight md:text-[38px]">{steps[step].title}</h1>
+              <h1 className="type-hero">{steps[step].title}</h1>
               <div className="mt-4 text-[16px] leading-relaxed text-muted">{steps[step].body}</div>
             </motion.div>
           </AnimatePresence>

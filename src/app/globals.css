@@ -27,6 +27,9 @@
   --urgent: #c9a08e;
 
   --shadow-soft: 0 1px 2px rgba(31, 30, 28, 0.03), 0 6px 20px rgba(31, 30, 28, 0.04);
+  /* Kaarten: een fijne rand in plaats van schaduw, zoals papier op een tafel. */
+  --edge: rgba(163, 147, 130, 0.22);
+  --edge-strong: rgba(163, 147, 130, 0.38);
   --glass: rgba(251, 247, 244, 0.78);
 
   color-scheme: light;
@@ -51,6 +54,9 @@
   --color-urgent: var(--urgent);
 
   --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: var(--font-instrument), "Iowan Old Style", Georgia, serif;
+  --color-edge: var(--edge);
+  --color-edge-strong: var(--edge-strong);
 
   --radius-card: 14px;
   --radius-sheet: 20px;
@@ -101,11 +107,49 @@
   }
 }
 
-/* Koppen: dezelfde sans, iets zwaarder en strakker */
+/* Koppen en paginatitels: Instrument Serif. Alles wat bediend wordt: Inter. */
 @utility font-display {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  font-feature-settings: "lnum";
+}
+
+/* Typeschaal. Eén set maten, overal dezelfde. */
+@utility type-hero {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  font-size: 34px;
+  line-height: 1.08;
+  @media (min-width: 768px) {
+    font-size: 42px;
+  }
+}
+@utility type-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  font-size: 28px;
+  line-height: 1.12;
+  @media (min-width: 768px) {
+    font-size: 32px;
+  }
+}
+@utility type-subtitle {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 23px;
+  line-height: 1.2;
+}
+
+/* Kaart: wit op Milk, fijne rand, bijna geen schaduw. */
+@utility card {
+  background: var(--surface);
+  border-radius: var(--radius-card);
+  box-shadow:
+    0 0 0 1px var(--edge),
+    0 1px 2px rgba(31, 30, 28, 0.025);
 }
 
 @utility glass {

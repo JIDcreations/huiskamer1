@@ -119,7 +119,7 @@ export default function Agenda() {
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="mb-1 text-[13px] text-muted">{count ? `${count} gepland` : "Niets gepland"}</p>
-          <h1 className="font-display text-[26px] leading-tight md:text-[30px]">{title}</h1>
+          <h1 className="type-title">{title}</h1>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <Segmented
@@ -149,7 +149,7 @@ export default function Agenda() {
         </div>
       </header>
 
-      <div className="mt-6 overflow-hidden rounded-card bg-surface shadow-soft ring-1 ring-surface-2/60">
+      <div className="mt-6 overflow-hidden card">
         {/* Dagen */}
         <div className="grid border-b border-surface-2" style={{ gridTemplateColumns: `56px repeat(${days.length}, minmax(0, 1fr))` }}>
           <div />

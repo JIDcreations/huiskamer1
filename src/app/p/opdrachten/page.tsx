@@ -82,7 +82,7 @@ export default function Bibliotheek() {
         {templates.map((t) => {
           const inUse = new Set(tasks.filter((x) => x.templateId === t.id).map((x) => x.clientId)).size;
           return (
-            <article key={t.id} className="flex flex-col rounded-card bg-surface p-5 shadow-soft ring-1 ring-surface-2/60">
+            <article key={t.id} className="card flex flex-col p-5">
               <div className="flex items-start justify-between gap-3">
                 <h2 className="text-[16px] font-semibold tracking-tight">{t.title}</h2>
                 <Badge>{kindLabel[t.kind]}</Badge>

@@ -66,7 +66,7 @@ export default function Entry({ params }: { params: Promise<{ id: string }> }) {
 
   if (!entry || entry.clientId !== CURRENT_CLIENT_ID) {
     return (
-      <div className="rounded-card bg-surface shadow-soft">
+      <div className="card">
         <EmptyState title="Deze entry bestaat niet" action={<Button asChild variant="secondary"><Link href="/c/logboek">Naar je logboek</Link></Button>} />
       </div>
     );
@@ -110,7 +110,7 @@ export default function Entry({ params }: { params: Promise<{ id: string }> }) {
       </div>
 
       {/* Delen: altijd zichtbaar, altijd op dezelfde plek. */}
-      <div className="mb-4 rounded-card bg-surface px-5 py-4 shadow-soft ring-1 ring-surface-2/60">
+      <div className="mb-4 card px-5 py-4">
         <ShareSwitch
           shared={entry.sharedWithPsychologist}
           onChange={(v) => {
@@ -120,7 +120,7 @@ export default function Entry({ params }: { params: Promise<{ id: string }> }) {
         />
       </div>
 
-      <div className="rounded-card bg-surface px-5 pb-8 pt-7 shadow-soft ring-1 ring-surface-2/60 md:px-10 md:pt-9">
+      <div className="card px-5 pb-8 pt-7 md:px-10 md:pt-9">
         <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
           <p className="text-[13px] font-medium text-muted">{entry.kind === "opdracht" ? task?.title ?? "Opdracht" : journalKindLabel[entry.kind]}</p>
           <p className="text-[13px] text-faint">

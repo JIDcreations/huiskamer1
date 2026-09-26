@@ -30,7 +30,7 @@ export function MoodDots({ value, className }: { value?: Mood; className?: strin
 
 export function MoodPicker({ value, onChange, className }: { value?: Mood; onChange: (m: Mood | undefined) => void; className?: string }) {
   return (
-    <div role="radiogroup" aria-label="Hoe voel je je?" className={cn("flex flex-wrap gap-1.5", className)}>
+    <div role="radiogroup" aria-label="Hoe voel je je?" className={cn("grid grid-cols-5 gap-1.5 sm:flex sm:flex-wrap", className)}>
       {moods.map((m) => {
         const active = m.value === value;
         return (
@@ -41,7 +41,7 @@ export function MoodPicker({ value, onChange, className }: { value?: Mood; onCha
             aria-checked={active}
             onClick={() => onChange(active ? undefined : m.value)}
             className={cn(
-              "inline-flex h-9 items-center gap-2 rounded-full px-3.5 text-[13px] transition-colors duration-200",
+              "inline-flex min-w-0 flex-col items-center justify-center gap-1.5 rounded-2xl py-2.5 text-[12px] outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-taupe sm:h-9 sm:flex-row sm:gap-2 sm:rounded-full sm:px-3.5 sm:py-0 sm:text-[13px]",
               active ? "bg-accent text-on-accent" : "bg-oat-soft text-muted hover:bg-surface-2 hover:text-text"
             )}
           >

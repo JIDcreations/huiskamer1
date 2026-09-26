@@ -23,7 +23,7 @@ export function Panel({
   bodyClassName?: string;
 }) {
   return (
-    <section className={cn("rounded-card bg-surface shadow-soft ring-1 ring-surface-2/60", className)}>
+    <section className={cn("card", className)}>
       {(title || href || action) && (
         <header className="flex items-start justify-between gap-4 px-5 pt-5 md:px-6">
           <div className="min-w-0">

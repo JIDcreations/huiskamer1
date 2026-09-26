@@ -35,28 +35,32 @@ type ShellProps = {
   children: React.ReactNode;
 };
 
+/** Merkteken: een huisje met een warm raam, in Mocha. */
+export function Mark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 32 32" aria-hidden className={className}>
+      <rect width="32" height="32" rx="9" fill="var(--mocha)" />
+      <path d="M9 15.2 16 9.5l7 5.7V23a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-7.8Z" fill="none" stroke="var(--milk)" strokeWidth="1.6" strokeLinejoin="round" />
+      <rect x="14.2" y="17.2" width="3.6" height="3.6" rx="0.8" fill="var(--oat)" />
+    </svg>
+  );
+}
+
 function Brand({ href, context, compact }: { href: string; context: string; compact?: boolean }) {
   if (compact) {
     return (
       <Link href={href} className="flex items-center gap-2" aria-label="Huiskamer">
-        <span aria-hidden className="flex size-7 items-center justify-center rounded-lg bg-accent text-[13px] font-semibold text-on-accent">
-          H
-        </span>
-        <span className="text-[15px] font-semibold tracking-tight text-text">Huiskamer</span>
+        <Mark className="size-7" />
+        <span className="font-display text-[21px] leading-none text-text">Huiskamer</span>
       </Link>
     );
   }
   return (
     <Link href={href} className="flex items-center gap-2.5">
-      <span
-        aria-hidden
-        className="flex size-8 items-center justify-center rounded-lg bg-accent text-[15px] font-semibold text-on-accent"
-      >
-        H
-      </span>
+      <Mark className="size-8" />
       <span className="leading-tight">
-        <span className="block text-[15px] font-semibold tracking-tight text-text">Huiskamer</span>
-        <span className="block text-[12px] text-muted">{context}</span>
+        <span className="block font-display text-[22px] leading-none text-text">Huiskamer</span>
+        <span className="mt-1 block text-[12px] text-muted">{context}</span>
       </span>
     </Link>
   );
@@ -71,11 +75,11 @@ function NavLink({ item }: { item: NavItem }) {
       href={item.href}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "flex h-9 items-center gap-3 rounded-lg px-3 text-[14px] transition-colors duration-150",
-        active ? "bg-surface-2/70 font-medium text-text" : "text-muted hover:bg-oat-soft hover:text-text"
+        "flex h-9 items-center gap-3 rounded-[10px] px-3 text-[14px] outline-none transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-taupe",
+        active ? "bg-oat-soft font-medium text-text shadow-[inset_0_0_0_1px_var(--edge)]" : "text-muted hover:bg-oat-soft/70 hover:text-text"
       )}
     >
-      <Icon className={cn("size-[18px] stroke-[1.5]", active ? "text-muted" : "text-faint")} />
+      <Icon className={cn("size-[18px] stroke-[1.5]", active ? "text-muted" : "text-taupe")} />
       <span className="truncate">{item.label}</span>
     </Link>
   );
@@ -104,7 +108,7 @@ function SidebarContent({ homeHref, context, nav, footerNav }: Omit<ShellProps, 
         ))}
       </nav>
       {footerNav.length > 0 && (
-        <div className="flex flex-col gap-0.5 border-t border-surface-2 px-3 py-3">
+        <div className="flex flex-col gap-0.5 border-t border-edge px-3 py-3">
           {footerNav.map((item) => (
             <NavLink key={item.href} item={item} />
           ))}
@@ -173,7 +177,7 @@ function TabBar({ items }: { items: NavItem[] }) {
   return (
     <nav
       aria-label="Hoofdnavigatie"
-      className="glass fixed inset-x-0 bottom-0 z-30 border-t border-surface-2 pb-[env(safe-area-inset-bottom)] lg:hidden"
+      className="glass fixed inset-x-0 bottom-0 z-30 border-t border-edge pb-[env(safe-area-inset-bottom)] lg:hidden"
     >
       <div className="mx-auto flex max-w-md">
         {items.map((item) => {
@@ -245,7 +249,7 @@ function MobileDrawer({
                   <div className="min-h-0 flex-1">
                     <SidebarContent {...sidebar} />
                   </div>
-                  <div className="border-t border-surface-2 px-4 py-4 md:hidden">
+                  <div className="border-t border-edge px-4 py-4 md:hidden">
                     <p className="mb-2 text-[11px] font-medium tracking-[0.08em] text-faint uppercase">Demo: bekijk als</p>
                     <RoleSwitch className="flex w-full" />
                   </div>
@@ -270,12 +274,12 @@ export function PlatformShell({ user, topbarStart, topbarEnd, mobileTabs, childr
 
   return (
     <div className="min-h-dvh lg:pl-[248px]">
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[248px] border-r border-surface-2 bg-surface lg:block">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[248px] border-r border-edge bg-surface lg:block">
         <SidebarContent {...sidebar} />
       </aside>
       {!mobileTabs && <MobileDrawer open={drawerOpen} onOpenChange={setDrawerOpen} {...sidebar} />}
 
-      <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-surface-2 bg-surface/90 px-4 backdrop-blur-md md:px-8">
+      <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-edge bg-surface/90 px-4 backdrop-blur-md md:px-8">
         {mobileTabs ? (
           <div className="lg:hidden">
             <Brand href={sidebar.homeHref} context={sidebar.context} compact />

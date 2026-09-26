@@ -59,7 +59,7 @@ function Sheet({ open, onOpenChange, title, description, children, className }: 
                 <div aria-hidden className="mx-auto mt-2.5 h-1 w-9 rounded-full bg-surface-2 md:hidden" />
                 <div className="flex items-start justify-between gap-4 px-6 pt-4 md:pt-6">
                   <div>
-                    <DialogPrimitive.Title className="font-display text-[20px] leading-tight">
+                    <DialogPrimitive.Title className="font-display text-[25px] leading-tight">
                       {title}
                     </DialogPrimitive.Title>
                     {description ? (

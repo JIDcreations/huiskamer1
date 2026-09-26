@@ -14,3 +14,6 @@ Keuzes die ik zelf maakte bij twijfel. Telkens kort, zodat je ze snel kan naleze
 - **Check-ins in "Tussen de sessies"** worden per cliënt gebundeld tot één regel ("3 check-ins, laatste: rustig"), zodat de lijst rustig blijft.
 - **Opdracht zonder sessie**: toewijzen vanuit het dossier (niet vanuit een sessie) koppelt de opdracht automatisch aan de laatste voorbije sessie. Dat staat onderaan het formulier.
 - **"Stoppen met deze opdracht"** in plaats van "Archiveren": warmer woord, zelfde actie.
+- **Instrument Serif enkel voor paginatitels, sheet-titels en grote datums.** Al de rest (knoppen, lijsten, sectiekoppen) blijft Inter. Zo blijft het rustig en leesbaar. Dit draait de eerdere keuze "enkel sans-serif" terug, op vraag van DAGRUN.md.
+- **Kaarten krijgen een fijne Taupe-rand (22% dekking) in plaats van een schaduw.** Geen nieuwe kleur, wel meer precisie.
+- **Nieuw merkteken**: een huisje met een warm raam in Mocha, Oat en Milk, in plaats van de letter H.

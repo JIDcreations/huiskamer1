@@ -97,7 +97,7 @@ export default function Facturatie() {
   };
 
   const stat = (label: string, value: string, hint: string) => (
-    <div className="rounded-card bg-surface px-5 py-4 shadow-soft ring-1 ring-surface-2/60">
+    <div className="card px-5 py-4">
       <p className="text-[13px] text-muted">{label}</p>
       <p className="mt-1 text-[24px] font-semibold tabular-nums tracking-tight">{value}</p>
       <p className="text-[12px] text-faint">{hint}</p>
@@ -127,7 +127,7 @@ export default function Facturatie() {
         />
       </div>
 
-      <div className="mt-4 overflow-hidden rounded-card bg-surface shadow-soft ring-1 ring-surface-2/60">
+      <div className="mt-4 overflow-hidden card">
         {shown.length === 0 ? (
           <EmptyState title="Niets hier" description="Geen facturen met deze status." />
         ) : (

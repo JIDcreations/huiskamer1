@@ -38,7 +38,7 @@ export function Dossier({ clientId, tab }: { clientId: string; tab: DossierTab }
 
   if (!client) {
     return (
-      <div className="rounded-card bg-surface shadow-soft">
+      <div className="card">
         <EmptyState
           title="Deze cliënt bestaat niet"
           action={
@@ -65,7 +65,7 @@ export function Dossier({ clientId, tab }: { clientId: string; tab: DossierTab }
           <Avatar name={name} tone="client" size="lg" />
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2.5">
-              <h1 className="font-display text-[26px] leading-tight md:text-[30px]">{name}</h1>
+              <h1 className="type-title">{name}</h1>
               <Menu>
                 <MenuTrigger className="inline-flex items-center gap-1 rounded-full outline-none" aria-label={`Status: ${clientStatusLabel[client.status]}, wijzigen`}>
                   <ClientStatusBadge status={client.status} />

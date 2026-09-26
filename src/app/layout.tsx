@@ -13,6 +13,16 @@ const inter = localFont({
   display: "swap",
 });
 
+const serif = localFont({
+  src: [
+    { path: "../../node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2", style: "normal" },
+    { path: "../../node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2", style: "italic" },
+  ],
+  weight: "400",
+  variable: "--font-instrument",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Huiskamer",
   description: "Een rustige plek voor jou en je psycholoog.",
@@ -30,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="nl-BE" className={inter.variable}>
+    <html lang="nl-BE" className={`${inter.variable} ${serif.variable}`}>
       <body className="min-h-dvh">{children}</body>
     </html>
   );

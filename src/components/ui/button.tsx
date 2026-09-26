@@ -4,21 +4,21 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium transition-[background-color,color,box-shadow,transform] duration-200 ease-out-soft active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-[18px] [&_svg]:shrink-0 [&_svg]:stroke-[1.5]",
+  "inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium tracking-[-0.005em] outline-none transition-[background-color,color,box-shadow,transform,opacity] duration-200 ease-out-soft active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-taupe focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:pointer-events-none disabled:opacity-40 aria-disabled:pointer-events-none aria-disabled:opacity-40 [&_svg]:size-[18px] [&_svg]:shrink-0 [&_svg]:stroke-[1.5]",
   {
     variants: {
       variant: {
-        primary: "bg-accent text-on-accent hover:bg-accent/90",
-        secondary: "bg-surface-2 text-text hover:bg-surface-2/70",
-        soft: "bg-oat-soft text-muted hover:bg-surface-2 hover:text-text",
-        outline: "text-muted ring-1 ring-inset ring-surface-2 hover:bg-oat-soft hover:text-text",
-        ghost: "text-text hover:bg-oat-soft",
-        quiet: "text-muted hover:bg-oat-soft hover:text-text",
+        primary: "bg-accent text-on-accent shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] hover:bg-accent/92 active:bg-accent",
+        secondary: "bg-surface-2/75 text-text hover:bg-surface-2 active:bg-surface-2",
+        soft: "bg-oat-soft text-muted hover:bg-surface-2/80 hover:text-text active:bg-surface-2",
+        outline: "text-muted shadow-[inset_0_0_0_1px_var(--edge-strong)] hover:bg-oat-soft hover:text-text",
+        ghost: "text-text hover:bg-oat-soft active:bg-surface-2/60",
+        quiet: "text-muted hover:bg-oat-soft hover:text-text active:bg-surface-2/60",
       },
       size: {
-        sm: "h-8 px-3.5 text-[13px]",
+        sm: "h-8 px-3.5 text-[13px] [&_svg]:size-4",
         md: "h-10 px-5 text-[14px]",
-        lg: "h-12 px-6 text-[15px]",
+        lg: "h-12 px-7 text-[15px]",
         icon: "size-10",
         "icon-sm": "size-8 [&_svg]:size-4",
       },

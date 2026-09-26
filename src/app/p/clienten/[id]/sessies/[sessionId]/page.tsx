@@ -29,7 +29,6 @@ function PrivateNotes({ clientId, appointmentId }: { clientId: ID; appointmentId
         <Editor
           blocks={note?.blocks ?? []}
           authorId={PSY_ID}
-          private
           placeholder="Wat viel op, wat wil je volgende keer oppakken?"
           onChange={save.schedule}
           className="max-w-none"

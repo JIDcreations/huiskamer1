@@ -102,7 +102,7 @@ export function TitleField({
           onEnter();
         }
       }}
-      className="font-display block w-full resize-none overflow-hidden bg-transparent text-[28px] leading-tight text-text outline-none placeholder:text-faint/70 md:text-[32px]"
+      className="type-title block w-full resize-none overflow-hidden bg-transparent text-text outline-none placeholder:text-faint/70"
     />
   );
 }

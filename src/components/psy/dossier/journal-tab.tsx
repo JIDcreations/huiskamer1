@@ -89,7 +89,7 @@ export function JournalTab({ client }: { client: Client }) {
           viewer="psy"
           hrefFor={(e) => `${base}&entry=${e.id}`}
           empty={
-            <div className="rounded-card bg-surface shadow-soft ring-1 ring-surface-2/60">
+            <div className="card">
               <EmptyState title="Nog niets gedeeld" description={`Als ${client.firstName} iets deelt, lees je het hier.`} />
             </div>
           }

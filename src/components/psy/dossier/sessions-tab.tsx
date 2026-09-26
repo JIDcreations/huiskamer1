@@ -38,7 +38,7 @@ export function SessionsTab({ client, onPlan }: { client: Client; onPlan: () => 
           Voorbije sessies
         </h2>
         {history.length ? (
-          <ul className="divide-y divide-surface-2/70 overflow-hidden rounded-card bg-surface shadow-soft ring-1 ring-surface-2/60">
+          <ul className="divide-y divide-surface-2/70 overflow-hidden card">
             {history.map((a) => {
               const page = pages.find((p) => p.appointmentId === a.id);
               const note = notes.find((n) => n.appointmentId === a.id && n.blocks.length);

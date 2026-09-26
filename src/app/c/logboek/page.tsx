@@ -42,7 +42,7 @@ export default function Logboek() {
           viewer="client"
           hrefFor={(e) => `/c/logboek/${e.id}`}
           empty={
-            <div className="rounded-card bg-surface shadow-soft ring-1 ring-surface-2/60">
+            <div className="card">
               <EmptyState
                 title="Hier is nog niets"
                 description="Nog niets geschreven. Geen druk: een woord in je check-in is al een begin."
