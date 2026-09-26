@@ -1,11 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { addDays, format } from "date-fns";
+import { Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input, Label, Textarea } from "@/components/ui/input";
 import { Segmented } from "@/components/ui/segmented";
 import { Select } from "@/components/ui/select";
-import type { Recurrence, TaskKind } from "@/lib/types";
+import { rhythmLabel } from "@/lib/data/derive";
+import type { Rhythm, TaskKind } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 export const kindLabel: Record<TaskKind, string> = {
@@ -19,19 +22,40 @@ export type TaskDraft = {
   title: string;
   description: string;
   kind: TaskKind;
-  recurrence?: Recurrence;
-  dueDate?: string;
+  /** Verplicht bij een opdracht. Bij een sjabloon een voorstel. */
+  rhythm?: Rhythm;
+  until?: string;
   minutes?: number;
   scaleLabel?: string;
 };
 
-type Repeat = "eenmalig" | "dag" | "week";
+type RhythmKind = Rhythm["kind"];
 const dayNames = ["ma", "di", "wo", "do", "vr", "za", "zo"];
+
+function defaultRhythm(kind: RhythmKind, prev?: Rhythm): Rhythm {
+  switch (kind) {
+    case "dagelijks":
+      return { kind };
+    case "dagen":
+      return { kind, days: prev?.kind === "dagen" ? prev.days : [1, 3, 5] };
+    case "perWeek":
+      return { kind, times: prev?.kind === "perWeek" ? prev.times : 3 };
+    case "eenmalig":
+      return { kind, due: prev?.kind === "eenmalig" ? prev.due : format(addDays(new Date(), 7), "yyyy-MM-dd") };
+  }
+}
+
+export const rhythmOptions: { value: RhythmKind; label: string }[] = [
+  { value: "dagelijks", label: "Elke dag" },
+  { value: "dagen", label: "Vaste dagen" },
+  { value: "perWeek", label: "x per week" },
+  { value: "eenmalig", label: "Eenmalig" },
+];
 
 /** Formulier voor een opdracht of sjabloon. `withDates` toont deadline of einddatum. */
 export function TaskFields({ value, onChange, withDates }: { value: TaskDraft; onChange: (v: TaskDraft) => void; withDates?: boolean }) {
-  const repeat: Repeat = value.recurrence ? value.recurrence.every : "eenmalig";
   const set = (patch: Partial<TaskDraft>) => onChange({ ...value, ...patch });
+  const r = value.rhythm;
 
   return (
     <div className="grid gap-4">
@@ -41,7 +65,7 @@ export function TaskFields({ value, onChange, withDates }: { value: TaskDraft; o
       </div>
       <div>
         <Label htmlFor="t-desc">Uitleg voor je cliënt</Label>
-        <Textarea id="t-desc" value={value.description} onChange={(e) => set({ description: e.target.value })} placeholder="Kort en concreet." />
+        <Textarea id="t-desc" value={value.description} onChange={(e) => set({ description: e.target.value })} placeholder="Kort en concreet. Dit staat in de sheet, niet in de lijst." />
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
@@ -67,36 +91,34 @@ export function TaskFields({ value, onChange, withDates }: { value: TaskDraft; o
           </div>
         )}
       </div>
-      <div>
-        <Label>Herhaling</Label>
-        <Segmented
-          label="Herhaling"
-          value={repeat}
-          onChange={(r) =>
-            set({
-              recurrence: r === "eenmalig" ? undefined : r === "dag" ? { every: "dag", until: value.recurrence?.until } : { every: "week", days: value.recurrence?.days ?? [1, 3, 5], until: value.recurrence?.until },
-            })
-          }
-          options={[
-            { value: "eenmalig", label: "Eenmalig" },
-            { value: "dag", label: "Elke dag" },
-            { value: "week", label: "Vaste dagen" },
-          ]}
-        />
-        {repeat === "week" && (
-          <div className="mt-3 flex gap-1">
+
+      <fieldset>
+        <legend className="mb-1.5 text-[13px] font-medium text-text">
+          Ritme{withDates && <span className="font-normal text-muted">, kies er één</span>}
+        </legend>
+        <div className="-mx-1 overflow-x-auto px-1">
+          <Segmented
+            label="Ritme"
+            value={r?.kind ?? ("" as RhythmKind)}
+            onChange={(k) => set({ rhythm: defaultRhythm(k, r) })}
+            options={rhythmOptions}
+          />
+        </div>
+
+        {r?.kind === "dagen" && (
+          <div className="mt-3 flex flex-wrap gap-1">
             {dayNames.map((d, i) => {
-              const on = value.recurrence?.days?.includes(i + 1);
+              const on = r.days.includes(i + 1);
               return (
                 <button
                   key={d}
                   type="button"
                   aria-pressed={on}
                   onClick={() => {
-                    const days = new Set(value.recurrence?.days ?? []);
+                    const days = new Set(r.days);
                     if (on) days.delete(i + 1);
                     else days.add(i + 1);
-                    set({ recurrence: { ...value.recurrence!, days: [...days].sort() } });
+                    set({ rhythm: { kind: "dagen", days: [...days].sort() } });
                   }}
                   className={cn("size-9 rounded-full text-[13px] transition-colors", on ? "bg-accent text-on-accent" : "bg-oat-soft text-muted hover:bg-surface-2")}
                 >
@@ -106,23 +128,33 @@ export function TaskFields({ value, onChange, withDates }: { value: TaskDraft; o
             })}
           </div>
         )}
-      </div>
-      {withDates && (
+
+        {r?.kind === "perWeek" && (
+          <div className="mt-3 flex items-center gap-3">
+            <Button type="button" variant="soft" size="icon-sm" aria-label="Minder" disabled={r.times <= 1} onClick={() => set({ rhythm: { kind: "perWeek", times: r.times - 1 } })}>
+              <Minus />
+            </Button>
+            <span className="min-w-24 text-center text-[14px] tabular-nums">{r.times}x per week</span>
+            <Button type="button" variant="soft" size="icon-sm" aria-label="Meer" disabled={r.times >= 6} onClick={() => set({ rhythm: { kind: "perWeek", times: r.times + 1 } })}>
+              <Plus />
+            </Button>
+          </div>
+        )}
+
+        {r && <p className="mt-2 text-[12px] text-muted">Je cliënt ziet: {rhythmLabel(r)}. {rhythmHint[r.kind]}</p>}
+      </fieldset>
+
+      {withDates && r && (
         <div>
-          {repeat === "eenmalig" ? (
+          {r.kind === "eenmalig" ? (
             <>
-              <Label htmlFor="t-due">Tegen wanneer?</Label>
-              <Input id="t-due" type="date" value={value.dueDate ?? ""} onChange={(e) => set({ dueDate: e.target.value || undefined })} />
+              <Label htmlFor="t-due">Voor wanneer?</Label>
+              <Input id="t-due" type="date" value={r.due} onChange={(e) => e.target.value && set({ rhythm: { kind: "eenmalig", due: e.target.value } })} />
             </>
           ) : (
             <>
               <Label htmlFor="t-until">Tot wanneer? (optioneel)</Label>
-              <Input
-                id="t-until"
-                type="date"
-                value={value.recurrence?.until ?? ""}
-                onChange={(e) => set({ recurrence: { ...value.recurrence!, until: e.target.value || undefined } })}
-              />
+              <Input id="t-until" type="date" value={value.until ?? ""} onChange={(e) => set({ until: e.target.value || undefined })} />
             </>
           )}
         </div>
@@ -130,6 +162,13 @@ export function TaskFields({ value, onChange, withDates }: { value: TaskDraft; o
     </div>
   );
 }
+
+const rhythmHint: Record<RhythmKind, string> = {
+  dagelijks: "Staat elke dag in Vandaag.",
+  dagen: "Staat enkel op die dagen in Vandaag.",
+  perWeek: "Staat elke dag in Vandaag tot het aantal gehaald is.",
+  eenmalig: "Staat in Vandaag tot het gedaan is of de datum voorbij is.",
+};
 
 export function FormActions({ onCancel, submitLabel, disabled }: { onCancel: () => void; submitLabel: string; disabled?: boolean }) {
   return (

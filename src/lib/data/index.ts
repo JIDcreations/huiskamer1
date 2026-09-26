@@ -7,6 +7,7 @@
 import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { useStore, type StoreState } from "@/lib/mock/store";
 import { CURRENT_CLIENT_ID, PSY_ID } from "@/lib/mock/seed";
+import { agendaFor } from "@/lib/data/derive";
 import type { EditorAuthor } from "@/components/editor/authorship";
 import type { ID, Role } from "@/lib/types";
 
@@ -60,15 +61,15 @@ export function useAppointments(clientId?: ID) {
   return useMemo(() => (clientId ? all.filter((a) => a.clientId === clientId) : all), [all, clientId]);
 }
 
-export function useTablePages(clientId: ID) {
-  const all = useStore((s) => s.tablePages);
-  return useMemo(
-    () => all.filter((p) => p.clientId === clientId).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)),
-    [all, clientId]
-  );
+export function useSessionPages(clientId: ID) {
+  const all = useStore((s) => s.sessionPages);
+  return useMemo(() => all.filter((p) => p.clientId === clientId), [all, clientId]);
 }
 
-export const useTablePage = (id: ID | undefined) => useStore((s) => s.tablePages.find((p) => p.id === id));
+export const useSessionPage = (appointmentId: ID | undefined) =>
+  useStore((s) => s.sessionPages.find((p) => p.appointmentId === appointmentId));
+
+export const useAppointment = (id: ID | undefined) => useStore((s) => s.appointments.find((a) => a.id === id));
 
 export function useJournal(clientId: ID, opts: { sharedOnly?: boolean } = {}) {
   const all = useStore((s) => s.journal);
@@ -81,6 +82,20 @@ export function useJournal(clientId: ID, opts: { sharedOnly?: boolean } = {}) {
     [all, clientId, sharedOnly]
   );
 }
+
+/** "Voor volgende keer". Voor de psycholoog vallen punten met een niet-gedeelde entry weg. */
+export function useAgenda(clientId: ID, opts: { forPsy?: boolean } = {}) {
+  const agenda = useStore((s) => s.agenda);
+  const appointments = useStore((s) => s.appointments);
+  const journal = useStore((s) => s.journal);
+  const { forPsy } = opts;
+  return useMemo(() => agendaFor(agenda, appointments, journal, clientId, { forPsy }), [agenda, appointments, journal, clientId, forPsy]);
+}
+
+export const useAgendaRaw = () => useStore((s) => s.agenda);
+export const usePrefs = () => useStore((s) => s.prefs);
+
+export const useJournalAll = () => useStore((s) => s.journal);
 
 export const useJournalEntry = (id: ID | undefined) => useStore((s) => s.journal.find((j) => j.id === id));
 
@@ -103,7 +118,7 @@ export function useTasks(clientId?: ID, opts: { archived?: boolean } = {}) {
   );
 }
 
-export const useTaskEntries = () => useStore((s) => s.taskEntries);
+export const useTask = (id: ID | undefined) => useStore((s) => s.tasks.find((t) => t.id === id));
 
 export function useInvoices(clientId?: ID) {
   const all = useStore((s) => s.invoices);
@@ -117,14 +132,13 @@ export function useInvoices(clientId?: ID) {
 /** Alles wat de afgeleide functies nodig hebben, in één keer. */
 export function useActivitySource() {
   const appointments = useStore((s) => s.appointments);
-  const tablePages = useStore((s) => s.tablePages);
+  const sessionPages = useStore((s) => s.sessionPages);
+  const agenda = useStore((s) => s.agenda);
   const journal = useStore((s) => s.journal);
   const sessionNotes = useStore((s) => s.sessionNotes);
-  const tasks = useStore((s) => s.tasks);
-  const taskEntries = useStore((s) => s.taskEntries);
   return useMemo(
-    () => ({ appointments, tablePages, journal, sessionNotes, tasks, taskEntries }),
-    [appointments, tablePages, journal, sessionNotes, tasks, taskEntries]
+    () => ({ appointments, sessionPages, agenda, journal, sessionNotes }),
+    [appointments, sessionPages, agenda, journal, sessionNotes]
   );
 }
 

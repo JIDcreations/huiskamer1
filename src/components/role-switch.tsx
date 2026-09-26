@@ -8,7 +8,7 @@ import type { Role } from "@/lib/types";
 export type { Role };
 
 const roles: { value: Role; label: string; home: string }[] = [
-  { value: "client", label: "Cliënt", home: "/c/home" },
+  { value: "client", label: "Cliënt", home: "/c/vandaag" },
   { value: "psy", label: "Psycholoog", home: "/p/vandaag" },
 ];
 

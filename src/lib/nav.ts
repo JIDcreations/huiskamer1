@@ -1,11 +1,11 @@
 import {
+  Bell,
   CalendarDays,
-  Files,
-  House,
   ListChecks,
-  NotebookPen,
+    NotebookPen,
   Receipt,
   Settings,
+  ShieldCheck,
   Sun,
   UserRound,
   Users,
@@ -36,28 +36,21 @@ export const psyNavFooter: NavItem[] = [
   { href: "/p/instellingen", label: "Instellingen", icon: Settings },
 ];
 
-export const clientNav: NavGroup[] = [
-  {
-    items: [
-      { href: "/c/home", label: "Overzicht", icon: House },
-      { href: "/c/afspraken", label: "Afspraken", icon: CalendarDays },
-    ],
-  },
-  {
-    label: "Tussen de sessies",
-    items: [
-      { href: "/c/tafel", label: "Tafel", icon: Files },
-      { href: "/c/logboek", label: "Logboek", icon: NotebookPen },
-      { href: "/c/opdrachten", label: "Opdrachten", icon: ListChecks },
-    ],
-  },
-  {
-    label: "Administratie",
-    items: [{ href: "/c/betalingen", label: "Betalingen", icon: Receipt }],
-  },
+/** Cliënt: drie plekken, in tijd gedacht. */
+export const clientTabs: NavItem[] = [
+  { href: "/c/vandaag", label: "Vandaag", icon: Sun },
+  { href: "/c/logboek", label: "Logboek", icon: NotebookPen },
+  { href: "/c/sessies", label: "Sessies", icon: CalendarDays },
 ];
 
-export const clientNavFooter: NavItem[] = [
+export const clientNav: NavGroup[] = [{ items: clientTabs }];
+
+/** Onder de avatar. */
+export const clientMenu: NavItem[] = [
+  { href: "/c/opdrachten", label: "Alle opdrachten", icon: ListChecks },
+  { href: "/c/betalingen", label: "Betalingen", icon: Receipt },
+  { href: "/c/herinneringen", label: "Herinneringen", icon: Bell },
+  { href: "/c/privacy", label: "Privacy", icon: ShieldCheck },
   { href: "/c/profiel", label: "Profiel", icon: UserRound },
 ];
 

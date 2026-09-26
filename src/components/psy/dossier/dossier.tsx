@@ -8,34 +8,30 @@ import { NewAppointmentSheet } from "@/components/psy/appointment-sheet";
 import { ClientStatusBadge, clientStatusLabel } from "@/components/psy/client-status";
 import { InvoicesTab } from "@/components/psy/dossier/invoices-tab";
 import { JournalTab } from "@/components/psy/dossier/journal-tab";
-import { NotesTab } from "@/components/psy/dossier/notes-tab";
 import { Overview } from "@/components/psy/dossier/overview";
+import { SessionsTab } from "@/components/psy/dossier/sessions-tab";
 import { TasksTab } from "@/components/psy/dossier/tasks-tab";
-import { Timeline } from "@/components/psy/dossier/timeline";
-import { TafelWorkspace } from "@/components/tafel/workspace";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Menu, MenuContent, MenuItem, MenuTrigger } from "@/components/ui/menu";
 import { toast } from "@/components/ui/toast";
-import { actions, PSY_ID, useClient } from "@/lib/data";
+import { actions, useClient } from "@/lib/data";
 import { formatFullDate } from "@/lib/format";
 import type { ClientStatus } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 export const dossierTabs = [
   { id: "overzicht", label: "Overzicht" },
-  { id: "tijdlijn", label: "Tijdlijn" },
-  { id: "tafel", label: "Tafel" },
   { id: "logboek", label: "Logboek" },
+  { id: "sessies", label: "Sessies" },
   { id: "opdrachten", label: "Opdrachten" },
-  { id: "sessienotities", label: "Sessienotities", private: true },
   { id: "betalingen", label: "Betalingen" },
 ] as const;
 
 export type DossierTab = (typeof dossierTabs)[number]["id"];
 
-export function Dossier({ clientId, tab, pageId }: { clientId: string; tab: DossierTab; pageId?: string }) {
+export function Dossier({ clientId, tab }: { clientId: string; tab: DossierTab }) {
   const client = useClient(clientId);
   const [planning, setPlanning] = useState(false);
   const [assigning, setAssigning] = useState(false);
@@ -124,7 +120,7 @@ export function Dossier({ clientId, tab, pageId }: { clientId: string; tab: Doss
             return (
               <li key={t.id}>
                 <Link
-                  href={t.id === "overzicht" ? base : t.id === "tafel" ? `${base}/tafel` : `${base}?tab=${t.id}`}
+                  href={t.id === "overzicht" ? base : `${base}?tab=${t.id}`}
                   aria-current={active ? "page" : undefined}
                   scroll={false}
                   className={cn(
@@ -132,7 +128,6 @@ export function Dossier({ clientId, tab, pageId }: { clientId: string; tab: Doss
                     active ? "border-accent font-medium text-text" : "border-transparent text-muted hover:text-text"
                   )}
                 >
-                  {"private" in t && <Lock className="size-3.5 stroke-[1.75]" />}
                   {t.label}
                 </Link>
               </li>
@@ -141,17 +136,11 @@ export function Dossier({ clientId, tab, pageId }: { clientId: string; tab: Doss
         </ul>
       </nav>
 
-      <div className={cn("pt-7", tab === "sessienotities" && "-mx-5 mt-0 bg-surface-2/40 px-5 pb-10 md:mx-0 md:rounded-b-card md:px-6")}>
+      <div className="pt-7">
         {tab === "overzicht" && <Overview client={client} onPlan={() => setPlanning(true)} />}
-        {tab === "tijdlijn" && (
-          <div className="max-w-[760px]">
-            <Timeline clientId={client.id} />
-          </div>
-        )}
-        {tab === "tafel" && <TafelWorkspace clientId={client.id} viewer={{ id: PSY_ID, role: "psy" }} otherId={client.id} pageId={pageId} basePath={`${base}/tafel`} />}
         {tab === "logboek" && <JournalTab client={client} />}
+        {tab === "sessies" && <SessionsTab client={client} onPlan={() => setPlanning(true)} />}
         {tab === "opdrachten" && <TasksTab client={client} />}
-        {tab === "sessienotities" && <NotesTab client={client} />}
         {tab === "betalingen" && <InvoicesTab client={client} />}
       </div>
 

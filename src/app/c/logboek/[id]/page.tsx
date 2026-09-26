@@ -3,17 +3,30 @@
 import { use, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Check, Lock, MoreHorizontal, Trash2 } from "lucide-react";
+import { ArrowLeft, CalendarCheck, CalendarPlus, Check, MoreHorizontal, Trash2 } from "lucide-react";
 import { Editor } from "@/components/editor/editor";
 import { MoodPicker } from "@/components/shared/mood";
+import { RhythmLabel } from "@/components/shared/rhythm";
+import { ShareSwitch } from "@/components/shared/share";
 import { TagInput } from "@/components/shared/tag-input";
+import { ScalePicker } from "@/components/shared/task-row";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Menu, MenuContent, MenuItem, MenuTrigger } from "@/components/ui/menu";
 import { toast } from "@/components/ui/toast";
-import { Toggle } from "@/components/ui/toggle";
-import { actions, CURRENT_CLIENT_ID, useJournal, useJournalEntry, usePsychologist } from "@/lib/data";
-import { capitalize, formatLongDate, formatTime, formatWhen } from "@/lib/format";
+import {
+  actions,
+  CURRENT_CLIENT_ID,
+  isOnAgenda,
+  journalKindLabel,
+  useAgendaRaw,
+  useAppointments,
+  useJournal,
+  useJournalEntry,
+  usePsychologist,
+  useTask,
+} from "@/lib/data";
+import { capitalize, formatDayMonth, formatLongDate, formatTime, formatWhen } from "@/lib/format";
 import { useAutosave } from "@/lib/use-autosave";
 import type { Block } from "@/lib/types";
 
@@ -24,6 +37,11 @@ export default function Entry({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
   const psy = usePsychologist();
   const entry = useJournalEntry(id);
+  const task = useTask(entry?.taskId);
+  const agenda = useAgendaRaw();
+  const appointments = useAppointments();
+  const onAgenda = isOnAgenda(agenda, appointments, id);
+  const planned = onAgenda?.appointment?.status === "gepland" ? onAgenda.appointment : undefined;
   const all = useJournal(CURRENT_CLIENT_ID);
   const suggestions = useMemo(() => [...new Set(all.flatMap((e) => e.tags))], [all]);
   const [title, setTitle] = useState(entry?.title ?? "");
@@ -91,56 +109,111 @@ export default function Entry({ params }: { params: Promise<{ id: string }> }) {
         </div>
       </div>
 
-      {/* Delen: altijd zichtbaar, nooit verstopt. */}
-      <label className="mb-4 flex cursor-pointer items-center justify-between gap-4 rounded-card bg-surface px-5 py-4 shadow-soft ring-1 ring-surface-2/60">
-        <span className="flex items-start gap-3">
-          {!entry.sharedWithPsychologist && <Lock className="mt-0.5 size-4 shrink-0 stroke-[1.5] text-taupe" />}
-          <span>
-            <span className="block text-[15px] font-medium">Delen met {psy.firstName}</span>
-            <span className="block text-[13px] text-muted">
-              {entry.sharedWithPsychologist ? `${psy.firstName} kan deze entry lezen.` : "Enkel jij ziet deze entry."}
-            </span>
-          </span>
-        </span>
-        <Toggle
-          aria-label={`Delen met ${psy.firstName}`}
-          checked={entry.sharedWithPsychologist}
-          onCheckedChange={(v) => {
+      {/* Delen: altijd zichtbaar, altijd op dezelfde plek. */}
+      <div className="mb-4 rounded-card bg-surface px-5 py-4 shadow-soft ring-1 ring-surface-2/60">
+        <ShareSwitch
+          shared={entry.sharedWithPsychologist}
+          onChange={(v) => {
             actions.updateJournal(id, { sharedWithPsychologist: v });
             toast(v ? `Gedeeld met ${psy.firstName}` : "Enkel voor jou");
           }}
         />
-      </label>
+      </div>
 
       <div className="rounded-card bg-surface px-5 pb-8 pt-7 shadow-soft ring-1 ring-surface-2/60 md:px-10 md:pt-9">
-        <p className="mb-5 text-[13px] text-muted">
-          {capitalize(formatLongDate(entry.createdAt))}, {formatTime(entry.createdAt)}
-        </p>
+        <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+          <p className="text-[13px] font-medium text-muted">{entry.kind === "opdracht" ? task?.title ?? "Opdracht" : journalKindLabel[entry.kind]}</p>
+          <p className="text-[13px] text-faint">
+            {capitalize(formatLongDate(entry.createdAt))}, {formatTime(entry.createdAt)}
+          </p>
+        </div>
 
-        <p className="mb-2 text-[13px] text-muted">Hoe voel je je?</p>
-        <MoodPicker value={entry.mood} onChange={(mood) => actions.updateJournal(id, { mood })} />
+        {entry.kind === "opdracht" && task && (
+          <div className="mb-6 rounded-xl bg-oat-soft/70 px-4 py-3">
+            <p className="text-[14px] leading-relaxed text-muted">{task.description}</p>
+            <RhythmLabel rhythm={task.rhythm} className="mt-1.5" />
+          </div>
+        )}
 
-        <div className="mt-8">
+        {entry.kind === "opdracht" && task?.kind === "schaal" && (
+          <div className="mb-6">
+            <p className="mb-2 text-[13px] text-muted">{task.scaleLabel ?? "Score"}, van 1 tot 10</p>
+            <ScalePicker value={entry.scale} onChange={(scale) => actions.updateJournal(id, { scale })} label={task.scaleLabel ?? task.title} />
+          </div>
+        )}
+
+        {entry.kind !== "opdracht" && (
+          <>
+            <p className="mb-2 text-[13px] text-muted">Hoe voel je je?</p>
+            <MoodPicker value={entry.mood} onChange={(mood) => actions.updateJournal(id, { mood })} />
+          </>
+        )}
+
+        <div className={entry.kind === "opdracht" ? "" : "mt-8"}>
           <Editor
             blocks={entry.blocks}
             authorId={CURRENT_CLIENT_ID}
-            title={title}
-            onTitleChange={(t) => {
-              setTitle(t);
-              titleSave.schedule(t);
-            }}
+            title={entry.kind === "notitie" ? title : undefined}
+            onTitleChange={
+              entry.kind === "notitie"
+                ? (t) => {
+                    setTitle(t);
+                    titleSave.schedule(t);
+                  }
+                : undefined
+            }
             titlePlaceholder="Titel, als je wil"
-            placeholder="Wat houdt je bezig? Schrijf zoals het komt."
-            autoFocus={!entry.blocks.length}
+            placeholder={
+              entry.kind === "checkin"
+                ? "Wil je er iets bij zeggen?"
+                : entry.kind === "opdracht"
+                  ? "Je antwoord of een notitie"
+                  : "Wat houdt je bezig? Schrijf zoals het komt."
+            }
+            autoFocus={entry.kind === "notitie" && !entry.blocks.length}
             onChange={blocksSave.schedule}
             className="max-w-none"
           />
         </div>
 
-        <div className="mt-8 border-t border-surface-2 pt-5">
-          <p className="mb-2 text-[13px] text-muted">Tags</p>
-          <TagInput value={entry.tags} onChange={(tags) => actions.updateJournal(id, { tags })} suggestions={suggestions} />
-        </div>
+        {entry.kind === "notitie" && (
+          <div className="mt-8 border-t border-surface-2 pt-5">
+            <p className="mb-2 text-[13px] text-muted">Tags</p>
+            <TagInput value={entry.tags} onChange={(tags) => actions.updateJournal(id, { tags })} suggestions={suggestions} />
+          </div>
+        )}
+      </div>
+
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 px-1">
+        {planned ? (
+          <span className="inline-flex items-center gap-1.5 text-[13px] text-muted">
+            <CalendarCheck className="size-4 stroke-[1.5] text-taupe" />
+            Op de agenda voor {formatDayMonth(planned.start)}
+          </span>
+        ) : (
+          <Button
+            variant="soft"
+            size="sm"
+            onClick={() => {
+              const added = actions.addAgendaItem({ clientId: CURRENT_CLIENT_ID, by: CURRENT_CLIENT_ID, journalEntryId: id });
+              toast(added ? "Op de agenda voor je volgende sessie" : "Er is nog geen sessie gepland");
+            }}
+          >
+            <CalendarPlus /> Neem mee naar de sessie
+          </Button>
+        )}
+        {planned && (
+          <Button
+            variant="quiet"
+            size="sm"
+            onClick={() => {
+              actions.removeAgendaItem(onAgenda!.item.id);
+              toast("Van de agenda gehaald");
+            }}
+          >
+            Van de agenda halen
+          </Button>
+        )}
       </div>
 
       {entry.psychologistNote && (

@@ -7,7 +7,7 @@ import { Input, Label } from "@/components/ui/input";
 import { RoleSwitch, type Role } from "@/components/role-switch";
 
 const demo: Record<Role, { email: string; home: string }> = {
-  client: { email: "lotte.janssens@voorbeeld.be", home: "/c/home" },
+  client: { email: "lotte.janssens@voorbeeld.be", home: "/c/vandaag" },
   psy: { email: "sarah@praktijkdelinde.be", home: "/p/vandaag" },
 };
 

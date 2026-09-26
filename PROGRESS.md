@@ -1,10 +1,10 @@
 # Dagrun 26 september: voortgang
 
-Laatste update: 2026-09-26 10:37
+Laatste update: 2026-09-26 10:43
 
 ## Fases
-- [ ] 1. UX-herwerking cliëntkant
-- [ ] 2. UX-herwerking psycholoogkant
+- [x] 1. UX-herwerking cliëntkant
+- [x] 2. UX-herwerking psycholoogkant (samen met fase 1 gecommit: het datamodel raakt beide kanten)
 - [ ] 3. UI naar professioneel niveau
 - [ ] 4. Elk detail uitwerken
 - [ ] 5. Mockdata rijker
@@ -15,7 +15,11 @@ Laatste update: 2026-09-26 10:37
 - [ ] 10. Eindrapport (SUMMARY.md)
 
 ## Nu bezig
-Fase 1 en 2 samen: het nieuwe datamodel raakt beide kanten, dus de build wordt pas groen als de psycholoogkant mee is. Cliëntkant is geschreven (Vandaag, Logboek, Sessies, sheets, onboarding, avatar-menu), psycholoogkant volgt. Nog niets van de UI gecommit tot de build groen is.
+Fase 3: UI naar professioneel niveau (typeschaal met Instrument Serif, spacing, component states, tab bar, sidebar).
 
 ## Volgende stap
-Psycholoogkant: task-form met verplicht ritme, dossier-tabs (Overzicht, Logboek, Sessies, Opdrachten, Betalingen), sessiepagina met privénotities, Vandaag.
+Typografie en tokens in globals.css, dan componenten een voor een.
+
+## Open punten voor later
+- `npm run test:demo` (scripts/e2e-demo.mjs) test nog de oude Tafel-flow. Herschrijven in fase 8.
+- VOORTGANG.md en README.md beschrijven nog de oude structuur. Bijwerken in fase 9/10.

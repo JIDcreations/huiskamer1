@@ -6,12 +6,13 @@ import { Label } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Sheet } from "@/components/ui/sheet";
 import { toast } from "@/components/ui/toast";
-import { actions, useClients, useTemplates } from "@/lib/data";
+import { actions, pastSessions, useAppointments, useClients, useTemplates } from "@/lib/data";
+import { formatDayMonth } from "@/lib/format";
 import type { ID, TaskTemplate } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 function fromTemplate(t: TaskTemplate): TaskDraft {
-  return { title: t.title, description: t.description, kind: t.kind, recurrence: t.defaultRecurrence, minutes: t.minutes, scaleLabel: t.scaleLabel };
+  return { title: t.title, description: t.description, kind: t.kind, rhythm: t.defaultRhythm, minutes: t.minutes, scaleLabel: t.scaleLabel };
 }
 
 /** Opdracht geven: vanuit een sjabloon of zelf, aan een vaste of te kiezen cliënt. */
@@ -20,18 +21,25 @@ export function AssignTaskSheet({
   onOpenChange,
   clientId,
   templateId,
+  appointmentId,
 }: {
   open: boolean;
   onOpenChange: (o: boolean) => void;
   clientId?: ID;
   templateId?: ID;
+  /** De sessie waaruit de opdracht komt. Zonder: de laatste voorbije sessie. */
+  appointmentId?: ID;
 }) {
+  const appointments = useAppointments();
   const templates = useTemplates();
   const clients = useClients().filter((c) => c.status === "actief");
   const initial = templates.find((t) => t.id === templateId);
   const [picked, setPicked] = useState<ID | "eigen" | null>(initial ? initial.id : null);
   const [draft, setDraft] = useState<TaskDraft>(initial ? fromTemplate(initial) : { title: "", description: "", kind: "afvinken" });
   const [client, setClient] = useState<ID>(clientId ?? clients[0]?.id ?? "");
+  const session = appointmentId
+    ? appointments.find((a) => a.id === appointmentId)
+    : pastSessions(appointments.filter((a) => a.clientId === client))[0];
 
   const choose = (id: ID | "eigen") => {
     setPicked(id);
@@ -58,12 +66,18 @@ export function AssignTaskSheet({
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            if (!draft.rhythm) return;
             actions.createTask({
               clientId: client,
+              appointmentId: session?.id,
               templateId: picked === "eigen" ? undefined : picked,
-              ...draft,
               title: draft.title.trim(),
               description: draft.description.trim(),
+              kind: draft.kind,
+              rhythm: draft.rhythm,
+              until: draft.rhythm.kind === "eenmalig" ? undefined : draft.until,
+              minutes: draft.kind === "meditatie" ? draft.minutes ?? 10 : undefined,
+              scaleLabel: draft.kind === "schaal" ? draft.scaleLabel : undefined,
             });
             toast("Opdracht gegeven");
             onOpenChange(false);
@@ -82,10 +96,13 @@ export function AssignTaskSheet({
             </div>
           )}
           <TaskFields value={draft} onChange={setDraft} withDates />
+          {session && (
+            <p className="mt-4 text-[12px] text-muted">Hoort bij de sessie van {formatDayMonth(session.start)}, onder &ldquo;Wat we afspraken&rdquo;.</p>
+          )}
           <button type="button" onClick={() => setPicked(null)} className={cn("mt-4 text-[13px] text-muted underline decoration-surface-2 underline-offset-4 hover:text-text")}>
             Ander sjabloon kiezen
           </button>
-          <FormActions onCancel={() => onOpenChange(false)} submitLabel="Geven" disabled={!draft.title.trim() || !client} />
+          <FormActions onCancel={() => onOpenChange(false)} submitLabel="Geven" disabled={!draft.title.trim() || !client || !draft.rhythm} />
         </form>
       )}
     </Sheet>

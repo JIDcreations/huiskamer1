@@ -1,13 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { BlocksView } from "@/components/editor/blocks-view";
+import { JournalTimeline, WeekStrip } from "@/components/shared/journal-list";
 import { MoodDots } from "@/components/shared/mood";
+import { Panel } from "@/components/shared/panel";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Textarea } from "@/components/ui/input";
+import { Sheet } from "@/components/ui/sheet";
 import { toast } from "@/components/ui/toast";
-import { actions, useJournal, usePsychologist } from "@/lib/data";
+import { actions, journalKindLabel, useJournal, usePsychologist, useTask } from "@/lib/data";
 import { capitalize, formatLongDate, formatTime, formatWhen } from "@/lib/format";
 import type { Client, JournalEntry } from "@/lib/types";
 
@@ -66,36 +70,65 @@ function NoteEditor({ entry, client }: { entry: JournalEntry; client: Client }) 
 
 /** Enkel gedeelde entries. Niet-gedeelde bestaan hier niet, ook niet als aantal. */
 export function JournalTab({ client }: { client: Client }) {
-  const entries = useJournal(client.id, { sharedOnly: true }).filter((e) => e.blocks.length || e.title);
-
-  if (!entries.length) {
-    return <EmptyState title="Nog niets gedeeld" description={`Als ${client.firstName} een logboekentry deelt, lees je ze hier.`} />;
-  }
+  const router = useRouter();
+  const params = useSearchParams();
+  const entries = useJournal(client.id, { sharedOnly: true }).filter((e) => e.kind !== "notitie" || e.blocks.length || e.title);
+  const openId = params.get("entry");
+  const open = entries.find((e) => e.id === openId);
+  const base = `/p/clienten/${client.id}?tab=logboek`;
+  const task = useTask(open?.taskId);
 
   return (
-    <div className="mx-auto flex max-w-[720px] flex-col gap-4">
-      {entries.map((e) => (
-        <article key={e.id} id={e.id} className="scroll-mt-24 rounded-card bg-surface px-5 py-5 shadow-soft ring-1 ring-surface-2/60 md:px-7">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <p className="text-[13px] text-muted">
-              {capitalize(formatLongDate(e.createdAt))}, {formatTime(e.createdAt)}
-            </p>
-            <MoodDots value={e.mood} />
-          </div>
-          {e.title && <h3 className="mt-2 text-[17px] font-semibold tracking-tight">{e.title}</h3>}
-          <BlocksView blocks={e.blocks} className="mt-2 text-[15px]" />
-          {e.tags.length > 0 && (
-            <div className="mt-3 flex flex-wrap gap-1.5">
-              {e.tags.map((t) => (
-                <span key={t} className="rounded-full bg-oat-soft px-2 py-0.5 text-[12px] text-muted">
-                  {t}
-                </span>
-              ))}
+    <div className="mx-auto max-w-[760px]">
+      <Panel bodyClassName="px-2 py-2 md:px-3">
+        <WeekStrip entries={entries} />
+      </Panel>
+      <div className="mt-8">
+        <JournalTimeline
+          entries={entries}
+          viewer="psy"
+          hrefFor={(e) => `${base}&entry=${e.id}`}
+          empty={
+            <div className="rounded-card bg-surface shadow-soft ring-1 ring-surface-2/60">
+              <EmptyState title="Nog niets gedeeld" description={`Als ${client.firstName} iets deelt, lees je het hier.`} />
             </div>
-          )}
-          <NoteEditor entry={e} client={client} />
-        </article>
-      ))}
+          }
+        />
+      </div>
+
+      <Sheet
+        open={Boolean(open)}
+        onOpenChange={(o) => !o && router.replace(base, { scroll: false })}
+        title={open ? (open.kind === "opdracht" ? task?.title ?? "Opdracht" : open.title || journalKindLabel[open.kind]) : ""}
+        description={open ? `${capitalize(formatLongDate(open.createdAt))}, ${formatTime(open.createdAt)}` : undefined}
+        className="md:max-w-xl"
+      >
+        {open && (
+          <div>
+            {open.mood && <MoodDots value={open.mood} className="mb-3" />}
+            {open.kind === "opdracht" && task?.kind === "schaal" && open.scale && (
+              <p className="mb-3 text-[15px]">
+                {task.scaleLabel ?? "Score"}: <span className="font-semibold tabular-nums">{open.scale}</span> op 10
+              </p>
+            )}
+            {open.blocks.length ? (
+              <BlocksView blocks={open.blocks} className="text-[15px]" />
+            ) : (
+              <p className="text-[14px] text-muted">{open.kind === "opdracht" ? "Gedaan, zonder notitie." : "Enkel een woord, zonder tekst."}</p>
+            )}
+            {open.tags.length > 0 && (
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {open.tags.map((t) => (
+                  <span key={t} className="rounded-full bg-oat-soft px-2 py-0.5 text-[12px] text-muted">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            )}
+            <NoteEditor key={open.id} entry={open} client={client} />
+          </div>
+        )}
+      </Sheet>
     </div>
   );
 }

@@ -24,6 +24,8 @@ export type ShellUser = {
 
 type ShellProps = {
   homeHref: string;
+  /** Mobiel: een tab bar onderaan in plaats van een lade. */
+  mobileTabs?: NavItem[];
   context: string;
   nav: NavGroup[];
   footerNav: NavItem[];
@@ -33,7 +35,17 @@ type ShellProps = {
   children: React.ReactNode;
 };
 
-function Brand({ href, context }: { href: string; context: string }) {
+function Brand({ href, context, compact }: { href: string; context: string; compact?: boolean }) {
+  if (compact) {
+    return (
+      <Link href={href} className="flex items-center gap-2" aria-label="Huiskamer">
+        <span aria-hidden className="flex size-7 items-center justify-center rounded-lg bg-accent text-[13px] font-semibold text-on-accent">
+          H
+        </span>
+        <span className="text-[15px] font-semibold tracking-tight text-text">Huiskamer</span>
+      </Link>
+    );
+  }
   return (
     <Link href={href} className="flex items-center gap-2.5">
       <span
@@ -69,7 +81,7 @@ function NavLink({ item }: { item: NavItem }) {
   );
 }
 
-function SidebarContent({ homeHref, context, nav, footerNav }: Omit<ShellProps, "user" | "children">) {
+function SidebarContent({ homeHref, context, nav, footerNav }: Omit<ShellProps, "user" | "children" | "mobileTabs">) {
   return (
     <div className="flex h-full flex-col">
       <div className="flex h-16 shrink-0 items-center px-5">
@@ -91,11 +103,13 @@ function SidebarContent({ homeHref, context, nav, footerNav }: Omit<ShellProps, 
           </div>
         ))}
       </nav>
-      <div className="flex flex-col gap-0.5 border-t border-surface-2 px-3 py-3">
-        {footerNav.map((item) => (
-          <NavLink key={item.href} item={item} />
-        ))}
-      </div>
+      {footerNav.length > 0 && (
+        <div className="flex flex-col gap-0.5 border-t border-surface-2 px-3 py-3">
+          {footerNav.map((item) => (
+            <NavLink key={item.href} item={item} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -138,6 +152,11 @@ function UserMenu({ user }: { user: ShellUser }) {
             );
           })}
           <DropdownMenu.Separator className="mx-1 my-1 h-px bg-surface-2" />
+          <div className="px-3 pb-2 pt-1.5 md:hidden">
+            <p className="mb-2 text-[11px] font-medium tracking-[0.08em] text-faint uppercase">Demo: bekijk als</p>
+            <RoleSwitch className="flex w-full" />
+          </div>
+          <DropdownMenu.Separator className="mx-1 my-1 h-px bg-surface-2 md:hidden" />
           <DropdownMenu.Item asChild className={menuItem}>
             <Link href="/">
               <LogOut /> Afmelden
@@ -149,11 +168,49 @@ function UserMenu({ user }: { user: ShellUser }) {
   );
 }
 
+function TabBar({ items }: { items: NavItem[] }) {
+  const pathname = usePathname();
+  return (
+    <nav
+      aria-label="Hoofdnavigatie"
+      className="glass fixed inset-x-0 bottom-0 z-30 border-t border-surface-2 pb-[env(safe-area-inset-bottom)] lg:hidden"
+    >
+      <div className="mx-auto flex max-w-md">
+        {items.map((item) => {
+          const active = isActive(pathname, item.href);
+          const Icon = item.icon;
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              aria-current={active ? "page" : undefined}
+              className={cn(
+                "relative flex h-16 flex-1 flex-col items-center justify-center gap-1 text-[11px] font-medium transition-colors duration-200",
+                active ? "text-text" : "text-faint hover:text-muted"
+              )}
+            >
+              {active && (
+                <motion.span
+                  layoutId="tabbar-active"
+                  className="absolute top-0 h-[2px] w-8 rounded-full bg-accent"
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                />
+              )}
+              <Icon className={cn("size-[22px] stroke-[1.5]", active ? "text-text" : "text-taupe")} />
+              {item.label}
+            </Link>
+          );
+        })}
+      </div>
+    </nav>
+  );
+}
+
 function MobileDrawer({
   open,
   onOpenChange,
   ...sidebar
-}: Omit<ShellProps, "user" | "children"> & { open: boolean; onOpenChange: (o: boolean) => void }) {
+}: Omit<ShellProps, "user" | "children" | "mobileTabs"> & { open: boolean; onOpenChange: (o: boolean) => void }) {
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <AnimatePresence>
@@ -202,7 +259,7 @@ function MobileDrawer({
   );
 }
 
-export function PlatformShell({ user, topbarStart, topbarEnd, children, ...sidebar }: ShellProps) {
+export function PlatformShell({ user, topbarStart, topbarEnd, mobileTabs, children, ...sidebar }: ShellProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const pathname = usePathname();
   const ready = useHydrateStore();
@@ -216,18 +273,24 @@ export function PlatformShell({ user, topbarStart, topbarEnd, children, ...sideb
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-[248px] border-r border-surface-2 bg-surface lg:block">
         <SidebarContent {...sidebar} />
       </aside>
-      <MobileDrawer open={drawerOpen} onOpenChange={setDrawerOpen} {...sidebar} />
+      {!mobileTabs && <MobileDrawer open={drawerOpen} onOpenChange={setDrawerOpen} {...sidebar} />}
 
       <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-surface-2 bg-surface/90 px-4 backdrop-blur-md md:px-8">
-        <Button
-          variant="quiet"
-          size="icon-sm"
-          className="-ml-1 lg:hidden"
-          aria-label="Menu"
-          onClick={() => setDrawerOpen(true)}
-        >
-          <Menu />
-        </Button>
+        {mobileTabs ? (
+          <div className="lg:hidden">
+            <Brand href={sidebar.homeHref} context={sidebar.context} compact />
+          </div>
+        ) : (
+          <Button
+            variant="quiet"
+            size="icon-sm"
+            className="-ml-1 lg:hidden"
+            aria-label="Menu"
+            onClick={() => setDrawerOpen(true)}
+          >
+            <Menu />
+          </Button>
+        )}
         <div className="min-w-0 flex-1">{topbarStart}</div>
         <div className="flex items-center gap-2 md:gap-3">
           {topbarEnd}
@@ -235,7 +298,10 @@ export function PlatformShell({ user, topbarStart, topbarEnd, children, ...sideb
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-5 pb-24 pt-8 md:px-8 md:pt-10">{ready ? children : <PageSkeleton />}</main>
+      <main className={cn("mx-auto max-w-6xl px-5 pt-8 md:px-8 md:pt-10", mobileTabs ? "pb-32 lg:pb-24" : "pb-24")}>
+        {ready ? children : <PageSkeleton />}
+      </main>
+      {mobileTabs && <TabBar items={mobileTabs} />}
 
       <RoleSwitch floating className="fixed bottom-4 right-4 z-40 hidden md:inline-flex" />
       <Toaster />

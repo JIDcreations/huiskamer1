@@ -11,13 +11,27 @@ import { Panel } from "@/components/shared/panel";
 import { statusLabel, typeLabel } from "@/components/shared/appointment-card";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { activityFor, useActivitySource, useAppointments, useClientsRaw, usePsychologist, useVisit, type Activity } from "@/lib/data";
+import {
+  activityFor,
+  agendaFor,
+  useActivitySource,
+  useAgendaRaw,
+  useAppointments,
+  useClientsRaw,
+  useJournalAll,
+  usePsychologist,
+  useVisit,
+  type Activity,
+} from "@/lib/data";
 import { formatLongDate, formatTime, greeting, plural } from "@/lib/format";
 import type { Appointment } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 function DayAgenda({ appointments, onOpen }: { appointments: Appointment[]; onOpen: (a: Appointment) => void }) {
   const clients = useClientsRaw();
+  const agenda = useAgendaRaw();
+  const all = useAppointments();
+  const journal = useJournalAll();
   const now = new Date();
   return (
     <ol className="flex flex-col">
@@ -27,15 +41,10 @@ function DayAgenda({ appointments, onOpen }: { appointments: Appointment[]; onOp
         const end = parseISO(a.end);
         const current = start <= now && end > now;
         const done = end <= now || a.status !== "gepland";
+        const points = a.status === "gepland" && !done ? agendaFor(agenda, all, journal, a.clientId, { forPsy: true }).items.length : 0;
         return (
-          <li key={a.id}>
-            <button
-              onClick={() => onOpen(a)}
-              className={cn(
-                "flex w-full items-center gap-4 rounded-xl px-2 py-3 text-left transition-colors hover:bg-oat-soft/60",
-                current && "bg-oat-soft"
-              )}
-            >
+          <li key={a.id} className={cn("flex items-center gap-2 rounded-xl pr-2 transition-colors hover:bg-oat-soft/60", current && "bg-oat-soft")}>
+            <button onClick={() => onOpen(a)} className="flex min-w-0 flex-1 items-center gap-4 rounded-xl px-2 py-3 text-left">
               <span className={cn("w-12 shrink-0 text-[15px] font-semibold tabular-nums", done && !current && "text-faint")}>{formatTime(start)}</span>
               {c && <Avatar name={`${c.firstName} ${c.lastName}`} tone="client" size="sm" />}
               <span className="min-w-0 flex-1">
@@ -44,10 +53,18 @@ function DayAgenda({ appointments, onOpen }: { appointments: Appointment[]; onOp
                 </span>
                 <span className="block text-[12px] text-muted">
                   {typeLabel[a.type]}, {a.mode}
+                  {current ? ", nu bezig" : a.status !== "gepland" ? `, ${statusLabel[a.status].toLowerCase()}` : done ? ", voorbij" : ""}
                 </span>
               </span>
-              <span className="text-[12px] text-muted">{current ? "Nu bezig" : a.status !== "gepland" ? statusLabel[a.status] : done ? "Voorbij" : ""}</span>
             </button>
+            {a.status === "gepland" && !done && (
+              <Link
+                href={`/p/clienten/${a.clientId}#voor-volgende-keer`}
+                className="shrink-0 rounded-full px-2.5 py-1 text-[12px] text-muted transition-colors hover:bg-surface-2/70 hover:text-text"
+              >
+                Voor volgende keer{points ? ` (${points})` : ""}
+              </Link>
+            )}
           </li>
         );
       })}
@@ -70,41 +87,47 @@ export default function Vandaag() {
 
   // Wat er tussen de sessies gebeurde: laatste drie dagen, zonder je eigen werk.
   const activity = useMemo(
-    () =>
-      activityFor(source, { since: subDays(new Date(), 3).toISOString() }).filter(
-        (a) => a.kind !== "appointment" && !(a.kind === "tafel" && a.authorId === psy.id)
-      ),
+    () => activityFor(source, { since: subDays(new Date(), 3).toISOString(), viewerId: psy.id }).filter((a) => a.kind !== "appointment"),
     [source, psy.id]
   );
   const fresh = activity.filter((a) => a.at > since);
-  // Opdrachten bundelen: één regel per opdracht, met het aantal keer.
+  // Bundelen: één regel per opdracht en één voor de check-ins van een cliënt, met het aantal keer.
   const byClient = useMemo(() => {
     const map = new Map<string, { activity: Activity; count: number }[]>();
-    const tasks = new Map<string, { activity: Activity; count: number }>();
+    const bundles = new Map<string, { activity: Activity; count: number }>();
     for (const a of activity) {
-      if (a.kind === "task") {
-        const existing = tasks.get(a.task.id);
+      const key =
+        a.kind === "journal" && a.entry.kind === "opdracht"
+          ? `t:${a.entry.taskId}`
+          : a.kind === "journal" && a.entry.kind === "checkin"
+            ? `c:${a.clientId}`
+            : null;
+      if (key) {
+        const existing = bundles.get(key);
         if (existing) {
           existing.count += 1;
           continue;
         }
       }
       const item = { activity: a, count: 1 };
-      if (a.kind === "task") tasks.set(a.task.id, item);
+      if (key) bundles.set(key, item);
       map.set(a.clientId, [...(map.get(a.clientId) ?? []), item]);
     }
     return [...map.entries()];
   }, [activity]);
 
+  const kindOf = (a: Activity) => (a.kind === "journal" ? a.entry.kind : a.kind);
   const counts = {
-    journal: fresh.filter((a) => a.kind === "journal").length,
-    tafel: fresh.filter((a) => a.kind === "tafel").length,
-    task: fresh.filter((a) => a.kind === "task").length,
+    notitie: fresh.filter((a) => kindOf(a) === "notitie").length,
+    opdracht: fresh.filter((a) => kindOf(a) === "opdracht").length,
+    reactie: fresh.filter((a) => a.kind === "session").length,
+    agenda: fresh.filter((a) => a.kind === "agenda").length,
   };
   const summary = [
-    counts.journal && plural(counts.journal, "gedeelde logboekentry", "gedeelde logboekentries"),
-    counts.tafel && plural(counts.tafel, "wijziging op de Tafel", "wijzigingen op de Tafel"),
-    counts.task && plural(counts.task, "afgeronde opdracht", "afgeronde opdrachten"),
+    counts.notitie && plural(counts.notitie, "gedeelde notitie", "gedeelde notities"),
+    counts.opdracht && plural(counts.opdracht, "afgewerkte opdracht", "afgewerkte opdrachten"),
+    counts.reactie && plural(counts.reactie, "reactie bij een sessie", "reacties bij een sessie"),
+    counts.agenda && plural(counts.agenda, "punt voor volgende keer", "punten voor volgende keer"),
   ].filter(Boolean);
 
   return (
@@ -143,7 +166,7 @@ export default function Vandaag() {
                 if (!c) return null;
                 return (
                   <section key={clientId}>
-                    <Link href={`/p/clienten/${clientId}?tab=tijdlijn`} className="mb-1 flex items-center gap-2.5 px-2 text-[14px] font-semibold hover:underline hover:decoration-surface-2 hover:underline-offset-4">
+                    <Link href={`/p/clienten/${clientId}?tab=logboek`} className="mb-1 flex items-center gap-2.5 px-2 text-[14px] font-semibold hover:underline hover:decoration-surface-2 hover:underline-offset-4">
                       <Avatar name={`${c.firstName} ${c.lastName}`} tone="client" size="xs" />
                       {c.firstName} {c.lastName}
                     </Link>
@@ -152,8 +175,8 @@ export default function Vandaag() {
                         <ActivityItem key={i} activity={a} count={count} isNew={a.at > since} />
                       ))}
                       {items.length > 3 && (
-                        <Link href={`/p/clienten/${clientId}?tab=tijdlijn`} className="px-2 pt-1 text-[13px] text-muted hover:text-text">
-                          Meer in de tijdlijn van {c.firstName}
+                        <Link href={`/p/clienten/${clientId}?tab=logboek`} className="px-2 pt-1 text-[13px] text-muted hover:text-text">
+                          Meer in het logboek van {c.firstName}
                         </Link>
                       )}
                     </div>

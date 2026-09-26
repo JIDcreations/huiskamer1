@@ -1,92 +1,79 @@
 "use client";
 
+import { useMemo } from "react";
+import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
-import { Panel } from "@/components/shared/panel";
-import { TaskRow } from "@/components/shared/task-row";
-import { WeekDots } from "@/components/shared/week-dots";
+import { SessionTaskRow } from "@/components/sessions/session-view";
 import { EmptyState } from "@/components/ui/empty-state";
-import {
-  CURRENT_CLIENT_ID,
-  isOpenOneOff,
-  recurrenceLabel,
-  tasksForDay,
-  usePsychologist,
-  useTaskEntries,
-  useTasks,
-  weekProgress,
-} from "@/lib/data";
+import { CURRENT_CLIENT_ID, taskState, useAppointments, useJournal, useTasks } from "@/lib/data";
 import { formatDayMonth } from "@/lib/format";
+import type { Task } from "@/lib/types";
+
+function Group({ title, tasks, hint }: { title: string; tasks: Task[]; hint?: string }) {
+  const journal = useJournal(CURRENT_CLIENT_ID);
+  const appointments = useAppointments(CURRENT_CLIENT_ID);
+  if (!tasks.length) return null;
+  return (
+    <section className="mt-8">
+      <h2 className="mb-1 px-1 text-[15px] font-semibold tracking-tight">{title}</h2>
+      {hint && <p className="mb-2 px-1 text-[13px] text-muted">{hint}</p>}
+      <ul className="divide-y divide-surface-2/70 rounded-card bg-surface px-5 shadow-soft ring-1 ring-surface-2/60 md:px-6">
+        {tasks.map((t) => {
+          const from = appointments.find((a) => a.id === t.appointmentId);
+          return (
+            <SessionTaskRow
+              key={t.id}
+              task={t}
+              journal={journal}
+              action={
+                from && (
+                  <Link
+                    href={`/c/sessies/${from.id}`}
+                    className="hidden shrink-0 text-[12px] text-faint underline decoration-surface-2 underline-offset-4 hover:text-muted sm:inline"
+                  >
+                    Sessie {formatDayMonth(from.start)}
+                  </Link>
+                )
+              }
+            />
+          );
+        })}
+      </ul>
+    </section>
+  );
+}
 
 export default function Opdrachten() {
-  const psy = usePsychologist();
-  const tasks = useTasks(CURRENT_CLIENT_ID);
-  const entries = useTaskEntries();
-  const today = tasksForDay(tasks, entries);
-  const recurring = tasks.filter((t) => t.recurrence);
-  const finishedOneOffs = tasks.filter((t) => !t.recurrence && !isOpenOneOff(t, entries));
+  const active = useTasks(CURRENT_CLIENT_ID);
+  const archived = useTasks(CURRENT_CLIENT_ID, { archived: true });
+  const journal = useJournal(CURRENT_CLIENT_ID);
+
+  const groups = useMemo(() => {
+    const all = [...active, ...archived].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+    const state = (t: Task) => taskState(t, journal);
+    return {
+      open: all.filter((t) => state(t) === "open"),
+      done: all.filter((t) => state(t) === "gedaan"),
+      rest: all.filter((t) => state(t) === "niet gedaan" || state(t) === "afgelopen"),
+    };
+  }, [active, archived, journal]);
+
+  const empty = !groups.open.length && !groups.done.length && !groups.rest.length;
 
   return (
-    <>
-      <PageHeader title="Opdrachten" eyebrow={`Van ${psy.firstName}, op je eigen tempo`} />
-
-      {tasks.length === 0 ? (
-        <div className="mt-8 rounded-card bg-surface shadow-soft">
-          <EmptyState title="Geen opdrachten" description={`Als ${psy.firstName} je iets meegeeft, vind je het hier.`} />
+    <div className="mx-auto max-w-[760px]">
+      <PageHeader title="Alle opdrachten" eyebrow="Wat je vandaag doet, staat in Vandaag" />
+      {empty ? (
+        <div className="mt-8 rounded-card bg-surface shadow-soft ring-1 ring-surface-2/60">
+          <EmptyState title="Nog geen opdrachten" description="Opdrachten spreek je samen af in een sessie. Ze verschijnen dan hier en in Vandaag." />
         </div>
       ) : (
-        <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
-          <Panel title="Vandaag" bodyClassName="pt-1">
-            {today.length ? (
-              <div className="divide-y divide-surface-2/70">
-                {today.map((t) => (
-                  <TaskRow key={t.id} task={t} />
-                ))}
-              </div>
-            ) : (
-              <p className="py-3 text-[14px] text-muted">Niets voor vandaag. Geen druk.</p>
-            )}
-          </Panel>
-
-          <div className="flex flex-col gap-5">
-            {recurring.length > 0 && (
-              <Panel title="Deze week" description="Gevuld is gedaan. Een lege dag is ook oké." bodyClassName="pt-1">
-                <ul className="divide-y divide-surface-2/70">
-                  {recurring.map((t) => {
-                    const p = weekProgress(t, entries);
-                    return (
-                      <li key={t.id} className="flex items-center justify-between gap-4 py-3.5">
-                        <div className="min-w-0">
-                          <p className="truncate text-[14px] font-medium">{t.title}</p>
-                          <p className="text-[12px] text-muted">
-                            {recurrenceLabel(t)}, {p.done} van {p.total} dagen
-                          </p>
-                        </div>
-                        <WeekDots days={p.days} />
-                      </li>
-                    );
-                  })}
-                </ul>
-              </Panel>
-            )}
-
-            {finishedOneOffs.length > 0 && (
-              <Panel title="Afgerond" bodyClassName="pt-1">
-                <ul className="divide-y divide-surface-2/70">
-                  {finishedOneOffs.map((t) => {
-                    const e = entries.find((x) => x.taskId === t.id && x.completed);
-                    return (
-                      <li key={t.id} className="py-3">
-                        <p className="text-[14px] font-medium text-muted">{t.title}</p>
-                        {e && <p className="text-[12px] text-faint">Gedaan op {formatDayMonth(e.updatedAt)}</p>}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </Panel>
-            )}
-          </div>
-        </div>
+        <>
+          <Group title="Lopend" tasks={groups.open} />
+          <Group title="Gedaan" tasks={groups.done} />
+          <Group title="Voorbij" tasks={groups.rest} hint="Wat niet lukte, is geen probleem. Je kan het altijd bespreken." />
+        </>
       )}
-    </>
+    </div>
   );
 }

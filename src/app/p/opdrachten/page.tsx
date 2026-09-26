@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/sheet";
 import { toast } from "@/components/ui/toast";
-import { actions, recurrenceLabel, useTasks, useTemplates } from "@/lib/data";
+import { actions, rhythmLabel, useTasks, useTemplates } from "@/lib/data";
 import { plural } from "@/lib/format";
 import type { TaskTemplate } from "@/lib/types";
 
@@ -17,7 +17,7 @@ function TemplateSheet({ template, onClose }: { template: TaskTemplate | "nieuw"
   const existing = template === "nieuw" ? null : template;
   const [draft, setDraft] = useState<TaskDraft>(
     existing
-      ? { title: existing.title, description: existing.description, kind: existing.kind, recurrence: existing.defaultRecurrence, minutes: existing.minutes, scaleLabel: existing.scaleLabel }
+      ? { title: existing.title, description: existing.description, kind: existing.kind, rhythm: existing.defaultRhythm, minutes: existing.minutes, scaleLabel: existing.scaleLabel }
       : { title: "", description: "", kind: "afvinken" }
   );
   return (
@@ -30,7 +30,7 @@ function TemplateSheet({ template, onClose }: { template: TaskTemplate | "nieuw"
             title: draft.title.trim(),
             description: draft.description.trim(),
             kind: draft.kind,
-            defaultRecurrence: draft.recurrence,
+            defaultRhythm: draft.rhythm,
             minutes: draft.minutes,
             scaleLabel: draft.scaleLabel,
           });
@@ -89,7 +89,7 @@ export default function Bibliotheek() {
               </div>
               <p className="mt-2 flex-1 text-[14px] leading-relaxed text-muted">{t.description}</p>
               <p className="mt-4 text-[12px] text-faint">
-                {t.defaultRecurrence ? recurrenceLabel({ recurrence: t.defaultRecurrence }) : "Eenmalig"}
+                {t.defaultRhythm ? rhythmLabel(t.defaultRhythm) : "Ritme kies je bij het geven"}
                 {t.minutes ? `, ${t.minutes} minuten` : ""}
                 {inUse ? `, in gebruik bij ${plural(inUse, "cliënt", "cliënten")}` : ""}
               </p>

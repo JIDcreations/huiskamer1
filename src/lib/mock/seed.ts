@@ -1,17 +1,22 @@
 import { addDays, addMinutes, format, setHours, setMinutes, startOfDay, startOfWeek } from "date-fns";
 import type {
+  AgendaItem,
   Appointment,
   Block,
   Client,
+  ClientPrefs,
   Invoice,
   JournalEntry,
+  Mood,
   Psychologist,
+  Rhythm,
   SessionNote,
-  TablePage,
+  SessionPage,
   Task,
-  TaskEntry,
+  TaskKind,
   TaskTemplate,
 } from "@/lib/types";
+import { stories, type Story } from "@/lib/mock/stories";
 
 export const PSY_ID = "p1";
 export const CURRENT_CLIENT_ID = "c1";
@@ -20,27 +25,35 @@ export type Database = {
   psychologist: Psychologist;
   clients: Client[];
   appointments: Appointment[];
-  tablePages: TablePage[];
+  sessionPages: SessionPage[];
+  agenda: AgendaItem[];
   journal: JournalEntry[];
   sessionNotes: SessionNote[];
   templates: TaskTemplate[];
   tasks: Task[];
-  taskEntries: TaskEntry[];
   invoices: Invoice[];
+  prefs: ClientPrefs;
 };
 
-/** Deterministisch "toeval", zodat de demo elke keer hetzelfde voelt. */
-function chance(seed: string, p: number) {
+/** Deterministisch "toeval" tussen 0 en 1, zodat de demo elke keer hetzelfde voelt. */
+function rand(seed: string) {
   let h = 2166136261;
   for (let i = 0; i < seed.length; i++) h = Math.imul(h ^ seed.charCodeAt(i), 16777619);
-  return ((h >>> 0) % 1000) / 1000 < p;
+  return ((h >>> 0) % 10000) / 10000;
 }
+
+const pick = <T,>(list: T[], seed: string) => list[Math.floor(rand(seed) * list.length) % list.length];
 
 export function seed(now = new Date()): Database {
   const today = startOfDay(now);
   const iso = (d: Date) => d.toISOString();
-  const hoursAgo = (h: number) => iso(addMinutes(now, -h * 60));
-  const day = (offset: number) => format(addDays(today, offset), "yyyy-MM-dd");
+  const dayKey = (d: Date) => format(d, "yyyy-MM-dd");
+  /** Tijdstip op een dag relatief aan vandaag: `at(-2, "14:30")`. */
+  const at = (offset: number, time: string) => {
+    const [h, m] = time.split(":").map(Number);
+    return setMinutes(setHours(addDays(today, offset), h), m);
+  };
+  const weekdayOf = (d: Date) => ((d.getDay() + 6) % 7) + 1;
 
   let blockCounter = 0;
   const block = (type: Block["type"], content: string, authorId: string, updatedAt: string, extra: Partial<Block> = {}): Block => ({
@@ -51,11 +64,15 @@ export function seed(now = new Date()): Database {
     updatedAt,
     ...extra,
   });
-  const P = (c: string, a: string, t: string) => block("paragraph", c, a, t);
-  const H = (c: string, a: string, t: string, level: 2 | 3 = 2) => block("heading", c, a, t, { level });
-  const C = (c: string, checked: boolean, a: string, t: string) => block("checklist", c, a, t, { checked });
-  const Q = (c: string, a: string, t: string) => block("quote", c, a, t);
-  const HR = (a: string, t: string) => block("divider", "", a, t);
+  /** Tekst naar blokken. Een regel die met "> " begint wordt een citaat, "- [ ] " een checklist, "## " een kop. */
+  const toBlocks = (lines: string[], authorId: string, t: string) =>
+    lines.map((line) => {
+      if (line.startsWith("> ")) return block("quote", line.slice(2), authorId, t);
+      if (line.startsWith("## ")) return block("heading", line.slice(3), authorId, t, { level: 3 });
+      if (line.startsWith("- [ ] ")) return block("checklist", line.slice(6), authorId, t, { checked: false });
+      if (line.startsWith("- [x] ")) return block("checklist", line.slice(6), authorId, t, { checked: true });
+      return block("paragraph", line, authorId, t);
+    });
 
   // ---------------------------------------------------------------- Praktijk
 
@@ -73,7 +90,7 @@ export function seed(now = new Date()): Database {
     availability: [
       { weekday: 1, start: "09:00", end: "17:00" },
       { weekday: 2, start: "09:00", end: "17:00" },
-      { weekday: 3, start: "13:00", end: "19:00" },
+      { weekday: 3, start: "12:00", end: "18:00" },
       { weekday: 4, start: "09:00", end: "17:00" },
       { weekday: 5, start: "09:00", end: "13:00" },
     ],
@@ -94,40 +111,27 @@ export function seed(now = new Date()): Database {
 
   // ---------------------------------------------------------------- Afspraken
 
-  const weekStart = startOfWeek(today, { weekStartsOn: 1 });
-  const todayIdx = Math.min((today.getDay() + 6) % 7, 4);
+  // Sessies liggen relatief aan vandaag, zodat de demo altijd afspraken vandaag heeft, ook in het weekend.
   const appointments: Appointment[] = [];
-
-  const schedule: { clientId: string; offset: number; time: string; mode: Appointment["mode"]; biweekly?: boolean; weeks?: number[] }[] = [
-    { clientId: "c1", offset: 2, time: "14:00", mode: "fysiek" },
-    { clientId: "c2", offset: 0, time: "09:30", mode: "fysiek" },
-    { clientId: "c3", offset: 0, time: "11:00", mode: "online" },
-    { clientId: "c4", offset: 1, time: "10:00", mode: "fysiek", biweekly: true },
-    { clientId: "c5", offset: 0, time: "15:30", mode: "fysiek" },
-    { clientId: "c6", offset: 3, time: "16:00", mode: "online" },
-    { clientId: "c7", offset: 4, time: "13:30", mode: "fysiek", weeks: [-3] },
-  ];
-
-  for (const s of schedule) {
-    const client = clients.find((c) => c.id === s.clientId)!;
+  for (const client of clients) {
+    const story = stories[client.id];
+    const s = story.schedule;
     let first = true;
     for (let w = -3; w <= 2; w++) {
       if (s.biweekly && w % 2 !== 0) continue;
       if (s.weeks && !s.weeks.includes(w)) continue;
-      const dayIdx = (todayIdx + s.offset) % 5;
-      const [h, m] = s.time.split(":").map(Number);
-      const start = setMinutes(setHours(addDays(weekStart, w * 7 + dayIdx), h), m);
+      const start = at(w * 7 + s.offset, s.time);
       if (start < new Date(client.startedAt)) continue;
       const end = addMinutes(start, psychologist.sessionMinutes);
       let status: Appointment["status"] = end < now ? "voltooid" : "gepland";
-      if (s.clientId === "c2" && w === -2) status = "no-show";
-      if (s.clientId === "c3" && w === -1) status = "geannuleerd";
+      if (s.noShow?.includes(w)) status = "no-show";
+      if (s.cancelled?.includes(w)) status = "geannuleerd";
       appointments.push({
-        id: `a-${s.clientId}-${w + 3}`,
-        clientId: s.clientId,
+        id: `a-${client.id}-${w + 3}`,
+        clientId: client.id,
         start: iso(start),
         end: iso(end),
-        type: first && s.clientId === "c6" ? "intake" : "opvolging",
+        type: first && s.intakeFirst ? "intake" : "opvolging",
         mode: s.mode,
         status,
       });
@@ -148,7 +152,7 @@ export function seed(now = new Date()): Database {
       (b) => b.clientId === a.clientId && b.start > a.start && (b.status === "voltooid" || b.status === "no-show")
     );
     let status: Invoice["status"] = age > 10 ? "betaald" : isLatest ? "open" : "betaald";
-    if (a.clientId === "c2" && a.status === "no-show") status = "vervallen";
+    if (a.status === "no-show") status = "vervallen";
     invoices.push({
       id: `f-${a.id}`,
       number: `${now.getFullYear()}-0${invoiceNo++}`,
@@ -163,293 +167,221 @@ export function seed(now = new Date()): Database {
     });
   }
 
-  // ---------------------------------------------------------------- Tafel
-
-  const lotteSessions = appointments.filter((a) => a.clientId === "c1" && a.status === "voltooid");
-  const lastSession = lotteSessions[lotteSessions.length - 1];
-  const prevSession = lotteSessions[lotteSessions.length - 2] ?? lastSession;
-  const nlDate = (a: Appointment) =>
-    new Intl.DateTimeFormat("nl-BE", { day: "numeric", month: "long" }).format(new Date(a.start));
-
-  const tLast = iso(addMinutes(new Date(lastSession.end), 40));
-  const tPrev = iso(addMinutes(new Date(prevSession.end), 30));
-
-  const tablePages: TablePage[] = [
-    {
-      id: "tp1",
-      clientId: "c1",
-      title: "Vragen voor volgende keer",
-      pinned: true,
-      createdBy: "c1",
-      createdAt: hoursAgo(24 * 20),
-      updatedAt: hoursAgo(20),
-      blocks: [
-        P("Hier verzamel ik wat ik niet wil vergeten tegen de volgende sessie.", "c1", hoursAgo(24 * 20)),
-        C("Hoe hou ik de wandelingen vol als het donkerder wordt?", false, "c1", hoursAgo(24 * 6)),
-        C("Is het normaal dat ik na een goede dag toch slecht slaap?", true, "c1", hoursAgo(24 * 12)),
-        C("Kunnen we het hebben over grenzen stellen op het werk?", false, "c1", hoursAgo(24 * 3)),
-        C("Neem je slaaplogboek van deze week mee, dan kijken we samen naar het patroon.", false, PSY_ID, hoursAgo(20)),
-      ],
-    },
-    {
-      id: "tp2",
-      clientId: "c1",
-      title: `Na de sessie van ${nlDate(lastSession)}`,
-      pinned: false,
-      createdBy: PSY_ID,
-      createdAt: tLast,
-      updatedAt: hoursAgo(3),
-      blocks: [
-        H("Waar we het over hadden", PSY_ID, tLast),
-        P("We spraken over de avonden, als het huis stil wordt en de gedachten luider. Je merkte dat <strong>even naar buiten gaan</strong> soms helpt, en dat je telefoon in de slaapkamer het moeilijker maakt.", PSY_ID, tLast),
-        Q("Ik hoef niet alles vandaag op te lossen.", PSY_ID, tLast),
-        H("Wat we afspraken", PSY_ID, tLast, 3),
-        C("Drie avonden per week een korte wandeling", true, "c1", hoursAgo(26)),
-        C("Telefoon buiten de slaapkamer laten", false, PSY_ID, tLast),
-        C("Piekermoment van 15 minuten om 19u", false, PSY_ID, tLast),
-        HR(PSY_ID, tLast),
-        P("Woensdag lukte het wandelen niet, het regende. Wel <em>tien minuten</em> op het balkon gezeten. Telt dat ook?", "c1", hoursAgo(3)),
-        P("En de telefoon ligt sinds zondag in de keuken. Eerste nacht was raar, nu went het.", "c1", hoursAgo(3)),
-      ],
-    },
-    {
-      id: "tp3",
-      clientId: "c1",
-      title: "Oefening: ademhaling 4-7-8",
-      pinned: false,
-      createdBy: PSY_ID,
-      createdAt: hoursAgo(24 * 30),
-      updatedAt: hoursAgo(24 * 30),
-      blocks: [
-        P("Een korte oefening voor wanneer je hoofd blijft malen. Doe ze liggend of zittend, ogen dicht als dat prettig voelt.", PSY_ID, hoursAgo(24 * 30)),
-        H("Zo ga je te werk", PSY_ID, hoursAgo(24 * 30), 3),
-        C("Adem 4 tellen in door je neus", false, PSY_ID, hoursAgo(24 * 30)),
-        C("Hou je adem 7 tellen vast", false, PSY_ID, hoursAgo(24 * 30)),
-        C("Adem 8 tellen uit door je mond", false, PSY_ID, hoursAgo(24 * 30)),
-        P("Herhaal dat vier keer. Het hoeft niet perfect, het gaat om het vertragen.", PSY_ID, hoursAgo(24 * 30)),
-      ],
-    },
-    {
-      id: "tp4",
-      clientId: "c1",
-      title: `Na de sessie van ${nlDate(prevSession)}`,
-      pinned: false,
-      createdBy: PSY_ID,
-      createdAt: tPrev,
-      updatedAt: tPrev,
-      blocks: [
-        H("Waar we het over hadden", PSY_ID, tPrev),
-        P("De drukte op het werk en het gevoel altijd bereikbaar te moeten zijn. We keken naar wat er gebeurt in je lijf als je collega's je na je shift nog berichten sturen.", PSY_ID, tPrev),
-        H("Om mee te nemen", PSY_ID, tPrev, 3),
-        C("Slaaplogboek bijhouden", true, "c1", tPrev),
-        C("Opschrijven wanneer het piekeren begint", true, "c1", tPrev),
-      ],
-    },
-    {
-      id: "tp5",
-      clientId: "c2",
-      title: "Herinneringen aan papa",
-      pinned: true,
-      createdBy: "c2",
-      createdAt: hoursAgo(24 * 40),
-      updatedAt: hoursAgo(30),
-      blocks: [
-        P("Sarah vroeg om hier dingen te noteren die me aan hem doen denken.", "c2", hoursAgo(24 * 40)),
-        P("De geur van zaagsel in de garage. Hoe hij floot als hij iets aan het repareren was.", "c2", hoursAgo(30)),
-        P("Mooi dat je dit bijhoudt, Arne. We nemen er volgende keer een paar mee.", PSY_ID, hoursAgo(20)),
-      ],
-    },
-    {
-      id: "tp6",
-      clientId: "c3",
-      title: "Plan voor de examenweek",
-      pinned: false,
-      createdBy: PSY_ID,
-      createdAt: hoursAgo(24 * 8),
-      updatedAt: hoursAgo(5),
-      blocks: [
-        H("Een haalbare dag", PSY_ID, hoursAgo(24 * 8)),
-        C("Blokken van 50 minuten, dan 10 minuten pauze", false, PSY_ID, hoursAgo(24 * 8)),
-        C("Na 21u geen cursus meer", true, "c3", hoursAgo(5)),
-        P("Gisteren voor het eerst om 21u gestopt. Voelde als spijbelen, maar ik sliep wel beter.", "c3", hoursAgo(5)),
-      ],
-    },
-    {
-      id: "tp7",
-      clientId: "c6",
-      title: "Welkom aan de Tafel",
-      pinned: true,
-      createdBy: PSY_ID,
-      createdAt: hoursAgo(24 * 15),
-      updatedAt: hoursAgo(24 * 15),
-      blocks: [
-        P("Dit is onze gedeelde pagina. Ik schrijf hier na een sessie wat we bespraken, jij mag er altijd iets bij zetten.", PSY_ID, hoursAgo(24 * 15)),
-        C("Iets opschrijven over een dag die beter ging", false, PSY_ID, hoursAgo(24 * 15)),
-      ],
-    },
-    {
-      id: "tp8",
-      clientId: "c4",
-      title: "Opbouw werkuren",
-      pinned: false,
-      createdBy: PSY_ID,
-      createdAt: hoursAgo(24 * 21),
-      updatedAt: hoursAgo(24 * 6),
-      blocks: [
-        C("Week 1 en 2: halve dagen", true, "c4", hoursAgo(24 * 6)),
-        C("Week 3: drie volle dagen", false, PSY_ID, hoursAgo(24 * 21)),
-        C("Week 4: gesprek met leidinggevende", false, PSY_ID, hoursAgo(24 * 21)),
-      ],
-    },
-    {
-      id: "tp9",
-      clientId: "c5",
-      title: "Wat helpt op de trein",
-      pinned: false,
-      createdBy: "c5",
-      createdAt: hoursAgo(24 * 10),
-      updatedAt: hoursAgo(24 * 2),
-      blocks: [
-        P("Oordopjes en een podcast. Aan het raam zitten.", "c5", hoursAgo(24 * 10)),
-        P("Probeer ook de 5-4-3-2-1 oefening: vijf dingen die je ziet, vier die je hoort.", PSY_ID, hoursAgo(24 * 2)),
-      ],
-    },
-  ];
-
-  // ---------------------------------------------------------------- Logboek
-
-  const J = (
-    id: string,
-    clientId: string,
-    hAgo: number,
-    text: string[],
-    opts: Partial<JournalEntry> = {}
-  ): JournalEntry => ({
-    id,
-    clientId,
-    createdAt: hoursAgo(hAgo),
-    updatedAt: hoursAgo(hAgo),
-    blocks: text.map((t) => P(t, clientId, hoursAgo(hAgo))),
-    tags: [],
-    sharedWithPsychologist: true,
-    ...opts,
-  });
-
-  const journal: JournalEntry[] = [
-    J("j1", "c1", 24 * 12 + 2, ["Zondagavond, en dat bekende gevoel in mijn buik. Morgen weer vroege shift. Ik lag tot half twee wakker."], { title: "Zondagavond", mood: 2, tags: ["slaap", "werk"] }),
-    J("j2", "c1", 24 * 9 + 5, ["Na het werk een half uur gewandeld langs de Leie. Niet veel gedacht. Dat was fijn."], {
-      mood: 3,
-      tags: ["wandelen"],
-      psychologistNote: { text: "Mooi dat je het merkt: niet veel denken is ook iets. Hou dat vast.", createdAt: hoursAgo(24 * 8) },
-    }),
-    J("j3", "c1", 24 * 6 + 3, ["Ruzie met mama aan de telefoon. Dit wil ik voorlopig voor mezelf houden."], { title: "Enkel voor mij", mood: 2, tags: ["familie"], sharedWithPsychologist: false }),
-    J("j4", "c1", 24 * 4 + 1, ["Drie avonden op rij gewandeld. Sliep donderdag voor het eerst in weken door tot de wekker."], { mood: 4, tags: ["wandelen", "slaap"] }),
-    J("j5", "c1", 24 * 2 + 6, ["Collega vroeg of ik zaterdag wilde overnemen. Ik zei dat ik erover zou nadenken in plaats van meteen ja. Klein, maar het voelde groot."], { title: "Nee zeggen, bijna", mood: 3, tags: ["werk"] }),
-    J("j6", "c1", 24 + 4, ["Moe vandaag. Niet slecht, gewoon moe."], { mood: 3, tags: [], sharedWithPsychologist: false }),
-    J("j7", "c1", 3.5, ["Koffie op het balkon voor iedereen wakker was. Merk dat ik minder snel mijn telefoon pak."], { title: "Rustige ochtend", mood: 4, tags: ["ochtend"] }),
-    J("j8", "c2", 24 * 3, ["Zijn verjaardag vandaag. Naar het kerkhof geweest met mijn zus. Minder zwaar dan ik dacht."], { mood: 3, tags: ["rouw"] }),
-    J("j9", "c3", 6, ["Examen statistiek achter de rug. Handen trilden bij het begin, daarna ging het."], { mood: 4, tags: ["examen"] }),
-    J("j10", "c5", 2, ["Vandaag de trein naar Brussel genomen, alleen. Halverwege even kort paniek, de oefening gedaan. Ik ben aangekomen."], { title: "Trein naar Brussel", mood: 4, tags: ["trein", "paniek"] }),
-    J("j11", "c6", 24 * 5, ["Weinig zin in alles. Wel de afwas gedaan."], { mood: 2, tags: [] }),
-    J("j12", "c4", 24 * 8, ["Eerste volle werkdag. Om 15u moest ik even naar buiten."], { mood: 3, tags: ["werk"], sharedWithPsychologist: false }),
-  ];
-
-  // ---------------------------------------------------------------- Opdrachten
+  // ---------------------------------------------------------------- Opdrachtenbibliotheek
 
   const templates: TaskTemplate[] = [
-    { id: "tt1", title: "Ademhaling 4-7-8", description: "Vier tellen in, zeven vasthouden, acht uit. Vier keer herhalen.", kind: "meditatie", minutes: 5, defaultRecurrence: { every: "dag" } },
-    { id: "tt2", title: "Gedachtenschema", description: "Beschrijf de situatie, je gedachte, je gevoel en wat je deed. Daarna: welke andere gedachte is ook mogelijk?", kind: "tekst" },
-    { id: "tt3", title: "Dankbaarheidslijst", description: "Schrijf drie kleine dingen op waar je vandaag dankbaar voor bent.", kind: "tekst", defaultRecurrence: { every: "dag" } },
-    { id: "tt4", title: "Slaaplogboek", description: "Hoe goed sliep je vannacht?", kind: "schaal", scaleLabel: "Slaapkwaliteit", defaultRecurrence: { every: "dag" } },
-    { id: "tt5", title: "Meditatie 10 minuten", description: "Zit rustig, volg je adem. Afdwalen mag, gewoon terugkeren.", kind: "meditatie", minutes: 10, defaultRecurrence: { every: "dag" } },
-    { id: "tt6", title: "Korte wandeling", description: "Twintig minuten buiten, zonder doel.", kind: "afvinken", defaultRecurrence: { every: "week", days: [1, 3, 5] } },
-    { id: "tt7", title: "Piekermoment", description: "Kies een vast moment van 15 minuten om te piekeren. Daarbuiten mag het wachten.", kind: "afvinken", defaultRecurrence: { every: "dag" } },
+    { id: "tt1", title: "Ademhaling 4-7-8", description: "Vier tellen in, zeven vasthouden, acht uit. Vier keer herhalen.", kind: "meditatie", minutes: 5, defaultRhythm: { kind: "dagelijks" } },
+    { id: "tt2", title: "Gedachtenschema", description: "Beschrijf de situatie, je gedachte, je gevoel en wat je deed. Daarna: welke andere gedachte is ook mogelijk?", kind: "tekst", defaultRhythm: { kind: "perWeek", times: 2 } },
+    { id: "tt3", title: "Dankbaarheidslijst", description: "Schrijf drie kleine dingen op waar je vandaag dankbaar voor bent.", kind: "tekst", defaultRhythm: { kind: "dagen", days: [1, 3, 5] } },
+    { id: "tt4", title: "Slaaplogboek", description: "Hoe goed sliep je vannacht?", kind: "schaal", scaleLabel: "Slaapkwaliteit", defaultRhythm: { kind: "dagelijks" } },
+    { id: "tt5", title: "Meditatie 10 minuten", description: "Zit rustig, volg je adem. Afdwalen mag, gewoon terugkeren.", kind: "meditatie", minutes: 10, defaultRhythm: { kind: "dagelijks" } },
+    { id: "tt6", title: "Korte wandeling", description: "Twintig minuten buiten, zonder doel.", kind: "afvinken", defaultRhythm: { kind: "perWeek", times: 3 } },
+    { id: "tt7", title: "Piekermoment", description: "Kies een vast moment van 15 minuten om te piekeren. Daarbuiten mag het wachten.", kind: "afvinken", defaultRhythm: { kind: "dagelijks" } },
   ];
 
-  const tasks: Task[] = [
-    { id: "k1", clientId: "c1", templateId: "tt6", title: "Korte wandeling", description: templates[5].description, kind: "afvinken", recurrence: { every: "week", days: [1, 3, 5] }, createdAt: hoursAgo(24 * 16) },
-    { id: "k2", clientId: "c1", templateId: "tt4", title: "Slaaplogboek", description: templates[3].description, kind: "schaal", scaleLabel: "Slaapkwaliteit", recurrence: { every: "dag" }, createdAt: hoursAgo(24 * 16) },
-    { id: "k3", clientId: "c1", templateId: "tt3", title: "Dankbaarheidslijst", description: templates[2].description, kind: "tekst", recurrence: { every: "dag", until: day(12) }, createdAt: hoursAgo(24 * 9) },
-    { id: "k4", clientId: "c1", templateId: "tt2", title: "Gedachtenschema: de zondagavond", description: "Neem een zondagavond van deze week. Wat dacht je, wat voelde je, wat deed je?", kind: "tekst", dueDate: day(3), createdAt: hoursAgo(24 * 2) },
-    { id: "k5", clientId: "c1", templateId: "tt5", title: "Meditatie 10 minuten", description: templates[4].description, kind: "meditatie", minutes: 10, recurrence: { every: "dag" }, createdAt: hoursAgo(24 * 5) },
-    { id: "k6", clientId: "c2", title: "Brief aan papa", description: "Schrijf wat je hem nog had willen zeggen. Je hoeft hem aan niemand te laten lezen.", kind: "tekst", dueDate: day(5), createdAt: hoursAgo(24 * 4) },
-    { id: "k7", clientId: "c3", templateId: "tt1", title: "Ademhaling 4-7-8", description: templates[0].description, kind: "meditatie", minutes: 5, recurrence: { every: "dag" }, createdAt: hoursAgo(24 * 10) },
-    { id: "k8", clientId: "c5", title: "Paniekdagboek", description: "Noteer na een paniekmoment: waar, hoe sterk (1-10), wat hielp.", kind: "tekst", recurrence: { every: "dag" }, createdAt: hoursAgo(24 * 14) },
-    { id: "k9", clientId: "c6", templateId: "tt6", title: "Korte wandeling", description: templates[5].description, kind: "afvinken", recurrence: { every: "week", days: [2, 4, 6] }, createdAt: hoursAgo(24 * 12) },
-    { id: "k10", clientId: "c4", templateId: "tt7", title: "Piekermoment", description: templates[6].description, kind: "afvinken", recurrence: { every: "dag" }, createdAt: hoursAgo(24 * 20) },
-  ];
+  // ---------------------------------------------------------------- Per cliënt: sessies, opdrachten, logboek
 
-  const taskEntries: TaskEntry[] = [];
-  const gratitude = [
-    "De zon op het balkon. Een collega die koffie bracht. Mijn kat.",
-    "Warme soep. Een lieve sms van mijn zus. Op tijd thuis.",
-    "Een goed gesprek met een patiënt. Nieuwe sokken. Stilte.",
-    "Wandelen in de regen, en dat het oké was.",
-  ];
-  const answers: Record<string, string[]> = {
-    k8: [
-      "Supermarkt, lange rij aan de kassa. Een 5. Even naar buiten gestapt.",
-      "Trein, vertraging in Gent. Een 7. De 5-4-3-2-1 oefening hielp.",
-      "Geen paniek vandaag, wel onrustig in de ochtend.",
-    ],
+  const sessionPages: SessionPage[] = [];
+  const sessionNotes: SessionNote[] = [];
+  const tasks: Task[] = [];
+  const journal: JournalEntry[] = [];
+  const agenda: AgendaItem[] = [];
+
+  const psyTime = (d: Date) => {
+    // De psycholoog schrijft tussen 9u en 18u.
+    const h = d.getHours() + d.getMinutes() / 60;
+    if (h < 9) return setMinutes(setHours(d, 9), 5);
+    if (h >= 18) return setMinutes(setHours(d, 17), 50);
+    return d;
   };
-  for (const t of tasks) {
-    const created = startOfDay(new Date(t.createdAt));
-    for (let d = created; d < today; d = addDays(d, 1)) {
-      const weekday = ((d.getDay() + 6) % 7) + 1;
-      if (t.recurrence?.every === "week" && !t.recurrence.days?.includes(weekday)) continue;
-      if (!t.recurrence) continue;
-      const key = format(d, "yyyy-MM-dd");
-      if (!chance(`${t.id}${key}`, t.clientId === "c1" ? 0.72 : 0.6)) continue;
-      taskEntries.push({
-        id: `e-${t.id}-${key}`,
-        taskId: t.id,
-        date: key,
-        completed: true,
-        scale: t.kind === "schaal" ? 4 + ((key.charCodeAt(9) + key.charCodeAt(8)) % 5) : undefined,
-        answer: t.kind === "tekst" ? (answers[t.id] ?? gratitude)[key.charCodeAt(9) % (answers[t.id] ?? gratitude).length] : undefined,
-        updatedAt: iso(setHours(d, 21)),
+  const past = (d: Date) => d <= now;
+
+  for (const client of clients) {
+    const story: Story = stories[client.id];
+    const cid = client.id;
+    // Sessies van vandaag hebben nog geen verslag: dat schrijft de psycholoog later.
+    const done = appointments.filter((a) => a.clientId === cid && a.status === "voltooid" && new Date(a.start) < today);
+    // Het verhaal loopt tot de laatste voorbije sessie: sessie i hoort bij de i-de van achteraan geteld.
+    const shift = done.length - story.sessions.length;
+    const mapped = story.sessions.map((_, i) => done[shift + i] as Appointment | undefined);
+
+    // Sessiepagina's en privénotities.
+    story.sessions.forEach((s, i) => {
+      const a = mapped[i];
+      if (!a) return;
+      const end = new Date(a.end);
+      const written = iso(psyTime(addMinutes(end, 35)));
+      const reactions: Block[] = [];
+      for (const r of s.reactions ?? []) {
+        const when = addMinutes(end, r.afterHours * 60);
+        if (!past(when)) continue;
+        const t = iso(r.by === "psy" ? psyTime(when) : when);
+        reactions.push(...toBlocks(r.lines, r.by === "psy" ? PSY_ID : cid, t));
+      }
+      sessionPages.push({
+        id: `sp-${a.id}`,
+        clientId: cid,
+        appointmentId: a.id,
+        summary: toBlocks(s.summary, PSY_ID, written),
+        reactions,
+        updatedAt: [written, ...reactions.map((b) => b.updatedAt)].sort().at(-1)!,
+      });
+      if (s.private) {
+        const t = iso(psyTime(addMinutes(end, 10)));
+        sessionNotes.push({ id: `sn-${a.id}`, clientId: cid, appointmentId: a.id, createdAt: t, updatedAt: t, blocks: toBlocks(s.private, PSY_ID, t) });
+      }
+    });
+
+    // Opdrachten, gelinkt aan de sessie waaruit ze komen.
+    for (const ts of story.tasks) {
+      const a = ts.from !== undefined ? mapped[ts.from] : undefined;
+      const created = a ? psyTime(addMinutes(new Date(a.end), 45)) : at(-(ts.createdDaysAgo ?? 14), "10:00");
+      const template = templates.find((t) => t.id === ts.templateId);
+      const rhythm: Rhythm = ts.rhythm.kind === "eenmalig" ? { kind: "eenmalig", due: dayKey(addDays(today, ts.dueOffset ?? 3)) } : ts.rhythm;
+      const task: Task = {
+        id: ts.id,
+        clientId: cid,
+        appointmentId: a?.id,
+        templateId: ts.templateId,
+        title: ts.title ?? template?.title ?? "Opdracht",
+        description: ts.description ?? template?.description ?? "",
+        kind: (ts.kind ?? template?.kind ?? "afvinken") as TaskKind,
+        rhythm,
+        minutes: ts.minutes ?? template?.minutes,
+        scaleLabel: ts.scaleLabel ?? template?.scaleLabel,
+        createdAt: iso(created),
+        archived: ts.archived,
+      };
+      tasks.push(task);
+
+      // Wat de cliënt er al mee deed.
+      const firstDay = startOfDay(addDays(created, 1));
+      const weekCount = new Map<string, number>();
+      for (let d = firstDay; d <= today; d = addDays(d, 1)) {
+        const key = dayKey(d);
+        const isToday = key === dayKey(today);
+        const wk = dayKey(startOfWeek(d, { weekStartsOn: 1 }));
+        let due = false;
+        if (task.rhythm.kind === "dagelijks") due = true;
+        if (task.rhythm.kind === "dagen") due = task.rhythm.days.includes(weekdayOf(d));
+        if (task.rhythm.kind === "perWeek") {
+          const cap = wk === dayKey(startOfWeek(today, { weekStartsOn: 1 })) ? task.rhythm.times - 1 : task.rhythm.times;
+          due = (weekCount.get(wk) ?? 0) < cap;
+        }
+        if (task.rhythm.kind === "eenmalig") due = ts.doneOffset !== undefined && key === dayKey(addDays(today, ts.doneOffset));
+        if (!due) continue;
+
+        let doIt: boolean;
+        if (isToday) doIt = Boolean(ts.doneToday);
+        else if (task.rhythm.kind === "eenmalig") doIt = true;
+        else doIt = rand(`${task.id}${key}`) < (task.rhythm.kind === "perWeek" ? 0.5 : story.diligence);
+        if (!doIt) continue;
+
+        const when = isToday && ts.doneToday ? at(0, ts.doneToday) : at(Math.round((d.getTime() - today.getTime()) / 86_400_000), ts.time ?? story.writeTime);
+        if (!past(when)) continue;
+        if (task.rhythm.kind === "perWeek") weekCount.set(wk, (weekCount.get(wk) ?? 0) + 1);
+
+        const t = iso(when);
+        const answer = ts.answers ? pick(ts.answers, `${task.id}a${key}`) : undefined;
+        const lines = answer ? answer.split("\n").filter(Boolean) : [];
+        journal.push({
+          id: `jt-${task.id}-${key}`,
+          clientId: cid,
+          kind: "opdracht",
+          day: key,
+          taskId: task.id,
+          createdAt: t,
+          updatedAt: t,
+          blocks: toBlocks(lines, cid, t),
+          scale: task.kind === "schaal" ? Math.max(3, Math.min(9, Math.round(4 + rand(`${task.id}s${key}`) * 4 + (story.trend ?? 0)))) : undefined,
+          tags: [],
+          sharedWithPsychologist: rand(`${task.id}p${key}`) > (ts.privateRate ?? 0.12),
+        });
+      }
+    }
+
+    // Check-ins: een woord per dag, soms een zin.
+    const start = Math.max(-20, -Math.floor((today.getTime() - new Date(client.startedAt).getTime()) / 86_400_000));
+    for (let off = start; off <= 0; off++) {
+      if (client.status !== "actief" && off > -18) break;
+      if (off === 0 && !story.checkinToday) continue;
+      const key = dayKey(addDays(today, off));
+      if (off < 0 && rand(`ci${cid}${key}`) > story.checkinRate) continue;
+      const when = off === 0 ? at(0, story.checkinToday!) : at(off, story.checkinTime);
+      if (!past(when)) continue;
+      // Stemming volgt het verloop van het verhaal, met wat schommeling.
+      const progress = (off - start) / Math.max(1, -start);
+      const base = story.mood[0] + (story.mood[1] - story.mood[0]) * progress;
+      const mood = Math.max(1, Math.min(5, Math.round(base + (rand(`m${cid}${key}`) - 0.5) * 1.6))) as Mood;
+      const text = rand(`ct${cid}${key}`) < 0.45 ? pick(story.checkinTexts, `ctx${cid}${key}`) : undefined;
+      const t = iso(when);
+      journal.push({
+        id: `jc-${cid}-${key}`,
+        clientId: cid,
+        kind: "checkin",
+        day: key,
+        createdAt: t,
+        updatedAt: t,
+        blocks: text ? toBlocks([text], cid, t) : [],
+        mood,
+        tags: [],
+        sharedWithPsychologist: rand(`cp${cid}${key}`) > 0.1,
+      });
+    }
+
+    // Vrije notities.
+    for (const n of story.notes) {
+      const when = at(n.day, n.time);
+      if (!past(when)) continue;
+      const t = iso(when);
+      journal.push({
+        id: n.id,
+        clientId: cid,
+        kind: "notitie",
+        day: dayKey(when),
+        createdAt: t,
+        updatedAt: t,
+        title: n.title,
+        blocks: toBlocks(n.text, cid, t),
+        mood: n.mood,
+        tags: n.tags ?? [],
+        sharedWithPsychologist: n.shared !== false,
+        psychologistNote: n.note ? { text: n.note, createdAt: iso(psyTime(addMinutes(when, 60 * 16))) } : undefined,
+      });
+    }
+
+    // Voor volgende keer.
+    const next = appointments.find((a) => a.clientId === cid && a.status === "gepland");
+    if (next) {
+      story.agenda.forEach((item, i) => {
+        const t = iso(item.by === "psy" ? psyTime(at(item.day, "12:10")) : at(item.day, "21:15"));
+        if (item.journalId && !journal.some((j) => j.id === item.journalId)) return;
+        agenda.push({
+          id: `ag-${cid}-${i}`,
+          clientId: cid,
+          appointmentId: next.id,
+          text: item.text,
+          journalEntryId: item.journalId,
+          addedBy: item.by === "psy" ? PSY_ID : cid,
+          createdAt: t,
+        });
       });
     }
   }
-  // Vandaag al gedaan: slaaplogboek van Lotte, paniekdagboek van Elise.
-  taskEntries.push({ id: "e-k2-today", taskId: "k2", date: day(0), completed: true, scale: 7, updatedAt: hoursAgo(4) });
-  taskEntries.push({ id: "e-k8-today", taskId: "k8", date: day(0), completed: true, answer: "Trein, tussen Gent en Aalst. Een 6. De ademhaling en naar buiten kijken hielpen.", updatedAt: hoursAgo(2) });
 
-  // ---------------------------------------------------------------- Sessienotities
+  journal.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 
-  const noteTexts: Record<string, string[][]> = {
-    c1: [
-      ["Eerste indruk: veel spanning, praat snel. Slaapt 5 uur per nacht, piekert vooral 's avonds.", "Plan: psycho-educatie rond piekeren, slaaplogboek starten."],
-      ["Meer ruimte in het verhaal dan vorige keer. Piekeren vooral rond 22u. Slaap licht verbeterd.", "Werkdruk en bereikbaarheid na de shift komen steeds terug."],
-      ["Wandelen werkt. Telefoon uit de slaapkamer besproken, ze twijfelt nog.", "Volgende keer: grenzen op het werk, concrete situatie met collega's."],
-      ["Opvallend rustiger. Vertelt zelf over een moment waarop ze nee zei.", "Aandachtspunt: relatie met moeder, ze houdt het nog af. Niet forceren."],
-    ],
+  return {
+    psychologist,
+    clients,
+    appointments,
+    sessionPages,
+    agenda,
+    journal,
+    sessionNotes,
+    templates,
+    tasks,
+    invoices,
+    prefs: { onboarded: false, checkinReminder: undefined, taskReminders: true, appointmentReminder: true, defaultShare: true },
   };
-
-  const sessionNotes: SessionNote[] = [];
-  const done = appointments.filter((a) => a.status === "voltooid");
-  for (const a of done) {
-    const list = noteTexts[a.clientId];
-    const own = done.filter((b) => b.clientId === a.clientId);
-    const idx = own.indexOf(a);
-    let paras: string[] | undefined;
-    if (list) paras = list[Math.max(0, list.length - own.length + idx)];
-    else if (idx === own.length - 1) {
-      const c = clients.find((x) => x.id === a.clientId)!;
-      paras = [`Opvolging rond: ${c.reason?.toLowerCase().replace(/\.$/, "")}`, "Stemming stabiel. Afspraken van vorige keer grotendeels gehaald."];
-    }
-    if (!paras) continue;
-    const t = iso(addMinutes(new Date(a.end), 10));
-    sessionNotes.push({
-      id: `sn-${a.id}`,
-      clientId: a.clientId,
-      appointmentId: a.id,
-      createdAt: t,
-      updatedAt: t,
-      blocks: paras.map((p) => P(p, PSY_ID, t)),
-    });
-  }
-
-  return { psychologist, clients, appointments, tablePages, journal, sessionNotes, templates, tasks, taskEntries, invoices };
 }

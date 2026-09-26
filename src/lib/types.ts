@@ -73,29 +73,52 @@ export type Block = {
   level?: 2 | 3;
 };
 
-/** Tafel: gedeelde pagina's per cliënt. */
-export type TablePage = {
+/**
+ * Gedeelde pagina bij een sessie. Ontstaat de eerste keer dat iemand erop schrijft.
+ * `summary` schrijft de psycholoog (wat we bespraken), `reactions` schrijven beiden.
+ */
+export type SessionPage = {
   id: ID;
   clientId: ID;
-  title: string;
-  blocks: Block[];
-  pinned: boolean;
-  createdBy: ID;
-  createdAt: ISODate;
+  appointmentId: ID;
+  summary: Block[];
+  reactions: Block[];
   updatedAt: ISODate;
+};
+
+/** Een punt op "Voor volgende keer" van een komende sessie. */
+export type AgendaItem = {
+  id: ID;
+  clientId: ID;
+  appointmentId: ID;
+  /** Korte vraag of punt, als het geen entry is. */
+  text?: string;
+  /** Een logboekentry die de cliënt meeneemt. */
+  journalEntryId?: ID;
+  addedBy: ID;
+  createdAt: ISODate;
 };
 
 export type Mood = 1 | 2 | 3 | 4 | 5;
 
+export type JournalKind = "checkin" | "notitie" | "opdracht";
+
+/** Alles wat de cliënt schrijft komt hier terecht: check-ins, vrije notities en opdracht-resultaten. */
 export type JournalEntry = {
   id: ID;
   clientId: ID;
+  kind: JournalKind;
+  /** De dag waarop de entry telt (bij opdrachten: de dag waarvoor ze gedaan is). */
+  day: Day;
   createdAt: ISODate;
   updatedAt: ISODate;
   title?: string;
   blocks: Block[];
   mood?: Mood;
   tags: string[];
+  /** Bij een opdracht-entry. */
+  taskId?: ID;
+  scale?: number;
   sharedWithPsychologist: boolean;
   psychologistNote?: { text: string; createdAt: ISODate };
 };
@@ -112,19 +135,20 @@ export type SessionNote = {
 
 export type TaskKind = "afvinken" | "tekst" | "schaal" | "meditatie";
 
-export type Recurrence = {
-  every: "dag" | "week";
-  /** Enkel bij `week`: 1 = maandag, 7 = zondag. */
-  days?: number[];
-  until?: Day;
-};
+/** Elke opdracht heeft precies één ritme. */
+export type Rhythm =
+  | { kind: "dagelijks" }
+  /** 1 = maandag, 7 = zondag. */
+  | { kind: "dagen"; days: number[] }
+  | { kind: "perWeek"; times: number }
+  | { kind: "eenmalig"; due: Day };
 
 export type TaskTemplate = {
   id: ID;
   title: string;
   description: string;
   kind: TaskKind;
-  defaultRecurrence?: Recurrence;
+  defaultRhythm?: Rhythm;
   /** Bij meditatie: duur in minuten. Bij schaal: wat er gemeten wordt. */
   minutes?: number;
   scaleLabel?: string;
@@ -133,26 +157,29 @@ export type TaskTemplate = {
 export type Task = {
   id: ID;
   clientId: ID;
+  /** De sessie waaruit de opdracht komt. */
+  appointmentId?: ID;
   templateId?: ID;
   title: string;
   description: string;
   kind: TaskKind;
-  dueDate?: Day;
-  recurrence?: Recurrence;
+  rhythm: Rhythm;
+  /** Herhalende opdrachten: tot en met deze dag. */
+  until?: Day;
   minutes?: number;
   scaleLabel?: string;
   createdAt: ISODate;
   archived?: boolean;
 };
 
-export type TaskEntry = {
-  id: ID;
-  taskId: ID;
-  date: Day;
-  completed: boolean;
-  answer?: string;
-  scale?: number;
-  updatedAt: ISODate;
+/** Voorkeuren van de cliënt: onboarding, herinneringen, delen. */
+export type ClientPrefs = {
+  onboarded: boolean;
+  /** "20:00", of leeg als er geen herinnering is. */
+  checkinReminder?: string;
+  taskReminders: boolean;
+  appointmentReminder: boolean;
+  defaultShare: boolean;
 };
 
 export type InvoiceStatus = "open" | "betaald" | "vervallen";
