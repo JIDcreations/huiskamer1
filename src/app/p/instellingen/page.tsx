@@ -2,12 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { DemoReset } from "@/components/demo-reset";
 import { PageHeader } from "@/components/page-header";
 import { Panel } from "@/components/shared/panel";
 import { Button } from "@/components/ui/button";
 import { Input, Label } from "@/components/ui/input";
-import { Sheet } from "@/components/ui/sheet";
 import { toast } from "@/components/ui/toast";
 import { Toggle } from "@/components/ui/toggle";
 import { actions, usePsychologist } from "@/lib/data";
@@ -51,10 +50,8 @@ function Availability({ value, onChange }: { value: WeeklySlot[]; onChange: (v: 
 }
 
 export default function Instellingen() {
-  const router = useRouter();
   const psy = usePsychologist();
   const [form, setForm] = useState<Psychologist>(psy);
-  const [confirmReset, setConfirmReset] = useState(false);
   const dirty = JSON.stringify(form) !== JSON.stringify(psy);
   const text = (k: "name" | "practiceName" | "email" | "phone" | "address", label: string, type = "text") => (
     <div>
@@ -126,29 +123,10 @@ export default function Instellingen() {
 
         <Panel title="Demo">
           <p className="text-[14px] text-muted">Zet alle demodata terug naar het begin. Handig voor een nieuwe demonstratie.</p>
-          <Button variant="secondary" size="sm" className="mt-3" onClick={() => setConfirmReset(true)}>
-            Demo opnieuw beginnen
-          </Button>
+          <DemoReset variant="button" className="mt-3" />
         </Panel>
       </div>
 
-      <Sheet open={confirmReset} onOpenChange={setConfirmReset} title="Demo opnieuw beginnen?" description="Alles wat je in de demo schreef of aanpaste, verdwijnt.">
-        <div className="flex justify-end gap-2">
-          <Button variant="ghost" onClick={() => setConfirmReset(false)}>
-            Annuleren
-          </Button>
-          <Button
-            onClick={() => {
-              actions.resetDemo();
-              setConfirmReset(false);
-              toast("Demo staat weer aan het begin");
-              router.push("/p/vandaag");
-            }}
-          >
-            Opnieuw beginnen
-          </Button>
-        </div>
-      </Sheet>
     </>
   );
 }

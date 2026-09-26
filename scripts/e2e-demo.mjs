@@ -157,6 +157,19 @@ ok("sessiepagina toont privénotities voor de psycholoog", await page.isVisible(
 const html = await page.content();
 ok("geen chat-interface", !/typt\.\.\.|gelezen om|chatbericht/i.test(html));
 
+// Demo opnieuw beginnen via de zwevende knop naast de rolwissel
+await page.click("button[aria-label='Demo opnieuw beginnen']");
+await wait(350);
+await page.click("role=dialog >> button:has-text('Opnieuw beginnen')");
+await page.waitForURL(B + "/");
+await wait(300);
+await page.click("button[type=submit]");
+await page.waitForURL("**/c/welkom");
+ok("reset: onboarding start opnieuw", await page.isVisible("text=Welkom, Lotte"));
+await page.goto(B + "/c/logboek", { waitUntil: "networkidle" });
+await wait(400);
+ok("reset: demo-entries zijn weg", !(await text()).includes("Demo gedeeld"));
+
 ok("geen fouten in de console", errors.length === 0);
 if (errors.length) console.log(errors.slice(0, 5));
 await browser.close();

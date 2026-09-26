@@ -24,3 +24,4 @@ Keuzes die ik zelf maakte bij twijfel. Telkens kort, zodat je ze snel kan naleze
 - **Netlify-badge:** nergens in de code te vinden. Wat je ziet op een deploy preview is de Netlify Drawer; die zet je uit in Netlify zelf (Site configuration, Deploys, Deploy Previews). De Next-indicator stond al uit.
 - **PWA:** manifest start op `/c/vandaag` in standalone, iconen gemaakt uit het huisje (192, 512, maskable, Apple 180). Geen service worker: offline werken hoort niet bij een prototype en kan verwarren bij demo's.
 - **Responsive:** grids die pas vanaf een breakpoint kolommen krijgen, hebben nu `grid-cols-1`. Zonder dat duwden afgekapte teksten de pagina breder dan 375px.
+- **Reset demo** staat op drie plekken, telkens stil: onder het aanmeldformulier, als rond knopje naast de zwevende rolwissel (desktop), en in de lade op mobiel. Plus de bestaande knop in Instellingen. Na de reset ga je naar de aanmeldpagina en start de kennismaking van de cliënt opnieuw.

@@ -9,6 +9,7 @@ import { ChevronDown, LogOut, Menu, X } from "lucide-react";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { RoleSwitch } from "@/components/role-switch";
+import { DemoReset } from "@/components/demo-reset";
 import { PageSkeleton } from "@/components/ui/skeleton";
 import { Toaster } from "@/components/ui/toast";
 import { useHydrateStore } from "@/lib/data";
@@ -252,6 +253,7 @@ function MobileDrawer({
                   <div className="border-t border-edge px-4 py-4 md:hidden">
                     <p className="mb-2 text-[11px] font-medium tracking-[0.08em] text-faint uppercase">Demo: bekijk als</p>
                     <RoleSwitch className="flex w-full" />
+                    <DemoReset className="mt-3" />
                   </div>
                 </div>
               </motion.div>
@@ -307,7 +309,10 @@ export function PlatformShell({ user, topbarStart, topbarEnd, mobileTabs, childr
       </main>
       {mobileTabs && <TabBar items={mobileTabs} />}
 
-      <RoleSwitch floating className="fixed bottom-4 right-4 z-40 hidden md:inline-flex" />
+      <div className="fixed bottom-4 right-4 z-40 hidden items-center gap-2 md:flex">
+        <DemoReset variant="icon" />
+        <RoleSwitch floating />
+      </div>
       <Toaster />
     </div>
   );

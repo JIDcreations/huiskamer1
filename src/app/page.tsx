@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input, Label } from "@/components/ui/input";
 import { Mark } from "@/components/shell/platform-shell";
 import { RoleSwitch, type Role } from "@/components/role-switch";
+import { DemoReset } from "@/components/demo-reset";
+import { Toaster } from "@/components/ui/toast";
 
 const demo: Record<Role, { email: string; home: string }> = {
   client: { email: "lotte.janssens@voorbeeld.be", home: "/c/vandaag" },
@@ -51,7 +53,11 @@ export default function Login() {
         </form>
 
         <p className="mt-6 text-center text-[13px] text-faint">Demo. Je kan aanmelden zonder echte gegevens.</p>
+        <div className="mt-2 text-center">
+          <DemoReset />
+        </div>
       </div>
+      <Toaster />
     </main>
   );
 }
