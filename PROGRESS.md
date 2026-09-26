@@ -1,6 +1,6 @@
 # Dagrun 26 september: voortgang
 
-Laatste update: 2026-09-26 10:53
+Laatste update: 2026-09-26 14:01
 
 ## Fases
 - [x] 1. UX-herwerking cliëntkant
