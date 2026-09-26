@@ -26,15 +26,13 @@ import type {
   SessionPage,
   Task,
 } from "@/lib/types";
-import { plainText } from "@/lib/format";
+import { plainText, shortDayNames } from "@/lib/format";
 
 export const dayOf = (d: Date) => format(d, "yyyy-MM-dd");
 /** 1 = maandag, 7 = zondag. */
 export const weekdayOf = (d: Date) => ((d.getDay() + 6) % 7) + 1;
 
 // ------------------------------------------------------------------ Opdrachten
-
-const dayNames = ["ma", "di", "wo", "do", "vr", "za", "zo"];
 
 /** Eén vaste vorm voor het ritme: "Elke dag", "Ma, wo, vr", "3x deze week", "Eenmalig, voor zo 27 sep". */
 export function rhythmLabel(rhythm: Rhythm) {
@@ -44,7 +42,7 @@ export function rhythmLabel(rhythm: Rhythm) {
     case "dagen": {
       const days = [...rhythm.days].sort();
       if (days.length === 7) return "Elke dag";
-      const s = days.map((d) => dayNames[d - 1]).join(", ");
+      const s = days.map((d) => shortDayNames[d - 1]).join(", ");
       return s.charAt(0).toUpperCase() + s.slice(1);
     }
     case "perWeek":

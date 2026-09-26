@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { addDays, format } from "date-fns";
 import { Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,6 +7,7 @@ import { Input, Label, Textarea } from "@/components/ui/input";
 import { Segmented } from "@/components/ui/segmented";
 import { Select } from "@/components/ui/select";
 import { rhythmLabel } from "@/lib/data/derive";
+import { shortDayNames } from "@/lib/format";
 import type { Rhythm, TaskKind } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -30,8 +30,6 @@ export type TaskDraft = {
 };
 
 type RhythmKind = Rhythm["kind"];
-const dayNames = ["ma", "di", "wo", "do", "vr", "za", "zo"];
-
 function defaultRhythm(kind: RhythmKind, prev?: Rhythm): Rhythm {
   switch (kind) {
     case "dagelijks":
@@ -107,7 +105,7 @@ export function TaskFields({ value, onChange, withDates }: { value: TaskDraft; o
 
         {r?.kind === "dagen" && (
           <div className="mt-3 flex flex-wrap gap-1">
-            {dayNames.map((d, i) => {
+            {shortDayNames.map((d, i) => {
               const on = r.days.includes(i + 1);
               return (
                 <button
@@ -181,8 +179,4 @@ export function FormActions({ onCancel, submitLabel, disabled }: { onCancel: () 
       </Button>
     </div>
   );
-}
-
-export function useTaskDraft(initial?: Partial<TaskDraft>) {
-  return useState<TaskDraft>({ title: "", description: "", kind: "afvinken", ...initial });
 }

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { parseISO } from "date-fns";
 import { AgendaList } from "@/components/sessions/agenda-list";
 import { SessionTaskRow } from "@/components/sessions/session-view";
-import { minutesOf, typeLabel } from "@/components/shared/appointment-card";
+import { minutesOf, typeLabel } from "@/lib/appointments";
 import { moodLabel, moods } from "@/components/shared/mood";
 import { Panel } from "@/components/shared/panel";
 import { Button } from "@/components/ui/button";

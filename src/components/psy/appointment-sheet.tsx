@@ -9,7 +9,7 @@ import { Segmented } from "@/components/ui/segmented";
 import { Select } from "@/components/ui/select";
 import { Sheet } from "@/components/ui/sheet";
 import { toast } from "@/components/ui/toast";
-import { minutesOf, statusLabel, typeLabel } from "@/components/shared/appointment-card";
+import { minutesOf, statusLabel, typeLabel } from "@/lib/appointments";
 import { actions, useAppointments, useClient, useClients, usePsychologist } from "@/lib/data";
 import { capitalize, formatLongDate, formatTime } from "@/lib/format";
 import type { Appointment, AppointmentMode, AppointmentType, ID } from "@/lib/types";

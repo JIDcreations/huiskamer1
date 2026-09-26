@@ -8,7 +8,7 @@ import { PageHeader } from "@/components/page-header";
 import { ActivityItem } from "@/components/psy/activity";
 import { AppointmentDetailSheet, NewAppointmentSheet } from "@/components/psy/appointment-sheet";
 import { Panel } from "@/components/shared/panel";
-import { statusLabel, typeLabel } from "@/components/shared/appointment-card";
+import { statusLabel, typeLabel } from "@/lib/appointments";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {

@@ -2,7 +2,7 @@ import { Extension } from "@tiptap/core";
 import { Plugin, PluginKey } from "@tiptap/pm/state";
 import { Decoration, DecorationSet } from "@tiptap/pm/view";
 import type { Node as PMNode } from "@tiptap/pm/model";
-import { formatWhen as formatWhenDate } from "@/lib/format";
+import { formatWhen as formatWhenDate, initials } from "@/lib/format";
 import type { Role } from "@/lib/types";
 
 export type EditorAuthor = { name: string; role: Role };
@@ -44,15 +44,6 @@ function sameBlock(a: PMNode, b: PMNode) {
     a.attrs.checked === b.attrs.checked &&
     a.attrs.level === b.attrs.level
   );
-}
-
-export function initials(name: string) {
-  return name
-    .split(" ")
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((p) => p[0]?.toUpperCase())
-    .join("");
 }
 
 function formatWhen(iso: string | null) {

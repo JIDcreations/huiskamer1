@@ -1,6 +1,6 @@
 # Dagrun 26 september: voortgang
 
-Laatste update: 2026-09-26 14:18
+Laatste update: 2026-09-26 14:23
 
 ## Fases
 - [x] 1. UX-herwerking cliëntkant
@@ -11,16 +11,15 @@ Laatste update: 2026-09-26 14:18
 - [x] 6. Copy-pass
 - [x] 7. Toegankelijkheid, responsive, PWA
 - [x] 8. Demo-klaar
-- [ ] 9. Code opruimen
+- [x] 9. Code opruimen
 - [ ] 10. Eindrapport (SUMMARY.md)
 
 ## Nu bezig
-Fase 9: code opruimen.
+Fase 10: eindrapport (SUMMARY.md).
 
 ## Volgende stap
-Dubbele code zoeken, imports uit `@/lib/mock` buiten `lib/data` weghalen, ongebruikte exports en bestanden opruimen, README en VOORTGANG bijwerken.
+SUMMARY.md schrijven, daarna tweede polish-ronde door fase 3 en 4, scherm per scherm.
 
 ## Open punten voor later
 - Demotest `npm run test:demo` is herschreven naar de nieuwe flow en slaagt volledig (27 checks, nu ook de reset).
-- VOORTGANG.md en README.md beschrijven nog de oude structuur. Bijwerken in fase 9/10.
 - Nieuw: `npm run test:layout` loopt alle routes af op 375, 768 en 1440px (horizontale scroll, knoppen zonder naam, beelden zonder alt). Slaagt volledig.

@@ -34,11 +34,6 @@ export function formatDayMonth(d: DateInput) {
   return format(date, isThisYear(date) ? "d MMM" : "d MMM yyyy", locale).replace(/\./g, "");
 }
 
-/** "24 september" */
-export function formatDayLong(d: DateInput) {
-  return format(toDate(d), "d MMMM", locale);
-}
-
 /** "24 september 2026" */
 export function formatFullDate(d: DateInput) {
   return format(toDate(d), "d MMMM yyyy", locale);
@@ -108,3 +103,16 @@ export function plainText(html: string) {
 export function plural(n: number, one: string, many: string) {
   return `${n} ${n === 1 ? one : many}`;
 }
+
+/** "Lotte Janssens" wordt "LJ". */
+export function initials(name: string) {
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((p) => p[0]?.toUpperCase())
+    .join("");
+}
+
+/** Korte dagnamen, maandag eerst. */
+export const shortDayNames = ["ma", "di", "wo", "do", "vr", "za", "zo"];

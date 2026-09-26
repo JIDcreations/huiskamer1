@@ -4,7 +4,7 @@ import Link from "next/link";
 import { CalendarDays, CalendarPlus, CheckCircle2, Lock, MessagesSquare, NotebookPen, Sun } from "lucide-react";
 import { entrySummary } from "@/components/shared/journal-list";
 import { MoodDots, moodLabel } from "@/components/shared/mood";
-import { statusLabel, typeLabel } from "@/components/shared/appointment-card";
+import { statusLabel, typeLabel } from "@/lib/appointments";
 import { excerpt, usePersonName, useTask, type Activity } from "@/lib/data";
 import { formatDayMonth, formatTime, formatWhen, plural } from "@/lib/format";
 import { cn } from "@/lib/utils";

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ChevronRight, Lock } from "lucide-react";
 import { AgendaList } from "@/components/sessions/agenda-list";
-import { typeLabel } from "@/components/shared/appointment-card";
+import { typeLabel } from "@/lib/appointments";
 import { Panel } from "@/components/shared/panel";
 import { Button } from "@/components/ui/button";
 import {

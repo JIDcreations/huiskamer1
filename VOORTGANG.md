@@ -1,49 +1,48 @@
 # Huiskamer: voortgang en volgende stappen
 
-_Stand van 24 september 2026. Fase 1 (de interface) is af en staat op `main`._
+_Stand van 26 september 2026. Fase 1 staat op `main`; de dagrun van 26 september (UX-herwerking, verfijnde UI, rijkere demo) staat op de branch `dagrun-26sep`. Zie SUMMARY.md en DECISIONS.md op die branch._
 
 ## Kort
 
-Een klikbaar prototype van het volledige platform, voor cliënt en psycholoog, met mockdata. Alle routes uit het plan bestaan en werken. De demoflow uit sectie 10 is automatisch getest: wat een cliënt schrijft, afvinkt of deelt, ziet de psycholoog meteen in **Vandaag** en in de **tijdlijn**. Niet-gedeelde logboekentries en sessienotities lekken nergens.
+Een klikbaar prototype van het volledige platform, voor cliënt en psycholoog, met mockdata. Sinds de dagrun denkt het platform in tijd: **Vandaag**, **Logboek** en **Sessies**. Wat een cliënt invult, afvinkt of meeneemt naar de sessie, ziet de psycholoog meteen in **Vandaag** en in het dossier. Niet-gedeelde entries en privénotities lekken nergens. Beide zijn automatisch getest.
 
 ## Klaar-wanneer (sectie 10 van het plan)
 
 | Criterium | Stand |
 |---|---|
-| Alle routes bestaan en zijn klikbaar met mockdata | Klaar |
+| Alle routes bestaan en zijn klikbaar met mockdata | Klaar, `npm run test:layout` loopt ze allemaal af |
 | Nergens een chat-interface | Klaar (ook getest) |
-| Tafel, Logboek en Opdrachten zijn drie aparte plekken | Klaar: aparte navigatie, eigen vorm |
-| Demo end-to-end: cliënt schrijft, vinkt af, schrijft op de Tafel, psycholoog ziet het meteen | Klaar, `npm run test:demo` |
-| Niet-gedeelde entries nergens bij de psycholoog | Klaar, getest in Vandaag, tijdlijn en logboek-tab |
-| Sessienotities visueel anders en nooit bij de cliënt | Klaar, getest op alle cliëntpagina's |
-| Voelt als één rustig platform, desktop en smal scherm | Klaar, gecontroleerd op 390px en 1440px |
-| Geen emoji's, geen decoratieve iconen, geen em dashes | Klaar, gecontroleerd in de code |
+| Logboek, Sessies en Opdrachten zijn duidelijk aparte plekken | Klaar: opdrachten leven in Vandaag en in sheets, antwoorden landen in het logboek |
+| Demo end-to-end: cliënt schrijft, vinkt af, neemt iets mee naar de sessie, psycholoog ziet het meteen | Klaar, `npm run test:demo` |
+| Niet-gedeelde entries nergens bij de psycholoog | Klaar, getest in Vandaag, dossier en logboek-tab |
+| Privénotities visueel anders en nooit bij de cliënt | Klaar, getest op alle cliëntpagina's |
+| Voelt als één rustig platform, desktop en smal scherm | Klaar, gecontroleerd op 375, 768 en 1440px |
+| Geen emoji's, geen decoratieve iconen, geen em dashes | Klaar, gezocht in de hele codebase |
 
 ## Wat er gebouwd is
 
-1. **Fundament.** Next.js 16, Tailwind 4, tokens uit het palet (Milk, Oat, Taupe, Mocha, Charcoal), Inter, basiscomponenten (knop, kaart, invoer, tabs, sheet, avatar, badge, schakelaar, lege staat, menu, toast).
-2. **Platform-shell.** Eén opbouw voor beide rollen: sidebar met gegroepeerde navigatie, topbalk, lade op smalle schermen. Zoekbalk voor cliënten bij de psycholoog, nood-link bij de cliënt. Rolwissel voor de demo.
-3. **Editor.** Eén Tiptap-editor voor Tafel, Logboek en Sessienotities: `/`-menu, opmaak bij selectie, checklist, auteur en tijdstip per blok, markering van nieuwe blokken, autosave.
-4. **Data.** Volledig datamodel, gegenereerde demo rond vandaag (1 psycholoog, 8 cliënten, drie weken afspraken), Zustand store met localStorage. Componenten lezen en schrijven enkel via `src/lib/data`.
-5. **Cliëntomgeving.** Overzicht, Afspraken (boeken, verzetten, annuleren binnen de regels), Opdrachten (afvinken, tekst, schaal, meditatie met timer), Logboek (stemming, tags, deel-toggle), Tafel, Betalingen (demo-betaling), Profiel, nood-link met 1813 en 106.
-6. **Psycholoog.** Vandaag, cliëntenlijst, dossier (overzicht, tijdlijn per periode tussen sessies, Tafel, gedeeld logboek met kanttekening, opdrachten, privé sessienotities, betalingen), agenda (week en dag), opdrachtenbibliotheek, facturatie, instellingen.
-7. **Afwerking.** Toegankelijkheid (audit zonder meldingen op de gecontroleerde pagina's), mobiel, lege staten, demotest, README.
+1. **Fundament.** Next.js 16, Tailwind 4, tokens uit het palet (Milk, Oat, Taupe, Mocha, Charcoal), Inter voor UI en Instrument Serif voor paginatitels, basiscomponenten met afgewerkte states.
+2. **Shell.** Sidebar en topbalk voor de psycholoog, tab bar met Vandaag, Logboek en Sessies voor de cliënt op mobiel. Nood-link altijd bereikbaar. Rolwissel en "Demo opnieuw beginnen" voor de demo.
+3. **Editor.** Eén Tiptap-editor voor sessiepagina's, logboek en privénotities: `/`-menu, opmaak bij selectie, checklist, auteur en tijdstip per blok, autosave.
+4. **Data.** Volledig datamodel, gegenereerde demo rond vandaag met een eigen verhaal per cliënt, Zustand store met localStorage. Componenten lezen en schrijven enkel via `src/lib/data`.
+5. **Cliënt.** Vandaag (check-in, opdrachten van vandaag, volgende sessie), Logboek (één tijdlijn voor check-ins, notities en opdracht-antwoorden, delen per entry), Sessies (sessiepagina's, "Voor volgende keer", boeken en verzetten), Betalingen, Herinneringen, Privacy, Profiel, kennismaking.
+6. **Psycholoog.** Vandaag met "Tussen de sessies", cliëntenlijst, dossier (Overzicht, Logboek, Sessies, Opdrachten, Betalingen), sessiepagina met privénotities, agenda, opdrachtenbibliotheek, facturatie, instellingen.
+7. **Afwerking.** Copy-pass, focus states, responsive check, PWA-basis (manifest en iconen), demotest en layouttest.
 
 ## Afwijkingen van het oorspronkelijke plan
 
-- **Platform in plaats van app.** Geen bottom tab bar meer; beide rollen krijgen een sidebar en topbalk (op vraag, PLAN.md is aangepast).
-- **Enkel sans-serif.** Instrument Serif is weg; koppen in Inter semibold.
+- **Tafel en tijdlijn zijn opgegaan in Sessies en Logboek.** Elke sessie heeft een eigen pagina met samenvatting en reacties; de tijdlijn is het logboek.
+- **Tab bar voor de cliënt op mobiel**, op vraag van de dagrun. De psycholoog houdt de sidebar en de lade.
+- **Instrument Serif voor paginatitels**, al de rest blijft Inter.
 - **Kleine tekst iets donkerder dan Taupe.** Taupe op wit haalt geen AA-contrast (2,98:1). Kleine labels gebruiken `#75695D` (5:1). Iconen, randen en bolletjes blijven Taupe.
 - **Nood-sheet** vermeldt naast 1813 en 106 ook "Bij direct gevaar: bel 112".
-- **Lege Tafel-pagina's en logboekentries** verdwijnen vanzelf als je ze verlaat zonder iets te schrijven.
-- **Sessienotities in de tijdlijn** staan bij hun sessie, niet als los item.
 
 ## Bekende beperkingen van het prototype
 
 - **Data leeft per browser.** Een cliënt op zijn gsm en een psycholoog op haar laptop zien elkaars wijzigingen niet. Dat vraagt een backend.
 - **Geen echte login, betalingen of attesten.** Aanmelden is een formaliteit, "Betalen" is een demo, de attestknop legt uit dat het later komt.
-- **Meldingen** in Profiel zijn enkel schakelaars, er wordt niets verstuurd en ze worden niet bewaard.
-- **Samen schrijven** op de Tafel is niet realtime. Wie het laatst bewaart, wint.
+- **Herinneringen** zijn enkel voorkeuren, er wordt niets verstuurd.
+- **Samen schrijven** op een sessiepagina is niet realtime. Wie het laatst bewaart, wint.
 - **Agenda**: geen slepen om te verzetten, geen reeksen (bv. elke maandag).
 - **Één praktijk, één psycholoog**, enkel Nederlandstalig.
 
@@ -51,7 +50,7 @@ Een klikbaar prototype van het volledige platform, voor cliënt en psycholoog, m
 
 ### 1. Tonen en laten testen (nu)
 - Deployen (Netlify of Vercel, zie hieronder) zodat de demo een link heeft.
-- Twee of drie psychologen en een paar cliënten de demo laten doorlopen. Vooral nagaan: is het verschil tussen Tafel, Logboek en Opdrachten meteen duidelijk, en voelt de tijdlijn nuttig tussen twee sessies?
+- Twee of drie psychologen en een paar cliënten de demo laten doorlopen. Vooral nagaan: is de indeling in Vandaag, Logboek en Sessies meteen duidelijk, en helpt "Tussen de sessies" de psycholoog echt?
 - Copy laten nalezen door een psycholoog, zeker de nood-informatie.
 
 ### 2. Backend (fase 2)
@@ -70,8 +69,8 @@ Een klikbaar prototype van het volledige platform, voor cliënt en psycholoog, m
 - Echte factuurnummering en PDF, attest voor de mutualiteit (vorm laten nagaan).
 
 ### 5. Daarna
-- E-mailherinneringen (afspraak, nieuw op de Tafel), met de voorkeuren uit Profiel.
-- Realtime samen schrijven op de Tafel.
+- E-mailherinneringen (afspraak, check-in, opdrachten), met de voorkeuren uit Herinneringen.
+- Realtime samen schrijven op een sessiepagina.
 - Agenda: verslepen, reeksen, online link voor videosessies.
 - Meerdere psychologen per praktijk.
 - Franstalige versie.
@@ -83,6 +82,6 @@ Netlify zou moeten werken zonder instellingen: repo importeren, branch `main`, s
 
 ## Handig om te weten
 
-- `npm run dev` start het platform, `npm run test:demo` draait de demoflow als test (dev-server moet draaien).
-- **Instellingen, Demo opnieuw beginnen** zet alle data terug.
+- `npm run dev` start het platform. `npm run test:demo` en `npm run test:layout` draaien de tests (server moet draaien).
+- **Demo opnieuw beginnen** (onder het aanmeldformulier of naast de rolwissel) zet alle data terug.
 - `/stijlgids` en `/stijlgids/editor` tonen de bouwstenen los.

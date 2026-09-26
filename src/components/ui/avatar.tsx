@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { initials } from "@/lib/format";
 
 const tones = {
   psy: "bg-surface-2 text-muted",
@@ -12,15 +13,6 @@ const sizes = {
   md: "size-9 text-[13px]",
   lg: "size-12 text-[16px]",
 } as const;
-
-export function initials(name: string) {
-  return name
-    .split(" ")
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((p) => p[0]?.toUpperCase())
-    .join("");
-}
 
 export function Avatar({
   name,
