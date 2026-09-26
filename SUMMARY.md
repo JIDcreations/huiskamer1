@@ -28,7 +28,7 @@ Keuzes die ik zelf maakte, staan kort in **DECISIONS.md**. De voortgang per fase
 - **Tab bar voor de cliënt op mobiel** gaat in tegen CLAUDE.md, maar DAGRUN en UX-PROMPT vroegen erom. Kijk of het voor jou nog "platform, geen app" voelt.
 - **Instrument Serif** draait je eerdere keuze voor enkel sans-serif terug. Ik gebruik het enkel voor paginatitels, sheet-titels en grote datums.
 - **Opdracht gedaan = logboekentry.** Eén bron van waarheid en de privacyregel geldt vanzelf, maar een privé-afgevinkte opdracht telt dan ook niet mee in de voortgang bij de psycholoog. Dat is consequent, maar kan verrassen.
-- **"Tussen de sessies"** bij de psycholoog wordt lang met acht actieve cliënten. Rustig per regel, maar veel regels.
+- **"Tussen de sessies"** bij de psycholoog was lang met acht actieve cliënten. In de polish-ronde ingekort (zie onderaan); kijk of drie regels per cliënt de juiste maat is.
 - **De tijdlijn-tab en losse sessienotities** zijn weg uit het dossier. Minder plekken, maar wie de oude tijdlijn gewoon was, moet even zoeken.
 
 ## Vijf dingen om eerst te bekijken
@@ -41,4 +41,6 @@ Keuzes die ik zelf maakte, staan kort in **DECISIONS.md**. De voortgang per fase
 
 ## Tweede polish-ronde
 
-Wordt hieronder aangevuld als er na fase 10 nog tijd is.
+Scherm per scherm, wat ik verbeterde:
+
+- **Psycholoog, Vandaag:** "Tussen de sessies" toont per cliënt alles wat nieuw is sinds je laatste bezoek, aangevuld tot drie regels. De rest zit achter "Nog 3 in het logboek van Elise". De lijst werd zo ongeveer een derde korter, zonder dat er iets nieuws verdwijnt.

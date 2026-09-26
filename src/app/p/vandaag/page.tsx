@@ -27,6 +27,9 @@ import { formatLongDate, formatTime, greeting, plural } from "@/lib/format";
 import type { Appointment } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
+/** Oudere regels per cliënt; wat nieuw is, staat er altijd bij. */
+const PER_CLIENT = 3;
+
 function DayAgenda({ appointments, onOpen }: { appointments: Appointment[]; onOpen: (a: Appointment) => void }) {
   const clients = useClientsRaw();
   const agenda = useAgendaRaw();
@@ -164,6 +167,9 @@ export default function Vandaag() {
               {byClient.map(([clientId, items]) => {
                 const c = clients.find((x) => x.id === clientId);
                 if (!c) return null;
+                // Alles wat nieuw is sinds je laatste bezoek, aangevuld tot drie regels.
+                const shown = items.filter((it, i) => i < PER_CLIENT || it.activity.at > since);
+                const rest = items.length - shown.length;
                 return (
                   <section key={clientId}>
                     <Link href={`/p/clienten/${clientId}?tab=logboek`} className="mb-1 flex items-center gap-2.5 px-2 text-[14px] font-semibold hover:underline hover:decoration-surface-2 hover:underline-offset-4">
@@ -171,12 +177,12 @@ export default function Vandaag() {
                       {c.firstName} {c.lastName}
                     </Link>
                     <div className="flex flex-col">
-                      {items.slice(0, 5).map(({ activity: a, count }, i) => (
+                      {shown.map(({ activity: a, count }, i) => (
                         <ActivityItem key={i} activity={a} count={count} isNew={a.at > since} />
                       ))}
-                      {items.length > 5 && (
-                        <Link href={`/p/clienten/${clientId}?tab=logboek`} className="px-2 pt-1 text-[13px] text-muted hover:text-text">
-                          Meer in het logboek van {c.firstName}
+                      {rest > 0 && (
+                        <Link href={`/p/clienten/${clientId}?tab=logboek`} className="self-start rounded-full px-2 pt-1 text-[13px] text-muted hover:text-text">
+                          Nog {rest} in het logboek van {c.firstName}
                         </Link>
                       )}
                     </div>
