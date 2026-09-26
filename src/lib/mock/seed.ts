@@ -348,7 +348,10 @@ export function seed(now = new Date()): Database {
         mood: n.mood,
         tags: n.tags ?? [],
         sharedWithPsychologist: n.shared !== false,
-        psychologistNote: n.note ? { text: n.note, createdAt: iso(psyTime(addMinutes(when, 60 * 16))) } : undefined,
+        psychologistNote:
+          n.note && past(psyTime(addMinutes(when, 60 * 16)))
+            ? { text: n.note, createdAt: iso(psyTime(addMinutes(when, 60 * 16))) }
+            : undefined,
       });
     }
 

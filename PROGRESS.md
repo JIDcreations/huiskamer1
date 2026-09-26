@@ -1,13 +1,13 @@
 # Dagrun 26 september: voortgang
 
-Laatste update: 2026-09-26 10:51
+Laatste update: 2026-09-26 10:53
 
 ## Fases
 - [x] 1. UX-herwerking cliëntkant
 - [x] 2. UX-herwerking psycholoogkant (samen met fase 1 gecommit: het datamodel raakt beide kanten)
 - [x] 3. UI naar professioneel niveau (eerste ronde; tweede ronde na fase 10)
 - [x] 4. Elk detail uitwerken
-- [ ] 5. Mockdata rijker
+- [x] 5. Mockdata rijker
 - [ ] 6. Copy-pass
 - [ ] 7. Toegankelijkheid, responsive, PWA
 - [ ] 8. Demo-klaar
@@ -15,10 +15,10 @@ Laatste update: 2026-09-26 10:51
 - [ ] 10. Eindrapport (SUMMARY.md)
 
 ## Nu bezig
-Fase 5: mockdata rijker. De verhalen per cliënt staan al in `src/lib/mock/stories.ts` (gebouwd in fase 1); nu nalopen en aanvullen.
+Fase 6: copy-pass (em dashes, emoji, toon).
 
 ## Volgende stap
-Per cliënt controleren: sessies met samenvatting, gelinkte opdrachten, check-ins, notities, Voor volgende keer.
+Hele codebase doorzoeken op em dashes en emoji, dan alle zichtbare teksten nalezen.
 
 ## Open punten voor later
 - Demotest `npm run test:demo` is herschreven naar de nieuwe flow en slaagt volledig (25 checks).

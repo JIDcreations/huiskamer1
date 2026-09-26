@@ -250,7 +250,8 @@ export const stories: Record<string, Story> = {
       { id: "k21", title: "Brief aan papa", description: "Schrijf wat je hem nog had willen zeggen. Je hoeft hem aan niemand te laten lezen.", kind: "tekst", rhythm: { kind: "eenmalig" }, dueOffset: 4, from: 1, privateRate: 1 },
     ],
     notes: [
-      { id: "n-c2-1", day: -3, time: "17:30", text: ["Zijn verjaardag vandaag. Naar het kerkhof geweest met mijn zus. Minder zwaar dan ik dacht."], mood: 3, tags: ["rouw"] },
+      { id: "n-c2-1", day: -3, time: "17:30", text: ["Zijn verjaardag vandaag. Naar het kerkhof geweest met mijn zus. Minder zwaar dan ik dacht."], mood: 3, tags: ["rouw"], note: "Fijn dat je het samen met je zus deed. We nemen het mee." },
+      { id: "n-c2-3", day: -16, time: "21:40", title: "De garage", text: ["Vandaag de deur van de garage opengedaan. Niet naar binnen gegaan.", "Het rook er nog naar hem."], mood: 2, tags: ["rouw"] },
       { id: "n-c2-2", day: -10, time: "23:10", text: ["Droomde van hem. We zaten in de auto en hij zei niets. Ik werd wakker en wist even niet waar ik was."], shared: false },
     ],
     agenda: [
@@ -298,6 +299,7 @@ export const stories: Record<string, Story> = {
     notes: [
       { id: "n-c3-1", day: -1, time: "14:30", title: "Statistiek", text: ["Examen statistiek achter de rug. Handen trilden bij het begin, daarna ging het."], mood: 4, tags: ["examen"] },
       { id: "n-c3-2", day: -8, time: "23:30", text: ["Alles voelt te veel. Ik ga dit nooit halen."], mood: 1, shared: false },
+      { id: "n-c3-3", day: -5, time: "20:15", title: "Studieplanning", text: ["Planning gemaakt met blokken van 50 minuten. Het lukt beter dan verwacht.", "Na de middag wel een dip."], mood: 3, tags: ["examen"], note: "Een dip na de middag is heel normaal. Misschien daar een wandeling plannen?" },
     ],
     agenda: [{ by: "client", day: -1, text: "Hoe blijf ik rustig bij een mondeling examen?" }],
     mood: [2, 4],
@@ -334,6 +336,7 @@ export const stories: Record<string, Story> = {
     notes: [
       { id: "n-c4-1", day: -8, time: "17:45", text: ["Eerste volle werkdag. Om 15u moest ik even naar buiten."], mood: 3, tags: ["werk"], shared: false },
       { id: "n-c4-2", day: -3, time: "19:00", text: ["Gesprek met mijn dochter over waarom ik thuis was. Ze vond het niet erg. Ik wel, blijkbaar."], mood: 3 },
+      { id: "n-c4-3", day: -11, time: "12:30", title: "Tempo", text: ["Collega vroeg of ik al terug voltijds kom. Ik zei: nog niet. Dat voelde goed."], mood: 4, tags: ["werk"] },
     ],
     agenda: [{ by: "psy", day: -1, text: "Hoe ging de eerste volle week?" }],
     mood: [2, 3],
@@ -399,6 +402,7 @@ export const stories: Record<string, Story> = {
     notes: [
       { id: "n-c5-1", day: -2, time: "18:10", title: "Trein naar Brussel", text: ["Vandaag de trein naar Brussel genomen, alleen. Halverwege even kort paniek, de oefening gedaan. Ik ben aangekomen."], mood: 4, tags: ["trein"] },
       { id: "n-c5-2", day: -15, time: "08:00", text: ["Weer de auto genomen. Ik schaam me een beetje."], mood: 2, shared: false },
+      { id: "n-c5-3", day: -11, time: "19:30", title: "Eén halte", text: ["Gedaan! Mijn hart ging tekeer, maar ik ben blijven zitten.", "Achteraf ijsje gekocht als beloning."], mood: 4, tags: ["trein"], note: "Dat ijsje heb je verdiend, Elise." },
     ],
     agenda: [
       { by: "client", day: -2, journalId: "n-c5-1" },
@@ -452,7 +456,10 @@ export const stories: Record<string, Story> = {
         answers: ["Pasta gemaakt voor mijn huisgenoot.", "Een oude plaat opgezet.", "Zon op mijn bureau.", "Mijn broer gebeld."],
       },
     ],
-    notes: [{ id: "n-c6-1", day: -5, time: "20:00", text: ["Weinig zin in alles. Wel de afwas gedaan."], mood: 2 }],
+    notes: [
+      { id: "n-c6-1", day: -5, time: "20:00", text: ["Weinig zin in alles. Wel de afwas gedaan."], mood: 2 },
+      { id: "n-c6-2", day: -2, time: "18:45", text: ["Met mijn broer gebeld. Een uur gepraat, zonder dat het zwaar was."], mood: 3, note: "Mooi. Zo'n gesprek mag je gerust opnieuw plannen." },
+    ],
     agenda: [{ by: "psy", day: -2, text: "We kijken samen naar je weekritme." }],
     mood: [2, 3],
     diligence: 0.5,
