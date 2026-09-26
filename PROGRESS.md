@@ -1,6 +1,6 @@
 # Dagrun 26 september: voortgang
 
-Laatste update: 2026-09-26 10:21
+Laatste update: 2026-09-26 10:37
 
 ## Fases
 - [ ] 1. UX-herwerking cliëntkant
@@ -15,7 +15,7 @@ Laatste update: 2026-09-26 10:21
 - [ ] 10. Eindrapport (SUMMARY.md)
 
 ## Nu bezig
-Fase 1: UX-PROMPT.md en code lezen, PLAN.md bijwerken.
+Fase 1 en 2 samen: het nieuwe datamodel raakt beide kanten, dus de build wordt pas groen als de psycholoogkant mee is. Cliëntkant is geschreven (Vandaag, Logboek, Sessies, sheets, onboarding, avatar-menu), psycholoogkant volgt. Nog niets van de UI gecommit tot de build groen is.
 
 ## Volgende stap
-Datamodellen en mockdata voor de cliëntkant aanpassen.
+Psycholoogkant: task-form met verplicht ritme, dossier-tabs (Overzicht, Logboek, Sessies, Opdrachten, Betalingen), sessiepagina met privénotities, Vandaag.
