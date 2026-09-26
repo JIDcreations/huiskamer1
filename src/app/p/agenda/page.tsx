@@ -165,7 +165,7 @@ export default function Agenda() {
                 }}
                 className="flex flex-col items-center gap-0.5 py-3 transition-colors hover:bg-oat-soft/50"
               >
-                <span className="text-[11px] font-medium tracking-wide text-faint uppercase">{format(d, "EEE", { locale: nlBE }).replace(".", "")}</span>
+                <span className="text-[11px] font-medium tracking-wide text-faint uppercase">{format(d, "EEEEEE", { locale: nlBE }).replace(".", "")}</span>
                 <span
                   className={cn(
                     "flex size-8 items-center justify-center rounded-full text-[15px] font-semibold tabular-nums",

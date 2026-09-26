@@ -111,7 +111,7 @@ export default function Betalingen() {
                   const s = sessionOf(f);
                   return (
                     <li key={f.id} className="flex flex-wrap items-center gap-x-4 gap-y-2 py-4">
-                      <div className="min-w-0 flex-1">
+                      <div className="min-w-44 flex-1">
                         <p className="text-[15px] font-medium">Sessie van {s ? formatDayMonth(s.start) : formatDayMonth(f.issuedAt)}</p>
                         <p className="text-[13px] text-muted">
                           {f.status === "vervallen" || new Date(f.dueAt) < new Date()

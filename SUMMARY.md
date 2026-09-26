@@ -53,4 +53,6 @@ Scherm per scherm, wat ik verbeterde:
 - **Cliënt, Betalingen op mobiel:** in de historiek werd "Sessie van 14 sep" op 375px één woord per regel. De rij loopt nu door naar een tweede regel en het label "Betaald" valt weg op smalle schermen ("betaald op 17 sep" staat er al).
 - **Ook nagekeken:** Opdrachtenbibliotheek, alle opdrachten bij de cliënt, onboarding op mobiel. Geen wijzigingen nodig.
 
-Wat ik nog zou doen met meer tijd: de stemmingsgrafiek in het dossier een duidelijker label geven (nu "Zwaar tot licht" in het midden), en de rijen bij "Openstaand" in Betalingen op mobiel iets ruimer zetten.
+- **Dossier, stemming:** de grafiek heeft nu een kleine schaal links ("Licht" boven, "Zwaar" onder) in plaats van "Zwaar tot licht" in het midden.
+- **Cliënt, Betalingen op mobiel:** ook bij "Openstaand" schuift de knop onder de tekst, zodat de uitleg niet meer in een smalle kolom geperst wordt.
+- **Korte datums:** nl-BE maakt van maandag "maa" en van dinsdag "din" ("tegen maa 5 okt", "MAA 21" in de agenda). Nu overal "ma", "di", "wo", zoals in de rest van het platform.

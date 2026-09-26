@@ -22,7 +22,11 @@ export function MoodStrip({ clientId }: { clientId: string }) {
   if (!days.some((d) => d.mood)) return <p className="py-2 text-[14px] text-muted">Nog geen check-ins gedeeld.</p>;
 
   return (
-    <div>
+    <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-3">
+      <div aria-hidden className="flex h-24 flex-col justify-between py-0.5 text-right text-[11px] leading-none text-faint">
+        <span>{moods[4].label}</span>
+        <span>{moods[0].label}</span>
+      </div>
       <div className="flex h-24 items-end gap-1.5" role="img" aria-label="Stemming uit gedeelde check-ins, laatste twee weken">
         {days.map((d) => (
           <div
@@ -38,11 +42,8 @@ export function MoodStrip({ clientId }: { clientId: string }) {
           </div>
         ))}
       </div>
-      <div className="mt-2 flex justify-between text-[11px] text-faint">
+      <div className="col-start-2 mt-2 flex justify-between text-[11px] text-faint">
         <span>2 weken geleden</span>
-        <span>
-          {moods[0].label} tot {moods[4].label.toLowerCase()}
-        </span>
         <span>Vandaag</span>
       </div>
     </div>

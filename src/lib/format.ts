@@ -25,7 +25,7 @@ export function formatLongDate(d: DateInput) {
 /** "do 24 sep" */
 export function formatShortDate(d: DateInput) {
   const date = toDate(d);
-  return format(date, isThisYear(date) ? "EEE d MMM" : "EEE d MMM yyyy", locale).replace(/\./g, "");
+  return format(date, isThisYear(date) ? "EEEEEE d MMM" : "EEEEEE d MMM yyyy", locale).replace(/\./g, "");
 }
 
 /** "24 sep" of "24 sep 2025" */

@@ -1,6 +1,6 @@
 # Dagrun 26 september: voortgang
 
-Laatste update: 2026-09-26 14:42
+Laatste update: 2026-09-26 14:45
 
 ## Fases
 - [x] 1. UX-herwerking cliëntkant
@@ -19,7 +19,7 @@ Laatste update: 2026-09-26 14:42
 Niets. Alle fases en de tweede polish-ronde zijn klaar.
 
 ## Volgende stap
-Voor een volgende run: de twee open ideeën onderaan SUMMARY.md (label stemmingsgrafiek, Openstaand op mobiel). Anders wachten op Jasper.
+Niets open. Een volgende run kan wachten op feedback van Jasper.
 
 ## Open punten voor later
 - Demotest `npm run test:demo` is herschreven naar de nieuwe flow en slaagt volledig (27 checks, nu ook de reset).
