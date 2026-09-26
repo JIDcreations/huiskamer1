@@ -162,7 +162,7 @@ export function SessionView({
         <SaveState status={status} />
       </div>
 
-      <div className={cn(aside && "grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]")}>
+      <div className={cn(aside && "grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_340px]")}>
         <article className="hk-tafel min-w-0 card px-5 pb-8 pt-7 sm:px-8 md:px-10 md:pt-9">
           <header>
             <p className="text-[13px] text-muted">{appointment.type === "intake" ? "Intake" : "Sessie"}</p>

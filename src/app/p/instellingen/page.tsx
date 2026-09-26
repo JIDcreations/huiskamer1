@@ -91,7 +91,7 @@ export default function Instellingen() {
 
       <div className="mt-8 grid max-w-3xl gap-5">
         <Panel title="Praktijk">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {text("name", "Je naam")}
             {text("practiceName", "Naam van de praktijk")}
             {text("email", "E-mail", "email")}
@@ -101,7 +101,7 @@ export default function Instellingen() {
         </Panel>
 
         <Panel title="Sessies en tarief">
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             {num("hourlyRate", "Tarief per sessie", "euro")}
             {num("sessionMinutes", "Duur", "minuten")}
             {num("cancellationHours", "Kosteloos annuleren tot", "uur")}

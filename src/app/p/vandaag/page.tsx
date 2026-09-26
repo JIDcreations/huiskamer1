@@ -146,7 +146,7 @@ export default function Vandaag() {
         {summary.length ? `Sinds je laatste bezoek: ${summary.join(", ")}.` : "Sinds je laatste bezoek is er niets nieuws."}
       </p>
 
-      <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
+      <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
         <div className="flex flex-col gap-5">
           <Panel title="Vandaag" href="/p/agenda" hrefLabel="Agenda" bodyClassName="pt-1">
             {today.length ? <DayAgenda appointments={today} onOpen={setOpen} /> : <p className="py-3 text-[14px] text-muted">Een dag zonder sessies.</p>}

@@ -26,6 +26,7 @@ const serif = localFont({
 export const metadata: Metadata = {
   title: "Huiskamer",
   description: "Een rustige plek voor jou en je psycholoog.",
+  appleWebApp: { capable: true, title: "Huiskamer", statusBarStyle: "default" },
 };
 
 export const viewport: Viewport = {

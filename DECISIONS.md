@@ -21,3 +21,6 @@ Keuzes die ik zelf maakte bij twijfel. Telkens kort, zodat je ze snel kan naleze
 - **Demo-randgeval**: Lotte heeft één factuur waarvan de betaaltermijn voorbij is. De tekst blijft neutraal: "De termijn is voorbij, je kan gewoon nog betalen."
 - **Demotest** zoekt Chrome eerst op de Mac-locatie en valt terug op Chromium (`/opt/pw-browsers/chromium`), zodat hij ook in de cloud draait.
 - **Copy-pass:** "op de agenda" heet nu "mee naar de sessie", want "Agenda" is bij de psycholoog de kalender. "Inloggen" werd "aanmelden". AGENTS.md bevat nog em dashes, maar dat bestand schrijft Next zelf; ik laat het staan.
+- **Netlify-badge:** nergens in de code te vinden. Wat je ziet op een deploy preview is de Netlify Drawer; die zet je uit in Netlify zelf (Site configuration, Deploys, Deploy Previews). De Next-indicator stond al uit.
+- **PWA:** manifest start op `/c/vandaag` in standalone, iconen gemaakt uit het huisje (192, 512, maskable, Apple 180). Geen service worker: offline werken hoort niet bij een prototype en kan verwarren bij demo's.
+- **Responsive:** grids die pas vanaf een breakpoint kolommen krijgen, hebben nu `grid-cols-1`. Zonder dat duwden afgekapte teksten de pagina breder dan 375px.

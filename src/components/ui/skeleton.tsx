@@ -11,7 +11,7 @@ export function PageSkeleton() {
         <Skeleton className="h-4 w-40" />
         <Skeleton className="h-8 w-72" />
       </div>
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <Skeleton className="h-40 rounded-card" />
         <Skeleton className="h-40 rounded-card" />
       </div>

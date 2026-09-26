@@ -41,7 +41,7 @@ export function TagInput({ value, onChange, suggestions = [] }: { value: string[
           onBlur={() => draft.trim() && add(draft)}
           placeholder={value.length ? "Nog een" : "Voeg een tag toe"}
           aria-label="Tag toevoegen"
-          className="h-8 min-w-28 flex-1 bg-transparent px-1 text-[13px] outline-none placeholder:text-faint"
+          className="h-8 min-w-28 flex-1 rounded-full bg-transparent px-2.5 text-[13px] outline-none transition-colors placeholder:text-faint focus:bg-oat-soft"
         />
       </div>
       {open.length > 0 && (

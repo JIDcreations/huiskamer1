@@ -50,7 +50,7 @@ export function AssignTaskSheet({
   return (
     <Sheet open={open} onOpenChange={onOpenChange} title="Opdracht geven" description={picked ? undefined : "Kies een sjabloon of begin zelf."} className="md:max-w-xl">
       {!picked ? (
-        <div className="grid gap-2 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {templates.map((t) => (
             <button key={t.id} onClick={() => choose(t.id)} className="rounded-xl bg-oat-soft px-4 py-3 text-left transition-colors hover:bg-surface-2">
               <span className="block text-[14px] font-medium">{t.title}</span>

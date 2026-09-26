@@ -67,7 +67,7 @@ export function TaskFields({ value, onChange, withDates }: { value: TaskDraft; o
         <Label htmlFor="t-desc">Uitleg voor je cliënt</Label>
         <Textarea id="t-desc" value={value.description} onChange={(e) => set({ description: e.target.value })} placeholder="Kort en concreet. Dit staat in de sheet, niet in de lijst." />
       </div>
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <Label htmlFor="t-kind">Soort</Label>
           <Select id="t-kind" value={value.kind} onChange={(e) => set({ kind: e.target.value as TaskKind })}>

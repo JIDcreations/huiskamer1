@@ -50,7 +50,7 @@ export default function Stijlgids() {
       </header>
 
       <Section title="Palet">
-        <div className="grid gap-3 sm:grid-cols-5">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-5">
           {palette.map((c) => (
             <div key={c.name}>
               <div
@@ -98,7 +98,7 @@ export default function Stijlgids() {
       </Section>
 
       <Section title="Kaarten en badges">
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <Card interactive>
             <CardHeader>
               <CardDescription>Volgende afspraak</CardDescription>
@@ -133,7 +133,7 @@ export default function Stijlgids() {
       </Section>
 
       <Section title="Invoer">
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <div>
             <Label htmlFor="titel">Titel</Label>
             <Input id="titel" placeholder="Waar denk je aan?" />
@@ -184,7 +184,7 @@ export default function Stijlgids() {
       </Section>
 
       <Section title="Sheet en leeg-state">
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <Card className="flex items-center justify-center p-8">
             <Button variant="secondary" onClick={() => setOpen(true)}>
               Open sheet

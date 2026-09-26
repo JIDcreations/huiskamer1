@@ -24,11 +24,11 @@ export default function Profiel() {
   return (
     <>
       <PageHeader title="Profiel" />
-      <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+      <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
         <div className="flex flex-col gap-5">
           <Panel title="Je gegevens">
             <form
-              className="grid gap-4 sm:grid-cols-2"
+              className="grid grid-cols-1 gap-4 sm:grid-cols-2"
               onSubmit={(e) => {
                 e.preventDefault();
                 actions.updateClient(client.id, form);

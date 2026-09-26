@@ -35,7 +35,7 @@ function NewClientSheet({ open, onOpenChange }: { open: boolean; onOpenChange: (
           onOpenChange(false);
           router.push(`/p/clienten/${id}`);
         }}
-        className="grid gap-4 sm:grid-cols-2"
+        className="grid grid-cols-1 gap-4 sm:grid-cols-2"
       >
         <div>
           <Label htmlFor="n-first">Voornaam</Label>
@@ -92,6 +92,7 @@ export default function Clienten() {
       <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
         <Segmented
           label="Filter"
+          className="w-full sm:w-auto"
           value={filter}
           onChange={setFilter}
           options={(["actief", "gepauzeerd", "afgerond", "alle"] as Filter[]).map((f) => ({

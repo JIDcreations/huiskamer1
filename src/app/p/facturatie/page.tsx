@@ -107,7 +107,7 @@ export default function Facturatie() {
   return (
     <>
       <PageHeader title="Facturatie" />
-      <div className="mt-8 grid gap-4 sm:grid-cols-3">
+      <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
         {stat("Open", formatMoney(totals.openSum), plural(totals.open.length, "factuur", "facturen"))}
         {stat("Vervallen", formatMoney(totals.lateSum), totals.late.length ? plural(totals.late.length, "factuur", "facturen") : "Niets vervallen")}
         {stat("Betaald deze maand", formatMoney(totals.paidMonthSum), plural(totals.paidMonth.length, "factuur", "facturen"))}

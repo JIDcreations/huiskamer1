@@ -207,7 +207,6 @@ export default function Agenda() {
                     const minutes = START * 60 + Math.floor(((e.clientY - rect.top) / HOUR) * 4) * 15;
                     setCreating(addMinutes(startOfDay(d), minutes));
                   }}
-                  aria-label={`${capitalize(formatLongDate(d))}, klik om een afspraak te plannen`}
                 >
                   {windows.map((w) => (
                     <div

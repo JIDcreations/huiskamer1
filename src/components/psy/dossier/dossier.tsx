@@ -68,7 +68,7 @@ export function Dossier({ clientId, tab }: { clientId: string; tab: DossierTab }
             <div className="flex flex-wrap items-center gap-2.5">
               <h1 className="type-title">{name}</h1>
               <Menu>
-                <MenuTrigger className="inline-flex items-center gap-1 rounded-full outline-none" aria-label={`Status: ${clientStatusLabel[client.status]}, wijzigen`}>
+                <MenuTrigger className="inline-flex items-center gap-1 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-taupe focus-visible:ring-offset-2 focus-visible:ring-offset-bg" aria-label={`Status: ${clientStatusLabel[client.status]}, wijzigen`}>
                   <ClientStatusBadge status={client.status} />
                   <ChevronDown className="size-3.5 stroke-[1.5] text-taupe" />
                 </MenuTrigger>

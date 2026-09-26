@@ -78,7 +78,7 @@ export default function Bibliotheek() {
         }
       />
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {templates.map((t) => {
           const inUse = new Set(tasks.filter((x) => x.templateId === t.id).map((x) => x.clientId)).size;
           return (

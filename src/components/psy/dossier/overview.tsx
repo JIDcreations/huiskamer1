@@ -59,7 +59,7 @@ export function Overview({ client, onPlan }: { client: Client; onPlan: () => voi
   const sinceLast = last ? journal.filter((j) => j.createdAt > last.end).length : journal.length;
 
   return (
-    <div className="grid gap-5 lg:grid-cols-2">
+    <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
       <Panel title="Volgende sessie">
         {next ? (
           <>

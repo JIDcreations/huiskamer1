@@ -102,7 +102,7 @@ export default function Betalingen() {
     <>
       <PageHeader title="Betalingen" eyebrow={`Facturen van ${psy.practiceName}`} />
 
-      <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+      <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
         <div className="flex flex-col gap-5">
           <Panel title="Openstaand" bodyClassName="pt-1">
             {open.length ? (
