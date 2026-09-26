@@ -1,6 +1,6 @@
 # Dagrun 26 september: voortgang
 
-Laatste update: 2026-09-26 14:01
+Laatste update: 2026-09-26 14:04
 
 ## Fases
 - [x] 1. UX-herwerking cliëntkant
@@ -8,17 +8,17 @@ Laatste update: 2026-09-26 14:01
 - [x] 3. UI naar professioneel niveau (eerste ronde; tweede ronde na fase 10)
 - [x] 4. Elk detail uitwerken
 - [x] 5. Mockdata rijker
-- [ ] 6. Copy-pass
+- [x] 6. Copy-pass
 - [ ] 7. Toegankelijkheid, responsive, PWA
 - [ ] 8. Demo-klaar
 - [ ] 9. Code opruimen
 - [ ] 10. Eindrapport (SUMMARY.md)
 
 ## Nu bezig
-Fase 6: copy-pass (em dashes, emoji, toon).
+Fase 7: toegankelijkheid, responsive, PWA.
 
 ## Volgende stap
-Hele codebase doorzoeken op em dashes en emoji, dan alle zichtbare teksten nalezen.
+Focus states en aria-labels nalopen, dan 375/768/1440 screenshots, dan manifest en icoon.
 
 ## Open punten voor later
 - Demotest `npm run test:demo` is herschreven naar de nieuwe flow en slaagt volledig (25 checks).

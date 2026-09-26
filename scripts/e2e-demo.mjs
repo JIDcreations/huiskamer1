@@ -67,7 +67,7 @@ await page.keyboard.type("Demo gedeeld: vandaag de trein genomen zonder paniek."
 await wait(900);
 await page.click("text=Neem mee naar de sessie");
 await wait(400);
-ok("label Op de agenda", await page.isVisible("text=/Op de agenda voor/"));
+ok("label Mee naar de sessie", await page.isVisible("text=/Mee naar de sessie van/"));
 
 // 4. Niet-gedeelde notitie, ook meegenomen (enkel als geheugensteun)
 await page.goto(B + "/c/logboek", { waitUntil: "networkidle" });

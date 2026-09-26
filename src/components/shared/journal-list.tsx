@@ -118,7 +118,7 @@ export function JournalRow({
 
   function takeAlong() {
     const id = actions.addAgendaItem({ clientId: entry.clientId, by: entry.clientId, journalEntryId: entry.id });
-    toast(id ? "Op de agenda voor je volgende sessie" : "Er is nog geen sessie gepland");
+    toast(id ? "Meegenomen naar je volgende sessie" : "Er is nog geen sessie gepland");
   }
 
   return (
@@ -142,7 +142,7 @@ export function JournalRow({
           {onAgenda?.appointment && onAgenda.appointment.status === "gepland" && (
             <span className="inline-flex items-center gap-1.5 text-[12px] text-muted">
               <CalendarCheck className="size-3.5 stroke-[1.75] text-taupe" />
-              Op de agenda voor {formatDayMonth(onAgenda.appointment.start)}
+              Mee naar de sessie van {formatDayMonth(onAgenda.appointment.start)}
             </span>
           )}
           {entry.psychologistNote && (
@@ -168,10 +168,10 @@ export function JournalRow({
                 <MenuItem
                   onSelect={() => {
                     actions.removeAgendaItem(onAgenda.item.id);
-                    toast("Van de agenda gehaald");
+                    toast("Niet meer mee naar de sessie");
                   }}
                 >
-                  <CalendarX /> Van de agenda halen
+                  <CalendarX /> Niet meer meenemen
                 </MenuItem>
               ) : (
                 <MenuItem onSelect={takeAlong}>

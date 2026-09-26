@@ -175,7 +175,7 @@ export function SessionView({
 
           {brought.length > 0 && (
             <section className="mt-8">
-              <SectionTitle>Op de agenda stond</SectionTitle>
+              <SectionTitle>Meegebracht naar deze sessie</SectionTitle>
               <ul className="flex flex-col gap-1.5">
                 {brought.map(({ item, entry }) => (
                   <li key={item.id} className="text-[14px] text-muted">

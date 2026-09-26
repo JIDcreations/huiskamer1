@@ -188,7 +188,7 @@ export default function Entry({ params }: { params: Promise<{ id: string }> }) {
         {planned ? (
           <span className="inline-flex items-center gap-1.5 text-[13px] text-muted">
             <CalendarCheck className="size-4 stroke-[1.5] text-taupe" />
-            Op de agenda voor {formatDayMonth(planned.start)}
+            Mee naar de sessie van {formatDayMonth(planned.start)}
           </span>
         ) : (
           <Button
@@ -196,7 +196,7 @@ export default function Entry({ params }: { params: Promise<{ id: string }> }) {
             size="sm"
             onClick={() => {
               const added = actions.addAgendaItem({ clientId: CURRENT_CLIENT_ID, by: CURRENT_CLIENT_ID, journalEntryId: id });
-              toast(added ? "Op de agenda voor je volgende sessie" : "Er is nog geen sessie gepland");
+              toast(added ? "Meegenomen naar je volgende sessie" : "Er is nog geen sessie gepland");
             }}
           >
             <CalendarPlus /> Neem mee naar de sessie
@@ -208,10 +208,10 @@ export default function Entry({ params }: { params: Promise<{ id: string }> }) {
             size="sm"
             onClick={() => {
               actions.removeAgendaItem(onAgenda!.item.id);
-              toast("Van de agenda gehaald");
+              toast("Niet meer mee naar de sessie");
             }}
           >
-            Van de agenda halen
+            Niet meer meenemen
           </Button>
         )}
       </div>

@@ -98,13 +98,13 @@ export default function EditorDemo() {
       <p className="mt-6 text-[13px] text-muted">Huiskamer, stap 3</p>
       <h1 className="font-display mt-1 text-[32px] leading-tight md:text-[40px]">Editor</h1>
       <p className="mt-3 max-w-lg text-muted">
-        Eén editor voor Tafel, Logboek en Sessienotities. Typ <kbd className="rounded-md bg-surface-2 px-1.5 py-0.5 text-[13px] text-text">/</kbd> voor
+        Eén editor voor sessiepagina&apos;s, logboek en privénotities. Typ <kbd className="rounded-md bg-surface-2 px-1.5 py-0.5 text-[13px] text-text">/</kbd> voor
         bloktypes, selecteer tekst voor opmaak.
       </p>
 
       <Tabs defaultValue="tafel" className="mt-10">
         <TabsList>
-          <TabsTrigger value="tafel">Tafel</TabsTrigger>
+          <TabsTrigger value="tafel">Sessie</TabsTrigger>
           <TabsTrigger value="logboek">Logboek</TabsTrigger>
           <TabsTrigger value="notities">Sessienotities</TabsTrigger>
         </TabsList>

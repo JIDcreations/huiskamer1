@@ -50,7 +50,7 @@ export default function Login() {
           </Button>
         </form>
 
-        <p className="mt-6 text-center text-[13px] text-faint">Demo. Je kan inloggen zonder echte gegevens.</p>
+        <p className="mt-6 text-center text-[13px] text-faint">Demo. Je kan aanmelden zonder echte gegevens.</p>
       </div>
     </main>
   );

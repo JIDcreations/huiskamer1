@@ -10,7 +10,7 @@ import { actions, PSY_ID, useAppointment, useSessionNotes } from "@/lib/data";
 import { useAutosave } from "@/lib/use-autosave";
 import type { Block, ID } from "@/lib/types";
 
-/** Privé sessienotities naast de gedeelde pagina. Visueel duidelijk anders: slotje en Oat-vlak. */
+/** Privénotities naast de gedeelde pagina. Visueel duidelijk anders: slotje en Oat-vlak. */
 function PrivateNotes({ clientId, appointmentId }: { clientId: ID; appointmentId: ID }) {
   const notes = useSessionNotes(clientId);
   const note = notes.find((n) => n.appointmentId === appointmentId);
@@ -20,7 +20,7 @@ function PrivateNotes({ clientId, appointmentId }: { clientId: ID; appointmentId
   });
 
   return (
-    <aside aria-label="Privé sessienotities" className="h-fit rounded-card bg-surface-2/70 px-5 pb-6 pt-5 lg:sticky lg:top-24">
+    <aside aria-label="Privénotities" className="h-fit rounded-card bg-surface-2/70 px-5 pb-6 pt-5 lg:sticky lg:top-24">
       <p className="flex items-center gap-2 text-[13px] font-medium text-muted">
         <Lock className="size-3.5 stroke-[1.75]" /> Sessienotities
       </p>

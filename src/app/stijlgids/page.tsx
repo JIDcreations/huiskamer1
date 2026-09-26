@@ -124,7 +124,7 @@ export default function Stijlgids() {
             </CardHeader>
             <CardContent className="flex flex-wrap gap-2">
               <Badge>Gepland</Badge>
-              <Badge tone="outline">Nieuw op de Tafel</Badge>
+              <Badge tone="outline">Nieuw in je sessie</Badge>
               <Badge tone="calm">Betaald</Badge>
               <Badge tone="strong">Open</Badge>
             </CardContent>
@@ -162,8 +162,8 @@ export default function Stijlgids() {
         <Tabs defaultValue="overzicht">
           <TabsList>
             <TabsTrigger value="overzicht">Overzicht</TabsTrigger>
-            <TabsTrigger value="tijdlijn">Tijdlijn</TabsTrigger>
-            <TabsTrigger value="tafel">Tafel</TabsTrigger>
+            <TabsTrigger value="tijdlijn">Logboek</TabsTrigger>
+            <TabsTrigger value="tafel">Sessies</TabsTrigger>
             <TabsTrigger value="notities">
               <Lock /> Sessienotities
             </TabsTrigger>
