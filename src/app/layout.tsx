@@ -3,19 +3,22 @@ import localFont from "next/font/local";
 import "./globals.css";
 
 // Zelf gehost (geen verzoek naar Google): sneller, en geen gegevens naar derden.
-const inter = localFont({
+const sans = localFont({
   src: [
-    { path: "../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2", style: "normal" },
-    { path: "../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-italic.woff2", style: "italic" },
+    { path: "../../node_modules/@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2", style: "normal" },
+    { path: "../../node_modules/@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-italic.woff2", style: "italic" },
   ],
-  weight: "100 900",
-  variable: "--font-inter",
+  weight: "200 800",
+  variable: "--font-sans-body",
   display: "swap",
 });
 
 const display = localFont({
-  src: "../../node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-standard-normal.woff2",
-  weight: "200 800",
+  src: [
+    { path: "../../node_modules/@fontsource-variable/fraunces/files/fraunces-latin-full-normal.woff2", style: "normal" },
+    { path: "../../node_modules/@fontsource-variable/fraunces/files/fraunces-latin-full-italic.woff2", style: "italic" },
+  ],
+  weight: "100 900",
   variable: "--font-display",
   display: "swap",
 });
@@ -38,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="nl-BE" className={`${inter.variable} ${display.variable}`}>
+    <html lang="nl-BE" className={`${sans.variable} ${display.variable}`}>
       <body className="min-h-dvh">{children}</body>
     </html>
   );

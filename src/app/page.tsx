@@ -6,7 +6,7 @@ import Image from "next/image";
 import { beelden } from "@/lib/beelden";
 import { Button } from "@/components/ui/button";
 import { Input, Label } from "@/components/ui/input";
-import { Mark } from "@/components/shell/platform-shell";
+import { Mark, Wordmark } from "@/components/shell/platform-shell";
 import { RoleSwitch, type Role } from "@/components/role-switch";
 import { DemoReset } from "@/components/demo-reset";
 import { Toaster } from "@/components/ui/toast";
@@ -25,11 +25,11 @@ export default function Login() {
       <div className="flex flex-col px-5 py-8 md:px-12 lg:py-10">
         <div className="flex items-center gap-2.5">
           <Mark className="size-9" />
-          <span className="font-display text-[21px] leading-none">Huiskamer</span>
+          <Wordmark className="text-[26px]" />
         </div>
 
         <div className="mx-auto flex w-full max-w-[400px] flex-1 flex-col justify-center py-12">
-          <p className="mb-3 text-[13px] font-medium text-clay-ink">Welkom terug</p>
+          <p className="eyebrow mb-4 text-clay-ink">Welkom terug</p>
           <h1 className="type-hero">Een rustige plek, ook tussen de sessies door.</h1>
           <p className="mt-4 text-[16px] text-muted">Afspraken, opdrachten en je logboek, samen met je psycholoog.</p>
 
@@ -65,7 +65,7 @@ export default function Login() {
         </div>
       </div>
 
-      <div className="relative isolate m-3 hidden overflow-hidden rounded-[32px] bg-pine-deep lg:block">
+      <div className="relative isolate hidden overflow-hidden bg-pine-deep lg:block">
         <Image
           src={beelden.login.src}
           alt={beelden.login.alt}
@@ -76,8 +76,8 @@ export default function Login() {
           className="-z-20 object-cover"
         />
         <div aria-hidden className="photo-veil absolute inset-0 -z-10" />
-        <figure className="absolute inset-x-10 bottom-10 max-w-md text-on-accent">
-          <p className="font-display text-[32px] leading-[1.08]">Schrijf wanneer het past. Deel enkel wat je wil delen.</p>
+        <figure className="absolute inset-x-14 bottom-14 max-w-lg text-on-accent">
+          <p className="font-display text-[40px] leading-[1.04]">Schrijf wanneer het past. Deel enkel wat je wil delen.</p>
           <figcaption className="mt-4 flex items-center gap-2 text-[14px] text-on-accent/80">
             <span aria-hidden className="size-2 rounded-full bg-sun" />
             Wat je voor jezelf houdt, ziet niemand anders.

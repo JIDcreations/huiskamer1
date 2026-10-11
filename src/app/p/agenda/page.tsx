@@ -55,7 +55,9 @@ function AppointmentBlock({ a, name, onOpen }: { a: Appointment; name: string; o
         "absolute inset-x-1 z-[2] overflow-hidden rounded-xl px-2.5 py-1.5 text-left text-[12px] leading-tight transition-[box-shadow,transform] hover:-translate-y-px hover:shadow-soft",
         cancelled
           ? "bg-transparent text-faint ring-1 ring-inset ring-dashed ring-taupe/60"
-          : cn(clientTint(name), past && "opacity-60", a.mode === "online" && "ring-[1.5px] ring-inset ring-current/40")
+          : past
+            ? cn("bg-surface-2/70 text-muted", a.mode === "online" && "ring-1 ring-inset ring-edge-strong")
+            : cn(clientTint(name), a.mode === "online" && "ring-[1.5px] ring-inset ring-current/40")
       )}
     >
       <span className={cn("block truncate font-semibold", cancelled && "line-through")}>{name}</span>

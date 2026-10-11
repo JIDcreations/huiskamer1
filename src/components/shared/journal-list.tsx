@@ -65,14 +65,14 @@ export function entrySummary(entry: JournalEntry, task?: Task) {
 const letters = ["ma", "di", "wo", "do", "vr", "za", "zo"];
 
 /** De enige plek met weekvoortgang: per dag een bolletje voor de check-in en stipjes voor opdrachten. */
-export function WeekStrip({ entries, className }: { entries: JournalEntry[]; className?: string }) {
+export function WeekStrip({ entries, compact, className }: { entries: JournalEntry[]; compact?: boolean; className?: string }) {
   const days = weekStrip(entries);
   return (
-    <ol aria-label="Deze week" className={cn("grid grid-cols-7 gap-1", className)}>
+    <ol aria-label="Deze week" className={cn("grid grid-cols-7", compact ? "gap-1" : "gap-1.5 md:gap-2", className)}>
       {days.map((d, i) => (
         <li
           key={d.day}
-          className={cn("flex flex-col items-center gap-2 rounded-2xl py-3", d.isToday ? "bg-pine text-on-accent" : "bg-surface shadow-[inset_0_0_0_1px_var(--edge)]")}
+          className={cn("flex flex-col items-center gap-2 rounded-2xl", compact ? "py-2.5" : "py-4", d.isToday ? "bg-pine text-on-accent" : "bg-surface shadow-[inset_0_0_0_1px_var(--edge)]")}
           aria-label={`${formatLongDate(d.date)}: ${d.checkin ? "check-in gedaan" : "geen check-in"}, ${d.tasks} ${d.tasks === 1 ? "opdracht" : "opdrachten"}`}
         >
           <span className={cn("text-[11px] font-medium leading-none", d.isToday ? "text-on-accent/80" : "text-faint")}>{letters[i]}</span>
@@ -132,7 +132,7 @@ export function JournalRow({
           {entry.mood && <MoodDots value={entry.mood} />}
         </div>
         <Link href={href} className="mt-1 block outline-none after:absolute after:inset-0 after:content-[''] focus-visible:after:rounded-card focus-visible:after:ring-2 focus-visible:after:ring-taupe">
-          {entry.title && <span className="block text-[15px] font-semibold tracking-tight">{entry.title}</span>}
+          {entry.title && <span className="block text-[15px] font-semibold">{entry.title}</span>}
           {summary ? (
             <span className={cn("line-clamp-2 text-[15px] leading-relaxed", entry.title ? "text-muted" : "text-text")}>{summary}</span>
           ) : (

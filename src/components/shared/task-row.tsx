@@ -60,7 +60,7 @@ function Timer({ minutes, onFinished }: { minutes: number; onFinished: () => voi
           animate={running ? { scale: [1, 1.12, 1] } : { scale: 1 }}
           transition={running ? { duration: 8, repeat: Infinity, ease: "easeInOut" } : { duration: 0.3 }}
         />
-        <span role="timer" aria-label="Resterende tijd" className="relative text-[34px] font-semibold tabular-nums tracking-tight">
+        <span role="timer" aria-label="Resterende tijd" className="relative text-[34px] font-semibold tabular-nums">
           {mm}:{ss}
         </span>
       </div>

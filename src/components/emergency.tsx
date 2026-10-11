@@ -18,12 +18,15 @@ export function EmergencyLink({ className }: { className?: string }) {
       <button
         onClick={() => setOpen(true)}
         className={cn(
-          "inline-flex h-8 items-center gap-1.5 rounded-full bg-clay-soft px-3 text-[13px] font-medium text-clay-ink transition-colors hover:bg-clay hover:text-on-accent",
+          "group inline-flex h-10 items-center gap-2 rounded-full pl-1 pr-3.5 text-[13px] font-semibold text-clay-ink outline-none transition-colors duration-300 ease-out-soft hover:bg-clay-soft focus-visible:ring-2 focus-visible:ring-clay",
           className
         )}
       >
-        <Phone className="size-3.5 stroke-[1.75]" />
-        Hulp nodig?
+        <span className="flex size-8 items-center justify-center rounded-full bg-clay-soft transition-[background-color,transform] duration-300 ease-out-soft group-hover:scale-105 group-hover:bg-clay group-hover:text-on-accent">
+          <Phone className="size-3.5 stroke-[1.75]" />
+        </span>
+        <span className="hidden sm:inline">Hulp nodig?</span>
+        <span className="sm:hidden">Hulp</span>
       </button>
       <Sheet
         open={open}

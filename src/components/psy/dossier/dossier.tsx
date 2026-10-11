@@ -114,7 +114,7 @@ export function Dossier({ clientId, tab }: { clientId: string; tab: DossierTab }
         </div>
       </header>
 
-      <nav aria-label="Dossier" className="-mx-5 mt-6 overflow-x-auto px-5 [scrollbar-width:none] md:mx-0 md:px-0">
+      <nav aria-label="Dossier" className="-mx-4 mt-6 overflow-x-auto px-4 [scrollbar-width:none] md:mx-0 md:px-0">
         <ul className="flex min-w-max gap-1">
           {dossierTabs.map((t) => {
             const active = t.id === tab;

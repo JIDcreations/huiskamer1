@@ -110,8 +110,8 @@
   --color-mood-4: var(--mood-4);
   --color-mood-5: var(--mood-5);
 
-  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-serif: var(--font-display), var(--font-inter), -apple-system, sans-serif;
+  --font-sans: var(--font-sans-body), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: var(--font-display), "Iowan Old Style", Georgia, serif;
   --color-edge: var(--edge);
   --color-edge-strong: var(--edge-strong);
 
@@ -134,7 +134,9 @@
     color: var(--text);
     font-family: var(--font-sans);
     font-size: 15px;
-    line-height: 1.55;
+    line-height: 1.6;
+    letter-spacing: 0.003em;
+    word-spacing: 0.06em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -164,44 +166,58 @@
   }
 }
 
-/* Koppen en paginatitels: Bricolage Grotesque. Alles wat bediend wordt: Inter. */
+/* Koppen en paginatitels: Fraunces, zacht en redactioneel. Alles wat bediend wordt: Plus Jakarta Sans. */
 @utility font-display {
   font-family: var(--font-serif);
-  font-weight: 650;
-  letter-spacing: -0.025em;
-  font-variation-settings: "opsz" 48;
+  font-weight: 420;
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 72, "SOFT" 60, "WONK" 0;
 }
 
 /* Typeschaal. Eén set maten, overal dezelfde. */
 @utility type-hero {
   font-family: var(--font-serif);
-  font-weight: 650;
+  font-weight: 380;
   letter-spacing: -0.035em;
-  font-variation-settings: "opsz" 96;
-  font-size: 38px;
-  line-height: 1.02;
+  font-variation-settings: "opsz" 144, "SOFT" 80, "WONK" 0;
+  font-size: 44px;
+  line-height: 0.98;
   @media (min-width: 768px) {
-    font-size: 52px;
+    font-size: 68px;
   }
 }
 @utility type-title {
   font-family: var(--font-serif);
-  font-weight: 650;
+  font-weight: 400;
   letter-spacing: -0.03em;
-  font-variation-settings: "opsz" 72;
-  font-size: 30px;
-  line-height: 1.06;
+  font-variation-settings: "opsz" 120, "SOFT" 70, "WONK" 0;
+  font-size: 34px;
+  line-height: 1.02;
   @media (min-width: 768px) {
-    font-size: 38px;
+    font-size: 46px;
   }
 }
 @utility type-subtitle {
   font-family: var(--font-serif);
+  font-weight: 450;
+  letter-spacing: -0.015em;
+  font-variation-settings: "opsz" 36, "SOFT" 50, "WONK" 0;
+  font-size: 23px;
+  line-height: 1.15;
+}
+
+/* Klein label boven een kop. */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: -0.02em;
-  font-variation-settings: "opsz" 36;
-  font-size: 22px;
-  line-height: 1.2;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Laat een element tot aan de randen van de inhoudskolom lopen, los van de max-breedte. */
+@utility bleed {
+  margin-inline: calc(50% - 50cqw);
 }
 
 /* Kaart: crème op papier, fijne rand en een zachte schaduw. */
@@ -214,9 +230,25 @@
     0 8px 24px -12px rgba(21, 33, 27, 0.1);
 }
 
+/* Eiland: een zwevende pil voor de topbalk, crème met een fijne rand. */
+@utility island {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: rgba(255, 253, 248, 0.92);
+  box-shadow:
+    0 0 0 1px rgba(21, 33, 27, 0.07),
+    0 1px 1px rgba(21, 33, 27, 0.04),
+    0 12px 32px -12px rgba(21, 33, 27, 0.28);
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+}
+
 /* Beeld met een donkere waas onderaan, zodat tekst erop leesbaar blijft. */
 @utility photo-veil {
-  background-image: linear-gradient(180deg, rgba(19, 48, 31, 0) 25%, rgba(19, 48, 31, 0.55) 70%, rgba(19, 48, 31, 0.85) 100%);
+  background-image:
+    linear-gradient(180deg, rgba(19, 48, 31, 0.35) 0%, rgba(19, 48, 31, 0) 28%),
+    linear-gradient(180deg, rgba(19, 48, 31, 0) 35%, rgba(19, 48, 31, 0.5) 72%, rgba(19, 48, 31, 0.82) 100%);
 }
 
 @utility glass {

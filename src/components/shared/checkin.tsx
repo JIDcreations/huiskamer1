@@ -42,9 +42,9 @@ export function CheckIn({ clientId, today }: { clientId: ID; today?: JournalEntr
           exit={{ opacity: 0, y: -4 }}
           transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h2 className="text-[15px] font-semibold tracking-tight">Hoe gaat het vandaag?</h2>
-          <p className="mt-0.5 text-[13px] text-muted">Een woord is genoeg.</p>
-          <MoodPicker className="mt-4" value={mood} onChange={setMood} />
+          <h2 className="type-subtitle">Hoe gaat het vandaag?</h2>
+          <p className="mt-1 text-[14px] text-muted">Een woord is genoeg.</p>
+          <MoodPicker className="mt-5" value={mood} onChange={setMood} />
           <AnimatePresence initial={false}>
             {mood && (
               <motion.div

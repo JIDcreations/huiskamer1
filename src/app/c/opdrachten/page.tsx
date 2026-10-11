@@ -15,7 +15,7 @@ function Group({ title, tasks, hint }: { title: string; tasks: Task[]; hint?: st
   if (!tasks.length) return null;
   return (
     <section className="mt-8">
-      <h2 className="mb-1 px-1 text-[15px] font-semibold tracking-tight">{title}</h2>
+      <h2 className="mb-1 px-1 text-[15px] font-semibold">{title}</h2>
       {hint && <p className="mb-2 px-1 text-[13px] text-muted">{hint}</p>}
       <ul className="divide-y divide-surface-2/70 card px-5 md:px-6">
         {tasks.map((t) => {

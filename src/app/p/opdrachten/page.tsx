@@ -85,7 +85,7 @@ export default function Bibliotheek() {
           return (
             <article key={t.id} className="card flex flex-col p-5">
               <div className="flex items-start justify-between gap-3">
-                <h2 className="text-[16px] font-semibold tracking-tight">{t.title}</h2>
+                <h2 className="text-[16px] font-semibold">{t.title}</h2>
                 <Badge className={taskKindTone[t.kind]}>{kindLabel[t.kind]}</Badge>
               </div>
               <p className="mt-2 flex-1 text-[14px] leading-relaxed text-muted">{t.description}</p>

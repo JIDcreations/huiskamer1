@@ -2,7 +2,14 @@
 
 _Stand van 26 september 2026. Fase 1 staat op `main`; de dagrun van 26 september (UX-herwerking, verfijnde UI, rijkere demo) staat op de branch `dagrun-26sep`. Zie SUMMARY.md en DECISIONS.md op die branch._
 
-## Nieuwe look (11 oktober 2026, branch `nieuwe-look`)
+## Premium-ronde (11 oktober 2026, branch `premium`)
+
+- Fotobanden van rand tot rand, de topbalk zweeft erover als losse pillen en wordt glas bij scrollen. Zoeken voor de psycholoog met Cmd+K.
+- Nieuw merk: boograam met een lage zon, woordmerk in Fraunces. Koppen in Fraunces, UI in Plus Jakarta Sans.
+- Bredere inhoud (tot 1280px). Cliëntpagina's in twee kolommen: Vandaag met de volgende sessie en de week rechts, Logboek met de week en "Wat ziet Sarah?", Sessies met "Voor volgende keer" rechts.
+- Kaart met je psycholoog onderaan de zijbalk van de cliënt. Nieuwe app-iconen.
+
+## Nieuwe look (11 oktober 2026, op `main`)
 
 Het beige palet voelde als een mid-fi. Nieuwe richting: dennengroen, klei en zon op warm papier, met meer contrast en sfeerfoto's.
 

@@ -52,4 +52,4 @@ Start eerst een server (`npm run dev`, of `npm run build && npm start`).
 
 ## Stack
 
-Next.js 16 (App Router), TypeScript, Tailwind CSS 4, Radix UI, Tiptap 3, Framer Motion, date-fns (`nl-BE`), Zustand. Fonts (Inter en Bricolage Grotesque) en sfeerfoto's (`src/assets/beelden`) zijn zelf gehost. Een webmanifest maakt de cliëntkant installeerbaar op het beginscherm.
+Next.js 16 (App Router), TypeScript, Tailwind CSS 4, Radix UI, Tiptap 3, Framer Motion, date-fns (`nl-BE`), Zustand. Fonts (Plus Jakarta Sans en Fraunces) en sfeerfoto's (`src/assets/beelden`) zijn zelf gehost. Een webmanifest maakt de cliëntkant installeerbaar op het beginscherm.

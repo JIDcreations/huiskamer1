@@ -89,7 +89,7 @@ export default function Welkom() {
 
   return (
     <div className="fixed inset-0 z-[60] grid overflow-y-auto bg-bg lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-      <div className="relative isolate order-first m-3 hidden overflow-hidden rounded-[32px] bg-pine-deep lg:order-last lg:block">
+      <div className="relative isolate order-first hidden overflow-hidden bg-pine-deep lg:order-last lg:block">
         <AnimatePresence initial={false}>
           <motion.div
             key={step}
@@ -104,6 +104,10 @@ export default function Welkom() {
         </AnimatePresence>
       </div>
       <div className="mx-auto flex w-full max-w-[520px] flex-1 flex-col px-6 pb-[max(env(safe-area-inset-bottom),24px)] pt-6 md:justify-center md:pt-0">
+        <div className="relative -mx-6 -mt-6 mb-6 h-56 overflow-hidden bg-pine-deep lg:hidden">
+          <Image src={steps[step].image.src} alt="" placeholder="blur" fill sizes="100vw" className="object-cover" />
+        </div>
+
         <div className="flex items-center justify-between">
           <ol aria-label={`Stap ${step + 1} van ${steps.length}`} className="flex gap-1.5">
             {steps.map((_, i) => (
@@ -118,10 +122,6 @@ export default function Welkom() {
               </Button>
             )}
           </div>
-        </div>
-
-        <div className="relative mt-6 h-40 overflow-hidden rounded-[24px] bg-pine-deep lg:hidden">
-          <Image src={steps[step].image.src} alt="" placeholder="blur" fill sizes="100vw" className="object-cover" />
         </div>
 
         <div className="mt-8 flex-1 md:mt-10 md:flex-none">

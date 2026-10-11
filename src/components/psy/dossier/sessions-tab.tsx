@@ -34,7 +34,7 @@ export function SessionsTab({ client, onPlan }: { client: Client; onPlan: () => 
   return (
     <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
       <section aria-labelledby="sessies-voorbij" className="order-2 lg:order-1">
-        <h2 id="sessies-voorbij" className="mb-2 px-1 text-[15px] font-semibold tracking-tight">
+        <h2 id="sessies-voorbij" className="mb-2 px-1 text-[15px] font-semibold">
           Voorbije sessies
         </h2>
         {history.length ? (

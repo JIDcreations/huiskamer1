@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { Avatar } from "@/components/ui/avatar";
@@ -15,6 +15,19 @@ function ClientSearch() {
   const [q, setQ] = useState("");
   const [active, setActive] = useState(0);
   const [open, setOpen] = useState(false);
+  const input = useRef<HTMLInputElement>(null);
+
+  // Cmd/Ctrl+K zet de cursor in het zoekveld.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        input.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
   const results = q.trim()
     ? clients.filter((c) => `${c.firstName} ${c.lastName}`.toLowerCase().includes(q.trim().toLowerCase())).slice(0, 6)
     : [];
@@ -26,11 +39,12 @@ function ClientSearch() {
   };
 
   return (
-    <div className="relative hidden max-w-sm sm:block">
-      <label>
+    <div className="relative hidden max-w-md sm:block">
+      <label className="island h-12 w-full gap-2.5 pl-4 pr-2 focus-within:ring-2 focus-within:ring-pine/30">
         <span className="sr-only">Zoek een cliënt</span>
-        <Search className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 stroke-[1.5] text-taupe" />
+        <Search className="pointer-events-none size-4 shrink-0 stroke-[1.75] text-faint" />
         <input
+          ref={input}
           type="search"
           value={q}
           role="combobox"
@@ -50,11 +64,14 @@ function ClientSearch() {
             if (e.key === "Escape") setOpen(false);
           }}
           placeholder="Zoek een cliënt"
-          className="h-9 w-full rounded-lg bg-oat-soft pl-10 pr-3 text-[14px] text-text outline-none transition-[background-color,box-shadow] placeholder:text-faint focus:bg-surface focus:ring-1 focus:ring-taupe"
+          className="h-full min-w-0 flex-1 bg-transparent text-[14px] text-text outline-none placeholder:text-faint [&::-webkit-search-cancel-button]:hidden"
         />
+        <kbd aria-hidden className="hidden shrink-0 rounded-full bg-surface-2/80 px-2.5 py-1 font-sans text-[11px] font-semibold text-muted md:block">
+          ⌘K
+        </kbd>
       </label>
       {open && results.length > 0 && (
-        <ul id="client-search-results" role="listbox" className="absolute left-0 right-0 top-11 z-50 animate-pop rounded-xl bg-surface p-1.5 shadow-soft ring-1 ring-surface-2">
+        <ul id="client-search-results" role="listbox" className="absolute left-0 right-0 top-14 z-50 animate-pop rounded-[20px] bg-surface p-2 shadow-[0_24px_60px_-20px_rgba(21,33,27,0.35)] ring-1 ring-edge">
           {results.map((c, i) => (
             <li key={c.id} role="option" aria-selected={i === active}>
               <button

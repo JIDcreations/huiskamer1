@@ -32,8 +32,8 @@ function NextSession({ appointment, onFlow }: { appointment: Appointment; onFlow
   const Icon = appointment.mode === "online" ? Video : MapPin;
   return (
     <div className="text-on-accent">
-      <p className="inline-flex items-center gap-2 text-[13px] font-medium text-sun">
-        <span aria-hidden className="size-2 rounded-full bg-sun" />
+      <p className="eyebrow inline-flex items-center gap-2 text-sun">
+        <span aria-hidden className="size-1.5 rounded-full bg-sun" />
         Volgende sessie
       </p>
       <p className="mt-2 type-title text-on-accent">
@@ -54,7 +54,13 @@ function NextSession({ appointment, onFlow }: { appointment: Appointment; onFlow
         <Button variant="sun" size="sm" disabled={!changeable} onClick={() => onFlow({ kind: "move", appointment })}>
           Verzetten
         </Button>
-        <Button variant="ghost" size="sm" className="text-on-accent hover:bg-on-accent/10 active:bg-on-accent/15" disabled={!changeable} onClick={() => onFlow({ kind: "cancel", appointment })}>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="text-on-accent hover:bg-on-accent/10 active:bg-on-accent/15"
+          disabled={!changeable}
+          onClick={() => onFlow({ kind: "cancel", appointment })}
+        >
           Annuleren
         </Button>
       </div>
@@ -78,7 +84,7 @@ export default function Sessies() {
   const [flow, setFlow] = useState<BookingFlow>(null);
 
   return (
-    <div className="mx-auto max-w-[760px]">
+    <>
       <PageHeader
         image={beelden.thee}
         title="Sessies"
@@ -91,70 +97,74 @@ export default function Sessies() {
         }
       />
 
-      <Panel className={cn("mt-6", next && "bg-pine")}>
-        {next ? (
-          <NextSession appointment={next} onFlow={setFlow} />
-        ) : (
-          <EmptyState
-            className="py-8"
-            title="Geen sessie gepland"
-            description="Kies een moment dat past. Je ziet meteen wat er vrij is."
-            action={<Button onClick={() => setFlow({ kind: "book" })}>Nieuwe afspraak boeken</Button>}
-          />
-        )}
-        {later.length > 0 && (
-          <p className={cn("mt-5 border-t pt-4 text-[13px] tabular-nums", next ? "border-on-accent/15 text-on-accent/75" : "border-surface-2 text-muted")}>
-            Daarna: {later.map((a) => `${formatDayMonth(a.start)} om ${formatTime(a.start)}`).join(", ")}
-          </p>
-        )}
-      </Panel>
+      <div className="mt-8 grid grid-cols-1 items-start gap-6 lg:mt-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-8">
+        <div className="flex min-w-0 flex-col gap-6">
+          <Panel className={cn(next && "bg-pine")} bodyClassName="p-6 md:p-8">
+            {next ? (
+              <NextSession appointment={next} onFlow={setFlow} />
+            ) : (
+              <EmptyState
+                className="py-8"
+                title="Geen sessie gepland"
+                description="Kies een moment dat past. Je ziet meteen wat er vrij is."
+                action={<Button onClick={() => setFlow({ kind: "book" })}>Nieuwe afspraak boeken</Button>}
+              />
+            )}
+            {later.length > 0 && (
+              <p className={cn("mt-5 border-t pt-4 text-[13px] tabular-nums", next ? "border-on-accent/15 text-on-accent/75" : "border-surface-2 text-muted")}>
+                Daarna: {later.map((a) => `${formatDayMonth(a.start)} om ${formatTime(a.start)}`).join(", ")}
+              </p>
+            )}
+          </Panel>
 
-      <Panel
-        className="mt-5"
-        title="Voor volgende keer"
-        description={next ? `Wat je op ${formatDayMonth(next.start)} wil bespreken` : "Wat je in je volgende sessie wil bespreken"}
-      >
-        <AgendaList clientId={CURRENT_CLIENT_ID} viewer="client" entryHref={(id) => `/c/logboek/${id}`} />
-      </Panel>
+          <section aria-labelledby="voorbij">
+            <h2 id="voorbij" className="type-subtitle mb-3 px-1">
+              Voorbije sessies
+            </h2>
+            {history.length ? (
+              <ul className="divide-y divide-surface-2/70 overflow-hidden card">
+                {history.map((a) => {
+                  const page = pages.find((p) => p.appointmentId === a.id);
+                  const fresh = page ? newBlocks([...page.summary, ...page.reactions], CURRENT_CLIENT_ID, seen(`session:${a.id}`)).length : 0;
+                  const text = page ? excerpt(page.summary, 120) : "";
+                  return (
+                    <li key={a.id}>
+                      <Link href={`/c/sessies/${a.id}`} className="group flex items-center gap-4 px-5 py-5 transition-colors hover:bg-oat-soft/60 md:px-7">
+                        <div className="flex size-12 shrink-0 flex-col items-center justify-center rounded-2xl bg-sky-soft text-sky-ink">
+                          <p className="text-[10px] font-semibold leading-none tracking-wide uppercase">{formatLongDate(a.start).slice(0, 2)}</p>
+                          <p className="font-display text-[20px] leading-tight tabular-nums">{new Date(a.start).getDate()}</p>
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="flex items-center gap-2 text-[15px] font-medium">
+                            {capitalize(formatLongDate(a.start))}
+                            {fresh > 0 && <span className="rounded-full bg-clay-ink px-1.5 py-px text-[10px] font-semibold text-on-accent">Nieuw</span>}
+                          </p>
+                          <p className={cn("truncate text-[13px]", text ? "text-muted" : "text-faint")}>
+                            {text || (a.type === "intake" ? "Intake" : "Nog geen samenvatting")}
+                          </p>
+                        </div>
+                        <ChevronRight className="size-4 shrink-0 stroke-[1.5] text-taupe transition-transform duration-200 group-hover:translate-x-0.5" />
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <p className="px-1 text-[14px] text-muted">Na je eerste sessie vind je hier wat jullie bespraken.</p>
+            )}
+          </section>
+        </div>
 
-      <section className="mt-10" aria-labelledby="voorbij">
-        <h2 id="voorbij" className="type-subtitle mb-3 px-1">
-          Voorbije sessies
-        </h2>
-        {history.length ? (
-          <ul className="divide-y divide-surface-2/70 overflow-hidden card">
-            {history.map((a) => {
-              const page = pages.find((p) => p.appointmentId === a.id);
-              const fresh = page ? newBlocks([...page.summary, ...page.reactions], CURRENT_CLIENT_ID, seen(`session:${a.id}`)).length : 0;
-              const text = page ? excerpt(page.summary, 120) : "";
-              return (
-                <li key={a.id}>
-                  <Link href={`/c/sessies/${a.id}`} className="group flex items-center gap-4 px-5 py-4 transition-colors hover:bg-oat-soft/40 md:px-6">
-                    <div className="flex size-12 shrink-0 flex-col items-center justify-center rounded-2xl bg-sky-soft text-sky-ink">
-                      <p className="text-[10px] font-semibold leading-none tracking-wide uppercase">{formatLongDate(a.start).slice(0, 2)}</p>
-                      <p className="font-display text-[20px] leading-tight tabular-nums">{new Date(a.start).getDate()}</p>
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="flex items-center gap-2 text-[15px] font-medium">
-                        {capitalize(formatLongDate(a.start))}
-                        {fresh > 0 && <span className="rounded-full bg-clay-ink px-1.5 py-px text-[10px] font-semibold text-on-accent">Nieuw</span>}
-                      </p>
-                      <p className={cn("truncate text-[13px]", text ? "text-muted" : "text-faint")}>
-                        {text || (a.type === "intake" ? "Intake" : "Nog geen samenvatting")}
-                      </p>
-                    </div>
-                    <ChevronRight className="size-4 shrink-0 stroke-[1.5] text-taupe transition-transform duration-200 group-hover:translate-x-0.5" />
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        ) : (
-          <p className="px-1 text-[14px] text-muted">Na je eerste sessie vind je hier wat jullie bespraken.</p>
-        )}
-      </section>
+        <Panel
+          className="lg:sticky lg:top-24"
+          title="Voor volgende keer"
+          description={next ? `Wat je op ${formatDayMonth(next.start)} wil bespreken` : "Wat je in je volgende sessie wil bespreken"}
+        >
+          <AgendaList clientId={CURRENT_CLIENT_ID} viewer="client" entryHref={(id) => `/c/logboek/${id}`} />
+        </Panel>
+      </div>
 
       <BookingSheets clientId={CURRENT_CLIENT_ID} flow={flow} onClose={() => setFlow(null)} />
-    </div>
+    </>
   );
 }

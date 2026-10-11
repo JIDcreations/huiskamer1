@@ -158,16 +158,21 @@ Regels:
 - Status toon je met kleur en vorm samen, nooit met kleur alleen.
 
 ### Beeld
-- Sfeerfoto's (Unsplash via Picsum, zelf gehost in `src/assets/beelden`) als fotoband bovenaan Vandaag, Logboek en Sessies, op de aanmeldpagina en in de kennismaking.
+- Sfeerfoto's (Unsplash via Picsum, zelf gehost in `src/assets/beelden`) als fotoband van rand tot rand bovenaan Vandaag, Logboek en Sessies, en als halve pagina bij het aanmelden en in de kennismaking.
 - Altijd met een groene waas onderaan zodat de titel leesbaar blijft, en met een beschrijvende alt-tekst.
 - Geen stockfoto's van mensen in therapie. Natuur, licht, thee, een kamer.
 
 ### Typografie
-- Koppen: **Bricolage Grotesque**, zwaar en strak (`type-hero`, `type-title`, `type-subtitle`).
-- UI en tekst: **Inter**, 15-16px, ruime regelhoogte (1.6 in de editor). Editor-leesbreedte max ~680px.
+- Koppen en woordmerk: **Fraunces** (zacht, redactioneel; `type-hero`, `type-title`, `type-subtitle`).
+- UI en tekst: **Plus Jakarta Sans**, 15-16px, ruime regelhoogte (1.6 in de editor). Kleine labels als `eyebrow`: hoofdletters met ruime spatiëring.
 
-### Vorm en diepte
-- Radius: 20px kaarten, 28px fotobanden, 999px knoppen.
+### Merk
+- Merkteken: een boograam met een lage zon (`Mark` in `platform-shell.tsx`). Woordmerk "Huiskamer" in Fraunces.
+
+### Vorm en ruimte
+- Fotobanden lopen van rand tot rand (`bleed`), de topbalk zweeft erover als losse pillen ("eilanden") en wordt glas zodra je scrolt.
+- Inhoud tot 1280px breed. Op desktop staan de cliëntpagina's in twee kolommen: het werk links, context (volgende sessie, deze week) rechts.
+- Radius: 20px kaarten, 999px knoppen en eilanden.
 - Kaarten: fijne rand plus een zachte, groen getinte schaduw.
 - Iconen: Lucide, stroke 1.5 tot 1.75, functioneel.
 

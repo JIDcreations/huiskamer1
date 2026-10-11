@@ -11,7 +11,7 @@ Praktijkplatform voor psychologen en hun cliënten. Fase 1 (klikbaar prototype m
 ## Afspraken die niet uit de code blijken
 
 - **Online platform, geen app.** Beide rollen gebruiken dezelfde shell (sidebar + topbalk). Geen bottom tab bar.
-- **Stijl:** dennengroen, klei en zon op warm papier (tokens in `src/app/globals.css`, regels in PLAN.md sectie 7). Elke soort entry heeft een vaste tint (`src/components/shared/kind.ts`). Koppen in Bricolage Grotesque, de rest in Inter. Kleine tekst haalt AA: klei als tekst is `text-clay-ink`. Foto's staan in `src/assets/beelden` en gaan via `src/lib/beelden.ts`.
+- **Stijl:** dennengroen, klei en zon op warm papier (tokens in `src/app/globals.css`, regels in PLAN.md sectie 7). Elke soort entry heeft een vaste tint (`src/components/shared/kind.ts`). Koppen en woordmerk in Fraunces, de rest in Plus Jakarta Sans. Kleine tekst haalt AA: klei als tekst is `text-clay-ink`. Foto's staan in `src/assets/beelden` en gaan via `src/lib/beelden.ts`.
 - **Copy:** Nederlands, Vlaams, je/jij, kort en warm. Geen emoji's, geen decoratieve iconen, geen em dashes.
 - **Data:** componenten praten enkel met `src/lib/data`, nooit rechtstreeks met `src/lib/mock`. Zo kan later een echte backend inpluggen.
 - **Privacy in de UI:** niet-gedeelde logboekentries en sessienotities mogen nergens bij de andere partij verschijnen, ook niet als aantal.
