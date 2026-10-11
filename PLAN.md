@@ -131,57 +131,48 @@ type Invoice      = { id; clientId; appointmentId; amount; issuedAt; dueAt; stat
 
 Mockdata: 1 psycholoog, **8 cliënten** met fictieve Vlaamse namen, 3 weken aan afspraken, sessiepagina's met blokken van beide auteurs en gelinkte opdrachten, logboekentries (check-ins, notities, opdracht-antwoorden, mix gedeeld en niet gedeeld), een gevulde "Voor volgende keer". Alles in `/lib/mock/` met een in-memory store (Zustand) zodat acties (afvinken, schrijven, delen) tijdens een demo meteen overal zichtbaar zijn.
 
-## 7. Design direction: Milk, Oat, Taupe
+## 7. Design direction: dennengroen, klei en zon
 
-**Referentie**: een neutraal Pinterest-moodboard. Linnen zetel, laptop, daglicht, alles in melk, haver en taupe. Plus een lichte wachtkamer overdag: gebroken witte muren, linnen gordijnen, een plant.
+> Herzien op 11 oktober 2026. Het eerste palet (Milk, Oat, Taupe) voelde als een mid-fi: alles beige, weinig contrast. Dit is de nieuwe richting.
 
-**Gevoel**: rustig, zacht, licht, huiselijk, modern. Monochroom en warm-neutraal. **Het platform is licht**: grote vlakken zijn altijd Milk of Oat. Er is **één** uitstraling: geen light mode, geen dark mode, geen toggle, geen systeeminstelling volgen.
+**Gevoel**: een warme huiskamer met planten en daglicht. Rustig, maar met karakter en duidelijk contrast. Licht papier als basis, één diepgroene identiteit, en een paar warme kleuren die iets betekenen.
 
 ### Palet
 | Naam | Hex | Rol |
 |---|---|---|
-| **Milk** | `#FBF7F4` | Achtergrond, kaarten |
-| **Oat** | `#E5DED2` | Vlakken, sidebar, geselecteerd, privénotities, secundaire knoppen |
-| **Taupe** | `#A39382` | Accenten, iconen, randen bij focus, badges, voortgang, voltooid |
-| **Mocha** | `#685D54` | Primaire knoppen, secundaire tekst, actieve navigatie |
-| **Charcoal** | `#232323` | Enkel tekst (koppen en body). Nooit als vlak. |
+| **Papier** | `#F4EFE6` | Achtergrond |
+| **Crème** | `#FFFDF8` | Kaarten |
+| **Zand** | `#E8E0D0` | Vlakken, lijnen, privénotities |
+| **Den** | `#1D4535` | Primaire knoppen, actieve tabs, volgende sessie, auteur psycholoog |
+| **Diepe den** | `#13301F` | Zijbalk |
+| **Mos** | `#DBE5D3` | Zachte knoppen, opdrachten, gedeeld |
+| **Klei** | `#C2582F` (tekst `#9A3F1C`) | Notities, "Nieuw", nood-link, auteur cliënt |
+| **Zon** | `#F1C55A` | Check-ins, actief item, highlight-knoppen |
+| **Inkt** | `#15211B` | Tekst |
 
-### Tokens (CSS variables)
-| Token | Waarde |
-|---|---|
-| `--bg` | `#FBF7F4` (Milk) |
-| `--surface` | `#FFFFFF` bij kaarten op Milk, of Milk op een Oat-vlak |
-| `--surface-2` | `#E5DED2` (Oat) |
-| `--oat-soft` | `#F1ECE4` (tussen Milk en Oat, voor hover) |
-| `--text` | `#232323` (Charcoal) |
-| `--text-muted` | `#685D54` (Mocha) |
-| `--text-faint` | `#A39382` (Taupe) |
-| `--line` | `#E5DED2` (Oat) |
-| `--accent` | `#685D54` (Mocha), Milk-tekst erop |
-| `--accent-soft` | `#E5DED2` (Oat) |
-| `--calm` | `#A39382` (Taupe) voor voltooid |
-| `--author-psy` | `#685D54` (Mocha) |
-| `--author-client` | `#A39382` (Taupe) |
+Vaste betekenis per soort, overal dezelfde (`src/components/shared/kind.ts`): check-in is zon, opdracht is mos, notitie is klei, reactie bij een sessie is blauw, "Voor volgende keer" is pruim. Elke cliënt heeft een vaste tint voor avatar en agendablok. Stemmingen hebben elk een kleur, van schemerblauw (zwaar) tot zon (licht).
 
 Regels:
-- **Geen donkere vlakken.** Charcoal en Mocha zijn voor tekst, knoppen en kleine elementen. Achtergronden, kaarten, sidebar, tab bar en sheets zijn altijd Milk, wit of Oat.
-- Geen extra kleuren buiten dit palet. Status toon je met vorm en gewicht (gevuld vs outline, Taupe vs Mocha), niet met groen of rood.
-- Enige uitzondering: de nood-link mag een heel zachte terracotta tint (`#C9A08E`) krijgen zodat die vindbaar is.
-- Leesbaarheid: body in Charcoal, secundair in Mocha. Taupe enkel voor labels, iconen en grote tekst.
+- Grote vlakken zijn papier of crème. De zijbalk is donkergroen, net als de kaart van de volgende sessie: dat zijn de bewuste donkere accenten.
+- Kleine tekst haalt altijd AA. Klei als tekst gebruikt de donkere variant.
+- Status toon je met kleur en vorm samen, nooit met kleur alleen.
+
+### Beeld
+- Sfeerfoto's (Unsplash via Picsum, zelf gehost in `src/assets/beelden`) als fotoband bovenaan Vandaag, Logboek en Sessies, op de aanmeldpagina en in de kennismaking.
+- Altijd met een groene waas onderaan zodat de titel leesbaar blijft, en met een beschrijvende alt-tekst.
+- Geen stockfoto's van mensen in therapie. Natuur, licht, thee, een kamer.
 
 ### Typografie
-- **Enkel sans-serif.** Koppen in **Inter** semibold met iets strakkere letterafstand, sober en zakelijk-warm. Geen serif.
-- UI en tekst: **Inter** (of `-apple-system`), 15-16px basis, ruime regelhoogte (1.6 in de editor).
-- Editor-leesbreedte max ~680px, gecentreerd.
+- Koppen: **Bricolage Grotesque**, zwaar en strak (`type-hero`, `type-title`, `type-subtitle`).
+- UI en tekst: **Inter**, 15-16px, ruime regelhoogte (1.6 in de editor). Editor-leesbreedte max ~680px.
 
 ### Vorm en diepte
-- Radius: 14px kaarten, 999px pills en knoppen, 20px sheets/modals.
-- Schaduwen: nauwelijks zichtbaar, als daglicht (`0 1px 2px rgba(31,30,28,.03), 0 6px 20px rgba(31,30,28,.04)`). Kaarten onderscheiden zich vooral door wit op gebroken wit.
-- Sidebar en topbalk wit met een dunne Oat-lijn, inhoud op Milk. Blur enkel op de topbalk bij scrollen.
-- Iconen: functioneel en dun (Lucide, stroke 1.5). **Geen decoratieve iconen, geen emoji's.**
+- Radius: 20px kaarten, 28px fotobanden, 999px knoppen.
+- Kaarten: fijne rand plus een zachte, groen getinte schaduw.
+- Iconen: Lucide, stroke 1.5 tot 1.75, functioneel.
 
 ### Beweging
-- Framer Motion, kort en zacht (200-300ms, ease-out). Sheets schuiven van onder op mobiel. Afvinken krijgt één subtiele animatie, geen confetti.
+- Framer Motion, kort en zacht (200-300ms, ease-out). Afvinken krijgt één subtiele animatie, geen confetti.
 
 ### Copy
 - Nederlands, Vlaams, **je/jij**, kort en warm: "Goeiemorgen, Lotte", "Hoe gaat het vandaag?", "Voor volgende keer", "Gedeeld met Sarah".
@@ -190,7 +181,7 @@ Regels:
 ## 8. Tech stack
 
 - **Next.js (App Router) + TypeScript**
-- **Tailwind CSS** met de tokens hierboven als theme
+- **Tailwind CSS** met de tokens hierboven als theme (`src/app/globals.css`)
 - **shadcn/ui** als basis, volledig herstyled (de default look mag nergens overblijven)
 - **Tiptap** voor de Notion-achtige editor (slash-menu, bubble menu, checklist), één gedeelde `<Editor />` component voor sessiepagina's, Logboek en Sessienotities, met een prop voor auteur-markering
 - **Framer Motion**, **date-fns** (locale `nl-BE`), **Zustand** voor de mock store

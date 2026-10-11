@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
  */
 export function ShareIcon({ shared, className }: { shared: boolean; className?: string }) {
   const Icon = shared ? Eye : Lock;
-  return <Icon aria-hidden className={cn("size-3.5 shrink-0 stroke-[1.75] text-taupe", className)} />;
+  return <Icon aria-hidden className={cn("size-3.5 shrink-0 stroke-[1.75]", shared ? "text-pine" : "text-clay-ink", className)} />;
 }
 
 export function shareText(shared: boolean, psyFirstName: string) {

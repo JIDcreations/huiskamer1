@@ -1,36 +1,69 @@
 @import "tailwindcss";
 
 /* Huiskamer: Milk, Oat, Taupe. Eén lichte uitstraling. */
+/* Huiskamer: dennengroen, klei en zon op warm papier. */
 :root {
-  --milk: #fbf7f4;
-  --oat: #e5ded2;
-  --taupe: #a39382;
-  --mocha: #685d54;
-  --charcoal: #232323;
+  --paper: #f4efe6;
+  --cream: #fffdf8;
+  --sand: #e8e0d0;
+  --pine: #1d4535;
+  --pine-deep: #13301f;
+  --moss: #dbe5d3;
+  --clay: #c2582f;
+  --clay-soft: #f6dccd;
+  /* Klei als tekst: donkerder, zodat kleine tekst AA haalt. */
+  --clay-ink: #9a3f1c;
+  --sun: #f1c55a;
+  --sun-soft: #fbedc6;
+  --sun-ink: #6b4d0b;
+  --sky-soft: #dfe5f1;
+  --sky-ink: #33466e;
+  --plum-soft: #ece0ef;
+  --plum-ink: #5f3f66;
+  --ink: #15211b;
 
-  --bg: var(--milk);
-  --surface: #ffffff;
-  --surface-2: var(--oat);
-  --oat-soft: #f1ece4;
-  --text: var(--charcoal);
-  --text-muted: var(--mocha);
-  /* Taupe voor kleine tekst haalt geen AA (2,98:1). Deze donkerdere taupe wel (5:1 op Milk).
-     Taupe zelf blijft voor iconen, randen en bolletjes. */
-  --text-faint: #75695d;
-  --line: var(--oat);
-  --accent: var(--mocha);
-  --on-accent: var(--milk);
-  --accent-soft: var(--oat);
-  --calm: var(--taupe);
-  --author-psy: var(--mocha);
-  --author-client: var(--taupe);
-  --urgent: #c9a08e;
+  --bg: var(--paper);
+  --surface: var(--cream);
+  --surface-2: var(--sand);
+  --oat-soft: #efe8dc;
+  --text: var(--ink);
+  --text-muted: #45524b;
+  --text-faint: #5f6a63;
+  /* Iconen, randen en bolletjes. */
+  --taupe: #7d8e83;
+  --line: var(--sand);
+  --accent: var(--pine);
+  --on-accent: #f7f2e8;
+  --accent-soft: var(--moss);
+  --calm: var(--pine);
+  --author-psy: var(--pine);
+  --author-client: var(--clay);
+  --urgent: var(--clay);
 
-  --shadow-soft: 0 1px 2px rgba(31, 30, 28, 0.03), 0 6px 20px rgba(31, 30, 28, 0.04);
-  /* Kaarten: een fijne rand in plaats van schaduw, zoals papier op een tafel. */
-  --edge: rgba(163, 147, 130, 0.22);
-  --edge-strong: rgba(163, 147, 130, 0.38);
-  --glass: rgba(251, 247, 244, 0.78);
+  /* Zijbalk */
+  --side: var(--pine-deep);
+  --side-text: #e9efe6;
+  --side-muted: #a9bcae;
+  --side-hover: rgba(233, 239, 230, 0.08);
+  --side-active: rgba(233, 239, 230, 0.14);
+
+  /* Stemming, van zwaar naar licht */
+  --mood-1: #4f6286;
+  --mood-2: #8f6a93;
+  --mood-3: #d08a55;
+  --mood-4: #6f9f7b;
+  --mood-5: #e8b73c;
+
+  --shadow-soft: 0 1px 2px rgba(21, 33, 27, 0.05), 0 10px 30px -8px rgba(21, 33, 27, 0.12);
+  --edge: rgba(21, 33, 27, 0.09);
+  --edge-strong: rgba(21, 33, 27, 0.18);
+  --glass: rgba(255, 253, 248, 0.82);
+
+  /* Oude namen, nog gebruikt in het merkteken en de editor. */
+  --milk: var(--cream);
+  --oat: var(--sand);
+  --mocha: var(--pine);
+  --charcoal: var(--ink);
 
   color-scheme: light;
 }
@@ -52,14 +85,38 @@
   --color-author-psy: var(--author-psy);
   --color-author-client: var(--author-client);
   --color-urgent: var(--urgent);
+  --color-ink: var(--ink);
+  --color-pine: var(--pine);
+  --color-pine-deep: var(--pine-deep);
+  --color-moss: var(--moss);
+  --color-clay: var(--clay);
+  --color-clay-soft: var(--clay-soft);
+  --color-clay-ink: var(--clay-ink);
+  --color-sun: var(--sun);
+  --color-sun-soft: var(--sun-soft);
+  --color-sun-ink: var(--sun-ink);
+  --color-sky-soft: var(--sky-soft);
+  --color-sky-ink: var(--sky-ink);
+  --color-plum-soft: var(--plum-soft);
+  --color-plum-ink: var(--plum-ink);
+  --color-side: var(--side);
+  --color-side-text: var(--side-text);
+  --color-side-muted: var(--side-muted);
+  --color-side-hover: var(--side-hover);
+  --color-side-active: var(--side-active);
+  --color-mood-1: var(--mood-1);
+  --color-mood-2: var(--mood-2);
+  --color-mood-3: var(--mood-3);
+  --color-mood-4: var(--mood-4);
+  --color-mood-5: var(--mood-5);
 
   --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-serif: var(--font-instrument), "Iowan Old Style", Georgia, serif;
+  --font-serif: var(--font-display), var(--font-inter), -apple-system, sans-serif;
   --color-edge: var(--edge);
   --color-edge-strong: var(--edge-strong);
 
-  --radius-card: 14px;
-  --radius-sheet: 20px;
+  --radius-card: 20px;
+  --radius-sheet: 24px;
 
   --shadow-soft: var(--shadow-soft);
 
@@ -90,12 +147,12 @@
   }
 
   ::selection {
-    background: var(--oat);
-    color: var(--charcoal);
+    background: var(--sun-soft);
+    color: var(--ink);
   }
 
   :focus-visible {
-    outline: 2px solid var(--taupe);
+    outline: 2px solid var(--pine);
     outline-offset: 2px;
     border-radius: 6px;
   }
@@ -107,49 +164,59 @@
   }
 }
 
-/* Koppen en paginatitels: Instrument Serif. Alles wat bediend wordt: Inter. */
+/* Koppen en paginatitels: Bricolage Grotesque. Alles wat bediend wordt: Inter. */
 @utility font-display {
   font-family: var(--font-serif);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  font-feature-settings: "lnum";
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  font-variation-settings: "opsz" 48;
 }
 
 /* Typeschaal. Eén set maten, overal dezelfde. */
 @utility type-hero {
   font-family: var(--font-serif);
-  font-weight: 400;
-  letter-spacing: -0.015em;
-  font-size: 34px;
-  line-height: 1.08;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+  font-variation-settings: "opsz" 96;
+  font-size: 38px;
+  line-height: 1.02;
   @media (min-width: 768px) {
-    font-size: 42px;
+    font-size: 52px;
   }
 }
 @utility type-title {
   font-family: var(--font-serif);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  font-size: 28px;
-  line-height: 1.12;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  font-variation-settings: "opsz" 72;
+  font-size: 30px;
+  line-height: 1.06;
   @media (min-width: 768px) {
-    font-size: 32px;
+    font-size: 38px;
   }
 }
 @utility type-subtitle {
   font-family: var(--font-serif);
-  font-weight: 400;
-  font-size: 23px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 36;
+  font-size: 22px;
   line-height: 1.2;
 }
 
-/* Kaart: wit op Milk, fijne rand, bijna geen schaduw. */
+/* Kaart: crème op papier, fijne rand en een zachte schaduw. */
 @utility card {
   background: var(--surface);
   border-radius: var(--radius-card);
   box-shadow:
     0 0 0 1px var(--edge),
-    0 1px 2px rgba(31, 30, 28, 0.025);
+    0 1px 2px rgba(21, 33, 27, 0.04),
+    0 8px 24px -12px rgba(21, 33, 27, 0.1);
+}
+
+/* Beeld met een donkere waas onderaan, zodat tekst erop leesbaar blijft. */
+@utility photo-veil {
+  background-image: linear-gradient(180deg, rgba(19, 48, 31, 0) 25%, rgba(19, 48, 31, 0.55) 70%, rgba(19, 48, 31, 0.85) 100%);
 }
 
 @utility glass {

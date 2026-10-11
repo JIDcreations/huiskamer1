@@ -36,13 +36,19 @@ type ShellProps = {
   children: React.ReactNode;
 };
 
-/** Merkteken: een huisje met een warm raam, in Mocha. */
-export function Mark({ className }: { className?: string }) {
+/** Merkteken: een huisje met een warm, verlicht raam. Op de donkere zijbalk keert het om. */
+export function Mark({ className, inverted }: { className?: string; inverted?: boolean }) {
   return (
     <svg viewBox="0 0 32 32" aria-hidden className={className}>
-      <rect width="32" height="32" rx="9" fill="var(--mocha)" />
-      <path d="M9 15.2 16 9.5l7 5.7V23a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-7.8Z" fill="none" stroke="var(--milk)" strokeWidth="1.6" strokeLinejoin="round" />
-      <rect x="14.2" y="17.2" width="3.6" height="3.6" rx="0.8" fill="var(--oat)" />
+      <rect width="32" height="32" rx="9" fill={inverted ? "var(--on-accent)" : "var(--pine)"} />
+      <path
+        d="M9 15.2 16 9.5l7 5.7V23a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-7.8Z"
+        fill="none"
+        stroke={inverted ? "var(--pine)" : "var(--on-accent)"}
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <rect x="14.2" y="17.2" width="3.6" height="3.6" rx="0.8" fill="var(--sun)" />
     </svg>
   );
 }
@@ -52,16 +58,16 @@ function Brand({ href, context, compact }: { href: string; context: string; comp
     return (
       <Link href={href} className="flex items-center gap-2" aria-label="Huiskamer">
         <Mark className="size-7" />
-        <span className="font-display text-[21px] leading-none text-text">Huiskamer</span>
+        <span className="font-display text-[20px] leading-none text-text">Huiskamer</span>
       </Link>
     );
   }
   return (
-    <Link href={href} className="flex items-center gap-2.5">
-      <Mark className="size-8" />
+    <Link href={href} className="flex items-center gap-3">
+      <Mark inverted className="size-9" />
       <span className="leading-tight">
-        <span className="block font-display text-[22px] leading-none text-text">Huiskamer</span>
-        <span className="mt-1 block text-[12px] text-muted">{context}</span>
+        <span className="block font-display text-[21px] leading-none text-side-text">Huiskamer</span>
+        <span className="mt-1 block text-[12px] text-side-muted">{context}</span>
       </span>
     </Link>
   );
@@ -76,11 +82,12 @@ function NavLink({ item }: { item: NavItem }) {
       href={item.href}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "flex h-9 items-center gap-3 rounded-[10px] px-3 text-[14px] outline-none transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-taupe",
-        active ? "bg-oat-soft font-medium text-text shadow-[inset_0_0_0_1px_var(--edge)]" : "text-muted hover:bg-oat-soft/70 hover:text-text"
+        "relative flex h-10 items-center gap-3 rounded-xl px-3 text-[14px] outline-none transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-sun",
+        active ? "bg-side-active font-medium text-side-text" : "text-side-muted hover:bg-side-hover hover:text-side-text"
       )}
     >
-      <Icon className={cn("size-[18px] stroke-[1.5]", active ? "text-muted" : "text-taupe")} />
+      {active && <span aria-hidden className="absolute -left-3 top-2 bottom-2 w-[3px] rounded-r-full bg-sun" />}
+      <Icon className={cn("size-[18px] stroke-[1.6]", active ? "text-sun" : "text-side-muted")} />
       <span className="truncate">{item.label}</span>
     </Link>
   );
@@ -89,14 +96,14 @@ function NavLink({ item }: { item: NavItem }) {
 function SidebarContent({ homeHref, context, nav, footerNav }: Omit<ShellProps, "user" | "children" | "mobileTabs">) {
   return (
     <div className="flex h-full flex-col">
-      <div className="flex h-16 shrink-0 items-center px-5">
+      <div className="flex h-20 shrink-0 items-center px-5">
         <Brand href={homeHref} context={context} />
       </div>
       <nav aria-label="Hoofdnavigatie" className="flex-1 overflow-y-auto px-3 pt-4">
         {nav.map((group, i) => (
           <div key={group.label ?? i} className={cn(i > 0 && "mt-6")}>
             {group.label && (
-              <p className="mb-1.5 px-3 text-[11px] font-medium tracking-[0.08em] text-faint uppercase">
+              <p className="mb-1.5 px-3 text-[11px] font-medium tracking-[0.08em] text-side-muted uppercase">
                 {group.label}
               </p>
             )}
@@ -109,7 +116,7 @@ function SidebarContent({ homeHref, context, nav, footerNav }: Omit<ShellProps, 
         ))}
       </nav>
       {footerNav.length > 0 && (
-        <div className="flex flex-col gap-0.5 border-t border-edge px-3 py-3">
+        <div className="flex flex-col gap-0.5 border-t border-white/10 px-3 py-3">
           {footerNav.map((item) => (
             <NavLink key={item.href} item={item} />
           ))}
@@ -190,19 +197,21 @@ function TabBar({ items }: { items: NavItem[] }) {
               href={item.href}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "relative flex h-16 flex-1 flex-col items-center justify-center gap-1 text-[11px] font-medium transition-colors duration-200",
+                "relative flex h-[68px] flex-1 flex-col items-center justify-center gap-1 text-[11px] font-medium transition-colors duration-200",
                 active ? "text-text" : "text-faint hover:text-muted"
               )}
             >
-              {active && (
-                <motion.span
-                  layoutId="tabbar-active"
-                  className="absolute top-0 h-[2px] w-8 rounded-full bg-accent"
-                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                />
-              )}
-              <Icon className={cn("size-[22px] stroke-[1.5]", active ? "text-text" : "text-taupe")} />
-              {item.label}
+              <span className="relative flex h-8 w-14 items-center justify-center">
+                {active && (
+                  <motion.span
+                    layoutId="tabbar-active"
+                    className="absolute inset-0 rounded-full bg-moss"
+                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  />
+                )}
+                <Icon className={cn("relative size-[22px] stroke-[1.6]", active ? "text-pine" : "text-taupe")} />
+              </span>
+              <span className="relative">{item.label}</span>
             </Link>
           );
         })}
@@ -232,7 +241,7 @@ function MobileDrawer({
             </Dialog.Overlay>
             <Dialog.Content asChild forceMount>
               <motion.div
-                className="fixed inset-y-0 left-0 z-50 w-[280px] max-w-[85vw] bg-surface shadow-soft outline-none lg:hidden"
+                className="fixed inset-y-0 left-0 z-50 w-[280px] max-w-[85vw] bg-side shadow-soft outline-none lg:hidden"
                 initial={{ x: "-100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "-100%" }}
@@ -242,7 +251,7 @@ function MobileDrawer({
                 <Dialog.Description className="sr-only">Navigatie</Dialog.Description>
                 <Dialog.Close
                   aria-label="Menu sluiten"
-                  className="absolute right-3 top-4 z-10 inline-flex size-8 items-center justify-center rounded-lg text-muted hover:bg-oat-soft"
+                  className="absolute right-3 top-6 z-10 inline-flex size-8 items-center justify-center rounded-lg text-side-muted hover:bg-side-hover hover:text-side-text"
                 >
                   <X className="size-4 stroke-[1.5]" />
                 </Dialog.Close>
@@ -250,7 +259,7 @@ function MobileDrawer({
                   <div className="min-h-0 flex-1">
                     <SidebarContent {...sidebar} />
                   </div>
-                  <div className="border-t border-edge px-4 py-4 md:hidden">
+                  <div className="border-t border-white/10 bg-surface px-4 py-4 md:hidden">
                     <p className="mb-2 text-[11px] font-medium tracking-[0.08em] text-faint uppercase">Demo: bekijk als</p>
                     <RoleSwitch className="flex w-full" />
                     <DemoReset className="mt-3" />
@@ -276,12 +285,12 @@ export function PlatformShell({ user, topbarStart, topbarEnd, mobileTabs, childr
 
   return (
     <div className="min-h-dvh lg:pl-[248px]">
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[248px] border-r border-edge bg-surface lg:block">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[248px] bg-side lg:block">
         <SidebarContent {...sidebar} />
       </aside>
       {!mobileTabs && <MobileDrawer open={drawerOpen} onOpenChange={setDrawerOpen} {...sidebar} />}
 
-      <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-edge bg-surface/90 px-4 backdrop-blur-md md:px-8">
+      <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-edge bg-bg/85 px-4 backdrop-blur-md md:px-8">
         {mobileTabs ? (
           <div className="lg:hidden">
             <Brand href={sidebar.homeHref} context={sidebar.context} compact />

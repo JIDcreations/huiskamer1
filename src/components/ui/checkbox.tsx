@@ -28,9 +28,9 @@ export function Checkbox({
       onClick={() => onChange(!checked)}
       whileTap={{ scale: 0.88 }}
       className={cn(
-        "inline-flex shrink-0 items-center justify-center rounded-full outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-taupe focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-40",
+        "inline-flex shrink-0 items-center justify-center rounded-full outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-pine focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-40",
         s,
-        checked ? "bg-accent text-on-accent" : "bg-surface ring-[1.5px] ring-inset ring-taupe hover:ring-muted",
+        checked ? "bg-pine text-sun" : "bg-surface ring-[1.5px] ring-inset ring-taupe hover:ring-pine",
         className
       )}
     >

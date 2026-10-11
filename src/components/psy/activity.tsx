@@ -8,9 +8,10 @@ import { statusLabel, typeLabel } from "@/lib/appointments";
 import { excerpt, usePersonName, useTask, type Activity } from "@/lib/data";
 import { formatDayMonth, formatTime, formatWhen, plural } from "@/lib/format";
 import { cn } from "@/lib/utils";
+import { kindTone } from "@/components/shared/kind";
 
 function ActivityIcon({ activity: a }: { activity: Activity }) {
-  const cls = "size-4 stroke-[1.5] text-muted";
+  const cls = "size-4 stroke-[1.75]";
   if (a.kind === "journal") {
     if (a.entry.kind === "checkin") return <Sun className={cls} />;
     if (a.entry.kind === "opdracht") return <CheckCircle2 className={cls} />;
@@ -132,20 +133,15 @@ export function ActivityItem({
   }
 
   return (
-    <Link href={activityHref(a)} className="group flex gap-3.5 rounded-xl px-2 py-3 transition-colors hover:bg-oat-soft/60">
-      <span
-        className={cn(
-          "mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full",
-          a.kind === "note" ? "bg-surface-2" : "bg-oat-soft"
-        )}
-      >
+    <Link href={activityHref(a)} className="group flex gap-3.5 rounded-xl px-2 py-3 transition-colors hover:bg-oat-soft">
+      <span className={cn("mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-xl", kindTone[a.kind === "journal" ? a.entry.kind : a.kind])}>
         <ActivityIcon activity={a} />
       </span>
       <span className="min-w-0 flex-1">
         <span className="flex items-baseline justify-between gap-3">
           <span className="min-w-0 text-[14px] text-text">{title}</span>
           <span className="flex shrink-0 items-center gap-1.5 text-[12px] text-faint">
-            {isNew && <span aria-label="Nieuw" className="size-1.5 rounded-full bg-accent" />}
+            {isNew && <span className="rounded-full bg-clay-ink px-1.5 py-px text-[10px] font-semibold text-on-accent">Nieuw</span>}
             {timeOnly ? formatTime(a.at) : formatWhen(a.at)}
           </span>
         </span>

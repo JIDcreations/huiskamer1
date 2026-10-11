@@ -13,14 +13,21 @@ export const moods: { value: Mood; label: string }[] = [
 
 export const moodLabel = (m?: Mood) => moods.find((x) => x.value === m)?.label;
 
-/** Vijf zachte bolletjes, gevuld tot de stemming. Geen kleuren buiten het palet. */
+/** Elke stemming een eigen kleur, van schemerblauw (zwaar) naar zon (licht). */
+export const moodColor = (m: Mood) => `var(--mood-${m})`;
+
+/** Vijf bolletjes, gevuld tot de stemming, in de kleur van die stemming. */
 export function MoodDots({ value, className }: { value?: Mood; className?: string }) {
   if (!value) return null;
   return (
-    <span className={cn("inline-flex items-center gap-2 text-[12px] text-muted", className)}>
+    <span className={cn("inline-flex items-center gap-2 text-[12px] font-medium text-muted", className)}>
       <span aria-hidden className="inline-flex gap-[3px]">
         {moods.map((m) => (
-          <span key={m.value} className={cn("size-[6px] rounded-full", m.value <= value ? "bg-muted" : "bg-surface-2")} />
+          <span
+            key={m.value}
+            className="size-[7px] rounded-full"
+            style={{ background: m.value <= value ? moodColor(value) : "var(--sand)" }}
+          />
         ))}
       </span>
       {moodLabel(value)}
@@ -30,7 +37,7 @@ export function MoodDots({ value, className }: { value?: Mood; className?: strin
 
 export function MoodPicker({ value, onChange, className }: { value?: Mood; onChange: (m: Mood | undefined) => void; className?: string }) {
   return (
-    <div role="radiogroup" aria-label="Hoe voel je je?" className={cn("grid grid-cols-5 gap-1.5 sm:flex sm:flex-wrap", className)}>
+    <div role="radiogroup" aria-label="Hoe voel je je?" className={cn("grid grid-cols-5 gap-2", className)}>
       {moods.map((m) => {
         const active = m.value === value;
         return (
@@ -40,22 +47,21 @@ export function MoodPicker({ value, onChange, className }: { value?: Mood; onCha
             role="radio"
             aria-checked={active}
             onClick={() => onChange(active ? undefined : m.value)}
+            style={{ "--m": moodColor(m.value) } as React.CSSProperties}
             className={cn(
-              "inline-flex min-w-0 flex-col items-center justify-center gap-1.5 rounded-2xl py-2.5 text-[12px] outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-taupe sm:h-9 sm:flex-row sm:gap-2 sm:rounded-full sm:px-3.5 sm:py-0 sm:text-[13px]",
-              active ? "bg-accent text-on-accent" : "bg-oat-soft text-muted hover:bg-surface-2 hover:text-text"
+              "group flex min-w-0 flex-col items-center justify-center gap-2 rounded-2xl px-0.5 py-3.5 text-[11px] font-medium whitespace-nowrap tracking-[-0.01em] outline-none transition-[background-color,box-shadow,transform] duration-200 focus-visible:ring-2 focus-visible:ring-pine active:scale-[0.97] sm:text-[13px]",
+              active
+                ? "bg-[color-mix(in_srgb,var(--m)_16%,var(--cream))] text-text shadow-[inset_0_0_0_2px_var(--m)]"
+                : "bg-surface text-muted shadow-[inset_0_0_0_1px_var(--edge)] hover:bg-[color-mix(in_srgb,var(--m)_9%,var(--cream))] hover:text-text"
             )}
           >
-            <span aria-hidden className="inline-flex gap-[2px]">
-              {moods.map((d) => (
-                <span
-                  key={d.value}
-                  className={cn(
-                    "size-[5px] rounded-full",
-                    d.value <= m.value ? (active ? "bg-on-accent" : "bg-muted") : active ? "bg-on-accent/30" : "bg-surface-2"
-                  )}
-                />
-              ))}
-            </span>
+            <span
+              aria-hidden
+              className={cn(
+                "size-6 rounded-full bg-(--m) shadow-[inset_0_-3px_6px_rgba(0,0,0,0.12)] transition-transform duration-300 ease-out-soft sm:size-8",
+                active ? "scale-110" : "group-hover:scale-105"
+              )}
+            />
             {m.label}
           </button>
         );

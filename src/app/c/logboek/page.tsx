@@ -3,8 +3,8 @@
 import { useRouter } from "next/navigation";
 import { PenLine } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
+import { beelden } from "@/lib/beelden";
 import { JournalTimeline, WeekStrip } from "@/components/shared/journal-list";
-import { Panel } from "@/components/shared/panel";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { actions, CURRENT_CLIENT_ID, useJournal } from "@/lib/data";
@@ -23,18 +23,17 @@ export default function Logboek() {
   return (
     <div className="mx-auto max-w-[760px]">
       <PageHeader
+        image={beelden.boek}
         title="Logboek"
         eyebrow="Alles wat je schrijft, op één plek"
         actions={
-          <Button onClick={write}>
+          <Button variant="sun" onClick={write}>
             <PenLine /> Schrijf iets
           </Button>
         }
       />
 
-      <Panel className="mt-8" bodyClassName="px-2 py-2 md:px-3">
-        <WeekStrip entries={entries} />
-      </Panel>
+      <WeekStrip entries={entries} className="mt-6" />
 
       <div className="mt-8">
         <JournalTimeline

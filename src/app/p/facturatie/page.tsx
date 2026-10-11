@@ -13,6 +13,7 @@ import { toast } from "@/components/ui/toast";
 import { actions, useAppointments, useClientsRaw, useInvoices, usePsychologist } from "@/lib/data";
 import { formatDayMonth, formatFullDate, formatMoney, plural } from "@/lib/format";
 import type { Invoice, InvoiceStatus as Status } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 type Filter = "alle" | Status;
 
@@ -96,11 +97,11 @@ export default function Facturatie() {
     return c ? `${c.firstName} ${c.lastName}` : "Onbekend";
   };
 
-  const stat = (label: string, value: string, hint: string) => (
-    <div className="card px-5 py-4">
-      <p className="text-[13px] text-muted">{label}</p>
-      <p className="mt-1 text-[24px] font-semibold tabular-nums tracking-tight">{value}</p>
-      <p className="text-[12px] text-faint">{hint}</p>
+  const stat = (label: string, value: string, hint: string, tone: string) => (
+    <div className={cn("rounded-[20px] px-5 py-5", tone)}>
+      <p className="text-[13px] font-medium opacity-80">{label}</p>
+      <p className="mt-3 font-display text-[34px] leading-none tabular-nums">{value}</p>
+      <p className="mt-2 text-[12px] opacity-80">{hint}</p>
     </div>
   );
 
@@ -108,9 +109,9 @@ export default function Facturatie() {
     <>
       <PageHeader title="Facturatie" />
       <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {stat("Open", formatMoney(totals.openSum), plural(totals.open.length, "factuur", "facturen"))}
-        {stat("Vervallen", formatMoney(totals.lateSum), totals.late.length ? plural(totals.late.length, "factuur", "facturen") : "Niets vervallen")}
-        {stat("Betaald deze maand", formatMoney(totals.paidMonthSum), plural(totals.paidMonth.length, "factuur", "facturen"))}
+        {stat("Open", formatMoney(totals.openSum), plural(totals.open.length, "factuur", "facturen"), "bg-sun-soft text-sun-ink")}
+        {stat("Vervallen", formatMoney(totals.lateSum), totals.late.length ? plural(totals.late.length, "factuur", "facturen") : "Niets vervallen", "bg-clay-soft text-clay-ink")}
+        {stat("Betaald deze maand", formatMoney(totals.paidMonthSum), plural(totals.paidMonth.length, "factuur", "facturen"), "bg-pine text-on-accent")}
       </div>
 
       <div className="mt-8">

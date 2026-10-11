@@ -14,11 +14,11 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Toggle } from "@/components/ui/toggle";
 
 const palette = [
-  { name: "Milk", hex: "#FBF7F4", role: "Achtergrond, kaarten", ink: "text-text", ring: true },
-  { name: "Oat", hex: "#E5DED2", role: "Vlakken, geselecteerd, privé", ink: "text-text" },
-  { name: "Taupe", hex: "#A39382", role: "Accenten, iconen, voltooid", ink: "text-bg" },
-  { name: "Mocha", hex: "#685D54", role: "Knoppen, secundaire tekst", ink: "text-bg" },
-  { name: "Charcoal", hex: "#232323", role: "Enkel tekst", ink: "text-bg" },
+  { name: "Papier", hex: "#F4EFE6", role: "Achtergrond", ink: "text-text", ring: true },
+  { name: "Den", hex: "#1D4535", role: "Knoppen, zijbalk, volgende sessie", ink: "text-bg" },
+  { name: "Klei", hex: "#C2582F", role: "Notities, nieuw, nood-link", ink: "text-bg" },
+  { name: "Zon", hex: "#F1C55A", role: "Check-ins, highlights, actief", ink: "text-text" },
+  { name: "Inkt", hex: "#15211B", role: "Tekst", ink: "text-bg" },
 ];
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -44,7 +44,7 @@ export default function Stijlgids() {
             Naar de editor (stap 3)
           </Link>
           <p className="mt-4 max-w-md text-muted">
-            Milk, Oat, Taupe en één sans-serif. Rustig, zacht en licht.
+            Dennengroen, klei en zon op warm papier. Bricolage Grotesque voor koppen, Inter voor de rest.
           </p>
         </div>
       </header>
@@ -74,8 +74,8 @@ export default function Stijlgids() {
             Schrijven moet voelen als in een mooi notitieboek. Veel witruimte, weinig lijnen, zachte
             diepte. Een huiskamer met goed licht, niet een ziekenhuis en niet een dashboard.
           </p>
-          <p className="text-[14px] text-muted">Secundaire tekst in Mocha, voor details en tijdstippen.</p>
-          <p className="text-[12px] font-medium tracking-wide text-faint uppercase">Label in Taupe</p>
+          <p className="text-[14px] text-muted">Secundaire tekst, voor details en tijdstippen.</p>
+          <p className="text-[12px] font-medium tracking-wide text-faint uppercase">Label</p>
         </div>
       </Section>
 

@@ -12,6 +12,7 @@ import { useAppointments, useClientsRaw, usePsychologist, weekdayOf } from "@/li
 import { capitalize, formatLongDate, formatTime, plural } from "@/lib/format";
 import type { Appointment } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { clientTint } from "@/components/ui/avatar";
 
 const START = 8;
 const END = 20;
@@ -51,18 +52,14 @@ function AppointmentBlock({ a, name, onOpen }: { a: Appointment; name: string; o
       }}
       style={{ top, height }}
       className={cn(
-        "absolute inset-x-1 z-[2] overflow-hidden rounded-lg px-2.5 py-1.5 text-left text-[12px] leading-tight transition-shadow hover:shadow-soft",
+        "absolute inset-x-1 z-[2] overflow-hidden rounded-xl px-2.5 py-1.5 text-left text-[12px] leading-tight transition-[box-shadow,transform] hover:-translate-y-px hover:shadow-soft",
         cancelled
           ? "bg-transparent text-faint ring-1 ring-inset ring-dashed ring-taupe/60"
-          : past
-            ? "bg-oat-soft text-muted ring-1 ring-inset ring-surface-2"
-            : a.mode === "online"
-              ? "bg-surface text-text ring-1 ring-inset ring-taupe/70"
-              : "bg-surface-2 text-text"
+          : cn(clientTint(name), past && "opacity-60", a.mode === "online" && "ring-[1.5px] ring-inset ring-current/40")
       )}
     >
-      <span className={cn("block truncate font-medium", cancelled && "line-through")}>{name}</span>
-      <span className="block truncate text-muted">
+      <span className={cn("block truncate font-semibold", cancelled && "line-through")}>{name}</span>
+      <span className="block truncate opacity-80">
         {formatTime(s)}
         {a.type === "intake" ? ", intake" : ""}
         {a.mode === "online" ? ", online" : ""}
@@ -224,8 +221,8 @@ export default function Agenda() {
                   ))}
                   {today && nowMin > START * 60 && nowMin < END * 60 && (
                     <div aria-hidden className="absolute inset-x-0 z-[3] flex items-center" style={{ top: y(nowMin) }}>
-                      <span className="-ml-1 size-2 rounded-full bg-accent" />
-                      <span className="h-px flex-1 bg-accent" />
+                      <span className="-ml-1 size-2.5 rounded-full bg-clay" />
+                      <span className="h-[2px] flex-1 bg-clay" />
                     </div>
                   )}
                   {own.map((a) => (
@@ -240,10 +237,10 @@ export default function Agenda() {
 
       <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-muted">
         <span className="inline-flex items-center gap-2">
-          <span className="size-3 rounded bg-surface-2" /> In de praktijk
+          <span className="size-3 rounded bg-moss" /> In de praktijk
         </span>
         <span className="inline-flex items-center gap-2">
-          <span className="size-3 rounded bg-surface ring-1 ring-inset ring-taupe/70" /> Online
+          <span className="size-3 rounded bg-moss ring-[1.5px] ring-inset ring-pine/40" /> Online
         </span>
         <span className="inline-flex items-center gap-2">
           <span className="size-3 rounded bg-surface ring-1 ring-inset ring-surface-2" /> Beschikbaar

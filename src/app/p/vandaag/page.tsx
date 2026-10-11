@@ -5,6 +5,7 @@ import Link from "next/link";
 import { addDays, isSameDay, parseISO, subDays } from "date-fns";
 import { Plus } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
+import { beelden } from "@/lib/beelden";
 import { ActivityItem } from "@/components/psy/activity";
 import { AppointmentDetailSheet, NewAppointmentSheet } from "@/components/psy/appointment-sheet";
 import { Panel } from "@/components/shared/panel";
@@ -46,9 +47,9 @@ function DayAgenda({ appointments, onOpen }: { appointments: Appointment[]; onOp
         const done = end <= now || a.status !== "gepland";
         const points = a.status === "gepland" && !done ? agendaFor(agenda, all, journal, a.clientId, { forPsy: true }).items.length : 0;
         return (
-          <li key={a.id} className={cn("flex items-center gap-2 rounded-xl pr-2 transition-colors hover:bg-oat-soft/60", current && "bg-oat-soft")}>
+          <li key={a.id} className={cn("flex items-center gap-2 rounded-2xl pr-2 transition-colors hover:bg-oat-soft", current && "bg-sun-soft hover:bg-sun-soft")}>
             <button onClick={() => onOpen(a)} className="flex min-w-0 flex-1 items-center gap-4 rounded-xl px-2 py-3 text-left">
-              <span className={cn("w-12 shrink-0 text-[15px] font-semibold tabular-nums", done && !current && "text-faint")}>{formatTime(start)}</span>
+              <span className={cn("w-14 shrink-0 font-display text-[19px] tabular-nums", done && !current && "text-faint")}>{formatTime(start)}</span>
               {c && <Avatar name={`${c.firstName} ${c.lastName}`} tone="client" size="sm" />}
               <span className="min-w-0 flex-1">
                 <span className={cn("block truncate text-[14px] font-medium", a.status === "geannuleerd" && "text-faint line-through")}>
@@ -63,7 +64,7 @@ function DayAgenda({ appointments, onOpen }: { appointments: Appointment[]; onOp
             {a.status === "gepland" && !done && (
               <Link
                 href={`/p/clienten/${a.clientId}#voor-volgende-keer`}
-                className="shrink-0 rounded-full px-2.5 py-1 text-[12px] text-muted transition-colors hover:bg-surface-2/70 hover:text-text"
+                className="shrink-0 rounded-full bg-plum-soft px-2.5 py-1 text-[12px] font-medium text-plum-ink transition-colors hover:bg-plum-ink hover:text-on-accent"
               >
                 Voor volgende keer{points ? ` (${points})` : ""}
               </Link>
@@ -136,18 +137,34 @@ export default function Vandaag() {
   return (
     <>
       <PageHeader
+        image={beelden.kamer}
         eyebrow={formatLongDate(new Date())}
         title={`${greeting()}, ${psy.firstName}`}
         actions={
-          <Button variant="secondary" onClick={() => setCreating(true)}>
+          <Button variant="sun" onClick={() => setCreating(true)}>
             <Plus /> Afspraak
           </Button>
         }
-      />
-      <p className="mt-3 max-w-2xl text-[15px] text-muted">
+      >
         {today.length ? `Vandaag ${plural(today.length, "afspraak", "afspraken")}.` : "Geen afspraken vandaag."}{" "}
-        {summary.length ? `Sinds je laatste bezoek: ${summary.join(", ")}.` : "Sinds je laatste bezoek is er niets nieuws."}
-      </p>
+        {summary.length ? "Dit is er nieuw sinds je laatste bezoek." : "Sinds je laatste bezoek is er niets nieuws."}
+      </PageHeader>
+
+      <dl className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">
+        {(
+          [
+            ["Afspraken vandaag", today.length, "bg-pine text-on-accent", "text-on-accent/75"],
+            ["Gedeelde notities", counts.notitie, "bg-clay-soft text-clay-ink", "text-clay-ink/80"],
+            ["Afgewerkte opdrachten", counts.opdracht, "bg-moss text-pine", "text-pine/80"],
+            ["Voor volgende keer", counts.agenda, "bg-sun-soft text-sun-ink", "text-sun-ink/80"],
+          ] as const
+        ).map(([label, n, tone, sub]) => (
+          <div key={label} className={cn("flex flex-col justify-between gap-3 rounded-[20px] px-4 py-4 md:gap-6 md:px-5", tone)}>
+            <dt className={cn("text-[13px] font-medium", sub)}>{label}</dt>
+            <dd className="font-display text-[32px] leading-none tabular-nums md:text-[40px]">{n}</dd>
+          </div>
+        ))}
+      </dl>
 
       <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
         <div className="flex flex-col gap-5">
@@ -172,8 +189,8 @@ export default function Vandaag() {
                 const rest = items.length - shown.length;
                 return (
                   <section key={clientId}>
-                    <Link href={`/p/clienten/${clientId}?tab=logboek`} className="mb-1 flex items-center gap-2.5 px-2 text-[14px] font-semibold hover:underline hover:decoration-surface-2 hover:underline-offset-4">
-                      <Avatar name={`${c.firstName} ${c.lastName}`} tone="client" size="xs" />
+                    <Link href={`/p/clienten/${clientId}?tab=logboek`} className="mb-1 flex items-center gap-2.5 px-2 text-[15px] font-semibold hover:underline hover:decoration-surface-2 hover:underline-offset-4">
+                      <Avatar name={`${c.firstName} ${c.lastName}`} tone="client" size="sm" />
                       {c.firstName} {c.lastName}
                     </Link>
                     <div className="flex flex-col">

@@ -5,7 +5,7 @@ export const clientStatusLabel: Record<ClientStatus, string> = { actief: "Actief
 
 export function ClientStatusBadge({ status }: { status: ClientStatus }) {
   return (
-    <Badge tone={status === "actief" ? "neutral" : status === "gepauzeerd" ? "outline" : "calm"} dot={status === "actief"}>
+    <Badge tone={status === "actief" ? "calm" : status === "gepauzeerd" ? "sun" : "neutral"} dot={status === "actief"}>
       {clientStatusLabel[status]}
     </Badge>
   );

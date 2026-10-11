@@ -7,10 +7,12 @@ const badgeVariants = cva(
   {
     variants: {
       tone: {
-        neutral: "bg-surface-2 text-muted",
-        outline: "text-muted ring-1 ring-inset ring-taupe/60",
-        calm: "bg-oat-soft text-faint",
+        neutral: "bg-surface-2 text-text",
+        outline: "text-muted ring-1 ring-inset ring-edge-strong",
+        calm: "bg-moss text-pine",
         strong: "bg-accent text-on-accent",
+        clay: "bg-clay-soft text-clay-ink",
+        sun: "bg-sun-soft text-sun-ink",
       },
     },
     defaultVariants: { tone: "neutral" },

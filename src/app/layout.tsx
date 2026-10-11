@@ -13,13 +13,10 @@ const inter = localFont({
   display: "swap",
 });
 
-const serif = localFont({
-  src: [
-    { path: "../../node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2", style: "normal" },
-    { path: "../../node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2", style: "italic" },
-  ],
-  weight: "400",
-  variable: "--font-instrument",
+const display = localFont({
+  src: "../../node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-standard-normal.woff2",
+  weight: "200 800",
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -30,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FBF7F4",
+  themeColor: "#F4EFE6",
   colorScheme: "light",
   viewportFit: "cover",
 };
@@ -41,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="nl-BE" className={`${inter.variable} ${serif.variable}`}>
+    <html lang="nl-BE" className={`${inter.variable} ${display.variable}`}>
       <body className="min-h-dvh">{children}</body>
     </html>
   );

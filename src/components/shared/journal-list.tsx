@@ -26,6 +26,7 @@ import {
 import { capitalize, formatDayMonth, formatLongDate, formatTime } from "@/lib/format";
 import type { JournalEntry, JournalKind, Task } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { kindTone } from "@/components/shared/kind";
 
 export type JournalFilter = "alles" | JournalKind;
 
@@ -71,22 +72,22 @@ export function WeekStrip({ entries, className }: { entries: JournalEntry[]; cla
       {days.map((d, i) => (
         <li
           key={d.day}
-          className={cn("flex flex-col items-center gap-2 rounded-xl py-2.5", d.isToday && "bg-oat-soft")}
+          className={cn("flex flex-col items-center gap-2 rounded-2xl py-3", d.isToday ? "bg-pine text-on-accent" : "bg-surface shadow-[inset_0_0_0_1px_var(--edge)]")}
           aria-label={`${formatLongDate(d.date)}: ${d.checkin ? "check-in gedaan" : "geen check-in"}, ${d.tasks} ${d.tasks === 1 ? "opdracht" : "opdrachten"}`}
         >
-          <span className={cn("text-[11px] leading-none", d.isToday ? "font-semibold text-text" : "text-faint")}>{letters[i]}</span>
+          <span className={cn("text-[11px] font-medium leading-none", d.isToday ? "text-on-accent/80" : "text-faint")}>{letters[i]}</span>
           <span
             aria-hidden
             className={cn(
               "flex size-7 items-center justify-center rounded-full text-[12px] tabular-nums transition-colors",
-              d.checkin ? "bg-accent text-on-accent" : d.future ? "text-faint" : "text-muted ring-1 ring-inset ring-surface-2"
+              d.checkin ? "bg-sun font-semibold text-ink" : d.future ? (d.isToday ? "text-on-accent" : "text-faint") : d.isToday ? "text-on-accent ring-1 ring-inset ring-on-accent/40" : "text-muted ring-1 ring-inset ring-surface-2"
             )}
           >
             {d.date.getDate()}
           </span>
           <span aria-hidden className="flex h-1 gap-[3px]">
             {Array.from({ length: Math.min(d.tasks, 4) }, (_, k) => (
-              <span key={k} className="size-1 rounded-full bg-taupe" />
+              <span key={k} className={cn("size-1 rounded-full", d.isToday ? "bg-on-accent" : "bg-pine")} />
             ))}
           </span>
         </li>
@@ -127,7 +128,7 @@ export function JournalRow({
       <span className="w-11 shrink-0 pt-px text-[12px] tabular-nums text-faint">{formatTime(entry.createdAt)}</span>
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-          <span className="text-[12px] font-medium text-muted">{label}</span>
+          <span className={cn("rounded-md px-2 py-0.5 text-[12px] font-medium", kindTone[entry.kind])}>{label}</span>
           {entry.mood && <MoodDots value={entry.mood} />}
         </div>
         <Link href={href} className="mt-1 block outline-none after:absolute after:inset-0 after:content-[''] focus-visible:after:rounded-card focus-visible:after:ring-2 focus-visible:after:ring-taupe">

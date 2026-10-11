@@ -33,7 +33,7 @@ import { cn } from "@/lib/utils";
 function SectionTitle({ children, hint }: { children: React.ReactNode; hint?: React.ReactNode }) {
   return (
     <div className="mb-3 flex items-baseline justify-between gap-3">
-      <h2 className="text-[13px] font-medium tracking-[0.02em] text-muted">{children}</h2>
+      <h2 className="text-[12px] font-semibold tracking-[0.06em] text-clay-ink uppercase">{children}</h2>
       {hint}
     </div>
   );
@@ -73,15 +73,22 @@ export function SessionTaskRow({ task, journal, action }: { task: Task; journal:
       <span
         aria-hidden
         className={cn(
-          "size-2 shrink-0 rounded-full",
-          state === "gedaan" ? "bg-accent" : state === "open" ? "ring-[1.5px] ring-inset ring-taupe" : "bg-surface-2"
+          "size-2.5 shrink-0 rounded-full",
+          state === "gedaan" ? "bg-pine" : state === "open" ? "bg-sun" : "bg-surface-2"
         )}
       />
       <div className="min-w-0 flex-1">
         <p className={cn("truncate text-[15px] font-medium", (state === "niet gedaan" || state === "afgelopen") && "text-muted")}>{task.title}</p>
         <RhythmLabel rhythm={task.rhythm} />
       </div>
-      <span className="shrink-0 text-[12px] text-muted tabular-nums">{status}</span>
+      <span className="flex shrink-0 flex-col items-end gap-1.5">
+        <span className="text-[12px] text-muted tabular-nums">{status}</span>
+        {progress && state !== "afgelopen" && (
+          <span aria-hidden className="h-1.5 w-20 overflow-hidden rounded-full bg-surface-2">
+            <span className="block h-full rounded-full bg-pine" style={{ width: `${Math.min(100, (progress.done / progress.total) * 100)}%` }} />
+          </span>
+        )}
+      </span>
       {action}
     </li>
   );

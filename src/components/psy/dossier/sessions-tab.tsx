@@ -73,9 +73,9 @@ export function SessionsTab({ client, onPlan }: { client: Client; onPlan: () => 
       </section>
 
       <div className="order-1 flex flex-col gap-5 lg:order-2">
-        <Panel title="Volgende sessie">
+        <Panel title="Volgende sessie" className={next ? "bg-pine text-on-accent" : undefined}>
           {next ? (
-            <p className="text-[17px] font-semibold tracking-tight tabular-nums">{formatAppointment(next.start)}</p>
+            <p className="font-display text-[24px] leading-tight tabular-nums">{formatAppointment(next.start)}</p>
           ) : (
             <>
               <p className="text-[14px] text-muted">Niets gepland.</p>

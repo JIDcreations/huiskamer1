@@ -9,7 +9,7 @@ import type { Invoice } from "@/lib/types";
 export const invoiceStatusLabel = { open: "Open", betaald: "Betaald", vervallen: "Vervallen" } as const;
 
 export function InvoiceStatus({ invoice }: { invoice: Invoice }) {
-  const tone = invoice.status === "betaald" ? "calm" : invoice.status === "vervallen" ? "strong" : "outline";
+  const tone = invoice.status === "betaald" ? "calm" : invoice.status === "vervallen" ? "clay" : "sun";
   return <Badge tone={tone}>{invoiceStatusLabel[invoice.status]}</Badge>;
 }
 

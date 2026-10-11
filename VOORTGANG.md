@@ -2,6 +2,17 @@
 
 _Stand van 26 september 2026. Fase 1 staat op `main`; de dagrun van 26 september (UX-herwerking, verfijnde UI, rijkere demo) staat op de branch `dagrun-26sep`. Zie SUMMARY.md en DECISIONS.md op die branch._
 
+## Nieuwe look (11 oktober 2026, branch `nieuwe-look`)
+
+Het beige palet voelde als een mid-fi. Nieuwe richting: dennengroen, klei en zon op warm papier, met meer contrast en sfeerfoto's.
+
+- Donkergroene zijbalk, Bricolage Grotesque voor koppen, crème kaarten met een zachte schaduw.
+- Fotobanden op Vandaag (cliënt en psycholoog), Logboek en Sessies; aanmelden en kennismaking als split screen met foto.
+- Kleur met betekenis: elke soort entry een vaste tint, elke cliënt een eigen tint (avatar en agenda), elke stemming een eigen kleur, gekleurde tellers op Vandaag en in Facturatie.
+- Volgende sessie als donkergroene kaart, bij cliënt en psycholoog.
+- Nieuwe app-iconen. Contrast nagerekend: alle tekst haalt AA.
+- PLAN.md sectie 7 is herschreven.
+
 ## Kort
 
 Een klikbaar prototype van het volledige platform, voor cliënt en psycholoog, met mockdata. Sinds de dagrun denkt het platform in tijd: **Vandaag**, **Logboek** en **Sessies**. Wat een cliënt invult, afvinkt of meeneemt naar de sessie, ziet de psycholoog meteen in **Vandaag** en in het dossier. Niet-gedeelde entries en privénotities lekken nergens. Beide zijn automatisch getest.

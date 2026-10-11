@@ -4,13 +4,14 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium tracking-[-0.005em] outline-none transition-[background-color,color,box-shadow,transform,opacity] duration-200 ease-out-soft active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-taupe focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:pointer-events-none disabled:opacity-40 aria-disabled:pointer-events-none aria-disabled:opacity-40 [&_svg]:size-[18px] [&_svg]:shrink-0 [&_svg]:stroke-[1.5]",
+  "inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium tracking-[-0.005em] outline-none transition-[background-color,color,box-shadow,transform,opacity] duration-200 ease-out-soft active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-pine focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:pointer-events-none disabled:opacity-40 aria-disabled:pointer-events-none aria-disabled:opacity-40 [&_svg]:size-[18px] [&_svg]:shrink-0 [&_svg]:stroke-[1.5]",
   {
     variants: {
       variant: {
-        primary: "bg-accent text-on-accent shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] hover:bg-accent/92 active:bg-accent",
-        secondary: "bg-surface-2/75 text-text hover:bg-surface-2 active:bg-surface-2",
-        soft: "bg-oat-soft text-muted hover:bg-surface-2/80 hover:text-text active:bg-surface-2",
+        primary: "bg-accent text-on-accent shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_6px_16px_-8px_rgba(29,69,53,0.6)] hover:bg-pine-deep active:bg-pine-deep",
+        secondary: "bg-surface text-text shadow-[inset_0_0_0_1px_var(--edge-strong)] hover:bg-moss/60 active:bg-moss",
+        soft: "bg-moss/70 text-pine hover:bg-moss active:bg-moss",
+        sun: "bg-sun text-ink hover:bg-[#e9b940] active:bg-[#e9b940]",
         outline: "text-muted shadow-[inset_0_0_0_1px_var(--edge-strong)] hover:bg-oat-soft hover:text-text",
         ghost: "text-text hover:bg-oat-soft active:bg-surface-2/60",
         quiet: "text-muted hover:bg-oat-soft hover:text-text active:bg-surface-2/60",

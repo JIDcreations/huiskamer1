@@ -6,6 +6,7 @@ import { PageHeader } from "@/components/page-header";
 import { AssignTaskSheet } from "@/components/psy/assign-task";
 import { FormActions, kindLabel, TaskFields, type TaskDraft } from "@/components/psy/task-form";
 import { Badge } from "@/components/ui/badge";
+import { taskKindTone } from "@/components/shared/kind";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/sheet";
 import { toast } from "@/components/ui/toast";
@@ -85,7 +86,7 @@ export default function Bibliotheek() {
             <article key={t.id} className="card flex flex-col p-5">
               <div className="flex items-start justify-between gap-3">
                 <h2 className="text-[16px] font-semibold tracking-tight">{t.title}</h2>
-                <Badge>{kindLabel[t.kind]}</Badge>
+                <Badge className={taskKindTone[t.kind]}>{kindLabel[t.kind]}</Badge>
               </div>
               <p className="mt-2 flex-1 text-[14px] leading-relaxed text-muted">{t.description}</p>
               <p className="mt-4 text-[12px] text-faint">

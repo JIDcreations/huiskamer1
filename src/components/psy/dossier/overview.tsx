@@ -6,7 +6,7 @@ import { parseISO } from "date-fns";
 import { AgendaList } from "@/components/sessions/agenda-list";
 import { SessionTaskRow } from "@/components/sessions/session-view";
 import { minutesOf, typeLabel } from "@/lib/appointments";
-import { moodLabel, moods } from "@/components/shared/mood";
+import { moodLabel, moods, moodColor } from "@/components/shared/mood";
 import { Panel } from "@/components/shared/panel";
 import { Button } from "@/components/ui/button";
 import { moodStrip, pastSessions, taskState, upcoming, useAppointments, useJournal, useTasks } from "@/lib/data";
@@ -35,9 +35,9 @@ export function MoodStrip({ clientId }: { clientId: string }) {
             title={d.mood ? `${formatShortDate(d.date)}: ${moodLabel(d.mood)}` : `${formatShortDate(d.date)}: geen check-in`}
           >
             {d.mood ? (
-              <span className="w-full max-w-4 rounded-full bg-taupe/70" style={{ height: `${d.mood * 18}%` }} />
+              <span className="w-full max-w-5 rounded-full" style={{ height: `${d.mood * 18}%`, background: moodColor(d.mood) }} />
             ) : (
-              <span className="size-1 rounded-full bg-surface-2" />
+              <span className="size-1.5 rounded-full bg-surface-2" />
             )}
           </div>
         ))}
@@ -62,11 +62,11 @@ export function Overview({ client, onPlan }: { client: Client; onPlan: () => voi
   return (
     <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-2">
       <div className="flex flex-col gap-5">
-        <Panel title="Volgende sessie">
+        <Panel title="Volgende sessie" className={next ? "bg-pine text-on-accent" : undefined}>
           {next ? (
             <>
-              <p className="text-[20px] font-semibold tracking-tight tabular-nums">{formatAppointment(next.start)}</p>
-              <p className="mt-1 text-[14px] text-muted">
+              <p className="font-display text-[26px] leading-tight tabular-nums">{formatAppointment(next.start)}</p>
+              <p className="mt-1 text-[14px] text-on-accent/75">
                 {typeLabel[next.type]}, {next.mode}, {minutesOf(next)} minuten
               </p>
             </>
@@ -78,13 +78,13 @@ export function Overview({ client, onPlan }: { client: Client; onPlan: () => voi
               </Button>
             </>
           )}
-          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-[13px] text-muted">
+          <div className={cn("mt-4 flex flex-wrap gap-x-4 gap-y-1 text-[13px]", next ? "text-on-accent/80" : "text-muted")}>
             {last && (
-              <Link href={`/p/clienten/${client.id}/sessies/${last.id}`} className="underline decoration-surface-2 underline-offset-4 hover:text-text">
+              <Link href={`/p/clienten/${client.id}/sessies/${last.id}`} className={cn("underline underline-offset-4", next ? "decoration-sun hover:text-on-accent" : "decoration-surface-2 hover:text-text")}>
                 Laatste sessie: {formatRelativeDay(parseISO(last.start))}
               </Link>
             )}
-            <Link href={`/p/clienten/${client.id}?tab=logboek`} className={cn("underline decoration-surface-2 underline-offset-4 hover:text-text", !sinceLast && "no-underline")}>
+            <Link href={`/p/clienten/${client.id}?tab=logboek`} className={cn("underline underline-offset-4", next ? "decoration-sun hover:text-on-accent" : "decoration-surface-2 hover:text-text", !sinceLast && "no-underline")}>
               {sinceLast ? `${plural(sinceLast, "gedeelde entry", "gedeelde entries")} sindsdien` : "Sindsdien niets gedeeld"}
             </Link>
           </div>

@@ -5,6 +5,7 @@ import { differenceInCalendarDays, parseISO } from "date-fns";
 import { ChevronRight } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { PageHeader } from "@/components/page-header";
+import { beelden } from "@/lib/beelden";
 import { CheckIn } from "@/components/shared/checkin";
 import { Panel } from "@/components/shared/panel";
 import { TaskRow } from "@/components/shared/task-row";
@@ -44,10 +45,13 @@ function ContextLine() {
   return (
     <Link
       href={line.href}
-      className="group mt-6 flex items-center justify-between gap-3 border-t border-surface-2 pt-5 text-[14px] text-muted transition-colors hover:text-text"
+      className="group mt-6 flex items-center justify-between gap-3 rounded-[20px] bg-pine px-5 py-4 text-[15px] font-medium text-on-accent transition-colors hover:bg-pine-deep md:px-6"
     >
-      <span className="first-letter:uppercase">{line.text}</span>
-      <ChevronRight className="size-4 shrink-0 stroke-[1.5] text-taupe transition-transform duration-200 group-hover:translate-x-0.5" />
+      <span className="flex min-w-0 items-center gap-3">
+        <span aria-hidden className="size-2.5 shrink-0 rounded-full bg-sun" />
+        <span className="first-letter:uppercase">{line.text}</span>
+      </span>
+      <ChevronRight className="size-4 shrink-0 stroke-[1.8] text-sun transition-transform duration-200 group-hover:translate-x-0.5" />
     </Link>
   );
 }
@@ -61,19 +65,19 @@ export default function Vandaag() {
   const allDone = today.length > 0 && today.every((t) => t.done);
 
   return (
-    <div className="mx-auto max-w-[680px]">
-      <PageHeader eyebrow={formatLongDate(new Date())} title={`${greeting()}, ${client.firstName}`} />
+    <div className="mx-auto max-w-[760px]">
+      <PageHeader image={beelden.heuvels} eyebrow={formatLongDate(new Date())} title={`${greeting()}, ${client.firstName}`} className="pb-16 md:pb-20" />
 
-      <Panel className="mt-8">
+      <Panel className="relative mx-3 -mt-12 shadow-soft md:mx-6 md:-mt-14">
         <CheckIn key={checkin?.id ?? "new"} clientId={CURRENT_CLIENT_ID} today={checkin} />
       </Panel>
 
-      <section className="mt-8" aria-labelledby="voor-vandaag">
-        <div className="mb-1 flex items-baseline justify-between gap-3 px-1">
-          <h2 id="voor-vandaag" className="text-[15px] font-semibold tracking-tight">
+      <section className="card mt-6 px-5 pb-2 pt-5 md:px-6" aria-labelledby="voor-vandaag">
+        <div className="mb-1 flex items-baseline justify-between gap-3">
+          <h2 id="voor-vandaag" className="type-subtitle">
             Voor vandaag
           </h2>
-          <Link href="/c/opdrachten" className="text-[13px] text-muted transition-colors hover:text-text">
+          <Link href="/c/opdrachten" className="text-[13px] font-medium text-pine underline decoration-moss decoration-2 underline-offset-4 transition-colors hover:decoration-pine">
             Alle opdrachten
           </Link>
         </div>
@@ -94,7 +98,7 @@ export default function Vandaag() {
         </AnimatePresence>
 
         {today.length ? (
-          <ul className="divide-y divide-surface-2/70 px-1">
+          <ul className="divide-y divide-surface-2">
             {today.map((item) => (
               <TaskRow key={item.task.id} item={item} />
             ))}

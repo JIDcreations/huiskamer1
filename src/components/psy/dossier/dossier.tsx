@@ -61,9 +61,9 @@ export function Dossier({ clientId, tab }: { clientId: string; tab: DossierTab }
         <ArrowLeft className="size-4 stroke-[1.5]" /> Cliënten
       </Link>
 
-      <header className="mt-5 flex flex-wrap items-start justify-between gap-5">
+      <header className="mt-5 flex flex-wrap items-start justify-between gap-5 rounded-[28px] bg-surface p-6 shadow-[0_0_0_1px_var(--edge)] md:p-8">
         <div className="flex min-w-0 items-start gap-4">
-          <Avatar name={name} tone="client" size="lg" />
+          <Avatar name={name} tone="client" size="xl" />
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2.5">
               <h1 className="type-title">{name}</h1>
@@ -99,7 +99,7 @@ export function Dossier({ clientId, tab }: { clientId: string; tab: DossierTab }
               <span>In begeleiding sinds {formatFullDate(client.startedAt)}</span>
             </div>
             {client.reason && (
-              <p className="mt-2.5 inline-flex items-start gap-1.5 rounded-lg bg-surface-2/60 px-2.5 py-1.5 text-[13px] text-muted">
+              <p className="mt-3 inline-flex items-start gap-1.5 rounded-xl bg-sun-soft px-3 py-1.5 text-[13px] text-sun-ink">
                 <Lock className="mt-[3px] size-3 shrink-0 stroke-[1.75]" />
                 {client.reason}
               </p>
@@ -114,8 +114,8 @@ export function Dossier({ clientId, tab }: { clientId: string; tab: DossierTab }
         </div>
       </header>
 
-      <nav aria-label="Dossier" className="-mx-5 mt-8 overflow-x-auto px-5 [scrollbar-width:none] md:mx-0 md:px-0">
-        <ul className="flex min-w-max gap-1 border-b border-surface-2">
+      <nav aria-label="Dossier" className="-mx-5 mt-6 overflow-x-auto px-5 [scrollbar-width:none] md:mx-0 md:px-0">
+        <ul className="flex min-w-max gap-1">
           {dossierTabs.map((t) => {
             const active = t.id === tab;
             return (
@@ -125,8 +125,8 @@ export function Dossier({ clientId, tab }: { clientId: string; tab: DossierTab }
                   aria-current={active ? "page" : undefined}
                   scroll={false}
                   className={cn(
-                    "-mb-px inline-flex h-11 items-center gap-1.5 border-b-2 px-3 text-[14px] transition-colors",
-                    active ? "border-accent font-medium text-text" : "border-transparent text-muted hover:text-text"
+                    "inline-flex h-10 items-center gap-1.5 rounded-full px-4 text-[14px] transition-colors",
+                    active ? "bg-pine font-medium text-on-accent" : "text-muted hover:bg-surface-2/70 hover:text-text"
                   )}
                 >
                   {t.label}
