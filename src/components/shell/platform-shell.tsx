@@ -347,7 +347,8 @@ export function PlatformShell({ user, topbarStart, topbarEnd, mobileTabs, childr
       </div>
       {mobileTabs && <TabBar items={mobileTabs} />}
 
-      <div className="fixed bottom-4 right-4 z-40 hidden items-center gap-2 md:flex">
+      {/* Hoog genoeg om boven de "Powered by Netlify"-badge en de tab bar te blijven. */}
+      <div className="fixed bottom-20 right-4 z-40 hidden items-center gap-2 md:flex">
         <DemoReset variant="icon" />
         <RoleSwitch floating />
       </div>
