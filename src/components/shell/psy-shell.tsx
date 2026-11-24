@@ -71,7 +71,7 @@ function ClientSearch() {
         </kbd>
       </label>
       {open && results.length > 0 && (
-        <ul id="client-search-results" role="listbox" className="absolute left-0 right-0 top-14 z-50 animate-pop rounded-[20px] bg-surface p-2 shadow-[0_24px_60px_-20px_rgba(21,33,27,0.35)] ring-1 ring-edge">
+        <ul id="client-search-results" role="listbox" className="absolute left-0 right-0 top-14 z-50 animate-pop rounded-[20px] bg-surface p-2 shadow-soft ring-1 ring-edge">
           {results.map((c, i) => (
             <li key={c.id} role="option" aria-selected={i === active}>
               <button

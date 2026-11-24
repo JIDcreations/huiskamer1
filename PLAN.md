@@ -131,57 +131,17 @@ type Invoice      = { id; clientId; appointmentId; amount; issuedAt; dueAt; stat
 
 Mockdata: 1 psycholoog, **8 cliënten** met fictieve Vlaamse namen, 3 weken aan afspraken, sessiepagina's met blokken van beide auteurs en gelinkte opdrachten, logboekentries (check-ins, notities, opdracht-antwoorden, mix gedeeld en niet gedeeld), een gevulde "Voor volgende keer". Alles in `/lib/mock/` met een in-memory store (Zustand) zodat acties (afvinken, schrijven, delen) tijdens een demo meteen overal zichtbaar zijn.
 
-## 7. Design direction: dennengroen, klei en zon
+## 7. Design direction: Pinterest-latte
 
-> Herzien op 11 oktober 2026. Het eerste palet (Milk, Oat, Taupe) voelde als een mid-fi: alles beige, weinig contrast. Dit is de nieuwe richting.
+> Herzien op 24 november 2026. De vorige richting (dennengroen, klei en zon) voelde als een AI-standaard. De beslissingen staan nu in **DESIGN.md** (tokens, typografie, componenten, regels) en de richting in `.impeccable/surfaces/src-app.md`. Wat volgt is de korte versie.
 
-**Gevoel**: een warme huiskamer met planten en daglicht. Rustig, maar met karakter en duidelijk contrast. Licht papier als basis, één diepgroene identiteit, en een paar warme kleuren die iets betekenen.
-
-### Palet
-| Naam | Hex | Rol |
-|---|---|---|
-| **Papier** | `#F4EFE6` | Achtergrond |
-| **Crème** | `#FFFDF8` | Kaarten |
-| **Zand** | `#E8E0D0` | Vlakken, lijnen, privénotities |
-| **Den** | `#1D4535` | Primaire knoppen, actieve tabs, volgende sessie, auteur psycholoog |
-| **Diepe den** | `#13301F` | Zijbalk |
-| **Mos** | `#DBE5D3` | Zachte knoppen, opdrachten, gedeeld |
-| **Klei** | `#C2582F` (tekst `#9A3F1C`) | Notities, "Nieuw", nood-link, auteur cliënt |
-| **Zon** | `#F1C55A` | Check-ins, actief item, highlight-knoppen |
-| **Inkt** | `#15211B` | Tekst |
-
-Vaste betekenis per soort, overal dezelfde (`src/components/shared/kind.ts`): check-in is zon, opdracht is mos, notitie is klei, reactie bij een sessie is blauw, "Voor volgende keer" is pruim. Elke cliënt heeft een vaste tint voor avatar en agendablok. Stemmingen hebben elk een kleur, van schemerblauw (zwaar) tot zon (licht).
-
-Regels:
-- Grote vlakken zijn papier of crème. De zijbalk is donkergroen, net als de kaart van de volgende sessie: dat zijn de bewuste donkere accenten.
-- Kleine tekst haalt altijd AA. Klei als tekst gebruikt de donkere variant.
-- Status toon je met kleur en vorm samen, nooit met kleur alleen.
-
-### Beeld
-- Sfeerfoto's (Unsplash via Picsum, zelf gehost in `src/assets/beelden`) als fotoband van rand tot rand bovenaan Vandaag, Logboek en Sessies, en als halve pagina bij het aanmelden en in de kennismaking.
-- Altijd met een groene waas onderaan zodat de titel leesbaar blijft, en met een beschrijvende alt-tekst.
-- Geen stockfoto's van mensen in therapie. Natuur, licht, thee, een kamer.
-
-### Typografie
-- Koppen en woordmerk: **Fraunces** (zacht, redactioneel; `type-hero`, `type-title`, `type-subtitle`).
-- UI en tekst: **Plus Jakarta Sans**, 15-16px, ruime regelhoogte (1.6 in de editor). Kleine labels als `eyebrow`: hoofdletters met ruime spatiëring.
-
-### Merk
-- Merkteken: een boograam met een lage zon (`Mark` in `platform-shell.tsx`). Woordmerk "Huiskamer" in Fraunces.
-
-### Vorm en ruimte
-- Fotobanden lopen van rand tot rand (`bleed`), de topbalk zweeft erover als losse pillen ("eilanden") en wordt glas zodra je scrolt.
-- Inhoud tot 1280px breed. Op desktop staan de cliëntpagina's in twee kolommen: het werk links, context (volgende sessie, deze week) rechts.
-- Radius: 20px kaarten, 999px knoppen en eilanden.
-- Kaarten: fijne rand plus een zachte, groen getinte schaduw.
-- Iconen: Lucide, stroke 1.5 tot 1.75, functioneel.
-
-### Beweging
-- Framer Motion, kort en zacht (200-300ms, ease-out). Afvinken krijgt één subtiele animatie, geen confetti.
-
-### Copy
-- Nederlands, Vlaams, **je/jij**, kort en warm: "Goeiemorgen, Lotte", "Hoe gaat het vandaag?", "Voor volgende keer", "Gedeeld met Sarah".
-- Leeg-states rustig en zonder schuldgevoel: "Nog niets geschreven deze week. Geen druk."
+- **Gevoel:** een moodboard waarin je woont. Papier, linnen, latte en espresso, een koffiebar in Gent. Rustig, maar met smaak.
+- **Kleur:** één tonale familie, nergens een felle kleur. Espresso voor wat je indrukt, latte voor accenten. Elke soort entry houdt één gedempte tint (`src/components/shared/kind.ts`): check-in latte, opdracht salie, notitie terracotta, reactie mist, "Voor volgende keer" lavendel.
+- **Type:** Bodoni Moda voor koppen, namen (cursief) en tijden; Jost voor alles wat je bedient. Navigatie in kleine letters. Geen labels in hoofdletters boven een kop.
+- **Beeld:** echte foto's (Unsplash, bronnen in `src/assets/beelden/BRONNEN.md`), altijd met `photo-grade`, in een boog of als pin. Koppen als collage.
+- **Vorm:** vlakke kaarten met een haarlijn, 22px radius, pillen voor knoppen. De boog is het terugkerende motief (merk, week, kaders).
+- **Beweging:** kort en zacht. Eén eigen moment: Bewaar wordt Bewaard op een pin in het logboek.
+- **Copy:** Nederlands, Vlaams, je/jij, kort en warm. Geen emoji's, geen decoratieve iconen, geen em dashes.
 
 ## 8. Tech stack
 

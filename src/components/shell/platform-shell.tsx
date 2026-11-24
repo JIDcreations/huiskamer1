@@ -286,7 +286,7 @@ export function PlatformShell({ user, topbarStart, topbarEnd, mobileTabs, childr
   const sentinel = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
 
-  // Topbalk: doorzichtig bovenaan (over de foto), glas zodra je scrolt.
+  // Topbalk: doorzichtig bovenaan, effen papier met een haarlijn zodra je scrolt.
   useEffect(() => {
     const el = sentinel.current;
     if (!el) return;

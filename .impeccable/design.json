@@ -1,0 +1,743 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-24T15:30:25+00:00",
+  "title": "Design System: Huiskamer",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Papier",
+        "canonical": "#f5f0e8",
+        "purpose": "Grond van elke pagina.",
+        "tonalRamp": [
+          "#0e0b06",
+          "#27231e",
+          "#433f39",
+          "#615d56",
+          "#848078",
+          "#a9a49c",
+          "#cfcac2",
+          "#f3eee6"
+        ]
+      },
+      "cream": {
+        "role": "neutral",
+        "displayName": "Crème",
+        "canonical": "#fbf8f3",
+        "purpose": "Kaarten, velden, eilanden.",
+        "tonalRamp": [
+          "#0d0b08",
+          "#262420",
+          "#423f3b",
+          "#605d59",
+          "#82807b",
+          "#a7a49f",
+          "#cdcac5",
+          "#f1eee9"
+        ]
+      },
+      "sand": {
+        "role": "neutral",
+        "displayName": "Zand",
+        "canonical": "#e9e0d3",
+        "purpose": "Lege bolletjes, scheidingen, placeholders, zachte knop.",
+        "tonalRamp": [
+          "#100a03",
+          "#2a2319",
+          "#463f34",
+          "#645c51",
+          "#877f73",
+          "#aca397",
+          "#d2c9bc",
+          "#f6ede0"
+        ]
+      },
+      "oat-soft": {
+        "role": "neutral",
+        "displayName": "Haver",
+        "canonical": "#efe8de",
+        "purpose": "Hover-vlak van rijen en stille knoppen.",
+        "tonalRamp": [
+          "#0f0a05",
+          "#28231c",
+          "#443f37",
+          "#635d54",
+          "#857f76",
+          "#aaa49a",
+          "#d0c9c0",
+          "#f4ede3"
+        ]
+      },
+      "side": {
+        "role": "neutral",
+        "displayName": "Linnen",
+        "canonical": "#efe8dd",
+        "purpose": "Zijbalk en moodboard bij aanmelden.",
+        "tonalRamp": [
+          "#0f0a04",
+          "#28231b",
+          "#443f36",
+          "#635d53",
+          "#867f75",
+          "#aaa499",
+          "#d0cabf",
+          "#f5ede2"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Espresso-inkt",
+        "canonical": "#2e2520",
+        "purpose": "Tekst.",
+        "tonalRamp": [
+          "#110906",
+          "#2b221d",
+          "#473d38",
+          "#665b55",
+          "#897e78",
+          "#aea29c",
+          "#d4c8c1",
+          "#f8ece5"
+        ]
+      },
+      "text-muted": {
+        "role": "neutral",
+        "displayName": "Mokka",
+        "canonical": "#67584c",
+        "purpose": "Secundaire tekst.",
+        "tonalRamp": [
+          "#130802",
+          "#2e2116",
+          "#4b3d31",
+          "#695a4e",
+          "#8d7d70",
+          "#b2a194",
+          "#d8c7b9",
+          "#fdebdd"
+        ]
+      },
+      "text-faint": {
+        "role": "neutral",
+        "displayName": "Grijsbruin",
+        "canonical": "#766658",
+        "purpose": "Tijden en hints.",
+        "tonalRamp": [
+          "#140801",
+          "#2e2115",
+          "#4b3d30",
+          "#6a5a4d",
+          "#8d7d6e",
+          "#b2a192",
+          "#d9c7b7",
+          "#fdebdb"
+        ]
+      },
+      "taupe": {
+        "role": "neutral",
+        "displayName": "Taupe",
+        "canonical": "#ae9c88",
+        "purpose": "Iconen, linkonderstreping, randen; geen tekst.",
+        "tonalRamp": [
+          "#140800",
+          "#2f2110",
+          "#4c3d2b",
+          "#6b5a48",
+          "#8e7d6a",
+          "#b3a18d",
+          "#dac7b2",
+          "#feebd6"
+        ]
+      },
+      "edge": {
+        "role": "neutral",
+        "displayName": "Haarlijn",
+        "canonical": "rgba(46, 37, 32, 0.09)",
+        "purpose": "Rand van kaarten en eilanden.",
+        "tonalRamp": [
+          "#110906",
+          "#2b221d",
+          "#473d38",
+          "#665b55",
+          "#897e78",
+          "#aea29c",
+          "#d4c8c1",
+          "#f8ece5"
+        ]
+      },
+      "edge-strong": {
+        "role": "neutral",
+        "displayName": "Sterke haarlijn",
+        "canonical": "rgba(46, 37, 32, 0.2)",
+        "purpose": "Velden, secundaire knoppen, kaart-hover.",
+        "tonalRamp": [
+          "#110906",
+          "#2b221d",
+          "#473d38",
+          "#665b55",
+          "#897e78",
+          "#aea29c",
+          "#d4c8c1",
+          "#f8ece5"
+        ]
+      },
+      "pine": {
+        "role": "primary",
+        "displayName": "Espresso",
+        "canonical": "#3b2f28",
+        "purpose": "Primaire actie, actief segment, volgende sessie, vandaag. Historische tokennaam.",
+        "tonalRamp": [
+          "#120904",
+          "#2d211b",
+          "#493d35",
+          "#685a53",
+          "#8b7d75",
+          "#b0a199",
+          "#d7c7be",
+          "#fbebe2"
+        ]
+      },
+      "pine-deep": {
+        "role": "primary",
+        "displayName": "Diepe espresso",
+        "canonical": "#2b221d",
+        "purpose": "Hover en druk van espresso.",
+        "tonalRamp": [
+          "#110906",
+          "#2b221d",
+          "#473d38",
+          "#665b55",
+          "#897e77",
+          "#aea29b",
+          "#d4c8c1",
+          "#f8ece5"
+        ]
+      },
+      "on-accent": {
+        "role": "primary",
+        "displayName": "Melkschuim",
+        "canonical": "#f8f3ec",
+        "purpose": "Tekst op espresso.",
+        "tonalRamp": [
+          "#0e0b07",
+          "#27231e",
+          "#433f3a",
+          "#615d57",
+          "#847f79",
+          "#a8a49d",
+          "#cfcac3",
+          "#f3eee7"
+        ]
+      },
+      "sun": {
+        "role": "secondary",
+        "displayName": "Latte",
+        "canonical": "#d9bc8c",
+        "purpose": "Licht accent: Schrijf iets, actief stipje, check-in gevuld, selectie, merkteken.",
+        "tonalRamp": [
+          "#1a0500",
+          "#361f00",
+          "#533b08",
+          "#73592b",
+          "#977c4e",
+          "#bca071",
+          "#e3c696",
+          "#ffebc2"
+        ]
+      },
+      "sun-soft": {
+        "role": "secondary",
+        "displayName": "Lattevlak",
+        "canonical": "#f1e6d2",
+        "purpose": "Check-ins, Bewaard, actieve tab mobiel, afspraak nu.",
+        "tonalRamp": [
+          "#110a00",
+          "#2b2313",
+          "#473e2e",
+          "#665c4b",
+          "#897f6d",
+          "#aea390",
+          "#d4c9b6",
+          "#f8edd9"
+        ]
+      },
+      "sun-ink": {
+        "role": "secondary",
+        "displayName": "Koffiebruin",
+        "canonical": "#6a4e2c",
+        "purpose": "Tekst op lattevlak.",
+        "tonalRamp": [
+          "#1a0400",
+          "#361e00",
+          "#543a17",
+          "#745835",
+          "#987a57",
+          "#be9e7a",
+          "#e5c49f",
+          "#ffe8c3"
+        ]
+      },
+      "moss": {
+        "role": "tertiary",
+        "displayName": "Salie",
+        "canonical": "#e2e3d5",
+        "purpose": "Opdrachten (tekst in espresso).",
+        "tonalRamp": [
+          "#0c0c04",
+          "#24251a",
+          "#404135",
+          "#5e5f53",
+          "#818175",
+          "#a5a699",
+          "#cbccbe",
+          "#eff0e2"
+        ]
+      },
+      "clay": {
+        "role": "tertiary",
+        "displayName": "Terracotta",
+        "canonical": "#b07355",
+        "purpose": "Notitie-bolletje en auteur cliënt; geen kleine tekst.",
+        "tonalRamp": [
+          "#250000",
+          "#441000",
+          "#642e10",
+          "#864d2f",
+          "#ac6f51",
+          "#d39375",
+          "#fcb999",
+          "#ffe3cd"
+        ]
+      },
+      "clay-soft": {
+        "role": "tertiary",
+        "displayName": "Poeder-terracotta",
+        "canonical": "#f0e0d6",
+        "purpose": "Vlak voor notities.",
+        "tonalRamp": [
+          "#120904",
+          "#2d211a",
+          "#493d35",
+          "#685b52",
+          "#8b7d74",
+          "#b0a198",
+          "#d7c7bd",
+          "#fbebe1"
+        ]
+      },
+      "clay-ink": {
+        "role": "tertiary",
+        "displayName": "Terracotta-inkt",
+        "canonical": "#8a4a30",
+        "purpose": "Tekst op notities, urgent, fout.",
+        "tonalRamp": [
+          "#270000",
+          "#470b00",
+          "#682b10",
+          "#8a4a30",
+          "#b06c52",
+          "#d89175",
+          "#ffb699",
+          "#ffe2cf"
+        ]
+      },
+      "sky-soft": {
+        "role": "tertiary",
+        "displayName": "Mist",
+        "canonical": "#e2e4e3",
+        "purpose": "Reacties bij een sessie.",
+        "tonalRamp": [
+          "#0a0b0b",
+          "#232424",
+          "#3e403f",
+          "#5c5e5d",
+          "#7f8180",
+          "#a3a5a4",
+          "#c9cbca",
+          "#edefee"
+        ]
+      },
+      "sky-ink": {
+        "role": "tertiary",
+        "displayName": "Mist-inkt",
+        "canonical": "#4a5560",
+        "purpose": "Tekst op mist.",
+        "tonalRamp": [
+          "#040c14",
+          "#1b252f",
+          "#36414c",
+          "#545f6a",
+          "#76828e",
+          "#9aa6b3",
+          "#bfccd9",
+          "#e3f0fe"
+        ]
+      },
+      "plum-soft": {
+        "role": "tertiary",
+        "displayName": "Mauve",
+        "canonical": "#ece0de",
+        "purpose": "Voor volgende keer.",
+        "tonalRamp": [
+          "#100908",
+          "#2a2220",
+          "#473d3c",
+          "#655b59",
+          "#887d7c",
+          "#ada2a0",
+          "#d3c7c5",
+          "#f7ebe9"
+        ]
+      },
+      "plum-ink": {
+        "role": "tertiary",
+        "displayName": "Mauve-inkt",
+        "canonical": "#6e4e52",
+        "purpose": "Tekst op mauve.",
+        "tonalRamp": [
+          "#1a0307",
+          "#361b1f",
+          "#54363a",
+          "#745458",
+          "#98767a",
+          "#be9a9e",
+          "#e5bfc4",
+          "#ffe3e7"
+        ]
+      },
+      "mood-1": {
+        "role": "tertiary",
+        "displayName": "Stemming zwaar (mist)",
+        "canonical": "#7b8692",
+        "purpose": "Stemmingsbolletje.",
+        "tonalRamp": [
+          "#050c14",
+          "#1c252f",
+          "#37414b",
+          "#545f6a",
+          "#77828d",
+          "#9ba6b2",
+          "#c0ccd9",
+          "#e4f0fd"
+        ]
+      },
+      "mood-2": {
+        "role": "tertiary",
+        "displayName": "Stemming onrustig (lavendel)",
+        "canonical": "#a48795",
+        "purpose": "Stemmingsbolletje.",
+        "tonalRamp": [
+          "#17040e",
+          "#321c28",
+          "#503744",
+          "#6f5562",
+          "#937785",
+          "#b99ba9",
+          "#e0c0cf",
+          "#ffe4f3"
+        ]
+      },
+      "mood-3": {
+        "role": "tertiary",
+        "displayName": "Stemming gaat wel (latte)",
+        "canonical": "#c39a7c",
+        "purpose": "Stemmingsbolletje.",
+        "tonalRamp": [
+          "#1d0200",
+          "#3a1a00",
+          "#59361b",
+          "#795438",
+          "#9e775a",
+          "#c49b7d",
+          "#ecc1a2",
+          "#ffe5c8"
+        ]
+      },
+      "mood-4": {
+        "role": "tertiary",
+        "displayName": "Stemming rustig (salie)",
+        "canonical": "#a2a88c",
+        "purpose": "Stemmingsbolletje; ook het opdracht-bolletje.",
+        "tonalRamp": [
+          "#0a0d00",
+          "#23270f",
+          "#3e432a",
+          "#5c6147",
+          "#7e8469",
+          "#a2a88c",
+          "#c8ceb1",
+          "#ecf3d5"
+        ]
+      },
+      "mood-5": {
+        "role": "tertiary",
+        "displayName": "Stemming licht (honing)",
+        "canonical": "#d9b77a",
+        "purpose": "Stemmingsbolletje.",
+        "tonalRamp": [
+          "#1c0300",
+          "#391d00",
+          "#573a00",
+          "#765818",
+          "#9b7b3f",
+          "#c19f63",
+          "#e8c588",
+          "#ffebc2"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "hero": {
+        "displayName": "Hero",
+        "purpose": "Begroeting en paginatitel met kopcollage; naam cursief."
+      },
+      "title": {
+        "displayName": "Titel",
+        "purpose": "Paginatitels zonder beeld en sectiekoppen."
+      },
+      "subtitle": {
+        "displayName": "Subtitel",
+        "purpose": "Paneeltitels, titel van een notitie-pin."
+      },
+      "display-inline": {
+        "displayName": "Serif inline",
+        "purpose": "Dagkoppen, namen, tijden, contextregel onder de titel, korte pins, stemmingswoorden."
+      },
+      "body": {
+        "displayName": "Tekst",
+        "purpose": "Lopende tekst en editor."
+      },
+      "ui": {
+        "displayName": "Bediening",
+        "purpose": "Knoppen, menu-items, namen in lijsten."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Veldlabels, metaregel van een pin."
+      },
+      "caption": {
+        "displayName": "Bijschrift",
+        "purpose": "Badges, subregels, weekdagletters."
+      },
+      "caps": {
+        "displayName": "Caps",
+        "purpose": "Enkel praktijknaam of context onder het woordmerk."
+      }
+    },
+    "shadows": [
+      {
+        "name": "haarlijn",
+        "value": "0 0 0 1px rgba(46, 37, 32, 0.09)",
+        "purpose": "Rand van elke kaart, pin, eiland en segmentbalk."
+      },
+      {
+        "name": "haarlijn-sterk",
+        "value": "0 0 0 1px rgba(46, 37, 32, 0.2)",
+        "purpose": "Hover van klikbare kaarten; binnenrand van velden en secundaire knoppen (inset)."
+      },
+      {
+        "name": "zwevend",
+        "value": "0 1px 2px rgba(46, 37, 32, 0.04), 0 14px 34px -20px rgba(46, 37, 32, 0.22)",
+        "purpose": "Enkel wat zweeft: menu's, sheets, lade, toasts, demowissel."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-soft",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Standaard easing voor alle overgangen."
+      },
+      {
+        "name": "pop",
+        "value": "180ms ease-out-soft, van scale .97 en -4px",
+        "purpose": "Menu's die openen."
+      },
+      {
+        "name": "state",
+        "value": "200ms",
+        "purpose": "Kleur- en vlakwissels van knoppen, velden, navigatie."
+      },
+      {
+        "name": "slide",
+        "value": "220-260ms",
+        "purpose": "Schuivend segment, actieve tab, lade."
+      },
+      {
+        "name": "bewaar",
+        "value": "280ms, verticale woordwissel met 2px blur",
+        "purpose": "Bewaar wordt Bewaard op een pin."
+      },
+      {
+        "name": "tick",
+        "value": "260ms, krimp naar .86",
+        "purpose": "Afvinken in de editor; geen confetti."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primaire knop",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Espresso pil voor de ene hoofdactie per scherm.",
+      "html": "<button class=\"ds-btn-primary\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.25\" stroke-linecap=\"round\"><path d=\"M5 12h14M12 5v14\"/></svg>Afspraak</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 20px;border:0;border-radius:999px;background:var(--pine,#3b2f28);color:var(--on-accent,#f8f3ec);font:400 14px/1 var(--font-sans, 'Jost', system-ui, sans-serif);letter-spacing:.01em;cursor:pointer;transition:background-color 200ms cubic-bezier(0.22,1,0.36,1),transform 200ms cubic-bezier(0.22,1,0.36,1)}.ds-btn-primary:hover{background:var(--pine-deep,#2b221d)}.ds-btn-primary:active{transform:scale(.98)}.ds-btn-primary:focus-visible{outline:none;box-shadow:0 0 0 2px var(--paper,#f5f0e8),0 0 0 3px var(--pine,#3b2f28)}"
+    },
+    {
+      "name": "Latte-knop",
+      "kind": "button",
+      "refersTo": "button-sun",
+      "description": "Lichte schrijfactie, zoals Schrijf iets.",
+      "html": "<button class=\"ds-btn-sun\">Schrijf iets</button>",
+      "css": ".ds-btn-sun{height:40px;padding:0 20px;border:0;border-radius:999px;background:var(--sun,#d9bc8c);color:var(--ink,#2e2520);font:400 14px/1 var(--font-sans, 'Jost', system-ui, sans-serif);letter-spacing:.01em;cursor:pointer;transition:background-color 200ms cubic-bezier(0.22,1,0.36,1),transform 200ms cubic-bezier(0.22,1,0.36,1)}.ds-btn-sun:hover{background:#cfae7a}.ds-btn-sun:active{transform:scale(.98)}.ds-btn-sun:focus-visible{outline:none;box-shadow:0 0 0 2px var(--paper,#f5f0e8),0 0 0 3px var(--pine,#3b2f28)}"
+    },
+    {
+      "name": "Secundaire knop",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Crème pil met sterke haarlijn.",
+      "html": "<button class=\"ds-btn-secondary\">Verzetten</button>",
+      "css": ".ds-btn-secondary{height:40px;padding:0 20px;border:0;border-radius:999px;background:var(--cream,#fbf8f3);color:var(--ink,#2e2520);box-shadow:inset 0 0 0 1px var(--edge-strong,rgba(46,37,32,.2));font:400 14px/1 var(--font-sans, 'Jost', system-ui, sans-serif);cursor:pointer;transition:background-color 200ms cubic-bezier(0.22,1,0.36,1)}.ds-btn-secondary:hover{background:var(--oat-soft,#efe8de)}.ds-btn-secondary:focus-visible{outline:none;box-shadow:inset 0 0 0 1px var(--edge-strong,rgba(46,37,32,.2)),0 0 0 2px var(--paper,#f5f0e8),0 0 0 3px var(--pine,#3b2f28)}"
+    },
+    {
+      "name": "Invoerveld",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Crème veld met haarlijn, espresso focus.",
+      "html": "<label class=\"ds-label\">E-mail<input class=\"ds-input\" type=\"email\" placeholder=\"jij@voorbeeld.be\"></label>",
+      "css": ".ds-label{display:block;font:500 13px/1.4 var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#67584c)}.ds-input{display:block;margin-top:6px;width:280px;height:44px;padding:0 16px;border:0;border-radius:12px;background:var(--cream,#fbf8f3);color:var(--ink,#2e2520);font:400 15px var(--font-sans, 'Jost', system-ui, sans-serif);box-shadow:inset 0 0 0 1px var(--edge-strong,rgba(46,37,32,.2));outline:none;transition:box-shadow 200ms}.ds-input::placeholder{color:var(--text-faint,#766658)}.ds-input:hover{box-shadow:inset 0 0 0 1px var(--taupe,#ae9c88)}.ds-input:focus{box-shadow:inset 0 0 0 1.5px var(--pine,#3b2f28),0 0 0 4px rgba(59,47,40,.12)}"
+    },
+    {
+      "name": "Navigatie-item",
+      "kind": "nav",
+      "refersTo": "nav-item-active",
+      "description": "Zijbalk-items in kleine letters; actief is een crème pil met latte stipje.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-item is-active\" href=\"#\">vandaag<span class=\"ds-dot\"></span></a><a class=\"ds-nav-item\" href=\"#\">logboek</a><a class=\"ds-nav-item\" href=\"#\">sessies</a></nav>",
+      "css": ".ds-nav{display:flex;flex-direction:column;gap:2px;width:232px;padding:16px;background:var(--side,#efe8dd)}.ds-nav-item{display:flex;align-items:center;height:44px;padding:0 16px;border-radius:999px;font:400 15px var(--font-sans, 'Jost', system-ui, sans-serif);text-transform:lowercase;color:var(--side-muted,#6f6054);text-decoration:none;transition:background-color 200ms,color 200ms}.ds-nav-item:hover{background:rgba(46,37,32,.05);color:var(--ink,#2e2520)}.ds-nav-item.is-active{background:var(--cream,#fbf8f3);color:var(--ink,#2e2520);box-shadow:0 0 0 1px var(--edge,rgba(46,37,32,.09))}.ds-nav-item:focus-visible{outline:none;box-shadow:0 0 0 1px var(--pine,#3b2f28)}.ds-dot{margin-left:auto;width:6px;height:6px;border-radius:999px;background:var(--sun,#d9bc8c)}"
+    },
+    {
+      "name": "Segmented control",
+      "kind": "chip",
+      "refersTo": "segmented-active",
+      "description": "Filterkeuze; de actieve keuze is een espresso pil.",
+      "html": "<div class=\"ds-seg\" role=\"radiogroup\"><button class=\"ds-seg-o is-on\">Alles</button><button class=\"ds-seg-o\">Check-ins</button><button class=\"ds-seg-o\">Notities</button></div>",
+      "css": ".ds-seg{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:var(--cream,#fbf8f3);box-shadow:0 0 0 1px var(--edge,rgba(46,37,32,.09))}.ds-seg-o{height:32px;padding:0 14px;border:0;border-radius:999px;background:transparent;color:var(--text-muted,#67584c);font:400 13px var(--font-sans, 'Jost', system-ui, sans-serif);cursor:pointer;transition:background-color 220ms cubic-bezier(0.22,1,0.36,1),color 220ms}.ds-seg-o:hover{color:var(--ink,#2e2520)}.ds-seg-o.is-on{background:var(--pine,#3b2f28);color:var(--on-accent,#f8f3ec)}.ds-seg-o:focus-visible{outline:none;box-shadow:0 0 0 1px var(--pine,#3b2f28)}"
+    },
+    {
+      "name": "Soort-badges",
+      "kind": "chip",
+      "refersTo": "badge-kind",
+      "description": "Vaste zachte tint per soort.",
+      "html": "<div class=\"ds-badges\"><span class=\"ds-badge ds-b-checkin\">Check-in</span><span class=\"ds-badge ds-b-opdracht\">Opdracht</span><span class=\"ds-badge ds-b-notitie\">Notitie</span><span class=\"ds-badge ds-b-sessie\">Reactie</span><span class=\"ds-badge ds-b-agenda\">Voor volgende keer</span></div>",
+      "css": ".ds-badges{display:flex;flex-wrap:wrap;gap:8px}.ds-badge{display:inline-flex;align-items:center;padding:2px 10px;border-radius:999px;font:500 12px/1.6 var(--font-sans, 'Jost', system-ui, sans-serif)}.ds-b-checkin{background:var(--sun-soft,#f1e6d2);color:var(--sun-ink,#6a4e2c)}.ds-b-opdracht{background:var(--moss,#e2e3d5);color:var(--pine,#3b2f28)}.ds-b-notitie{background:var(--clay-soft,#f0e0d6);color:var(--clay-ink,#8a4a30)}.ds-b-sessie{background:var(--sky-soft,#e2e4e3);color:var(--sky-ink,#4a5560)}.ds-b-agenda{background:var(--plum-soft,#ece0de);color:var(--plum-ink,#6e4e52)}"
+    },
+    {
+      "name": "Paneel",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Crème kaart met haarlijn en titel in Bodoni.",
+      "html": "<section class=\"ds-card\"><h3 class=\"ds-card-t\">Vandaag</h3><p class=\"ds-card-row\"><span class=\"ds-time\">09:30</span>Arne Maes<span class=\"ds-sub\">Opvolging, fysiek</span></p></section>",
+      "css": ".ds-card{width:360px;padding:24px 28px;border-radius:22px;background:var(--cream,#fbf8f3);box-shadow:0 0 0 1px var(--edge,rgba(46,37,32,.09));color:var(--ink,#2e2520)}.ds-card-t{margin:0 0 12px;font:500 25px/1.15 var(--font-serif, 'Bodoni Moda', Georgia, serif);letter-spacing:-.005em}.ds-card-row{display:flex;align-items:baseline;gap:16px;margin:0;font:500 14px var(--font-sans, 'Jost', system-ui, sans-serif)}.ds-time{font:450 21px var(--font-serif, 'Bodoni Moda', Georgia, serif);font-variant-numeric:lining-nums tabular-nums}.ds-sub{margin-left:auto;font:400 12px var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#67584c)}"
+    },
+    {
+      "name": "Logboek-pin met Bewaar",
+      "kind": "custom",
+      "refersTo": "card",
+      "description": "Signatuur: entry als pin; Bewaar neemt ze mee naar de sessie.",
+      "html": "<article class=\"ds-pin\"><div class=\"ds-pin-meta\"><span class=\"ds-pin-dot\"></span>Notitie · 20:30</div><button class=\"ds-pin-save\">Bewaar</button><h4 class=\"ds-pin-t\">Nee zeggen, bijna</h4><p class=\"ds-pin-x\">Collega vroeg of ik zaterdag wilde overnemen. Ik zei dat ik erover zou nadenken.</p><div class=\"ds-mood\"><i style=\"background:#c39a7c\"></i><i style=\"background:#c39a7c\"></i><i style=\"background:#c39a7c\"></i><i></i><i></i>Gaat wel</div></article>",
+      "css": ".ds-pin{position:relative;width:300px;padding:24px;border-radius:22px;background:var(--cream,#fbf8f3);box-shadow:0 0 0 1px var(--edge,rgba(46,37,32,.09));transition:box-shadow 300ms;color:var(--ink,#2e2520)}.ds-pin:hover{box-shadow:0 0 0 1px var(--edge-strong,rgba(46,37,32,.2))}.ds-pin-meta{display:flex;align-items:center;gap:8px;font:400 13px var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#67584c)}.ds-pin-dot{width:8px;height:8px;border-radius:999px;background:var(--clay,#b07355)}.ds-pin-save{position:absolute;top:12px;right:12px;height:32px;padding:0 14px;border:0;border-radius:999px;background:var(--pine,#3b2f28);color:var(--on-accent,#f8f3ec);font:400 13px var(--font-sans, 'Jost', system-ui, sans-serif);opacity:0;cursor:pointer;transition:opacity 300ms,background-color 300ms}.ds-pin:hover .ds-pin-save,.ds-pin-save:focus-visible{opacity:1}.ds-pin-save:hover{background:var(--pine-deep,#2b221d)}.ds-pin-t{margin:12px 0 6px;font:500 25px/1.1 var(--font-serif, 'Bodoni Moda', Georgia, serif)}.ds-pin-x{margin:0;font:400 15.5px/1.6 var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#67584c)}.ds-mood{display:flex;align-items:center;gap:3px;margin-top:12px;font:500 12px var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#67584c)}.ds-mood i{width:7px;height:7px;border-radius:999px;background:var(--sand,#e9e0d3)}.ds-mood i:last-of-type{margin-right:5px}"
+    },
+    {
+      "name": "Boogfoto",
+      "kind": "custom",
+      "refersTo": "card",
+      "description": "De signatuurvorm: foto in een boog met warme grade.",
+      "html": "<div class=\"ds-arch\"></div>",
+      "css": ".ds-arch{width:160px;height:224px;border-radius:999px 999px 22px 22px;background:linear-gradient(160deg,#efe1cb,#c9ae8c 60%,#8c6e55);filter:sepia(.14) saturate(.82) contrast(.96) brightness(1.02)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Het moodboard waarin je woont",
+    "overview": "Huiskamer ziet eruit als een prikbord in een goede Gentse koffiebar: één tonale familie van papier, linnen, latte en espresso, met echte sfeerfoto's in boog- en pinvormen en een modetijdschrift-serif voor alles wat gelezen wordt. Er is geen enkele verzadigde kleur. Betekenis zit in gedempte tinten (honing, salie, poeder-terracotta, mist, mauve) en altijd ook in vorm of woord.\n\nDe dichtheid is laag en redactioneel. Koppen zijn groot en zacht (Bodoni Moda, namen cursief), bediening is klein en rustig (Jost, navigatie in kleine letters). Vlakken zijn plat: een haarlijn rond crème op papier, geen gloed. De enige donkere vlakken zijn espresso: de primaire knop, de actieve tab, de kaart van de volgende sessie en vandaag in het weekstrookje.\n\nHet logboek en \"Tussen de sessies\" zijn prikborden (kolommen, masonry vanaf 768px), en \"Bewaar\" op een pin betekent: mee naar de sessie.",
+    "keyCharacteristics": [
+      "Eén latte-familie; kleur betekent soort, nooit alarm.",
+      "Bodoni Moda voor koppen, namen, tijden en getallen; Jost voor alles wat je bedient.",
+      "Boogvormen als terugkerend motief: merkteken, kopfoto, dagen in het weekstrookje, lege staat.",
+      "Platte kaarten met een haarlijn; schaduw enkel op wat zweeft.",
+      "Foto's altijd warm gegradeerd en gedempt, nooit mensen in therapie."
+    ],
+    "rules": [
+      {
+        "name": "De Eén-Familie-Regel",
+        "body": "Geen verzadigde kleur, nergens. Een nieuwe tint is een gedempt vlak met een eigen donkere inkt, of ze komt er niet in.",
+        "section": "colors"
+      },
+      {
+        "name": "De Soort-Is-Tint-Regel",
+        "body": "Check-in is latte, opdracht is salie, notitie is terracotta, reactie is mist, \"Voor volgende keer\" is mauve. Overal dezelfde, altijd samen met een label of icoon.",
+        "section": "colors"
+      },
+      {
+        "name": "De Espresso-Schaarste-Regel",
+        "body": "Donkere vlakken zijn enkel actie of \"nu\": de primaire knop, het actieve segment, de volgende sessie, vandaag. Geen donkere zijbalk, geen donkere banden.",
+        "section": "colors"
+      },
+      {
+        "name": "De Lezen-Of-Bedienen-Regel",
+        "body": "Wat je leest of herkent (koppen, namen, tijden, getallen, woorden van een stemming) staat in Bodoni Moda. Wat je aanklikt of invult staat in Jost.",
+        "section": "typography"
+      },
+      {
+        "name": "De Onder-De-Kop-Regel",
+        "body": "De contextregel (datum, \"Bij Sarah Peeters\") staat onder de titel, in de serif en gedempt. Nooit een klein label boven een kop.",
+        "section": "typography"
+      },
+      {
+        "name": "De Kleine-Letter-Navigatie-Regel",
+        "body": "Navigatie-items in zijbalk en tab bar staan in kleine letters.",
+        "section": "typography"
+      },
+      {
+        "name": "De Plat-Op-Papier-Regel",
+        "body": "Wat op de pagina ligt heeft een haarlijn en geen schaduw. Schaduw betekent: dit zweeft en gaat weer weg.",
+        "section": "elevation"
+      },
+      {
+        "name": "De Boog-Regel",
+        "body": "Eén signatuurvorm: de boog. Een nieuw herkenbaar element mag een boog zijn; geen nieuwe decoratieve vormen ernaast.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** zet elke pagina op papier en elke kaart op crème met een haarlijn van 1px.",
+      "**Do** gebruik espresso enkel voor de primaire actie, het actieve segment, de volgende sessie en vandaag.",
+      "**Do** geef elke soort zijn vaste zachte tint en zet er altijd een woord of icoon bij.",
+      "**Do** zet namen, tijden en getallen in Bodoni Moda, de naam in een begroeting cursief.",
+      "**Do** zet de contextregel onder de titel, in de serif en gedempt.",
+      "**Do** kader foto's afgerond of als boog, met de warme grade en een beschrijvende alt-tekst.",
+      "**Do** houd beweging tussen 180 en 300ms met `cubic-bezier(0.22, 1, 0.36, 1)`."
+    ],
+    "donts": [
+      "**Don't** gebruik verzadigde kleur, ook niet voor fouten of urgentie; urgent is `clay-ink`.",
+      "**Don't** maak een donkere zijbalk, donkere banden of gekleurde statistiektegels.",
+      "**Don't** leg schaduw onder iets dat op de pagina ligt; schaduw is voor wat zweeft.",
+      "**Don't** maak de topbalk of eilanden doorschijnend glas; bij scrollen wordt de balk effen papier.",
+      "**Don't** zet een klein label in hoofdletters boven een kop; caps zijn enkel voor de praktijknaam onder het woordmerk.",
+      "**Don't** gebruik `clay` of `taupe` als kleine tekst; gebruik `clay-ink` of `text-muted`.",
+      "**Don't** leg een groene of gekleurde waas over foto's."
+    ]
+  }
+}
