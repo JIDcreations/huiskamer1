@@ -6,7 +6,7 @@ import { isToday, isYesterday, parseISO } from "date-fns";
 import { AnimatePresence, motion } from "framer-motion";
 import { CalendarCheck, CalendarPlus, CalendarX, MessageSquareText, MoreHorizontal } from "lucide-react";
 import { MoodDots } from "@/components/shared/mood";
-import { ShareBadge, ShareIcon } from "@/components/shared/share";
+import { ShareIcon } from "@/components/shared/share";
 import { Button } from "@/components/ui/button";
 import { Segmented } from "@/components/ui/segmented";
 import { Menu, MenuContent, MenuItem, MenuSeparator, MenuTrigger } from "@/components/ui/menu";
@@ -124,45 +124,63 @@ export function JournalRow({
   }
 
   const saved = onAgenda?.appointment?.status === "gepland";
+  // Een afgevinkte opdracht zonder tekst is een kleine pin; een notitie met titel een grote.
+  const compact = entry.kind === "opdracht" && !entry.title && summary.length <= 40 && !entry.psychologistNote && !saved;
+  const footer = saved || !!entry.psychologistNote;
 
   return (
-    <li className="group relative mb-4 break-inside-avoid rounded-[22px] bg-surface p-5 shadow-[0_0_0_1px_var(--edge)] transition-shadow duration-300 hover:shadow-[0_0_0_1px_var(--edge-strong)] md:p-6">
-      <div className="flex items-center gap-2 pr-20 text-[13px] text-muted">
-        <span aria-hidden className={cn("size-2 rounded-full", kindDot[entry.kind])} />
+    <li
+      className={cn(
+        "group relative mb-4 break-inside-avoid rounded-[22px] shadow-[0_0_0_1px_var(--edge)] transition-shadow duration-300 hover:shadow-[0_0_0_1px_var(--edge-strong)]",
+        compact ? "bg-bg px-5 py-4" : "bg-surface p-5 md:p-6"
+      )}
+    >
+      <div className="flex items-center gap-2 pr-10 text-[13px] text-muted md:pr-24">
+        <span aria-hidden className={cn("size-2 shrink-0 rounded-full", kindDot[entry.kind])} />
         <span className="truncate">{label}</span>
         <span aria-hidden className="text-taupe">·</span>
-        <span className="tabular-nums">{formatTime(entry.createdAt)}</span>
+        <span className="shrink-0 tabular-nums">{formatTime(entry.createdAt)}</span>
+        {viewer === "client" && (
+          <span className="shrink-0" title={entry.sharedWithPsychologist ? `Gedeeld met ${psy.firstName}` : "Enkel voor mij"}>
+            <ShareIcon shared={entry.sharedWithPsychologist} className="text-taupe" />
+            <span className="sr-only">{entry.sharedWithPsychologist ? `Gedeeld met ${psy.firstName}` : "Enkel voor mij"}</span>
+          </span>
+        )}
       </div>
-      <Link href={href} className="mt-3 block outline-none after:absolute after:inset-0 after:rounded-[22px] after:content-[''] focus-visible:after:ring-1 focus-visible:after:ring-pine">
-        {entry.title && <span className="mb-1 block font-display text-[22px] leading-tight">{entry.title}</span>}
-        {summary ? (
-          <span className={cn("line-clamp-4 text-[15.5px] leading-relaxed", entry.title ? "text-muted" : "text-text")}>{summary}</span>
+      <Link href={href} className={cn("block outline-none after:absolute after:inset-0 after:rounded-[22px] after:content-[''] focus-visible:after:ring-1 focus-visible:after:ring-pine", compact ? "mt-1.5" : "mt-3")}>
+        {entry.title && <span className="mb-1.5 block font-display text-[25px] leading-[1.1]">{entry.title}</span>}
+        {compact ? (
+          <span className="font-display text-[19px] italic">{summary}</span>
+        ) : summary ? (
+          <span className={cn("line-clamp-5 text-[15.5px] leading-relaxed", entry.title ? "text-muted" : "text-text")}>{summary}</span>
         ) : (
           !entry.title && <span className="font-display text-[19px] italic text-muted">Enkel een woord</span>
         )}
       </Link>
       {entry.mood && <MoodDots value={entry.mood} className="mt-3" />}
-      <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-edge pt-3">
-        {viewer === "client" && <ShareBadge shared={entry.sharedWithPsychologist} />}
-        {saved && onAgenda?.appointment && (
-          <span className="inline-flex items-center gap-1.5 text-[12.5px] text-muted">
-            <CalendarCheck className="size-3.5 stroke-[1.25] text-taupe" />
-            Mee naar de sessie van {formatDayMonth(onAgenda.appointment.start)}
-          </span>
-        )}
-        {entry.psychologistNote && (
-          <span className="inline-flex items-center gap-1.5 text-[12.5px] text-muted">
-            <MessageSquareText className="size-3.5 stroke-[1.25] text-taupe" />
-            {viewer === "client" ? `${psy.firstName} schreef een kanttekening` : "Jouw kanttekening"}
-          </span>
-        )}
-      </div>
+      {footer && (
+        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-edge pt-3">
+          {saved && onAgenda?.appointment && (
+            <span className="inline-flex items-center gap-1.5 text-[12.5px] text-muted">
+              <CalendarCheck className="size-3.5 stroke-[1.25] text-taupe" />
+              Mee naar de sessie van {formatDayMonth(onAgenda.appointment.start)}
+            </span>
+          )}
+          {entry.psychologistNote && (
+            <span className="inline-flex items-center gap-1.5 text-[12.5px] text-muted">
+              <MessageSquareText className="size-3.5 stroke-[1.25] text-taupe" />
+              {viewer === "client" ? `${psy.firstName} schreef een kanttekening` : "Jouw kanttekening"}
+            </span>
+          )}
+        </div>
+      )}
 
       {viewer === "client" && (
         <div className="absolute right-3 top-3 z-10 flex items-center gap-1">
           {/* Zoals een pin bewaren: deze entry gaat mee naar de volgende sessie. */}
-          <button
+          <motion.button
             type="button"
+            layout
             aria-pressed={saved}
             aria-label={saved ? "Bewaard voor de sessie" : "Bewaar voor de sessie"}
             onClick={() => {
@@ -171,15 +189,27 @@ export function JournalRow({
                 toast("Niet meer mee naar de sessie");
               } else takeAlong();
             }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
             className={cn(
-              "h-8 rounded-full px-3.5 text-[13px] outline-none transition-[background-color,color,opacity] duration-200 focus-visible:ring-1 focus-visible:ring-pine",
+              "relative h-8 overflow-hidden rounded-full px-3.5 text-[13px] outline-none transition-[background-color,color,opacity] duration-300 focus-visible:ring-1 focus-visible:ring-pine",
               saved
                 ? "bg-sun-soft text-sun-ink"
-                : "bg-pine text-on-accent opacity-100 hover:bg-pine-deep md:opacity-0 md:group-hover:opacity-100 md:focus-visible:opacity-100"
+                : "hidden bg-pine text-on-accent hover:bg-pine-deep md:inline-block md:opacity-0 md:group-hover:opacity-100 md:focus-visible:opacity-100"
             )}
           >
-            {saved ? "Bewaard" : "Bewaar"}
-          </button>
+            <AnimatePresence mode="popLayout" initial={false}>
+              <motion.span
+                key={saved ? "ja" : "nee"}
+                className="block"
+                initial={{ y: 12, opacity: 0, filter: "blur(2px)" }}
+                animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                exit={{ y: -12, opacity: 0, filter: "blur(2px)" }}
+                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {saved ? "Bewaard" : "Bewaar"}
+              </motion.span>
+            </AnimatePresence>
+          </motion.button>
           <Menu>
             <MenuTrigger
               aria-label="Meer"

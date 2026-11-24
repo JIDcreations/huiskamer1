@@ -49,8 +49,8 @@ function DayAgenda({ appointments, onOpen }: { appointments: Appointment[]; onOp
         const done = end <= now || a.status !== "gepland";
         const points = a.status === "gepland" && !done ? agendaFor(agenda, all, journal, a.clientId, { forPsy: true }).items.length : 0;
         return (
-          <li key={a.id} className={cn("flex items-center gap-2 rounded-2xl pr-2 transition-colors hover:bg-oat-soft", current && "bg-sun-soft hover:bg-sun-soft")}>
-            <button onClick={() => onOpen(a)} className="flex min-w-0 flex-1 items-center gap-4 rounded-xl px-2 py-3 text-left">
+          <li key={a.id} className={cn("flex flex-wrap items-center gap-x-2 rounded-2xl pr-2 transition-colors hover:bg-oat-soft", current && "bg-sun-soft hover:bg-sun-soft")}>
+            <button onClick={() => onOpen(a)} className="flex min-w-0 flex-1 basis-[15rem] items-center gap-4 rounded-xl px-2 py-3 text-left">
               <span className={cn("w-14 shrink-0 font-display text-[21px] tabular-nums", done && !current && "text-faint")}>{formatTime(start)}</span>
               {c && <Avatar name={`${c.firstName} ${c.lastName}`} tone="client" size="sm" />}
               <span className="min-w-0 flex-1">
@@ -66,7 +66,7 @@ function DayAgenda({ appointments, onOpen }: { appointments: Appointment[]; onOp
             {a.status === "gepland" && !done && (
               <Link
                 href={`/p/clienten/${a.clientId}#voor-volgende-keer`}
-                className="shrink-0 rounded-full bg-plum-soft px-2.5 py-1 text-[12px] font-medium text-plum-ink transition-colors hover:bg-plum-ink hover:text-on-accent"
+                className="mb-3 ml-[5.5rem] shrink-0 rounded-full bg-plum-soft px-3 py-1 text-[12.5px] text-plum-ink transition-colors hover:bg-plum-ink hover:text-on-accent sm:mb-0 sm:ml-0"
               >
                 Voor volgende keer{points ? ` (${points})` : ""}
               </Link>
@@ -157,52 +157,58 @@ export default function Vandaag() {
         {summary.length ? `Sinds je laatste bezoek: ${joinList(summary as string[])}.` : "Sinds je laatste bezoek is er niets nieuws."}
       </PageHeader>
 
-      <div className="mt-10 grid grid-cols-1 gap-5 md:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
-        <div className="flex flex-col gap-5">
-          <Panel title="Vandaag" href="/p/agenda" hrefLabel="Agenda" bodyClassName="pt-1">
-            {today.length ? <DayAgenda appointments={today} onOpen={setOpen} /> : <p className="py-3 text-[14px] text-muted">Een dag zonder sessies.</p>}
-          </Panel>
-          {tomorrow.length > 0 && (
-            <Panel title="Morgen" bodyClassName="pt-1">
-              <DayAgenda appointments={tomorrow} onOpen={setOpen} />
-            </Panel>
-          )}
-        </div>
-
-        <Panel title="Tussen de sessies" description="Wat je cliënten deelden, de laatste drie dagen." bodyClassName="pt-2">
-          {byClient.length ? (
-            <div className="flex flex-col gap-5">
-              {byClient.map(([clientId, items]) => {
-                const c = clients.find((x) => x.id === clientId);
-                if (!c) return null;
-                // Alles wat nieuw is sinds je laatste bezoek, aangevuld tot drie regels.
-                const shown = items.filter((it, i) => i < PER_CLIENT || it.activity.at > since);
-                const rest = items.length - shown.length;
-                return (
-                  <section key={clientId}>
-                    <Link href={`/p/clienten/${clientId}?tab=logboek`} className="mb-1 flex items-center gap-2.5 px-2 text-[15px] font-medium hover:underline hover:decoration-surface-2 hover:underline-offset-4">
-                      <Avatar name={`${c.firstName} ${c.lastName}`} tone="client" size="sm" />
-                      {c.firstName} {c.lastName}
-                    </Link>
-                    <div className="flex flex-col">
-                      {shown.map(({ activity: a, count }, i) => (
-                        <ActivityItem key={i} activity={a} count={count} isNew={a.at > since} />
-                      ))}
-                      {rest > 0 && (
-                        <Link href={`/p/clienten/${clientId}?tab=logboek`} className="self-start rounded-full px-2 pt-1 text-[13px] text-muted hover:text-text">
-                          Nog {rest} in het logboek van {c.firstName}
-                        </Link>
-                      )}
-                    </div>
-                  </section>
-                );
-              })}
-            </div>
-          ) : (
-            <p className="py-3 text-[14px] text-muted">Rustig de laatste dagen.</p>
-          )}
+      <div className="mt-10 grid grid-cols-1 items-start gap-5 md:mt-14 lg:grid-cols-2">
+        <Panel title="Vandaag" href="/p/agenda" hrefLabel="Agenda" bodyClassName="pt-1" className={cn(!tomorrow.length && "lg:col-span-2")}>
+          {today.length ? <DayAgenda appointments={today} onOpen={setOpen} /> : <p className="py-3 text-[14px] text-muted">Een dag zonder sessies.</p>}
         </Panel>
+        {tomorrow.length > 0 && (
+          <Panel title="Morgen" bodyClassName="pt-1">
+            <DayAgenda appointments={tomorrow} onOpen={setOpen} />
+          </Panel>
+        )}
       </div>
+
+      {/* Een prikbord: per cliënt één pin met wat er tussen de sessies gebeurde. */}
+      <section aria-labelledby="tussen" className="mt-14">
+        <h2 id="tussen" className="type-title">
+          Tussen de <span className="italic">sessies</span>
+        </h2>
+        <p className="mt-2 font-display text-[18px] text-muted">Wat je cliënten deelden, de laatste drie dagen.</p>
+        {byClient.length ? (
+          <div className="mt-7 gap-4 md:columns-2 xl:columns-3">
+            {byClient.map(([clientId, items]) => {
+              const c = clients.find((x) => x.id === clientId);
+              if (!c) return null;
+              // Alles wat nieuw is sinds je laatste bezoek, aangevuld tot drie regels.
+              const shown = items.filter((it, i) => i < PER_CLIENT || it.activity.at > since);
+              const rest = items.length - shown.length;
+              return (
+                <section key={clientId} className="mb-4 break-inside-avoid rounded-[22px] bg-surface p-4 shadow-[0_0_0_1px_var(--edge)] md:p-5">
+                  <Link
+                    href={`/p/clienten/${clientId}?tab=logboek`}
+                    className="mb-2 flex items-center gap-3 px-2 font-display text-[21px] leading-tight hover:underline hover:decoration-taupe hover:decoration-1 hover:underline-offset-4"
+                  >
+                    <Avatar name={`${c.firstName} ${c.lastName}`} tone="client" size="md" />
+                    {c.firstName} {c.lastName}
+                  </Link>
+                  <div className="flex flex-col">
+                    {shown.map(({ activity: a, count }, i) => (
+                      <ActivityItem key={i} activity={a} count={count} isNew={a.at > since} />
+                    ))}
+                    {rest > 0 && (
+                      <Link href={`/p/clienten/${clientId}?tab=logboek`} className="self-start rounded-full px-2 pt-1 text-[13px] text-muted underline decoration-taupe decoration-1 underline-offset-4 hover:text-text">
+                        Nog {rest} in het logboek van {c.firstName}
+                      </Link>
+                    )}
+                  </div>
+                </section>
+              );
+            })}
+          </div>
+        ) : (
+          <p className="mt-5 text-[14px] text-muted">Rustig de laatste dagen.</p>
+        )}
+      </section>
 
       <AppointmentDetailSheet key={open?.id ?? "geen"} appointment={open} onClose={() => setOpen(null)} />
       {creating && <NewAppointmentSheet open={creating} onOpenChange={setCreating} />}

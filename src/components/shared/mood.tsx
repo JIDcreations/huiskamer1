@@ -37,7 +37,7 @@ export function MoodDots({ value, className }: { value?: Mood; className?: strin
 
 export function MoodPicker({ value, onChange, className }: { value?: Mood; onChange: (m: Mood | undefined) => void; className?: string }) {
   return (
-    <div role="radiogroup" aria-label="Hoe voel je je?" className={cn("grid grid-cols-5 gap-2", className)}>
+    <div role="radiogroup" aria-label="Hoe voel je je?" className={cn("-ml-3 flex flex-wrap gap-x-0.5 gap-y-1", className)}>
       {moods.map((m) => {
         const active = m.value === value;
         return (
@@ -49,17 +49,17 @@ export function MoodPicker({ value, onChange, className }: { value?: Mood; onCha
             onClick={() => onChange(active ? undefined : m.value)}
             style={{ "--m": moodColor(m.value) } as React.CSSProperties}
             className={cn(
-              "group flex min-w-0 flex-col items-center justify-center gap-2.5 rounded-[18px] px-0.5 py-4 text-[12px] whitespace-nowrap outline-none transition-[background-color,box-shadow,transform] duration-200 focus-visible:ring-1 focus-visible:ring-pine active:scale-[0.97] sm:text-[14px]",
+              "group inline-flex h-10 items-center gap-2 rounded-full pl-3 pr-3.5 font-display text-[18px] whitespace-nowrap outline-none transition-[background-color,box-shadow,color] duration-200 focus-visible:ring-1 focus-visible:ring-pine active:scale-[0.98] sm:text-[19px]",
               active
-                ? "bg-[color-mix(in_srgb,var(--m)_18%,var(--cream))] text-text shadow-[inset_0_0_0_1.5px_var(--m)]"
-                : "bg-surface text-muted shadow-[inset_0_0_0_1px_var(--edge)] hover:bg-[color-mix(in_srgb,var(--m)_9%,var(--cream))] hover:text-text"
+                ? "bg-[color-mix(in_srgb,var(--m)_22%,var(--cream))] italic text-text"
+                : "text-muted hover:bg-[color-mix(in_srgb,var(--m)_12%,var(--cream))] hover:text-text"
             )}
           >
             <span
               aria-hidden
               className={cn(
-                "size-5 rounded-full bg-(--m) transition-transform duration-300 ease-out-soft sm:size-7",
-                active ? "scale-110" : "group-hover:scale-105"
+                "size-3 rounded-full bg-(--m) transition-transform duration-300 ease-out-soft",
+                active ? "scale-125" : "group-hover:scale-110"
               )}
             />
             {m.label}

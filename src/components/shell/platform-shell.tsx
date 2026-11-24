@@ -108,12 +108,8 @@ function SidebarContent({ homeHref, context, nav, footerNav, sidebarFooter }: Om
       </div>
       <nav aria-label="Hoofdnavigatie" className="flex-1 overflow-y-auto px-4 pt-8">
         {nav.map((group, i) => (
-          <div key={group.label ?? i} className={cn(i > 0 && "mt-6")}>
-            {group.label && (
-              <p className="caps mb-2 px-4 text-side-muted">
-                {group.label}
-              </p>
-            )}
+          <div key={group.label ?? i} className={cn(i > 0 && "mt-5 border-t border-edge pt-5")}>
+            {group.label && <p className="sr-only">{group.label}</p>}
             <div className="flex flex-col gap-0.5">
               {group.items.map((item) => (
                 <NavLink key={item.href} item={item} />
