@@ -2,6 +2,17 @@
 
 _Stand van 26 september 2026. Fase 1 staat op `main`; de dagrun van 26 september (UX-herwerking, verfijnde UI, rijkere demo) staat op de branch `dagrun-26sep`. Zie SUMMARY.md en DECISIONS.md op die branch._
 
+## Pinterest-latte (24 november 2026, branch `atoma-schrift`)
+
+De vorige look voelde als AI-standaard (donkergroene zijbalk, gekleurde tegels, landschapsfoto's met een groene waas). Op vraag: een Pinterest-esthetiek, latte en linnen.
+
+- Palet: papier, linnen, latte, espresso. Soorten en stemmingen in gedempte tinten (honing, salie, terracotta, mist, lavendel).
+- Bodoni Moda voor koppen, Jost voor de interface. Navigatie in kleine letters, lichte linnen zijbalk.
+- Koppen als moodboard: een hoge boog en een tweede beeld ertegen. Aanmelden als prikbord van beelden.
+- Logboek als prikbord (twee kolommen) met "Bewaar" per entry: zo gaat iets mee naar de sessie.
+- Geen stat-tegels meer bij de psycholoog, wel een zin met wat er nieuw is. Geen labels in hoofdletters boven koppen.
+- Acht nieuwe sfeerbeelden van Unsplash (bronnen in `src/assets/beelden/BRONNEN.md`). PRODUCT.md beschrijft het product voor ontwerpwerk.
+
 ## Premium-ronde (11 oktober 2026, branch `premium`)
 
 - Fotobanden van rand tot rand, de topbalk zweeft erover als losse pillen en wordt glas bij scrollen. Zoeken voor de psycholoog met Cmd+K.
