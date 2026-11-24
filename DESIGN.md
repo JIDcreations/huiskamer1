@@ -34,34 +34,30 @@ colors:
   mood-5: "#d9b77a"
 typography:
   hero:
-    fontFamily: "Bodoni Moda, Iowan Old Style, Georgia, serif"
-    fontSize: "46px (76px vanaf 768px)"
-    fontWeight: 400
-    lineHeight: 1
-    letterSpacing: "-0.025em"
-    fontVariation: "\"opsz\" 72"
-  title:
-    fontFamily: "Bodoni Moda, Iowan Old Style, Georgia, serif"
-    fontSize: "34px (50px vanaf 768px)"
-    fontWeight: 420
-    lineHeight: 1.04
-    letterSpacing: "-0.015em"
-    fontVariation: "\"opsz\" 40"
-  subtitle:
-    fontFamily: "Bodoni Moda, Iowan Old Style, Georgia, serif"
-    fontSize: "25px"
+    fontFamily: "Jost, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif"
+    fontSize: "42px (64px vanaf 768px)"
     fontWeight: 500
-    lineHeight: 1.15
-    letterSpacing: "-0.005em"
-    fontVariation: "\"opsz\" 14"
+    lineHeight: 1.02
+    letterSpacing: "-0.035em"
+  title:
+    fontFamily: "Jost, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif"
+    fontSize: "32px (44px vanaf 768px)"
+    fontWeight: 500
+    lineHeight: 1.08
+    letterSpacing: "-0.03em"
+  subtitle:
+    fontFamily: "Jost, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif"
+    fontSize: "22px"
+    fontWeight: 500
+    lineHeight: 1.2
+    letterSpacing: "-0.015em"
   display-inline:
-    fontFamily: "Bodoni Moda, Iowan Old Style, Georgia, serif"
+    fontFamily: "Jost, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif"
     fontSize: "18px-24px"
     fontWeight: 450
     lineHeight: 1.1
     letterSpacing: "-0.005em"
     fontFeature: "lnum"
-    fontVariation: "\"opsz\" 18"
   body:
     fontFamily: "Jost, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif"
     fontSize: "15.5px (16.5px vanaf 768px)"
@@ -173,15 +169,15 @@ components:
 
 **Creative North Star: "Het moodboard waarin je woont"**
 
-Huiskamer ziet eruit als een prikbord in een goede Gentse koffiebar: één tonale familie van papier, linnen, latte en espresso, met echte sfeerfoto's in boog- en pinvormen en een modetijdschrift-serif voor alles wat gelezen wordt. Er is geen enkele verzadigde kleur. Betekenis zit in gedempte tinten (honing, salie, poeder-terracotta, mist, mauve) en altijd ook in vorm of woord.
+Huiskamer ziet eruit als een prikbord in een goede Gentse koffiebar: één tonale familie van papier, linnen, latte en espresso, met echte sfeerfoto's in boog- en pinvormen en één heldere sans (Jost) voor alles, zonder schreef. Er is geen enkele verzadigde kleur. Betekenis zit in gedempte tinten (honing, salie, poeder-terracotta, mist, mauve) en altijd ook in vorm of woord.
 
-De dichtheid is laag en redactioneel. Koppen zijn groot en zacht (Bodoni Moda, namen cursief), bediening is klein en rustig (Jost, navigatie in kleine letters). Vlakken zijn plat: een haarlijn rond crème op papier, geen gloed. De enige donkere vlakken zijn espresso: de primaire knop, de actieve tab, de kaart van de volgende sessie en vandaag in het weekstrookje.
+De dichtheid is laag en redactioneel. Koppen zijn groot en strak (Jost 500, nauw gespatieerd, de naam in een begroeting in koffiebruin), bediening is klein en rustig (Jost 400, navigatie in kleine letters). Vlakken zijn plat: een haarlijn rond crème op papier, geen gloed. De enige donkere vlakken zijn espresso: de primaire knop, de actieve tab, de kaart van de volgende sessie en vandaag in het weekstrookje.
 
 Het logboek en "Tussen de sessies" zijn prikborden (kolommen, masonry vanaf 768px), en "Bewaar" op een pin betekent: mee naar de sessie.
 
 **Key Characteristics:**
 - Eén latte-familie; kleur betekent soort, nooit alarm.
-- Bodoni Moda voor koppen, namen, tijden en getallen; Jost voor alles wat je bedient.
+- Eén lettertype, Jost, zonder schreef en zonder cursief; hiërarchie komt van grootte, gewicht en kleur.
 - Boogvormen als terugkerend motief: merkteken, kopfoto, dagen in het weekstrookje, lege staat.
 - Platte kaarten met een haarlijn; schaduw enkel op wat zweeft.
 - Foto's altijd warm gegradeerd en gedempt, nooit mensen in therapie.
@@ -226,18 +222,17 @@ Vaste tint per soort (`src/components/shared/kind.ts`), altijd als zacht vlak me
 
 ## Typography
 
-**Display Font:** Bodoni Moda (variabel, optische maat; fallback Iowan Old Style, Georgia)
-**Body Font:** Jost (variabel; fallback systeem-sans)
+**Font:** Jost (variabel; fallback systeem-sans), voor koppen en tekst. Geen schreeflettertype (beslist op 24 november 2026: helderder).
 
-Beide zelf gehost via `next/font/local`, zonder verzoek naar derden.
+Zelf gehost via `next/font/local`, zonder verzoek naar derden.
 
-**Character:** Een modetijdschrift-serif met hoog contrast voor wat je leest, naast een geometrische, lichte sans voor wat je bedient. Cursief is de stem van het persoonlijke: namen, de tweede helft van een kop, korte pins.
+**Character:** Eén geometrische sans. Koppen in 500 met strakke spatiëring, tekst en bediening in 400. Geen cursief in de interface; nadruk in een kop komt van koffiebruin (`sun-ink`).
 
 ### Hierarchy
-- **Hero** (400, 46px / 76px vanaf 768px, lh 1, opsz 72): de begroeting en de paginatitel met kopcollage. Naam in cursief.
-- **Title** (420, 34px / 50px, lh 1.04, opsz 40): paginatitels zonder beeld, sectiekoppen zoals "Tussen de *sessies*".
-- **Subtitle** (500, 25px, lh 1.15): paneeltitels, titel van een notitie-pin.
-- **Display inline** (450, 18-24px, lining nums): dagkoppen in het logboek (24px), cliëntnamen op het prikbord (21px), tijden in de dagagenda (21px), de regel onder een titel (18-22px, `text-muted`), korte pins in cursief (19px), stemmingswoorden (18-19px).
+- **Hero** (500, 42px / 64px vanaf 768px, lh 1.02, -0.035em): de begroeting en de paginatitel met kopcollage. Naam in koffiebruin.
+- **Title** (500, 32px / 44px, lh 1.08, -0.03em): paginatitels zonder beeld, sectiekoppen zoals "Tussen de sessies".
+- **Subtitle** (500, 22px, lh 1.2): paneeltitels, titel van een notitie-pin.
+- **Display inline** (500, 18-24px): dagkoppen in het logboek (24px), cliëntnamen op het prikbord (21px), tijden in de dagagenda (21px), korte pins (19px), stemmingswoorden (18-19px). De regel onder een titel is 400, 16-19px, `text-muted`.
 - **Body** (400, 15.5px / 16.5px, lh 1.6): lopende tekst; de editor op 16px, lh 1.6. Begeleidende alinea's tot `max-w-xl`.
 - **UI** (400, 14px, 0.01em): knoppen, menu-items, namen in lijsten (500).
 - **Label** (400-500, 13px): veldlabels, metaregel van een pin (soort, tijd, deelicoon), segmenten klein.
@@ -245,9 +240,9 @@ Beide zelf gehost via `next/font/local`, zonder verzoek naar derden.
 - **Caps** (500, 10.5px, 0.24em, hoofdletters): enkel de praktijknaam of context onder het woordmerk in de zijbalk.
 
 ### Named Rules
-**De Lezen-Of-Bedienen-Regel.** Wat je leest of herkent (koppen, namen, tijden, getallen, woorden van een stemming) staat in Bodoni Moda. Wat je aanklikt of invult staat in Jost.
+**De Geen-Schreef-Regel.** Alles staat in Jost. Geen serif, geen cursief in de interface (enkel waar een gebruiker zelf cursief schrijft in de editor).
 
-**De Onder-De-Kop-Regel.** De contextregel (datum, "Bij Sarah Peeters") staat onder de titel, in de serif en gedempt. Nooit een klein label boven een kop.
+**De Onder-De-Kop-Regel.** De contextregel (datum, "Bij Sarah Peeters") staat onder de titel, gedempt. Nooit een klein label boven een kop.
 
 **De Kleine-Letter-Navigatie-Regel.** Navigatie-items in zijbalk en tab bar staan in kleine letters.
 
@@ -306,7 +301,7 @@ Rustig en tactiel: een pil die bij indrukken 2% krimpt.
 - **Background:** crème; een compacte pin (afgevinkte opdracht zonder tekst) staat op papier.
 - **Shadow Strategy:** haarlijn; zie Elevation.
 - **Internal Padding:** paneel 20px / 28px vanaf 768px met de titel in subtitle; pin 20px / 24px.
-- **Volgende sessie:** de enige espresso kaart, met de dag in cursieve Bodoni (44px).
+- **Volgende sessie:** de enige espresso kaart, met de dag in Jost 500 (44px).
 
 ### Inputs / Fields
 - **Style:** crème, 12px radius, 44px hoog, 15px tekst, sterke haarlijn binnenin; hover taupe-haarlijn.
@@ -315,19 +310,19 @@ Rustig en tactiel: een pil die bij indrukken 2% krimpt.
 - **Label:** 13px, 500, mokka, 6px boven het veld.
 
 ### Navigation
-- **Zijbalk:** linnen, woordmerk (Bodoni Moda cursief, 30px) boven de praktijknaam in caps. Items 44px, pil, 15px, kleine letters, taupe icoon. Actief: crème pil met haarlijn en een latte stipje rechts. Hover: 5% inkt.
+- **Zijbalk:** linnen, woordmerk (Jost 500, 30px, -0.03em) boven de praktijknaam in caps. Items 44px, pil, 15px, kleine letters, taupe icoon. Actief: crème pil met haarlijn en een latte stipje rechts. Hover: 5% inkt.
 - **Tab bar (cliënt, mobiel):** papier met haarlijn bovenaan, drie items van 66px, 12px kleine letters. Actief: een latte-pil achter het icoon die meeschuift (250ms).
 - **Topbalk-eilanden:** crème pillen met haarlijn; accountmenu met avatar, naam en rol.
 - **Segmented control:** crème pil met haarlijn, actieve keuze is een schuivende espresso pil (220ms).
 
 ### Prikbord-pin met Bewaar (signatuur)
-Een logboekentry als pin. Metaregel bovenaan: soortbolletje, label, tijd, deelicoon (enkel bij de cliënt). Titel in subtitle, tekst tot vijf regels; een korte entry zonder tekst wordt een kleine pin met één cursieve regel. Rechtsboven verschijnt bij hover "Bewaar" als espresso pil; eenmaal bewaard blijft "Bewaard" in latte staan en wisselt het woord met een korte verticale overgang (280ms). Onderaan, achter een haarlijn, "Mee naar de sessie van ..." en een eventuele kanttekening.
+Een logboekentry als pin. Metaregel bovenaan: soortbolletje, label, tijd, deelicoon (enkel bij de cliënt). Titel in subtitle, tekst tot vijf regels; een korte entry zonder tekst wordt een kleine pin met één regel in 19px. Rechtsboven verschijnt bij hover "Bewaar" als espresso pil; eenmaal bewaard blijft "Bewaard" in latte staan en wisselt het woord met een korte verticale overgang (280ms). Onderaan, achter een haarlijn, "Mee naar de sessie van ..." en een eventuele kanttekening.
 
 ### Weekstrookje
 Zeven bogen naast elkaar; vandaag is espresso. Een gevulde lattecirkel is een check-in, kleine taupe stipjes zijn afgewerkte opdrachten (maximaal vier).
 
 ### Stemming
-Vijf woorden in Bodoni Moda met elk een bolletje in hun stemmingskleur. Gekozen: cursief op een vlak van 22% van die kleur in crème. In lijsten: vijf bolletjes van 7px, gevuld tot de stemming, plus het woord.
+Vijf woorden (Jost 500) met elk een bolletje in hun stemmingskleur. Gekozen: een vlak van 22% van die kleur in crème. In lijsten: vijf bolletjes van 7px, gevuld tot de stemming, plus het woord.
 
 ### Editor
 Tiptap op 16px, lh 1.6. Koppen in de editor zijn Jost 600 (21px en 17px). Auteursinitialen in een cirkel van 22px in de marge: psycholoog op zand, cliënt op crème met taupe rand. Selectievakjes 18px, radius 6px, afgevinkt espresso met één kleine krimpanimatie (260ms).
@@ -338,12 +333,13 @@ Tiptap op 16px, lh 1.6. Koppen in de editor zijn Jost 600 (21px en 17px). Auteur
 - **Do** zet elke pagina op papier en elke kaart op crème met een haarlijn van 1px.
 - **Do** gebruik espresso enkel voor de primaire actie, het actieve segment, de volgende sessie en vandaag.
 - **Do** geef elke soort zijn vaste zachte tint en zet er altijd een woord of icoon bij.
-- **Do** zet namen, tijden en getallen in Bodoni Moda, de naam in een begroeting cursief.
-- **Do** zet de contextregel onder de titel, in de serif en gedempt.
+- **Do** zet koppen in Jost 500 met strakke spatiëring, de naam in een begroeting in koffiebruin.
+- **Do** zet de contextregel onder de titel, gedempt.
 - **Do** kader foto's afgerond of als boog, met de warme grade en een beschrijvende alt-tekst.
 - **Do** houd beweging tussen 180 en 300ms met `cubic-bezier(0.22, 1, 0.36, 1)`.
 
 ### Don't:
+- **Don't** gebruik een schreeflettertype of cursief in de interface.
 - **Don't** gebruik verzadigde kleur, ook niet voor fouten of urgentie; urgent is `clay-ink`.
 - **Don't** maak een donkere zijbalk, donkere banden of gekleurde statistiektegels.
 - **Don't** leg schaduw onder iets dat op de pagina ligt; schaduw is voor wat zweeft.

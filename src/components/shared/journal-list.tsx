@@ -150,11 +150,11 @@ export function JournalRow({
       <Link href={href} className={cn("block outline-none after:absolute after:inset-0 after:rounded-[22px] after:content-[''] focus-visible:after:ring-1 focus-visible:after:ring-pine", compact ? "mt-1.5" : "mt-3")}>
         {entry.title && <span className="mb-1.5 block font-display text-[25px] leading-[1.1]">{entry.title}</span>}
         {compact ? (
-          <span className="font-display text-[19px] italic">{summary}</span>
+          <span className="font-display text-[19px]">{summary}</span>
         ) : summary ? (
           <span className={cn("line-clamp-5 text-[15.5px] leading-relaxed", entry.title ? "text-muted" : "text-text")}>{summary}</span>
         ) : (
-          !entry.title && <span className="font-display text-[19px] italic text-muted">Enkel een woord</span>
+          !entry.title && <span className="font-display text-[19px] text-muted">Enkel een woord</span>
         )}
       </Link>
       {entry.mood && <MoodDots value={entry.mood} className="mt-3" />}

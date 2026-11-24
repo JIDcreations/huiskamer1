@@ -7,7 +7,7 @@ _Stand van 26 september 2026. Fase 1 staat op `main`; de dagrun van 26 september
 De vorige look voelde als AI-standaard (donkergroene zijbalk, gekleurde tegels, landschapsfoto's met een groene waas). Op vraag: een Pinterest-esthetiek, latte en linnen.
 
 - Palet: papier, linnen, latte, espresso. Soorten en stemmingen in gedempte tinten (honing, salie, terracotta, mist, lavendel).
-- Bodoni Moda voor koppen, Jost voor de interface. Navigatie in kleine letters, lichte linnen zijbalk.
+- Alles in Jost, ook de koppen (eerst Bodoni Moda geprobeerd, maar een schreef bleek minder helder). Navigatie in kleine letters, lichte linnen zijbalk.
 - Koppen als moodboard: een hoge boog en een tweede beeld ertegen. Aanmelden als prikbord van beelden.
 - Logboek als prikbord (twee kolommen) met "Bewaar" per entry: zo gaat iets mee naar de sessie.
 - Geen stat-tegels meer bij de psycholoog, wel een zin met wat er nieuw is. Geen labels in hoofdletters boven koppen.

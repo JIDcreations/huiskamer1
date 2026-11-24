@@ -39,7 +39,7 @@ export default function Login() {
 
         <div className="mx-auto flex w-full max-w-[400px] flex-1 flex-col justify-center py-12">
           <h1 className="type-hero">
-            Een rustige plek, <span className="italic">ook tussen de sessies door.</span>
+            Een rustige plek, <span className="text-sun-ink">ook tussen de sessies door.</span>
           </h1>
           <p className="mt-4 text-[16px] text-muted">Afspraken, opdrachten en je logboek, samen met je psycholoog.</p>
 
@@ -82,7 +82,7 @@ export default function Login() {
             <Pin beeld={beelden.pampas} className="h-[58%] rounded-t-full" priority />
             <figure className="rounded-[22px] bg-surface p-7 shadow-[0_0_0_1px_var(--edge)]">
               <p className="font-display text-[30px] leading-[1.08]">
-                Schrijf wanneer het past. <span className="italic">Deel enkel wat je wil delen.</span>
+                Schrijf wanneer het past. <span className="text-sun-ink">Deel enkel wat je wil delen.</span>
               </p>
               <figcaption className="mt-4 text-[14px] text-muted">Wat je voor jezelf houdt, ziet niemand anders.</figcaption>
             </figure>

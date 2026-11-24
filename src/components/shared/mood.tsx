@@ -51,7 +51,7 @@ export function MoodPicker({ value, onChange, className }: { value?: Mood; onCha
             className={cn(
               "group inline-flex h-10 items-center gap-2 rounded-full pl-3 pr-3.5 font-display text-[18px] whitespace-nowrap outline-none transition-[background-color,box-shadow,color] duration-200 focus-visible:ring-1 focus-visible:ring-pine active:scale-[0.98] sm:text-[19px]",
               active
-                ? "bg-[color-mix(in_srgb,var(--m)_22%,var(--cream))] italic text-text"
+                ? "bg-[color-mix(in_srgb,var(--m)_22%,var(--cream))] text-text"
                 : "text-muted hover:bg-[color-mix(in_srgb,var(--m)_12%,var(--cream))] hover:text-text"
             )}
           >

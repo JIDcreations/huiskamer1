@@ -144,7 +144,7 @@ export default function Vandaag() {
         eyebrow={capitalize(formatLongDate(new Date()))}
         title={
           <>
-            {greeting()}, <span className="italic">{psy.firstName}</span>
+            {greeting()}, <span className="text-sun-ink">{psy.firstName}</span>
           </>
         }
         actions={
@@ -171,9 +171,9 @@ export default function Vandaag() {
       {/* Een prikbord: per cliënt één pin met wat er tussen de sessies gebeurde. */}
       <section aria-labelledby="tussen" className="mt-14">
         <h2 id="tussen" className="type-title">
-          Tussen de <span className="italic">sessies</span>
+          Tussen de sessies
         </h2>
-        <p className="mt-2 font-display text-[18px] text-muted">Wat je cliënten deelden, de laatste drie dagen.</p>
+        <p className="mt-2 text-[16px] text-muted">Wat je cliënten deelden, de laatste drie dagen.</p>
         {byClient.length ? (
           <div className="mt-7 gap-4 md:columns-2 xl:columns-3">
             {byClient.map(([clientId, items]) => {

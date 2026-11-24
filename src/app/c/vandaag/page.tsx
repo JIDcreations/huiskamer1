@@ -38,7 +38,7 @@ function NextUp() {
         href="/c/sessies"
         className="group relative block overflow-hidden rounded-card bg-pine p-7 text-on-accent transition-colors duration-300 hover:bg-pine-deep md:p-8"
       >
-        <p className="font-display text-[44px] italic leading-none first-letter:uppercase">{formatRelativeDay(next.start)}</p>
+        <p className="font-display text-[44px] leading-none first-letter:uppercase">{formatRelativeDay(next.start)}</p>
         <p className="mt-3 text-[15px] text-on-accent/80">
           {soon ? "Je volgende sessie, " : ""}
           {formatDayMonth(next.start)} om {formatTime(next.start)} bij {psy.firstName}
@@ -82,7 +82,7 @@ export default function Vandaag() {
         eyebrow={capitalize(formatLongDate(new Date()))}
         title={
           <>
-            {greeting()}, <span className="italic">{client.firstName}</span>
+            {greeting()}, <span className="text-sun-ink">{client.firstName}</span>
           </>
         }
       />

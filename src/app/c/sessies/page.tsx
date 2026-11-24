@@ -32,7 +32,7 @@ function NextSession({ appointment, onFlow }: { appointment: Appointment; onFlow
   const Icon = appointment.mode === "online" ? Video : MapPin;
   return (
     <div className="text-on-accent">
-      <p className="type-title italic text-on-accent">
+      <p className="type-title text-on-accent">
         {/^(vandaag|morgen)$/.test(formatRelativeDay(appointment.start))
           ? `${capitalize(formatRelativeDay(appointment.start))}, ${formatDayMonth(appointment.start)}`
           : capitalize(formatLongDate(appointment.start))}
@@ -134,7 +134,7 @@ export default function Sessies() {
                         <div className="min-w-0 flex-1">
                           <p className="flex items-center gap-2 text-[15px] font-medium">
                             {capitalize(formatLongDate(a.start))}
-                            {fresh > 0 && <span className="inline-flex items-center gap-1 text-[12px] italic text-sun-ink"><span aria-hidden className="size-1.5 rounded-full bg-sun" />nieuw</span>}
+                            {fresh > 0 && <span className="inline-flex items-center gap-1 text-[12px] text-sun-ink"><span aria-hidden className="size-1.5 rounded-full bg-sun" />nieuw</span>}
                           </p>
                           <p className={cn("truncate text-[13px]", text ? "text-muted" : "text-faint")}>
                             {text || (a.type === "intake" ? "Intake" : "Nog geen samenvatting")}

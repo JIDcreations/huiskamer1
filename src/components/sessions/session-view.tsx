@@ -33,7 +33,7 @@ import { cn } from "@/lib/utils";
 function SectionTitle({ children, hint }: { children: React.ReactNode; hint?: React.ReactNode }) {
   return (
     <div className="mb-3 flex items-baseline justify-between gap-3">
-      <h2 className="font-display text-[24px] italic leading-tight">{children}</h2>
+      <h2 className="font-display text-[24px] leading-tight">{children}</h2>
       {hint}
     </div>
   );

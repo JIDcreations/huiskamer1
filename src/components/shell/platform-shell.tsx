@@ -48,12 +48,12 @@ export function Mark({ className }: { className?: string; inverted?: boolean }) 
   );
 }
 
-/** Woordmerk: Bodoni Moda cursief. */
+/** Woordmerk: Jost, medium en strak. */
 export function Wordmark({ className }: { className?: string }) {
   return (
     <span
-      className={cn("font-display italic leading-none tracking-[-0.01em]", className)}
-      style={{ fontWeight: 500, fontVariationSettings: '"opsz" 24' }}
+      className={cn("font-display leading-none tracking-[-0.03em]", className)}
+      style={{ fontWeight: 500 }}
     >
       Huiskamer
     </span>

@@ -119,7 +119,7 @@ export default function Agenda() {
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="type-title">{title}</h1>
-          <p className="mt-2 font-display text-[18px] text-muted">{count ? plural(count, "afspraak", "afspraken") : "Niets gepland"}</p>
+          <p className="mt-2 text-[16px] text-muted">{count ? plural(count, "afspraak", "afspraken") : "Niets gepland"}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <Segmented

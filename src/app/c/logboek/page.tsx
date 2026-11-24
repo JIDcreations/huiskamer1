@@ -48,7 +48,7 @@ export default function Logboek() {
             className="group block rounded-card bg-sun-soft p-7 text-sun-ink transition-colors duration-300 hover:bg-[color-mix(in_srgb,var(--sun)_35%,var(--cream))]"
           >
             <p className="font-display text-[24px] leading-snug text-ink">
-              Wat ziet <span className="italic">{psy.firstName}</span>?
+              Wat ziet <span className="text-sun-ink">{psy.firstName}</span>?
             </p>
             <p className="mt-2 text-[14.5px] leading-relaxed">Enkel wat je deelt. Wat je voor jezelf houdt, ziet niemand anders.</p>
             <span className="mt-4 inline-flex items-center gap-1 text-[13.5px] underline decoration-1 underline-offset-4">

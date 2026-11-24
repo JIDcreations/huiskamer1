@@ -137,7 +137,7 @@ Mockdata: 1 psycholoog, **8 cliënten** met fictieve Vlaamse namen, 3 weken aan 
 
 - **Gevoel:** een moodboard waarin je woont. Papier, linnen, latte en espresso, een koffiebar in Gent. Rustig, maar met smaak.
 - **Kleur:** één tonale familie, nergens een felle kleur. Espresso voor wat je indrukt, latte voor accenten. Elke soort entry houdt één gedempte tint (`src/components/shared/kind.ts`): check-in latte, opdracht salie, notitie terracotta, reactie mist, "Voor volgende keer" lavendel.
-- **Type:** Bodoni Moda voor koppen, namen (cursief) en tijden; Jost voor alles wat je bedient. Navigatie in kleine letters. Geen labels in hoofdletters boven een kop.
+- **Type:** alles in Jost, zonder schreef en zonder cursief. Koppen in 500 met strakke spatiëring. Navigatie in kleine letters. Geen labels in hoofdletters boven een kop.
 - **Beeld:** echte foto's (Unsplash, bronnen in `src/assets/beelden/BRONNEN.md`), altijd met `photo-grade`, in een boog of als pin. Koppen als collage.
 - **Vorm:** vlakke kaarten met een haarlijn, 22px radius, pillen voor knoppen. De boog is het terugkerende motief (merk, week, kaders).
 - **Beweging:** kort en zacht. Eén eigen moment: Bewaar wordt Bewaard op een pin in het logboek.

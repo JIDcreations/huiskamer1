@@ -13,15 +13,6 @@ const sans = localFont({
   display: "swap",
 });
 
-const display = localFont({
-  src: [
-    { path: "../../node_modules/@fontsource-variable/bodoni-moda/files/bodoni-moda-latin-opsz-normal.woff2", style: "normal" },
-    { path: "../../node_modules/@fontsource-variable/bodoni-moda/files/bodoni-moda-latin-opsz-italic.woff2", style: "italic" },
-  ],
-  weight: "400 900",
-  variable: "--font-display",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Huiskamer",
@@ -41,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="nl-BE" className={`${sans.variable} ${display.variable}`}>
+    <html lang="nl-BE" className={sans.variable}>
       <body className="min-h-dvh">{children}</body>
     </html>
   );

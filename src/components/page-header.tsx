@@ -46,7 +46,7 @@ export function PageHeader({
             <Image src={image.src} alt={image.alt} placeholder="blur" priority fill sizes="100vw" className="photo-grade object-cover" />
           </div>
           <h1 className="type-hero max-w-[14ch]">{title}</h1>
-          {eyebrow && <p className="mt-4 font-display text-[19px] text-muted md:text-[22px]">{eyebrow}</p>}
+          {eyebrow && <p className="mt-4 text-[17px] text-muted md:text-[19px]">{eyebrow}</p>}
           {children && <div className="mt-3 max-w-xl text-[15.5px] leading-relaxed text-muted">{children}</div>}
           {actions && <div className="mt-6 flex flex-wrap items-center gap-2">{actions}</div>}
         </div>
@@ -59,7 +59,7 @@ export function PageHeader({
     <header className={cn("flex flex-wrap items-end justify-between gap-4", className)}>
       <div className="min-w-0">
         <h1 className="type-title">{title}</h1>
-        {eyebrow && <p className="mt-2 font-display text-[18px] text-muted">{eyebrow}</p>}
+        {eyebrow && <p className="mt-2 text-[16px] text-muted">{eyebrow}</p>}
       </div>
       {actions && <div className="flex shrink-0 items-center gap-2">{actions}</div>}
     </header>

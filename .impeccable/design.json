@@ -650,7 +650,7 @@
       "refersTo": "card",
       "description": "Crème kaart met haarlijn en titel in Bodoni.",
       "html": "<section class=\"ds-card\"><h3 class=\"ds-card-t\">Vandaag</h3><p class=\"ds-card-row\"><span class=\"ds-time\">09:30</span>Arne Maes<span class=\"ds-sub\">Opvolging, fysiek</span></p></section>",
-      "css": ".ds-card{width:360px;padding:24px 28px;border-radius:22px;background:var(--cream,#fbf8f3);box-shadow:0 0 0 1px var(--edge,rgba(46,37,32,.09));color:var(--ink,#2e2520)}.ds-card-t{margin:0 0 12px;font:500 25px/1.15 var(--font-serif, 'Bodoni Moda', Georgia, serif);letter-spacing:-.005em}.ds-card-row{display:flex;align-items:baseline;gap:16px;margin:0;font:500 14px var(--font-sans, 'Jost', system-ui, sans-serif)}.ds-time{font:450 21px var(--font-serif, 'Bodoni Moda', Georgia, serif);font-variant-numeric:lining-nums tabular-nums}.ds-sub{margin-left:auto;font:400 12px var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#67584c)}"
+      "css": ".ds-card{width:360px;padding:24px 28px;border-radius:22px;background:var(--cream,#fbf8f3);box-shadow:0 0 0 1px var(--edge,rgba(46,37,32,.09));color:var(--ink,#2e2520)}.ds-card-t{margin:0 0 12px;font:500 25px/1.15 var(--font-serif, 'Jost', Georgia, serif);letter-spacing:-.005em}.ds-card-row{display:flex;align-items:baseline;gap:16px;margin:0;font:500 14px var(--font-sans, 'Jost', system-ui, sans-serif)}.ds-time{font:450 21px var(--font-serif, 'Jost', Georgia, serif);font-variant-numeric:lining-nums tabular-nums}.ds-sub{margin-left:auto;font:400 12px var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#67584c)}"
     },
     {
       "name": "Logboek-pin met Bewaar",
@@ -658,7 +658,7 @@
       "refersTo": "card",
       "description": "Signatuur: entry als pin; Bewaar neemt ze mee naar de sessie.",
       "html": "<article class=\"ds-pin\"><div class=\"ds-pin-meta\"><span class=\"ds-pin-dot\"></span>Notitie · 20:30</div><button class=\"ds-pin-save\">Bewaar</button><h4 class=\"ds-pin-t\">Nee zeggen, bijna</h4><p class=\"ds-pin-x\">Collega vroeg of ik zaterdag wilde overnemen. Ik zei dat ik erover zou nadenken.</p><div class=\"ds-mood\"><i style=\"background:#c39a7c\"></i><i style=\"background:#c39a7c\"></i><i style=\"background:#c39a7c\"></i><i></i><i></i>Gaat wel</div></article>",
-      "css": ".ds-pin{position:relative;width:300px;padding:24px;border-radius:22px;background:var(--cream,#fbf8f3);box-shadow:0 0 0 1px var(--edge,rgba(46,37,32,.09));transition:box-shadow 300ms;color:var(--ink,#2e2520)}.ds-pin:hover{box-shadow:0 0 0 1px var(--edge-strong,rgba(46,37,32,.2))}.ds-pin-meta{display:flex;align-items:center;gap:8px;font:400 13px var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#67584c)}.ds-pin-dot{width:8px;height:8px;border-radius:999px;background:var(--clay,#b07355)}.ds-pin-save{position:absolute;top:12px;right:12px;height:32px;padding:0 14px;border:0;border-radius:999px;background:var(--pine,#3b2f28);color:var(--on-accent,#f8f3ec);font:400 13px var(--font-sans, 'Jost', system-ui, sans-serif);opacity:0;cursor:pointer;transition:opacity 300ms,background-color 300ms}.ds-pin:hover .ds-pin-save,.ds-pin-save:focus-visible{opacity:1}.ds-pin-save:hover{background:var(--pine-deep,#2b221d)}.ds-pin-t{margin:12px 0 6px;font:500 25px/1.1 var(--font-serif, 'Bodoni Moda', Georgia, serif)}.ds-pin-x{margin:0;font:400 15.5px/1.6 var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#67584c)}.ds-mood{display:flex;align-items:center;gap:3px;margin-top:12px;font:500 12px var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#67584c)}.ds-mood i{width:7px;height:7px;border-radius:999px;background:var(--sand,#e9e0d3)}.ds-mood i:last-of-type{margin-right:5px}"
+      "css": ".ds-pin{position:relative;width:300px;padding:24px;border-radius:22px;background:var(--cream,#fbf8f3);box-shadow:0 0 0 1px var(--edge,rgba(46,37,32,.09));transition:box-shadow 300ms;color:var(--ink,#2e2520)}.ds-pin:hover{box-shadow:0 0 0 1px var(--edge-strong,rgba(46,37,32,.2))}.ds-pin-meta{display:flex;align-items:center;gap:8px;font:400 13px var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#67584c)}.ds-pin-dot{width:8px;height:8px;border-radius:999px;background:var(--clay,#b07355)}.ds-pin-save{position:absolute;top:12px;right:12px;height:32px;padding:0 14px;border:0;border-radius:999px;background:var(--pine,#3b2f28);color:var(--on-accent,#f8f3ec);font:400 13px var(--font-sans, 'Jost', system-ui, sans-serif);opacity:0;cursor:pointer;transition:opacity 300ms,background-color 300ms}.ds-pin:hover .ds-pin-save,.ds-pin-save:focus-visible{opacity:1}.ds-pin-save:hover{background:var(--pine-deep,#2b221d)}.ds-pin-t{margin:12px 0 6px;font:500 25px/1.1 var(--font-serif, 'Jost', Georgia, serif)}.ds-pin-x{margin:0;font:400 15.5px/1.6 var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#67584c)}.ds-mood{display:flex;align-items:center;gap:3px;margin-top:12px;font:500 12px var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#67584c)}.ds-mood i{width:7px;height:7px;border-radius:999px;background:var(--sand,#e9e0d3)}.ds-mood i:last-of-type{margin-right:5px}"
     },
     {
       "name": "Boogfoto",
@@ -671,10 +671,10 @@
   ],
   "narrative": {
     "northStar": "Het moodboard waarin je woont",
-    "overview": "Huiskamer ziet eruit als een prikbord in een goede Gentse koffiebar: één tonale familie van papier, linnen, latte en espresso, met echte sfeerfoto's in boog- en pinvormen en een modetijdschrift-serif voor alles wat gelezen wordt. Er is geen enkele verzadigde kleur. Betekenis zit in gedempte tinten (honing, salie, poeder-terracotta, mist, mauve) en altijd ook in vorm of woord.\n\nDe dichtheid is laag en redactioneel. Koppen zijn groot en zacht (Bodoni Moda, namen cursief), bediening is klein en rustig (Jost, navigatie in kleine letters). Vlakken zijn plat: een haarlijn rond crème op papier, geen gloed. De enige donkere vlakken zijn espresso: de primaire knop, de actieve tab, de kaart van de volgende sessie en vandaag in het weekstrookje.\n\nHet logboek en \"Tussen de sessies\" zijn prikborden (kolommen, masonry vanaf 768px), en \"Bewaar\" op een pin betekent: mee naar de sessie.",
+    "overview": "Huiskamer ziet eruit als een prikbord in een goede Gentse koffiebar: één tonale familie van papier, linnen, latte en espresso, met echte sfeerfoto's in boog- en pinvormen en een modetijdschrift-serif voor alles wat gelezen wordt. Er is geen enkele verzadigde kleur. Betekenis zit in gedempte tinten (honing, salie, poeder-terracotta, mist, mauve) en altijd ook in vorm of woord.\n\nDe dichtheid is laag en redactioneel. Koppen zijn groot en zacht (Jost, namen cursief), bediening is klein en rustig (Jost, navigatie in kleine letters). Vlakken zijn plat: een haarlijn rond crème op papier, geen gloed. De enige donkere vlakken zijn espresso: de primaire knop, de actieve tab, de kaart van de volgende sessie en vandaag in het weekstrookje.\n\nHet logboek en \"Tussen de sessies\" zijn prikborden (kolommen, masonry vanaf 768px), en \"Bewaar\" op een pin betekent: mee naar de sessie.",
     "keyCharacteristics": [
       "Eén latte-familie; kleur betekent soort, nooit alarm.",
-      "Bodoni Moda voor koppen, namen, tijden en getallen; Jost voor alles wat je bedient.",
+      "Jost voor koppen, namen, tijden en getallen; Jost voor alles wat je bedient.",
       "Boogvormen als terugkerend motief: merkteken, kopfoto, dagen in het weekstrookje, lege staat.",
       "Platte kaarten met een haarlijn; schaduw enkel op wat zweeft.",
       "Foto's altijd warm gegradeerd en gedempt, nooit mensen in therapie."
@@ -697,7 +697,7 @@
       },
       {
         "name": "De Lezen-Of-Bedienen-Regel",
-        "body": "Wat je leest of herkent (koppen, namen, tijden, getallen, woorden van een stemming) staat in Bodoni Moda. Wat je aanklikt of invult staat in Jost.",
+        "body": "Wat je leest of herkent (koppen, namen, tijden, getallen, woorden van een stemming) staat in Jost. Wat je aanklikt of invult staat in Jost.",
         "section": "typography"
       },
       {
@@ -725,7 +725,7 @@
       "**Do** zet elke pagina op papier en elke kaart op crème met een haarlijn van 1px.",
       "**Do** gebruik espresso enkel voor de primaire actie, het actieve segment, de volgende sessie en vandaag.",
       "**Do** geef elke soort zijn vaste zachte tint en zet er altijd een woord of icoon bij.",
-      "**Do** zet namen, tijden en getallen in Bodoni Moda, de naam in een begroeting cursief.",
+      "**Do** zet namen, tijden en getallen in Jost, de naam in een begroeting cursief.",
       "**Do** zet de contextregel onder de titel, in de serif en gedempt.",
       "**Do** kader foto's afgerond of als boog, met de warme grade en een beschrijvende alt-tekst.",
       "**Do** houd beweging tussen 180 en 300ms met `cubic-bezier(0.22, 1, 0.36, 1)`."
