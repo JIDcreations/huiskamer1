@@ -139,12 +139,11 @@ export default function Vandaag() {
   return (
     <>
       <PageHeader
-        image={beelden.vaas}
-        detail={beelden.schaduw}
+        image={beelden.schaduw}
         eyebrow={capitalize(formatLongDate(new Date()))}
         title={
           <>
-            {greeting()}, <span className="text-sun-ink">{psy.firstName}</span>
+            {greeting()}, {psy.firstName}
           </>
         }
         actions={

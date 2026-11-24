@@ -89,11 +89,11 @@ function NavLink({ item }: { item: NavItem }) {
       href={item.href}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "group relative flex h-11 items-center gap-3 rounded-full px-4 text-[15px] lowercase outline-none transition-colors duration-200 focus-visible:ring-1 focus-visible:ring-pine",
-        active ? "bg-surface text-side-text shadow-[0_0_0_1px_var(--edge)]" : "text-side-muted hover:bg-side-hover hover:text-side-text"
+        "group relative flex h-11 items-center gap-3 rounded-full px-4 text-[15px] lowercase outline-none transition-colors duration-200 focus-visible:ring-1 focus-visible:ring-sun",
+        active ? "bg-side-active text-side-text" : "text-side-muted hover:bg-side-hover hover:text-side-text"
       )}
     >
-      <Icon className={cn("size-[17px] stroke-[1.25]", active ? "text-side-text" : "text-taupe group-hover:text-side-muted")} />
+      <Icon className={cn("size-[17px] stroke-[1.25]", active ? "text-sun" : "text-side-muted group-hover:text-side-text")} />
       <span className="truncate">{item.label}</span>
       {active && <span aria-hidden className="ml-auto size-1.5 rounded-full bg-sun" />}
     </Link>
@@ -108,7 +108,7 @@ function SidebarContent({ homeHref, context, nav, footerNav, sidebarFooter }: Om
       </div>
       <nav aria-label="Hoofdnavigatie" className="flex-1 overflow-y-auto px-4 pt-8">
         {nav.map((group, i) => (
-          <div key={group.label ?? i} className={cn(i > 0 && "mt-5 border-t border-edge pt-5")}>
+          <div key={group.label ?? i} className={cn(i > 0 && "mt-5 border-t border-white/10 pt-5")}>
             {group.label && <p className="sr-only">{group.label}</p>}
             <div className="flex flex-col gap-0.5">
               {group.items.map((item) => (
@@ -120,7 +120,7 @@ function SidebarContent({ homeHref, context, nav, footerNav, sidebarFooter }: Om
       </nav>
       {sidebarFooter && <div className="px-4 pb-4">{sidebarFooter}</div>}
       {footerNav.length > 0 && (
-        <div className="flex flex-col gap-0.5 border-t border-edge px-4 py-3">
+        <div className="flex flex-col gap-0.5 border-t border-white/10 px-4 py-3">
           {footerNav.map((item) => (
             <NavLink key={item.href} item={item} />
           ))}
@@ -256,7 +256,7 @@ function MobileDrawer({
                 <Dialog.Description className="sr-only">Navigatie</Dialog.Description>
                 <Dialog.Close
                   aria-label="Menu sluiten"
-                  className="absolute right-3 top-6 z-10 inline-flex size-8 items-center justify-center rounded-lg text-side-muted hover:bg-side-hover hover:text-side-text"
+                  className="absolute right-3 top-6 z-10 inline-flex size-8 items-center justify-center rounded-full text-side-muted hover:bg-side-hover hover:text-side-text"
                 >
                   <X className="size-4 stroke-[1.5]" />
                 </Dialog.Close>
@@ -301,7 +301,7 @@ export function PlatformShell({ user, topbarStart, topbarEnd, mobileTabs, childr
 
   return (
     <div className="min-h-dvh lg:pl-[264px]">
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[264px] border-r border-edge bg-side lg:block">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[264px] bg-side lg:block">
         <SidebarContent {...sidebar} />
       </aside>
       {!mobileTabs && <MobileDrawer open={drawerOpen} onOpenChange={setDrawerOpen} {...sidebar} />}

@@ -24,7 +24,7 @@ function OnboardingGate() {
 function PsyCard() {
   const psy = usePsychologist();
   return (
-    <div className="rounded-[22px] bg-surface p-4 shadow-[0_0_0_1px_var(--edge)]">
+    <div className="rounded-[22px] bg-side-hover p-4 ring-1 ring-inset ring-white/10">
       <div className="flex items-center gap-3">
         <Avatar name={psy.name} tone="psy" size="md" className="bg-sun text-ink" />
         <div className="min-w-0 leading-tight">
@@ -33,7 +33,7 @@ function PsyCard() {
         </div>
       </div>
       <p className="mt-3 text-[12px] leading-relaxed text-side-muted">{psy.address}</p>
-      <a href={`tel:${psy.phone.replace(/\s/g, "")}`} className="mt-1 inline-block text-[12.5px] text-side-text underline decoration-taupe underline-offset-4 hover:decoration-pine">
+      <a href={`tel:${psy.phone.replace(/\s/g, "")}`} className="mt-1 inline-block text-[12.5px] text-side-text underline decoration-white/30 underline-offset-4 hover:decoration-sun">
         {psy.phone}
       </a>
     </div>

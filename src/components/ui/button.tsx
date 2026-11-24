@@ -11,7 +11,7 @@ const buttonVariants = cva(
         primary: "bg-accent text-on-accent hover:bg-pine-deep active:bg-pine-deep",
         secondary: "bg-surface text-text shadow-[inset_0_0_0_1px_var(--edge-strong)] hover:bg-oat-soft active:bg-surface-2",
         soft: "bg-surface-2/70 text-pine hover:bg-surface-2 active:bg-surface-2",
-        sun: "bg-sun text-ink hover:bg-[#cfae7a] active:bg-[#cfae7a]",
+        sun: "bg-sun text-ink hover:bg-[#b9864a] active:bg-[#b9864a]",
         outline: "text-muted shadow-[inset_0_0_0_1px_var(--edge-strong)] hover:bg-oat-soft hover:text-text",
         ghost: "text-text hover:bg-oat-soft active:bg-surface-2/60",
         quiet: "text-muted hover:bg-oat-soft hover:text-text active:bg-surface-2/60",

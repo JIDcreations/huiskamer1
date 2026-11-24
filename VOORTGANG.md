@@ -8,7 +8,8 @@ De vorige look voelde als AI-standaard (donkergroene zijbalk, gekleurde tegels, 
 
 - Palet: papier, linnen, latte, espresso. Soorten en stemmingen in gedempte tinten (honing, salie, terracotta, mist, lavendel).
 - Alles in Jost, ook de koppen (eerst Bodoni Moda geprobeerd, maar een schreef bleek minder helder). Navigatie in kleine letters, lichte linnen zijbalk.
-- Koppen als moodboard: een hoge boog en een tweede beeld ertegen. Aanmelden als prikbord van beelden.
+- Fotoband van rand tot rand bovenaan Vandaag, Logboek en Sessies (eerst een collage geprobeerd). Aanmelden als prikbord van beelden.
+- Contrast opgetrokken: diepe espresso zijbalk, witte kaarten op donkerder papier, donkerdere tekst, caramel als accent.
 - Logboek als prikbord (twee kolommen) met "Bewaar" per entry: zo gaat iets mee naar de sessie.
 - Geen stat-tegels meer bij de psycholoog, wel een zin met wat er nieuw is. Geen labels in hoofdletters boven koppen.
 - Acht nieuwe sfeerbeelden van Unsplash (bronnen in `src/assets/beelden/BRONNEN.md`). PRODUCT.md beschrijft het product voor ontwerpwerk.

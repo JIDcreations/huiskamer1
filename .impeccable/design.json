@@ -7,7 +7,7 @@
       "paper": {
         "role": "neutral",
         "displayName": "Papier",
-        "canonical": "#f5f0e8",
+        "canonical": "#efe7db",
         "purpose": "Grond van elke pagina.",
         "tonalRamp": [
           "#0e0b06",
@@ -23,7 +23,7 @@
       "cream": {
         "role": "neutral",
         "displayName": "Crème",
-        "canonical": "#fbf8f3",
+        "canonical": "#fffdf9",
         "purpose": "Kaarten, velden, eilanden.",
         "tonalRamp": [
           "#0d0b08",
@@ -39,7 +39,7 @@
       "sand": {
         "role": "neutral",
         "displayName": "Zand",
-        "canonical": "#e9e0d3",
+        "canonical": "#e4d8c7",
         "purpose": "Lege bolletjes, scheidingen, placeholders, zachte knop.",
         "tonalRamp": [
           "#100a03",
@@ -55,7 +55,7 @@
       "oat-soft": {
         "role": "neutral",
         "displayName": "Haver",
-        "canonical": "#efe8de",
+        "canonical": "#f5efe5",
         "purpose": "Hover-vlak van rijen en stille knoppen.",
         "tonalRamp": [
           "#0f0a05",
@@ -71,7 +71,7 @@
       "side": {
         "role": "neutral",
         "displayName": "Linnen",
-        "canonical": "#efe8dd",
+        "canonical": "#2b221d",
         "purpose": "Zijbalk en moodboard bij aanmelden.",
         "tonalRamp": [
           "#0f0a04",
@@ -87,7 +87,7 @@
       "ink": {
         "role": "neutral",
         "displayName": "Espresso-inkt",
-        "canonical": "#2e2520",
+        "canonical": "#241d18",
         "purpose": "Tekst.",
         "tonalRamp": [
           "#110906",
@@ -103,7 +103,7 @@
       "text-muted": {
         "role": "neutral",
         "displayName": "Mokka",
-        "canonical": "#67584c",
+        "canonical": "#5a4a3f",
         "purpose": "Secundaire tekst.",
         "tonalRamp": [
           "#130802",
@@ -119,7 +119,7 @@
       "text-faint": {
         "role": "neutral",
         "displayName": "Grijsbruin",
-        "canonical": "#766658",
+        "canonical": "#6a594c",
         "purpose": "Tijden en hints.",
         "tonalRamp": [
           "#140801",
@@ -135,7 +135,7 @@
       "taupe": {
         "role": "neutral",
         "displayName": "Taupe",
-        "canonical": "#ae9c88",
+        "canonical": "#9c8772",
         "purpose": "Iconen, linkonderstreping, randen; geen tekst.",
         "tonalRamp": [
           "#140800",
@@ -183,7 +183,7 @@
       "pine": {
         "role": "primary",
         "displayName": "Espresso",
-        "canonical": "#3b2f28",
+        "canonical": "#33271f",
         "purpose": "Primaire actie, actief segment, volgende sessie, vandaag. Historische tokennaam.",
         "tonalRamp": [
           "#120904",
@@ -231,7 +231,7 @@
       "sun": {
         "role": "secondary",
         "displayName": "Latte",
-        "canonical": "#d9bc8c",
+        "canonical": "#c9975a",
         "purpose": "Licht accent: Schrijf iets, actief stipje, check-in gevuld, selectie, merkteken.",
         "tonalRamp": [
           "#1a0500",
@@ -247,7 +247,7 @@
       "sun-soft": {
         "role": "secondary",
         "displayName": "Lattevlak",
-        "canonical": "#f1e6d2",
+        "canonical": "#f3e3c9",
         "purpose": "Check-ins, Bewaard, actieve tab mobiel, afspraak nu.",
         "tonalRamp": [
           "#110a00",
@@ -263,7 +263,7 @@
       "sun-ink": {
         "role": "secondary",
         "displayName": "Koffiebruin",
-        "canonical": "#6a4e2c",
+        "canonical": "#7a4f1f",
         "purpose": "Tekst op lattevlak.",
         "tonalRamp": [
           "#1a0400",
@@ -279,7 +279,7 @@
       "moss": {
         "role": "tertiary",
         "displayName": "Salie",
-        "canonical": "#e2e3d5",
+        "canonical": "#dfe2cf",
         "purpose": "Opdrachten (tekst in espresso).",
         "tonalRamp": [
           "#0c0c04",
@@ -311,7 +311,7 @@
       "clay-soft": {
         "role": "tertiary",
         "displayName": "Poeder-terracotta",
-        "canonical": "#f0e0d6",
+        "canonical": "#f2ddd0",
         "purpose": "Vlak voor notities.",
         "tonalRamp": [
           "#120904",
@@ -407,7 +407,7 @@
       "mood-1": {
         "role": "tertiary",
         "displayName": "Stemming zwaar (mist)",
-        "canonical": "#7b8692",
+        "canonical": "#6b7a8c",
         "purpose": "Stemmingsbolletje.",
         "tonalRamp": [
           "#050c14",
@@ -423,7 +423,7 @@
       "mood-2": {
         "role": "tertiary",
         "displayName": "Stemming onrustig (lavendel)",
-        "canonical": "#a48795",
+        "canonical": "#9a7290",
         "purpose": "Stemmingsbolletje.",
         "tonalRamp": [
           "#17040e",
@@ -439,7 +439,7 @@
       "mood-3": {
         "role": "tertiary",
         "displayName": "Stemming gaat wel (latte)",
-        "canonical": "#c39a7c",
+        "canonical": "#c48a5e",
         "purpose": "Stemmingsbolletje.",
         "tonalRamp": [
           "#1d0200",
@@ -455,7 +455,7 @@
       "mood-4": {
         "role": "tertiary",
         "displayName": "Stemming rustig (salie)",
-        "canonical": "#a2a88c",
+        "canonical": "#8f9a72",
         "purpose": "Stemmingsbolletje; ook het opdracht-bolletje.",
         "tonalRamp": [
           "#0a0d00",
@@ -463,7 +463,7 @@
           "#3e432a",
           "#5c6147",
           "#7e8469",
-          "#a2a88c",
+          "#8f9a72",
           "#c8ceb1",
           "#ecf3d5"
         ]
@@ -471,7 +471,7 @@
       "mood-5": {
         "role": "tertiary",
         "displayName": "Stemming licht (honing)",
-        "canonical": "#d9b77a",
+        "canonical": "#d6a648",
         "purpose": "Stemmingsbolletje.",
         "tonalRamp": [
           "#1c0300",
@@ -594,7 +594,7 @@
       "refersTo": "button-primary",
       "description": "Espresso pil voor de ene hoofdactie per scherm.",
       "html": "<button class=\"ds-btn-primary\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.25\" stroke-linecap=\"round\"><path d=\"M5 12h14M12 5v14\"/></svg>Afspraak</button>",
-      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 20px;border:0;border-radius:999px;background:var(--pine,#3b2f28);color:var(--on-accent,#f8f3ec);font:400 14px/1 var(--font-sans, 'Jost', system-ui, sans-serif);letter-spacing:.01em;cursor:pointer;transition:background-color 200ms cubic-bezier(0.22,1,0.36,1),transform 200ms cubic-bezier(0.22,1,0.36,1)}.ds-btn-primary:hover{background:var(--pine-deep,#2b221d)}.ds-btn-primary:active{transform:scale(.98)}.ds-btn-primary:focus-visible{outline:none;box-shadow:0 0 0 2px var(--paper,#f5f0e8),0 0 0 3px var(--pine,#3b2f28)}"
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 20px;border:0;border-radius:999px;background:var(--pine,#33271f);color:var(--on-accent,#f8f3ec);font:400 14px/1 var(--font-sans, 'Jost', system-ui, sans-serif);letter-spacing:.01em;cursor:pointer;transition:background-color 200ms cubic-bezier(0.22,1,0.36,1),transform 200ms cubic-bezier(0.22,1,0.36,1)}.ds-btn-primary:hover{background:var(--pine-deep,#2b221d)}.ds-btn-primary:active{transform:scale(.98)}.ds-btn-primary:focus-visible{outline:none;box-shadow:0 0 0 2px var(--paper,#efe7db),0 0 0 3px var(--pine,#33271f)}"
     },
     {
       "name": "Latte-knop",
@@ -602,7 +602,7 @@
       "refersTo": "button-sun",
       "description": "Lichte schrijfactie, zoals Schrijf iets.",
       "html": "<button class=\"ds-btn-sun\">Schrijf iets</button>",
-      "css": ".ds-btn-sun{height:40px;padding:0 20px;border:0;border-radius:999px;background:var(--sun,#d9bc8c);color:var(--ink,#2e2520);font:400 14px/1 var(--font-sans, 'Jost', system-ui, sans-serif);letter-spacing:.01em;cursor:pointer;transition:background-color 200ms cubic-bezier(0.22,1,0.36,1),transform 200ms cubic-bezier(0.22,1,0.36,1)}.ds-btn-sun:hover{background:#cfae7a}.ds-btn-sun:active{transform:scale(.98)}.ds-btn-sun:focus-visible{outline:none;box-shadow:0 0 0 2px var(--paper,#f5f0e8),0 0 0 3px var(--pine,#3b2f28)}"
+      "css": ".ds-btn-sun{height:40px;padding:0 20px;border:0;border-radius:999px;background:var(--sun,#c9975a);color:var(--ink,#241d18);font:400 14px/1 var(--font-sans, 'Jost', system-ui, sans-serif);letter-spacing:.01em;cursor:pointer;transition:background-color 200ms cubic-bezier(0.22,1,0.36,1),transform 200ms cubic-bezier(0.22,1,0.36,1)}.ds-btn-sun:hover{background:#cfae7a}.ds-btn-sun:active{transform:scale(.98)}.ds-btn-sun:focus-visible{outline:none;box-shadow:0 0 0 2px var(--paper,#efe7db),0 0 0 3px var(--pine,#33271f)}"
     },
     {
       "name": "Secundaire knop",
@@ -610,7 +610,7 @@
       "refersTo": "button-secondary",
       "description": "Crème pil met sterke haarlijn.",
       "html": "<button class=\"ds-btn-secondary\">Verzetten</button>",
-      "css": ".ds-btn-secondary{height:40px;padding:0 20px;border:0;border-radius:999px;background:var(--cream,#fbf8f3);color:var(--ink,#2e2520);box-shadow:inset 0 0 0 1px var(--edge-strong,rgba(46,37,32,.2));font:400 14px/1 var(--font-sans, 'Jost', system-ui, sans-serif);cursor:pointer;transition:background-color 200ms cubic-bezier(0.22,1,0.36,1)}.ds-btn-secondary:hover{background:var(--oat-soft,#efe8de)}.ds-btn-secondary:focus-visible{outline:none;box-shadow:inset 0 0 0 1px var(--edge-strong,rgba(46,37,32,.2)),0 0 0 2px var(--paper,#f5f0e8),0 0 0 3px var(--pine,#3b2f28)}"
+      "css": ".ds-btn-secondary{height:40px;padding:0 20px;border:0;border-radius:999px;background:var(--cream,#fffdf9);color:var(--ink,#241d18);box-shadow:inset 0 0 0 1px var(--edge-strong,rgba(46,37,32,.2));font:400 14px/1 var(--font-sans, 'Jost', system-ui, sans-serif);cursor:pointer;transition:background-color 200ms cubic-bezier(0.22,1,0.36,1)}.ds-btn-secondary:hover{background:var(--oat-soft,#f5efe5)}.ds-btn-secondary:focus-visible{outline:none;box-shadow:inset 0 0 0 1px var(--edge-strong,rgba(46,37,32,.2)),0 0 0 2px var(--paper,#efe7db),0 0 0 3px var(--pine,#33271f)}"
     },
     {
       "name": "Invoerveld",
@@ -618,7 +618,7 @@
       "refersTo": "input",
       "description": "Crème veld met haarlijn, espresso focus.",
       "html": "<label class=\"ds-label\">E-mail<input class=\"ds-input\" type=\"email\" placeholder=\"jij@voorbeeld.be\"></label>",
-      "css": ".ds-label{display:block;font:500 13px/1.4 var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#67584c)}.ds-input{display:block;margin-top:6px;width:280px;height:44px;padding:0 16px;border:0;border-radius:12px;background:var(--cream,#fbf8f3);color:var(--ink,#2e2520);font:400 15px var(--font-sans, 'Jost', system-ui, sans-serif);box-shadow:inset 0 0 0 1px var(--edge-strong,rgba(46,37,32,.2));outline:none;transition:box-shadow 200ms}.ds-input::placeholder{color:var(--text-faint,#766658)}.ds-input:hover{box-shadow:inset 0 0 0 1px var(--taupe,#ae9c88)}.ds-input:focus{box-shadow:inset 0 0 0 1.5px var(--pine,#3b2f28),0 0 0 4px rgba(59,47,40,.12)}"
+      "css": ".ds-label{display:block;font:500 13px/1.4 var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#5a4a3f)}.ds-input{display:block;margin-top:6px;width:280px;height:44px;padding:0 16px;border:0;border-radius:12px;background:var(--cream,#fffdf9);color:var(--ink,#241d18);font:400 15px var(--font-sans, 'Jost', system-ui, sans-serif);box-shadow:inset 0 0 0 1px var(--edge-strong,rgba(46,37,32,.2));outline:none;transition:box-shadow 200ms}.ds-input::placeholder{color:var(--text-faint,#6a594c)}.ds-input:hover{box-shadow:inset 0 0 0 1px var(--taupe,#9c8772)}.ds-input:focus{box-shadow:inset 0 0 0 1.5px var(--pine,#33271f),0 0 0 4px rgba(59,47,40,.12)}"
     },
     {
       "name": "Navigatie-item",
@@ -626,7 +626,7 @@
       "refersTo": "nav-item-active",
       "description": "Zijbalk-items in kleine letters; actief is een crème pil met latte stipje.",
       "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-item is-active\" href=\"#\">vandaag<span class=\"ds-dot\"></span></a><a class=\"ds-nav-item\" href=\"#\">logboek</a><a class=\"ds-nav-item\" href=\"#\">sessies</a></nav>",
-      "css": ".ds-nav{display:flex;flex-direction:column;gap:2px;width:232px;padding:16px;background:var(--side,#efe8dd)}.ds-nav-item{display:flex;align-items:center;height:44px;padding:0 16px;border-radius:999px;font:400 15px var(--font-sans, 'Jost', system-ui, sans-serif);text-transform:lowercase;color:var(--side-muted,#6f6054);text-decoration:none;transition:background-color 200ms,color 200ms}.ds-nav-item:hover{background:rgba(46,37,32,.05);color:var(--ink,#2e2520)}.ds-nav-item.is-active{background:var(--cream,#fbf8f3);color:var(--ink,#2e2520);box-shadow:0 0 0 1px var(--edge,rgba(46,37,32,.09))}.ds-nav-item:focus-visible{outline:none;box-shadow:0 0 0 1px var(--pine,#3b2f28)}.ds-dot{margin-left:auto;width:6px;height:6px;border-radius:999px;background:var(--sun,#d9bc8c)}"
+      "css": ".ds-nav{display:flex;flex-direction:column;gap:2px;width:232px;padding:16px;background:var(--side,#2b221d)}.ds-nav-item{display:flex;align-items:center;height:44px;padding:0 16px;border-radius:999px;font:400 15px var(--font-sans, 'Jost', system-ui, sans-serif);text-transform:lowercase;color:var(--side-muted,#6f6054);text-decoration:none;transition:background-color 200ms,color 200ms}.ds-nav-item:hover{background:rgba(46,37,32,.05);color:var(--ink,#241d18)}.ds-nav-item.is-active{background:var(--cream,#fffdf9);color:var(--ink,#241d18);box-shadow:0 0 0 1px var(--edge,rgba(46,37,32,.09))}.ds-nav-item:focus-visible{outline:none;box-shadow:0 0 0 1px var(--pine,#33271f)}.ds-dot{margin-left:auto;width:6px;height:6px;border-radius:999px;background:var(--sun,#c9975a)}"
     },
     {
       "name": "Segmented control",
@@ -634,7 +634,7 @@
       "refersTo": "segmented-active",
       "description": "Filterkeuze; de actieve keuze is een espresso pil.",
       "html": "<div class=\"ds-seg\" role=\"radiogroup\"><button class=\"ds-seg-o is-on\">Alles</button><button class=\"ds-seg-o\">Check-ins</button><button class=\"ds-seg-o\">Notities</button></div>",
-      "css": ".ds-seg{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:var(--cream,#fbf8f3);box-shadow:0 0 0 1px var(--edge,rgba(46,37,32,.09))}.ds-seg-o{height:32px;padding:0 14px;border:0;border-radius:999px;background:transparent;color:var(--text-muted,#67584c);font:400 13px var(--font-sans, 'Jost', system-ui, sans-serif);cursor:pointer;transition:background-color 220ms cubic-bezier(0.22,1,0.36,1),color 220ms}.ds-seg-o:hover{color:var(--ink,#2e2520)}.ds-seg-o.is-on{background:var(--pine,#3b2f28);color:var(--on-accent,#f8f3ec)}.ds-seg-o:focus-visible{outline:none;box-shadow:0 0 0 1px var(--pine,#3b2f28)}"
+      "css": ".ds-seg{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:var(--cream,#fffdf9);box-shadow:0 0 0 1px var(--edge,rgba(46,37,32,.09))}.ds-seg-o{height:32px;padding:0 14px;border:0;border-radius:999px;background:transparent;color:var(--text-muted,#5a4a3f);font:400 13px var(--font-sans, 'Jost', system-ui, sans-serif);cursor:pointer;transition:background-color 220ms cubic-bezier(0.22,1,0.36,1),color 220ms}.ds-seg-o:hover{color:var(--ink,#241d18)}.ds-seg-o.is-on{background:var(--pine,#33271f);color:var(--on-accent,#f8f3ec)}.ds-seg-o:focus-visible{outline:none;box-shadow:0 0 0 1px var(--pine,#33271f)}"
     },
     {
       "name": "Soort-badges",
@@ -642,7 +642,7 @@
       "refersTo": "badge-kind",
       "description": "Vaste zachte tint per soort.",
       "html": "<div class=\"ds-badges\"><span class=\"ds-badge ds-b-checkin\">Check-in</span><span class=\"ds-badge ds-b-opdracht\">Opdracht</span><span class=\"ds-badge ds-b-notitie\">Notitie</span><span class=\"ds-badge ds-b-sessie\">Reactie</span><span class=\"ds-badge ds-b-agenda\">Voor volgende keer</span></div>",
-      "css": ".ds-badges{display:flex;flex-wrap:wrap;gap:8px}.ds-badge{display:inline-flex;align-items:center;padding:2px 10px;border-radius:999px;font:500 12px/1.6 var(--font-sans, 'Jost', system-ui, sans-serif)}.ds-b-checkin{background:var(--sun-soft,#f1e6d2);color:var(--sun-ink,#6a4e2c)}.ds-b-opdracht{background:var(--moss,#e2e3d5);color:var(--pine,#3b2f28)}.ds-b-notitie{background:var(--clay-soft,#f0e0d6);color:var(--clay-ink,#8a4a30)}.ds-b-sessie{background:var(--sky-soft,#e2e4e3);color:var(--sky-ink,#4a5560)}.ds-b-agenda{background:var(--plum-soft,#ece0de);color:var(--plum-ink,#6e4e52)}"
+      "css": ".ds-badges{display:flex;flex-wrap:wrap;gap:8px}.ds-badge{display:inline-flex;align-items:center;padding:2px 10px;border-radius:999px;font:500 12px/1.6 var(--font-sans, 'Jost', system-ui, sans-serif)}.ds-b-checkin{background:var(--sun-soft,#f3e3c9);color:var(--sun-ink,#7a4f1f)}.ds-b-opdracht{background:var(--moss,#dfe2cf);color:var(--pine,#33271f)}.ds-b-notitie{background:var(--clay-soft,#f2ddd0);color:var(--clay-ink,#8a4a30)}.ds-b-sessie{background:var(--sky-soft,#e2e4e3);color:var(--sky-ink,#4a5560)}.ds-b-agenda{background:var(--plum-soft,#ece0de);color:var(--plum-ink,#6e4e52)}"
     },
     {
       "name": "Paneel",
@@ -650,15 +650,15 @@
       "refersTo": "card",
       "description": "Crème kaart met haarlijn en titel in Bodoni.",
       "html": "<section class=\"ds-card\"><h3 class=\"ds-card-t\">Vandaag</h3><p class=\"ds-card-row\"><span class=\"ds-time\">09:30</span>Arne Maes<span class=\"ds-sub\">Opvolging, fysiek</span></p></section>",
-      "css": ".ds-card{width:360px;padding:24px 28px;border-radius:22px;background:var(--cream,#fbf8f3);box-shadow:0 0 0 1px var(--edge,rgba(46,37,32,.09));color:var(--ink,#2e2520)}.ds-card-t{margin:0 0 12px;font:500 25px/1.15 var(--font-serif, 'Jost', Georgia, serif);letter-spacing:-.005em}.ds-card-row{display:flex;align-items:baseline;gap:16px;margin:0;font:500 14px var(--font-sans, 'Jost', system-ui, sans-serif)}.ds-time{font:450 21px var(--font-serif, 'Jost', Georgia, serif);font-variant-numeric:lining-nums tabular-nums}.ds-sub{margin-left:auto;font:400 12px var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#67584c)}"
+      "css": ".ds-card{width:360px;padding:24px 28px;border-radius:22px;background:var(--cream,#fffdf9);box-shadow:0 0 0 1px var(--edge,rgba(46,37,32,.09));color:var(--ink,#241d18)}.ds-card-t{margin:0 0 12px;font:500 25px/1.15 var(--font-serif, 'Jost', Georgia, serif);letter-spacing:-.005em}.ds-card-row{display:flex;align-items:baseline;gap:16px;margin:0;font:500 14px var(--font-sans, 'Jost', system-ui, sans-serif)}.ds-time{font:450 21px var(--font-serif, 'Jost', Georgia, serif);font-variant-numeric:lining-nums tabular-nums}.ds-sub{margin-left:auto;font:400 12px var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#5a4a3f)}"
     },
     {
       "name": "Logboek-pin met Bewaar",
       "kind": "custom",
       "refersTo": "card",
       "description": "Signatuur: entry als pin; Bewaar neemt ze mee naar de sessie.",
-      "html": "<article class=\"ds-pin\"><div class=\"ds-pin-meta\"><span class=\"ds-pin-dot\"></span>Notitie · 20:30</div><button class=\"ds-pin-save\">Bewaar</button><h4 class=\"ds-pin-t\">Nee zeggen, bijna</h4><p class=\"ds-pin-x\">Collega vroeg of ik zaterdag wilde overnemen. Ik zei dat ik erover zou nadenken.</p><div class=\"ds-mood\"><i style=\"background:#c39a7c\"></i><i style=\"background:#c39a7c\"></i><i style=\"background:#c39a7c\"></i><i></i><i></i>Gaat wel</div></article>",
-      "css": ".ds-pin{position:relative;width:300px;padding:24px;border-radius:22px;background:var(--cream,#fbf8f3);box-shadow:0 0 0 1px var(--edge,rgba(46,37,32,.09));transition:box-shadow 300ms;color:var(--ink,#2e2520)}.ds-pin:hover{box-shadow:0 0 0 1px var(--edge-strong,rgba(46,37,32,.2))}.ds-pin-meta{display:flex;align-items:center;gap:8px;font:400 13px var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#67584c)}.ds-pin-dot{width:8px;height:8px;border-radius:999px;background:var(--clay,#b07355)}.ds-pin-save{position:absolute;top:12px;right:12px;height:32px;padding:0 14px;border:0;border-radius:999px;background:var(--pine,#3b2f28);color:var(--on-accent,#f8f3ec);font:400 13px var(--font-sans, 'Jost', system-ui, sans-serif);opacity:0;cursor:pointer;transition:opacity 300ms,background-color 300ms}.ds-pin:hover .ds-pin-save,.ds-pin-save:focus-visible{opacity:1}.ds-pin-save:hover{background:var(--pine-deep,#2b221d)}.ds-pin-t{margin:12px 0 6px;font:500 25px/1.1 var(--font-serif, 'Jost', Georgia, serif)}.ds-pin-x{margin:0;font:400 15.5px/1.6 var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#67584c)}.ds-mood{display:flex;align-items:center;gap:3px;margin-top:12px;font:500 12px var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#67584c)}.ds-mood i{width:7px;height:7px;border-radius:999px;background:var(--sand,#e9e0d3)}.ds-mood i:last-of-type{margin-right:5px}"
+      "html": "<article class=\"ds-pin\"><div class=\"ds-pin-meta\"><span class=\"ds-pin-dot\"></span>Notitie · 20:30</div><button class=\"ds-pin-save\">Bewaar</button><h4 class=\"ds-pin-t\">Nee zeggen, bijna</h4><p class=\"ds-pin-x\">Collega vroeg of ik zaterdag wilde overnemen. Ik zei dat ik erover zou nadenken.</p><div class=\"ds-mood\"><i style=\"background:#c48a5e\"></i><i style=\"background:#c48a5e\"></i><i style=\"background:#c48a5e\"></i><i></i><i></i>Gaat wel</div></article>",
+      "css": ".ds-pin{position:relative;width:300px;padding:24px;border-radius:22px;background:var(--cream,#fffdf9);box-shadow:0 0 0 1px var(--edge,rgba(46,37,32,.09));transition:box-shadow 300ms;color:var(--ink,#241d18)}.ds-pin:hover{box-shadow:0 0 0 1px var(--edge-strong,rgba(46,37,32,.2))}.ds-pin-meta{display:flex;align-items:center;gap:8px;font:400 13px var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#5a4a3f)}.ds-pin-dot{width:8px;height:8px;border-radius:999px;background:var(--clay,#b07355)}.ds-pin-save{position:absolute;top:12px;right:12px;height:32px;padding:0 14px;border:0;border-radius:999px;background:var(--pine,#33271f);color:var(--on-accent,#f8f3ec);font:400 13px var(--font-sans, 'Jost', system-ui, sans-serif);opacity:0;cursor:pointer;transition:opacity 300ms,background-color 300ms}.ds-pin:hover .ds-pin-save,.ds-pin-save:focus-visible{opacity:1}.ds-pin-save:hover{background:var(--pine-deep,#2b221d)}.ds-pin-t{margin:12px 0 6px;font:500 25px/1.1 var(--font-serif, 'Jost', Georgia, serif)}.ds-pin-x{margin:0;font:400 15.5px/1.6 var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#5a4a3f)}.ds-mood{display:flex;align-items:center;gap:3px;margin-top:12px;font:500 12px var(--font-sans, 'Jost', system-ui, sans-serif);color:var(--text-muted,#5a4a3f)}.ds-mood i{width:7px;height:7px;border-radius:999px;background:var(--sand,#e4d8c7)}.ds-mood i:last-of-type{margin-right:5px}"
     },
     {
       "name": "Boogfoto",

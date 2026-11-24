@@ -31,13 +31,13 @@ export default function Login() {
 
   return (
     <main className="grid min-h-dvh lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-      <div className="flex flex-col px-5 py-8 md:px-12 lg:py-10">
+      <div className="mx-auto flex w-full max-w-[440px] flex-col px-5 py-8 lg:py-10">
         <div className="flex items-center gap-2.5">
           <Mark className="size-8" />
           <Wordmark className="text-[28px]" />
         </div>
 
-        <div className="mx-auto flex w-full max-w-[400px] flex-1 flex-col justify-center py-12">
+        <div className="flex w-full flex-1 flex-col justify-center py-12">
           <h1 className="type-hero">
             Een rustige plek, <span className="text-sun-ink">ook tussen de sessies door.</span>
           </h1>

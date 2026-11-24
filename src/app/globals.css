@@ -2,37 +2,37 @@
 
 /* Huiskamer: latte, linnen en espresso. Eén tonale familie, geen felle kleur. */
 :root {
-  --paper: #f5f0e8;
-  --cream: #fbf8f3;
-  --sand: #e9e0d3;
+  --paper: #efe7db;
+  --cream: #fffdf9;
+  --sand: #e4d8c7;
   /* Espresso: knoppen, actieve tabs, de volgende sessie, auteur psycholoog. */
-  --pine: #3b2f28;
-  --pine-deep: #2b221d;
+  --pine: #33271f;
+  --pine-deep: #241b16;
   /* Salie-haver: opdrachten, zachte knoppen. */
-  --moss: #e2e3d5;
+  --moss: #dfe2cf;
   /* Terracotta-poeder: notities, auteur cliënt. */
   --clay: #b07355;
-  --clay-soft: #f0e0d6;
+  --clay-soft: #f2ddd0;
   --clay-ink: #8a4a30;
   /* Latte: check-ins, de lichte actieknop. */
-  --sun: #d9bc8c;
-  --sun-soft: #f1e6d2;
-  --sun-ink: #6a4e2c;
+  --sun: #c9975a;
+  --sun-soft: #f3e3c9;
+  --sun-ink: #7a4f1f;
   --sky-soft: #e2e4e3;
   --sky-ink: #4a5560;
   --plum-soft: #ece0de;
   --plum-ink: #6e4e52;
-  --ink: #2e2520;
+  --ink: #241d18;
 
   --bg: var(--paper);
   --surface: var(--cream);
   --surface-2: var(--sand);
-  --oat-soft: #efe8de;
+  --oat-soft: #f5efe5;
   --text: var(--ink);
-  --text-muted: #67584c;
-  --text-faint: #766658;
+  --text-muted: #5a4a3f;
+  --text-faint: #6a594c;
   /* Iconen, randen en bolletjes. */
-  --taupe: #ae9c88;
+  --taupe: #9c8772;
   --line: var(--sand);
   --accent: var(--pine);
   --on-accent: #f8f3ec;
@@ -43,22 +43,22 @@
   --urgent: var(--clay-ink);
 
   /* Zijbalk: licht linnen, geen donker vlak. */
-  --side: #efe8dd;
-  --side-text: var(--ink);
-  --side-muted: #6f6054;
-  --side-hover: rgba(46, 37, 32, 0.05);
-  --side-active: rgba(46, 37, 32, 0.07);
+  --side: #2b221d;
+  --side-text: #f5eee4;
+  --side-muted: #bfae9c;
+  --side-hover: rgba(245, 238, 228, 0.06);
+  --side-active: rgba(245, 238, 228, 0.11);
 
   /* Stemming, van zwaar naar licht: mist, lavendel, latte, salie, honing. */
-  --mood-1: #7b8692;
-  --mood-2: #a48795;
-  --mood-3: #c39a7c;
-  --mood-4: #a2a88c;
-  --mood-5: #d9b77a;
+  --mood-1: #6b7a8c;
+  --mood-2: #9a7290;
+  --mood-3: #c48a5e;
+  --mood-4: #8f9a72;
+  --mood-5: #d6a648;
 
   --shadow-soft: 0 1px 2px rgba(46, 37, 32, 0.04), 0 14px 34px -20px rgba(46, 37, 32, 0.22);
-  --edge: rgba(46, 37, 32, 0.09);
-  --edge-strong: rgba(46, 37, 32, 0.2);
+  --edge: rgba(36, 29, 24, 0.1);
+  --edge-strong: rgba(36, 29, 24, 0.22);
   --glass: var(--cream);
 
   /* Oude namen, nog gebruikt in het merkteken en de editor. */
@@ -186,7 +186,7 @@
 @utility type-hero {
   font-family: var(--font-serif);
   font-weight: 500;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.025em;
   font-size: 42px;
   line-height: 1.02;
   @media (min-width: 768px) {
@@ -238,7 +238,7 @@
 @utility card {
   background: var(--surface);
   border-radius: var(--radius-card);
-  box-shadow: 0 0 0 1px var(--edge);
+  box-shadow: 0 0 0 1px var(--edge), 0 1px 2px rgba(36, 29, 24, 0.04), 0 10px 24px -18px rgba(36, 29, 24, 0.18);
 }
 
 /* Een losse pil in de topbalk. Vlak, met een haarlijn. */
@@ -253,6 +253,13 @@
 /* Beeld in de moodboard-stijl: warm, iets gedempt, alles in dezelfde toon. */
 @utility photo-grade {
   filter: sepia(0.14) saturate(0.82) contrast(0.96) brightness(1.02);
+}
+
+/* Warme espresso-waas over een fotoband, zodat de titel leesbaar blijft. */
+@utility banner-veil {
+  background-image:
+    linear-gradient(180deg, rgba(43, 34, 29, 0.32) 0%, rgba(43, 34, 29, 0) 30%),
+    linear-gradient(180deg, rgba(36, 27, 22, 0) 30%, rgba(36, 27, 22, 0.55) 66%, rgba(36, 27, 22, 0.86) 100%);
 }
 
 @utility glass {

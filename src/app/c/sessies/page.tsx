@@ -82,8 +82,7 @@ export default function Sessies() {
   return (
     <>
       <PageHeader
-        image={beelden.fauteuil}
-        detail={beelden.ochtend}
+        image={beelden.kamer}
         title="Sessies"
         eyebrow={`Bij ${psy.name}`}
         actions={

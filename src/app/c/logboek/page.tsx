@@ -23,8 +23,7 @@ export default function Logboek() {
   return (
     <>
       <PageHeader
-        image={beelden.linnen}
-        detail={beelden.boeken}
+        image={beelden.boek}
         title="Logboek"
         eyebrow="Alles wat je schrijft, op één plek"
         actions={

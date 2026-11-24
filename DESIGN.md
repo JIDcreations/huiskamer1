@@ -2,36 +2,36 @@
 name: Huiskamer
 description: Een moodboard waarin je woont. Latte, linnen en espresso voor psycholoog en cliënt.
 colors:
-  paper: "#f5f0e8"
-  cream: "#fbf8f3"
-  sand: "#e9e0d3"
-  oat-soft: "#efe8de"
-  side: "#efe8dd"
-  ink: "#2e2520"
-  text-muted: "#67584c"
-  text-faint: "#766658"
-  taupe: "#ae9c88"
+  paper: "#efe7db"
+  cream: "#fffdf9"
+  sand: "#e4d8c7"
+  oat-soft: "#f5efe5"
+  side: "#2b221d"
+  ink: "#241d18"
+  text-muted: "#5a4a3f"
+  text-faint: "#6a594c"
+  taupe: "#9c8772"
   edge: "rgba(46, 37, 32, 0.09)"
   edge-strong: "rgba(46, 37, 32, 0.2)"
-  pine: "#3b2f28"
-  pine-deep: "#2b221d"
+  pine: "#33271f"
+  pine-deep: "#241b16"
   on-accent: "#f8f3ec"
-  sun: "#d9bc8c"
-  sun-soft: "#f1e6d2"
-  sun-ink: "#6a4e2c"
-  moss: "#e2e3d5"
+  sun: "#c9975a"
+  sun-soft: "#f3e3c9"
+  sun-ink: "#7a4f1f"
+  moss: "#dfe2cf"
   clay: "#b07355"
-  clay-soft: "#f0e0d6"
+  clay-soft: "#f2ddd0"
   clay-ink: "#8a4a30"
   sky-soft: "#e2e4e3"
   sky-ink: "#4a5560"
   plum-soft: "#ece0de"
   plum-ink: "#6e4e52"
-  mood-1: "#7b8692"
-  mood-2: "#a48795"
-  mood-3: "#c39a7c"
-  mood-4: "#a2a88c"
-  mood-5: "#d9b77a"
+  mood-1: "#6b7a8c"
+  mood-2: "#9a7290"
+  mood-3: "#c48a5e"
+  mood-4: "#8f9a72"
+  mood-5: "#d6a648"
 typography:
   hero:
     fontFamily: "Jost, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif"
@@ -171,7 +171,7 @@ components:
 
 Huiskamer ziet eruit als een prikbord in een goede Gentse koffiebar: één tonale familie van papier, linnen, latte en espresso, met echte sfeerfoto's in boog- en pinvormen en één heldere sans (Jost) voor alles, zonder schreef. Er is geen enkele verzadigde kleur. Betekenis zit in gedempte tinten (honing, salie, poeder-terracotta, mist, mauve) en altijd ook in vorm of woord.
 
-De dichtheid is laag en redactioneel. Koppen zijn groot en strak (Jost 500, nauw gespatieerd, de naam in een begroeting in koffiebruin), bediening is klein en rustig (Jost 400, navigatie in kleine letters). Vlakken zijn plat: een haarlijn rond crème op papier, geen gloed. De enige donkere vlakken zijn espresso: de primaire knop, de actieve tab, de kaart van de volgende sessie en vandaag in het weekstrookje.
+De dichtheid is laag en redactioneel. Koppen zijn groot en strak (Jost 500, nauw gespatieerd, de begroeting in melkschuim op een fotoband), bediening is klein en rustig (Jost 400, navigatie in kleine letters). Vlakken zijn plat: een haarlijn rond crème op papier, geen gloed. De enige donkere vlakken zijn espresso: de primaire knop, de actieve tab, de kaart van de volgende sessie en vandaag in het weekstrookje.
 
 Het logboek en "Tussen de sessies" zijn prikborden (kolommen, masonry vanaf 768px), en "Bewaar" op een pin betekent: mee naar de sessie.
 
@@ -192,7 +192,7 @@ Let op: de tokennamen zijn historisch (`pine`, `moss`, `clay`, `sun`) en beschri
 - **Espresso** (`pine`): primaire knoppen, actieve segmenten en tabs, avatar van de psycholoog, de kaart "Volgende sessie", vandaag in het weekstrookje, focusring. **Diepe espresso** (`pine-deep`) is enkel de hover- en drukstaat daarvan. Tekst erop is **Melkschuim** (`on-accent`).
 
 ### Secondary
-- **Latte** (`sun`): het lichte accent. De knop "Schrijf iets", het stipje naast het actieve navigatie-item, een gevulde check-in in het weekstrookje, tekstselectie, het boograam in het merkteken. **Lattevlak** (`sun-soft`) met **Koffiebruin** (`sun-ink`) als tekst: check-ins, "Bewaard", de actieve tab op mobiel, de afspraak die nu bezig is.
+- **Caramel** (`sun`): het warme accent. De knop "Schrijf iets", het stipje naast het actieve navigatie-item, een gevulde check-in in het weekstrookje, tekstselectie, het boograam in het merkteken. **Lattevlak** (`sun-soft`) met **Koffiebruin** (`sun-ink`) als tekst: check-ins, "Bewaard", de actieve tab op mobiel, de afspraak die nu bezig is.
 
 ### Tertiary
 Vaste tint per soort (`src/components/shared/kind.ts`), altijd als zacht vlak met donkere inkt:
@@ -208,7 +208,7 @@ Vaste tint per soort (`src/components/shared/kind.ts`), altijd als zacht vlak me
 - **Crème** (`cream`): kaarten, panelen, invoervelden, eilanden in de topbalk.
 - **Zand** (`sand`): lege bolletjes, scheidingen in menu's, fotoplaceholders, zachte knop.
 - **Haver** (`oat-soft`): hover-vlak van rijen, menu-items en stille knoppen.
-- **Linnen** (`side`): de zijbalk en het moodboard bij het aanmelden.
+- **Diepe espresso** (`side`): de zijbalk, het moodboard bij het aanmelden en het beeldvlak van de kennismaking. Tekst erop is `side-text` (#f5eee4), gedempt `side-muted` (#bfae9c).
 - **Espresso-inkt** (`ink`): tekst. **Mokka** (`text-muted`) voor secundaire tekst, **Grijsbruin** (`text-faint`) voor tijden en hints.
 - **Taupe** (`taupe`): iconen, onderstreping van links, randen van selectievakjes. Geen tekst.
 - **Haarlijn** (`edge`, `edge-strong`): de rand van elke kaart en elk eiland; de sterke variant voor velden, secundaire knoppen en kaart-hover.
@@ -218,7 +218,7 @@ Vaste tint per soort (`src/components/shared/kind.ts`), altijd als zacht vlak me
 
 **De Soort-Is-Tint-Regel.** Check-in is latte, opdracht is salie, notitie is terracotta, reactie is mist, "Voor volgende keer" is mauve. Overal dezelfde, altijd samen met een label of icoon.
 
-**De Espresso-Schaarste-Regel.** Donkere vlakken zijn enkel actie of "nu": de primaire knop, het actieve segment, de volgende sessie, vandaag. Geen donkere zijbalk, geen donkere banden.
+**De Espresso-Anker-Regel.** Donkere vlakken zijn het anker (de zijbalk) of actie en "nu": de primaire knop, het actieve segment, de volgende sessie, vandaag. Geen andere donkere zijbalk, geen donkere banden.
 
 ## Typography
 
@@ -229,7 +229,7 @@ Zelf gehost via `next/font/local`, zonder verzoek naar derden.
 **Character:** Eén geometrische sans. Koppen in 500 met strakke spatiëring, tekst en bediening in 400. Geen cursief in de interface; nadruk in een kop komt van koffiebruin (`sun-ink`).
 
 ### Hierarchy
-- **Hero** (500, 42px / 64px vanaf 768px, lh 1.02, -0.035em): de begroeting en de paginatitel met kopcollage. Naam in koffiebruin.
+- **Hero** (500, 42px / 64px vanaf 768px, lh 1.02, -0.035em): de begroeting en de paginatitel op de fotoband, in melkschuim.
 - **Title** (500, 32px / 44px, lh 1.08, -0.03em): paginatitels zonder beeld, sectiekoppen zoals "Tussen de sessies".
 - **Subtitle** (500, 22px, lh 1.2): paneeltitels, titel van een notitie-pin.
 - **Display inline** (500, 18-24px): dagkoppen in het logboek (24px), cliëntnamen op het prikbord (21px), tijden in de dagagenda (21px), korte pins (19px), stemmingswoorden (18-19px). De regel onder een titel is 400, 16-19px, `text-muted`.
@@ -248,14 +248,14 @@ Zelf gehost via `next/font/local`, zonder verzoek naar derden.
 
 ## Layout
 
-- **Shell:** vaste zijbalk van 264px vanaf 1024px, in linnen met een haarlijn rechts. Daaronder: cliënt krijgt een tab bar onderaan (66px hoog, drie items), psycholoog een lade (280px).
+- **Shell:** vaste zijbalk van 264px vanaf 1024px, in diepe espresso. Daaronder: cliënt krijgt een tab bar onderaan (66px hoog, drie items), psycholoog een lade (280px).
 - **Topbalk:** 72px, sticky, doorzichtig bovenaan. Zodra je scrolt wordt hij papier met een haarlijn onderaan. Rechts één eiland (48px) met de acties en het accountmenu.
 - **Inhoud:** maximaal 1280px, zijmarge 16px en 40px vanaf 768px, onderaan 96px (128px boven de tab bar).
-- **Kop:** links de hero-titel, rechts vanaf 1024px een collage van 400 x 318px (hoge boog van 226px plus een kleiner beeld van 166 x 208px dat ertegen leunt). Onder 1024px één fotoband van 176-224px hoog boven de titel.
+- **Kop (fotoband):** Vandaag, Logboek, Sessies en Vandaag van de psycholoog openen met een foto van rand tot rand (340px, 440px vanaf 768px) onder de zwevende topbalk, met de warme grade en een espresso-waas onderaan (`banner-veil`). Titel, contextregel en acties staan onderaan op de foto in melkschuim. Andere pagina's hebben een titel zonder beeld.
 - **Ritme:** gaps van 8, 12, 16 en 20px; secties 40-56px uit elkaar; panelen 20px / 28px binnenmarge, pins 20-24px.
 - **Prikbord:** CSS-kolommen, 2 vanaf 768px, 3 vanaf 1280px bij het overzicht van de psycholoog. Pins breken niet over kolommen en staan 16px onder elkaar.
 - **Twee kolommen:** dagagenda "Vandaag" en "Morgen" naast elkaar vanaf 1024px; cliëntpagina's hebben werk links en context (deze week, wat ziet Sarah) rechts.
-- **Breakpoints:** 768px (typeschaal, kolommen), 1024px (zijbalk, collage), 1280px (derde kolom).
+- **Breakpoints:** 768px (typeschaal, kolommen, hogere fotoband), 1024px (zijbalk), 1280px (derde kolom).
 
 ## Elevation & Depth
 
@@ -310,7 +310,7 @@ Rustig en tactiel: een pil die bij indrukken 2% krimpt.
 - **Label:** 13px, 500, mokka, 6px boven het veld.
 
 ### Navigation
-- **Zijbalk:** linnen, woordmerk (Jost 500, 30px, -0.03em) boven de praktijknaam in caps. Items 44px, pil, 15px, kleine letters, taupe icoon. Actief: crème pil met haarlijn en een latte stipje rechts. Hover: 5% inkt.
+- **Zijbalk:** diepe espresso, woordmerk (Jost 500, 30px, -0.03em) boven de praktijknaam in caps. Items 44px, pil, 15px, kleine letters, taupe icoon. Actief: een vlak van 11% melkschuim, caramel icoon en een caramel stipje rechts. Hover: 6% melkschuim.
 - **Tab bar (cliënt, mobiel):** papier met haarlijn bovenaan, drie items van 66px, 12px kleine letters. Actief: een latte-pil achter het icoon die meeschuift (250ms).
 - **Topbalk-eilanden:** crème pillen met haarlijn; accountmenu met avatar, naam en rol.
 - **Segmented control:** crème pil met haarlijn, actieve keuze is een schuivende espresso pil (220ms).
@@ -341,9 +341,12 @@ Tiptap op 16px, lh 1.6. Koppen in de editor zijn Jost 600 (21px en 17px). Auteur
 ### Don't:
 - **Don't** gebruik een schreeflettertype of cursief in de interface.
 - **Don't** gebruik verzadigde kleur, ook niet voor fouten of urgentie; urgent is `clay-ink`.
-- **Don't** maak een donkere zijbalk, donkere banden of gekleurde statistiektegels.
+- **Don't** maak gekleurde statistiektegels of extra donkere banden naast de zijbalk en de volgende sessie.
 - **Don't** leg schaduw onder iets dat op de pagina ligt; schaduw is voor wat zweeft.
 - **Don't** maak de topbalk of eilanden doorschijnend glas; bij scrollen wordt de balk effen papier.
 - **Don't** zet een klein label in hoofdletters boven een kop; caps zijn enkel voor de praktijknaam onder het woordmerk.
 - **Don't** gebruik `clay` of `taupe` als kleine tekst; gebruik `clay-ink` of `text-muted`.
 - **Don't** leg een groene of gekleurde waas over foto's.
+
+
+> Herzien op 24 november 2026: meer contrast (donkere zijbalk, witte kaarten op een donkerder papier, donkerdere tekst, caramel in plaats van bleke latte) en de fotoband terug in plaats van de collage, op vraag van de gebruiker.

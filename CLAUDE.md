@@ -11,7 +11,7 @@ Praktijkplatform voor psychologen en hun cliënten. Fase 1 (klikbaar prototype m
 ## Afspraken die niet uit de code blijken
 
 - **Online platform, geen app.** Beide rollen gebruiken dezelfde shell (sidebar + topbalk). Geen bottom tab bar.
-- **Stijl:** Pinterest-latte: papier, linnen, latte en espresso, geen felle kleur (tokens in `src/app/globals.css`, beslissingen in DESIGN.md, richting in `.impeccable/surfaces/src-app.md`). Elke soort entry heeft een vaste, gedempte tint (`src/components/shared/kind.ts`). Alles in Jost, geen schreeflettertype en geen cursief. Geen labels in hoofdletters boven een kop. Foto's staan in `src/assets/beelden` (bronnen in BRONNEN.md) en gaan via `src/lib/beelden.ts`, altijd met `photo-grade`.
+- **Stijl:** Pinterest-latte met contrast: papier, witte kaarten, caramel en een diepe espresso zijbalk, geen felle kleur (tokens in `src/app/globals.css`, beslissingen in DESIGN.md, richting in `.impeccable/surfaces/src-app.md`). Elke soort entry heeft een vaste, gedempte tint (`src/components/shared/kind.ts`). Alles in Jost, geen schreeflettertype en geen cursief. Geen labels in hoofdletters boven een kop. Foto's staan in `src/assets/beelden` (bronnen in BRONNEN.md) en gaan via `src/lib/beelden.ts`, altijd met `photo-grade`.
 - **Copy:** Nederlands, Vlaams, je/jij, kort en warm. Geen emoji's, geen decoratieve iconen, geen em dashes.
 - **Data:** componenten praten enkel met `src/lib/data`, nooit rechtstreeks met `src/lib/mock`. Zo kan later een echte backend inpluggen.
 - **Privacy in de UI:** niet-gedeelde logboekentries en sessienotities mogen nergens bij de andere partij verschijnen, ook niet als aantal.
