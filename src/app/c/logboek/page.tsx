@@ -23,7 +23,8 @@ export default function Logboek() {
   return (
     <>
       <PageHeader
-        image={beelden.boek}
+        image={beelden.linnen}
+        detail={beelden.boeken}
         title="Logboek"
         eyebrow="Alles wat je schrijft, op één plek"
         actions={
@@ -33,22 +34,24 @@ export default function Logboek() {
         }
       />
 
-      <div className="mt-8 grid grid-cols-1 items-start gap-6 lg:mt-10 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)] lg:gap-8">
+      <div className="mt-10 grid grid-cols-1 items-start gap-6 md:mt-14 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)] lg:gap-8">
         <aside className="flex flex-col gap-5 lg:sticky lg:top-24 lg:order-last">
           <section className="card p-6" aria-labelledby="deze-week">
             <h2 id="deze-week" className="type-subtitle mb-4">
               Deze week
             </h2>
             <WeekStrip entries={entries} compact />
-            <p className="mt-4 text-[13px] text-muted">Een geel bolletje is een check-in. De stipjes zijn afgewerkte opdrachten.</p>
+            <p className="mt-4 text-[13px] text-muted">Een gevuld bolletje is een check-in. De stipjes zijn afgewerkte opdrachten.</p>
           </section>
           <Link
             href="/c/privacy"
-            className="group block rounded-card bg-moss p-6 text-pine transition-transform duration-500 ease-out-soft hover:-translate-y-0.5"
+            className="group block rounded-card bg-sun-soft p-7 text-sun-ink transition-colors duration-300 hover:bg-[color-mix(in_srgb,var(--sun)_35%,var(--cream))]"
           >
-            <p className="eyebrow">Wat ziet {psy.firstName}?</p>
-            <p className="mt-3 font-display text-[22px] leading-snug">Enkel wat je deelt. Wat je voor jezelf houdt, ziet niemand anders.</p>
-            <span className="mt-4 inline-flex items-center gap-1 text-[13px] font-semibold">
+            <p className="font-display text-[24px] leading-snug text-ink">
+              Wat ziet <span className="italic">{psy.firstName}</span>?
+            </p>
+            <p className="mt-2 text-[14.5px] leading-relaxed">Enkel wat je deelt. Wat je voor jezelf houdt, ziet niemand anders.</p>
+            <span className="mt-4 inline-flex items-center gap-1 text-[13.5px] underline decoration-1 underline-offset-4">
               Privacy <ChevronRight className="size-4 stroke-[1.75] transition-transform group-hover:translate-x-0.5" />
             </span>
           </Link>

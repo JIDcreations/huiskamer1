@@ -21,7 +21,7 @@ function PrivateNotes({ clientId, appointmentId }: { clientId: ID; appointmentId
 
   return (
     <aside aria-label="Privénotities" className="h-fit rounded-card bg-surface-2 px-5 pb-6 pt-5 shadow-[inset_0_0_0_1px_var(--edge)] lg:sticky lg:top-24">
-      <p className="flex items-center gap-2 text-[14px] font-semibold text-text">
+      <p className="flex items-center gap-2 text-[14px] font-medium text-text">
         <span className="flex size-7 items-center justify-center rounded-lg bg-ink text-sun">
           <Lock className="size-3.5 stroke-[2]" />
         </span>

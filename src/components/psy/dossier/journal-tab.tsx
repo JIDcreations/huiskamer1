@@ -108,7 +108,7 @@ export function JournalTab({ client }: { client: Client }) {
             {open.mood && <MoodDots value={open.mood} className="mb-3" />}
             {open.kind === "opdracht" && task?.kind === "schaal" && open.scale && (
               <p className="mb-3 text-[15px]">
-                {task.scaleLabel ?? "Score"}: <span className="font-semibold tabular-nums">{open.scale}</span> op 10
+                {task.scaleLabel ?? "Score"}: <span className="font-medium tabular-nums">{open.scale}</span> op 10
               </p>
             )}
             {open.blocks.length ? (

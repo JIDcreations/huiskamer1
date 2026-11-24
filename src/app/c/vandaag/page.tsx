@@ -23,7 +23,7 @@ import {
   usePsychologist,
   useTasks,
 } from "@/lib/data";
-import { formatDayMonth, formatLongDate, formatMoney, formatRelativeDay, formatTime, greeting } from "@/lib/format";
+import { capitalize, formatDayMonth, formatLongDate, formatMoney, formatRelativeDay, formatTime, greeting } from "@/lib/format";
 
 /** De volgende sessie, als donkergroene kaart. Zonder sessie: een openstaande factuur, anders niets. */
 function NextUp() {
@@ -36,22 +36,18 @@ function NextUp() {
     return (
       <Link
         href="/c/sessies"
-        className="group relative block overflow-hidden rounded-card bg-pine p-6 text-on-accent transition-transform duration-500 ease-out-soft hover:-translate-y-0.5 md:p-7"
+        className="group relative block overflow-hidden rounded-card bg-pine p-7 text-on-accent transition-colors duration-300 hover:bg-pine-deep md:p-8"
       >
-        <span aria-hidden className="absolute -right-10 -top-10 size-40 rounded-full bg-sun/15 blur-2xl" />
-        <p className="eyebrow flex items-center gap-2 text-sun">
-          <span aria-hidden className="size-1.5 rounded-full bg-sun" />
-          {soon ? "Binnenkort" : "Volgende sessie"}
-        </p>
-        <p className="mt-4 font-display text-[34px] leading-[1.02] first-letter:uppercase">{formatRelativeDay(next.start)}</p>
-        <p className="mt-1 text-[15px] text-on-accent/80">
+        <p className="font-display text-[44px] italic leading-none first-letter:uppercase">{formatRelativeDay(next.start)}</p>
+        <p className="mt-3 text-[15px] text-on-accent/80">
+          {soon ? "Je volgende sessie, " : ""}
           {formatDayMonth(next.start)} om {formatTime(next.start)} bij {psy.firstName}
           {next.mode === "online" ? ", online" : ""}
         </p>
-        <span className="mt-6 flex items-center justify-between border-t border-on-accent/15 pt-4 text-[14px] font-medium">
+        <span className="mt-7 flex items-center justify-between border-t border-on-accent/15 pt-4 text-[14.5px]">
           Naar je sessies
-          <span className="flex size-8 items-center justify-center rounded-full bg-on-accent/10 transition-transform duration-500 ease-out-soft group-hover:translate-x-1">
-            <ChevronRight className="size-4 stroke-[1.75] text-sun" />
+          <span className="flex size-9 items-center justify-center rounded-full bg-sun text-pine transition-transform duration-500 ease-out-soft group-hover:translate-x-1">
+            <ChevronRight className="size-4 stroke-[1.5]" />
           </span>
         </span>
       </Link>
@@ -62,8 +58,8 @@ function NextUp() {
   return (
     <Link href="/c/betalingen" className="group flex items-center justify-between gap-3 rounded-card bg-sun-soft p-6 text-sun-ink">
       <span>
-        <span className="eyebrow block">Betalingen</span>
-        <span className="mt-2 block font-display text-[26px] leading-tight">Er staat nog {formatMoney(total)} open</span>
+        <span className="block font-display text-[26px] leading-tight">Er staat nog {formatMoney(total)} open</span>
+        <span className="mt-1 block text-[13.5px]">Naar je betalingen</span>
       </span>
       <ChevronRight className="size-5 shrink-0 stroke-[1.75] transition-transform group-hover:translate-x-0.5" />
     </Link>
@@ -80,11 +76,20 @@ export default function Vandaag() {
 
   return (
     <>
-      <PageHeader image={beelden.heuvels} eyebrow={formatLongDate(new Date())} title={`${greeting()}, ${client.firstName}`} className="pb-24 md:pb-28" />
+      <PageHeader
+        image={beelden.pampas}
+        detail={beelden.latte}
+        eyebrow={capitalize(formatLongDate(new Date()))}
+        title={
+          <>
+            {greeting()}, <span className="italic">{client.firstName}</span>
+          </>
+        }
+      />
 
-      <div className="relative -mt-20 grid grid-cols-1 items-start gap-5 md:-mt-24 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-6">
+      <div className="mt-10 grid grid-cols-1 items-start gap-5 md:mt-14 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-6">
         <div className="flex flex-col gap-5 lg:gap-6">
-          <Panel className="shadow-soft" bodyClassName="p-6 md:p-8">
+          <Panel bodyClassName="p-6 md:p-8">
             <CheckIn key={checkin?.id ?? "new"} clientId={CURRENT_CLIENT_ID} today={checkin} />
           </Panel>
 
@@ -95,7 +100,7 @@ export default function Vandaag() {
               </h2>
               <Link
                 href="/c/opdrachten"
-                className="text-[13px] font-semibold text-pine underline decoration-moss decoration-2 underline-offset-4 transition-colors hover:decoration-pine"
+                className="text-[14px] text-muted underline decoration-taupe decoration-1 underline-offset-4 transition-colors hover:text-text hover:decoration-pine"
               >
                 Alle opdrachten
               </Link>
@@ -137,7 +142,7 @@ export default function Vandaag() {
               </h2>
               <Link
                 href="/c/logboek"
-                className="text-[13px] font-semibold text-pine underline decoration-moss decoration-2 underline-offset-4 transition-colors hover:decoration-pine"
+                className="text-[14px] text-muted underline decoration-taupe decoration-1 underline-offset-4 transition-colors hover:text-text hover:decoration-pine"
               >
                 Logboek
               </Link>

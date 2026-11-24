@@ -26,7 +26,7 @@ import {
 import { capitalize, formatDayMonth, formatLongDate, formatTime } from "@/lib/format";
 import type { JournalEntry, JournalKind, Task } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { kindTone } from "@/components/shared/kind";
+import { kindDot } from "@/components/shared/kind";
 
 export type JournalFilter = "alles" | JournalKind;
 
@@ -72,22 +72,22 @@ export function WeekStrip({ entries, compact, className }: { entries: JournalEnt
       {days.map((d, i) => (
         <li
           key={d.day}
-          className={cn("flex flex-col items-center gap-2 rounded-2xl", compact ? "py-2.5" : "py-4", d.isToday ? "bg-pine text-on-accent" : "bg-surface shadow-[inset_0_0_0_1px_var(--edge)]")}
+          className={cn("flex flex-col items-center gap-2 rounded-t-full rounded-b-2xl", compact ? "pb-2.5 pt-3.5" : "pb-4 pt-5", d.isToday ? "bg-pine text-on-accent" : "bg-bg shadow-[inset_0_0_0_1px_var(--edge)]")}
           aria-label={`${formatLongDate(d.date)}: ${d.checkin ? "check-in gedaan" : "geen check-in"}, ${d.tasks} ${d.tasks === 1 ? "opdracht" : "opdrachten"}`}
         >
-          <span className={cn("text-[11px] font-medium leading-none", d.isToday ? "text-on-accent/80" : "text-faint")}>{letters[i]}</span>
+          <span className={cn("text-[12px] leading-none", d.isToday ? "text-on-accent/80" : "text-faint")}>{letters[i]}</span>
           <span
             aria-hidden
             className={cn(
               "flex size-7 items-center justify-center rounded-full text-[12px] tabular-nums transition-colors",
-              d.checkin ? "bg-sun font-semibold text-ink" : d.future ? (d.isToday ? "text-on-accent" : "text-faint") : d.isToday ? "text-on-accent ring-1 ring-inset ring-on-accent/40" : "text-muted ring-1 ring-inset ring-surface-2"
+              d.checkin ? "bg-sun font-medium text-ink" : d.future ? (d.isToday ? "text-on-accent" : "text-faint") : d.isToday ? "text-on-accent ring-1 ring-inset ring-on-accent/40" : "text-muted ring-1 ring-inset ring-surface-2"
             )}
           >
             {d.date.getDate()}
           </span>
           <span aria-hidden className="flex h-1 gap-[3px]">
             {Array.from({ length: Math.min(d.tasks, 4) }, (_, k) => (
-              <span key={k} className={cn("size-1 rounded-full", d.isToday ? "bg-on-accent" : "bg-pine")} />
+              <span key={k} className={cn("size-1 rounded-full", d.isToday ? "bg-on-accent" : "bg-taupe")} />
             ))}
           </span>
         </li>
@@ -123,50 +123,72 @@ export function JournalRow({
     toast(id ? "Meegenomen naar je volgende sessie" : "Er is nog geen sessie gepland");
   }
 
+  const saved = onAgenda?.appointment?.status === "gepland";
+
   return (
-    <li className="group relative flex gap-4 px-5 py-4 transition-colors hover:bg-oat-soft/40 md:px-6">
-      <span className="w-11 shrink-0 pt-px text-[12px] tabular-nums text-faint">{formatTime(entry.createdAt)}</span>
-      <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-          <span className={cn("rounded-md px-2 py-0.5 text-[12px] font-medium", kindTone[entry.kind])}>{label}</span>
-          {entry.mood && <MoodDots value={entry.mood} />}
-        </div>
-        <Link href={href} className="mt-1 block outline-none after:absolute after:inset-0 after:content-[''] focus-visible:after:rounded-card focus-visible:after:ring-2 focus-visible:after:ring-taupe">
-          {entry.title && <span className="block text-[15px] font-semibold">{entry.title}</span>}
-          {summary ? (
-            <span className={cn("line-clamp-2 text-[15px] leading-relaxed", entry.title ? "text-muted" : "text-text")}>{summary}</span>
-          ) : (
-            !entry.title && <span className="text-[14px] text-faint">Enkel een woord</span>
-          )}
-        </Link>
-        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
-          {viewer === "client" && <ShareBadge shared={entry.sharedWithPsychologist} />}
-          {onAgenda?.appointment && onAgenda.appointment.status === "gepland" && (
-            <span className="inline-flex items-center gap-1.5 text-[12px] text-muted">
-              <CalendarCheck className="size-3.5 stroke-[1.75] text-taupe" />
-              Mee naar de sessie van {formatDayMonth(onAgenda.appointment.start)}
-            </span>
-          )}
-          {entry.psychologistNote && (
-            <span className="inline-flex items-center gap-1.5 text-[12px] text-muted">
-              <MessageSquareText className="size-3.5 stroke-[1.5] text-taupe" />
-              {viewer === "client" ? `${psy.firstName} schreef een kanttekening` : "Jouw kanttekening"}
-            </span>
-          )}
-        </div>
+    <li className="group relative mb-4 break-inside-avoid rounded-[22px] bg-surface p-5 shadow-[0_0_0_1px_var(--edge)] transition-shadow duration-300 hover:shadow-[0_0_0_1px_var(--edge-strong)] md:p-6">
+      <div className="flex items-center gap-2 pr-20 text-[13px] text-muted">
+        <span aria-hidden className={cn("size-2 rounded-full", kindDot[entry.kind])} />
+        <span className="truncate">{label}</span>
+        <span aria-hidden className="text-taupe">·</span>
+        <span className="tabular-nums">{formatTime(entry.createdAt)}</span>
+      </div>
+      <Link href={href} className="mt-3 block outline-none after:absolute after:inset-0 after:rounded-[22px] after:content-[''] focus-visible:after:ring-1 focus-visible:after:ring-pine">
+        {entry.title && <span className="mb-1 block font-display text-[22px] leading-tight">{entry.title}</span>}
+        {summary ? (
+          <span className={cn("line-clamp-4 text-[15.5px] leading-relaxed", entry.title ? "text-muted" : "text-text")}>{summary}</span>
+        ) : (
+          !entry.title && <span className="font-display text-[19px] italic text-muted">Enkel een woord</span>
+        )}
+      </Link>
+      {entry.mood && <MoodDots value={entry.mood} className="mt-3" />}
+      <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-edge pt-3">
+        {viewer === "client" && <ShareBadge shared={entry.sharedWithPsychologist} />}
+        {saved && onAgenda?.appointment && (
+          <span className="inline-flex items-center gap-1.5 text-[12.5px] text-muted">
+            <CalendarCheck className="size-3.5 stroke-[1.25] text-taupe" />
+            Mee naar de sessie van {formatDayMonth(onAgenda.appointment.start)}
+          </span>
+        )}
+        {entry.psychologistNote && (
+          <span className="inline-flex items-center gap-1.5 text-[12.5px] text-muted">
+            <MessageSquareText className="size-3.5 stroke-[1.25] text-taupe" />
+            {viewer === "client" ? `${psy.firstName} schreef een kanttekening` : "Jouw kanttekening"}
+          </span>
+        )}
       </div>
 
       {viewer === "client" && (
-        <div className="relative z-10 -mr-2 -mt-1 shrink-0">
+        <div className="absolute right-3 top-3 z-10 flex items-center gap-1">
+          {/* Zoals een pin bewaren: deze entry gaat mee naar de volgende sessie. */}
+          <button
+            type="button"
+            aria-pressed={saved}
+            aria-label={saved ? "Bewaard voor de sessie" : "Bewaar voor de sessie"}
+            onClick={() => {
+              if (saved && onAgenda) {
+                actions.removeAgendaItem(onAgenda.item.id);
+                toast("Niet meer mee naar de sessie");
+              } else takeAlong();
+            }}
+            className={cn(
+              "h-8 rounded-full px-3.5 text-[13px] outline-none transition-[background-color,color,opacity] duration-200 focus-visible:ring-1 focus-visible:ring-pine",
+              saved
+                ? "bg-sun-soft text-sun-ink"
+                : "bg-pine text-on-accent opacity-100 hover:bg-pine-deep md:opacity-0 md:group-hover:opacity-100 md:focus-visible:opacity-100"
+            )}
+          >
+            {saved ? "Bewaard" : "Bewaar"}
+          </button>
           <Menu>
             <MenuTrigger
               aria-label="Meer"
-              className="inline-flex size-8 items-center justify-center rounded-full text-taupe opacity-100 transition-colors hover:bg-surface-2/60 hover:text-muted data-[state=open]:bg-surface-2/60 md:opacity-0 md:group-hover:opacity-100 md:focus-visible:opacity-100 md:data-[state=open]:opacity-100"
+              className="inline-flex size-8 items-center justify-center rounded-full text-taupe transition-colors hover:bg-surface-2/60 hover:text-muted data-[state=open]:bg-surface-2/60"
             >
               <MoreHorizontal className="size-4 stroke-[1.5]" />
             </MenuTrigger>
             <MenuContent>
-              {onAgenda?.appointment?.status === "gepland" ? (
+              {saved && onAgenda ? (
                 <MenuItem
                   onSelect={() => {
                     actions.removeAgendaItem(onAgenda.item.id);
@@ -239,13 +261,13 @@ export function JournalTimeline({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-5 flex flex-col gap-6"
+          className="mt-7 flex flex-col gap-8"
         >
           {groups.length === 0 && empty}
           {groups.map((g) => (
             <section key={g.day} aria-label={dayHeading(g.day)}>
-              <h2 className="mb-2 px-1 text-[13px] font-medium text-muted">{dayHeading(g.day)}</h2>
-              <ul className="divide-y divide-surface-2/70 overflow-hidden card">
+              <h2 className="mb-4 px-1 font-display text-[24px] leading-tight">{dayHeading(g.day)}</h2>
+              <ul className="gap-4 md:columns-2">
                 {g.items.map((e) => (
                   <JournalRow key={e.id} entry={e} viewer={viewer} href={hrefFor(e)} />
                 ))}

@@ -33,7 +33,7 @@ import { cn } from "@/lib/utils";
 function SectionTitle({ children, hint }: { children: React.ReactNode; hint?: React.ReactNode }) {
   return (
     <div className="mb-3 flex items-baseline justify-between gap-3">
-      <h2 className="text-[12px] font-semibold tracking-[0.06em] text-clay-ink uppercase">{children}</h2>
+      <h2 className="font-display text-[24px] italic leading-tight">{children}</h2>
       {hint}
     </div>
   );
@@ -173,11 +173,10 @@ export function SessionView({
       <div className={cn(aside && "grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_340px]")}>
         <article className="hk-tafel min-w-0 card px-5 pb-8 pt-7 sm:px-8 md:px-10 md:pt-9">
           <header>
-            <p className="text-[13px] text-muted">{appointment.type === "intake" ? "Intake" : "Sessie"}</p>
-            <h1 className="mt-1 type-title">{capitalize(formatLongDate(appointment.start))}</h1>
-            <p className="mt-2 inline-flex items-center gap-1.5 text-[13px] text-muted tabular-nums">
-              <Icon className="size-3.5 stroke-[1.5] text-taupe" />
-              {formatTime(appointment.start)} tot {formatTime(appointment.end)}, {appointment.mode === "online" ? "online" : "in de praktijk"}
+            <h1 className="type-title">{capitalize(formatLongDate(appointment.start))}</h1>
+            <p className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] text-muted tabular-nums">
+              <Icon className="size-3.5 stroke-[1.25] text-taupe" />
+              {appointment.type === "intake" ? "Intake" : "Sessie"}, {formatTime(appointment.start)} tot {formatTime(appointment.end)}, {appointment.mode === "online" ? "online" : "in de praktijk"}
             </p>
           </header>
 

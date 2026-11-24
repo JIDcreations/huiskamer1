@@ -49,16 +49,16 @@ export function MoodPicker({ value, onChange, className }: { value?: Mood; onCha
             onClick={() => onChange(active ? undefined : m.value)}
             style={{ "--m": moodColor(m.value) } as React.CSSProperties}
             className={cn(
-              "group flex min-w-0 flex-col items-center justify-center gap-2 rounded-2xl px-0.5 py-3.5 text-[11px] font-medium whitespace-nowrap tracking-[-0.01em] outline-none transition-[background-color,box-shadow,transform] duration-200 focus-visible:ring-2 focus-visible:ring-pine active:scale-[0.97] sm:text-[13px]",
+              "group flex min-w-0 flex-col items-center justify-center gap-2.5 rounded-[18px] px-0.5 py-4 text-[12px] whitespace-nowrap outline-none transition-[background-color,box-shadow,transform] duration-200 focus-visible:ring-1 focus-visible:ring-pine active:scale-[0.97] sm:text-[14px]",
               active
-                ? "bg-[color-mix(in_srgb,var(--m)_16%,var(--cream))] text-text shadow-[inset_0_0_0_2px_var(--m)]"
+                ? "bg-[color-mix(in_srgb,var(--m)_18%,var(--cream))] text-text shadow-[inset_0_0_0_1.5px_var(--m)]"
                 : "bg-surface text-muted shadow-[inset_0_0_0_1px_var(--edge)] hover:bg-[color-mix(in_srgb,var(--m)_9%,var(--cream))] hover:text-text"
             )}
           >
             <span
               aria-hidden
               className={cn(
-                "size-6 rounded-full bg-(--m) shadow-[inset_0_-3px_6px_rgba(0,0,0,0.12)] transition-transform duration-300 ease-out-soft sm:size-8",
+                "size-5 rounded-full bg-(--m) transition-transform duration-300 ease-out-soft sm:size-7",
                 active ? "scale-110" : "group-hover:scale-105"
               )}
             />

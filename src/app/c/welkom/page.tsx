@@ -27,7 +27,7 @@ export default function Welkom() {
 
   const steps = [
     {
-      image: beelden.lelie,
+      image: beelden.pampas,
       title: `Welkom, ${client.firstName}`,
       body: (
         <>
@@ -36,7 +36,7 @@ export default function Welkom() {
             {[
               ["Vandaag", "Hoe het gaat, en wat je vandaag doet.", "bg-sun"],
               ["Logboek", "Alles wat je schrijft, op één plek.", "bg-clay"],
-              ["Sessies", "Wat jullie bespraken, en wat je wil meenemen.", "bg-pine"],
+              ["Sessies", "Wat jullie bespraken, en wat je wil meenemen.", "bg-taupe"],
             ].map(([t, d, dot]) => (
               <li key={t} className="flex gap-3">
                 <span aria-hidden className={cn("mt-2 size-2.5 shrink-0 rounded-full", dot)} />
@@ -50,7 +50,7 @@ export default function Welkom() {
       ),
     },
     {
-      image: beelden.groen,
+      image: beelden.linnen,
       title: `Wat ziet ${psy.firstName}?`,
       body: (
         <>
@@ -89,29 +89,29 @@ export default function Welkom() {
 
   return (
     <div className="fixed inset-0 z-[60] grid overflow-y-auto bg-bg lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-      <div className="relative isolate order-first hidden overflow-hidden bg-pine-deep lg:order-last lg:block">
+      <div className="relative isolate order-first hidden overflow-hidden border-l border-edge bg-side lg:order-last lg:block">
         <AnimatePresence initial={false}>
           <motion.div
             key={step}
-            className="absolute inset-0 -z-10"
+            className="absolute inset-x-[12%] bottom-[8%] top-[8%] -z-10 overflow-hidden rounded-t-full rounded-b-[28px]"
             initial={{ opacity: 0, scale: 1.04 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            <Image src={steps[step].image.src} alt={steps[step].image.alt} placeholder="blur" fill sizes="50vw" className="object-cover" priority />
+            <Image src={steps[step].image.src} alt={steps[step].image.alt} placeholder="blur" fill sizes="40vw" className="photo-grade object-cover" priority />
           </motion.div>
         </AnimatePresence>
       </div>
       <div className="mx-auto flex w-full max-w-[520px] flex-1 flex-col px-6 pb-[max(env(safe-area-inset-bottom),24px)] pt-6 md:justify-center md:pt-0">
-        <div className="relative -mx-6 -mt-6 mb-6 h-56 overflow-hidden bg-pine-deep lg:hidden">
-          <Image src={steps[step].image.src} alt="" placeholder="blur" fill sizes="100vw" className="object-cover" />
+        <div className="relative mb-6 h-56 overflow-hidden rounded-[22px] bg-surface-2 lg:hidden">
+          <Image src={steps[step].image.src} alt="" placeholder="blur" fill sizes="100vw" className="photo-grade object-cover" />
         </div>
 
         <div className="flex items-center justify-between">
           <ol aria-label={`Stap ${step + 1} van ${steps.length}`} className="flex gap-1.5">
             {steps.map((_, i) => (
-              <li key={i} className={cn("h-1 rounded-full transition-all duration-300", i === step ? "w-8 bg-clay" : i < step ? "w-1.5 bg-pine" : "w-1.5 bg-surface-2")} />
+              <li key={i} className={cn("h-1 rounded-full transition-all duration-300", i === step ? "w-8 bg-pine" : i < step ? "w-1.5 bg-taupe" : "w-1.5 bg-surface-2")} />
             ))}
           </ol>
           <div className="flex items-center gap-1">

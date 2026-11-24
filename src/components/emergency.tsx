@@ -18,7 +18,7 @@ export function EmergencyLink({ className }: { className?: string }) {
       <button
         onClick={() => setOpen(true)}
         className={cn(
-          "group inline-flex h-10 items-center gap-2 rounded-full pl-1 pr-3.5 text-[13px] font-semibold text-clay-ink outline-none transition-colors duration-300 ease-out-soft hover:bg-clay-soft focus-visible:ring-2 focus-visible:ring-clay",
+          "group inline-flex h-10 items-center gap-2 rounded-full pl-1 pr-3.5 text-[13px] font-medium text-clay-ink outline-none transition-colors duration-300 ease-out-soft hover:bg-clay-soft focus-visible:ring-2 focus-visible:ring-clay",
           className
         )}
       >

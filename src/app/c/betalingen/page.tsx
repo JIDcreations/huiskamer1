@@ -119,7 +119,7 @@ export default function Betalingen() {
                             : `Factuur ${f.number}, te betalen tegen ${formatRelativeDay(f.dueAt)}`}
                         </p>
                       </div>
-                      <p className="text-[15px] font-semibold tabular-nums">{formatMoney(f.amount)}</p>
+                      <p className="text-[15px] font-medium tabular-nums">{formatMoney(f.amount)}</p>
                       <Button size="sm" onClick={() => setPaying(f)}>
                         Betalen
                       </Button>

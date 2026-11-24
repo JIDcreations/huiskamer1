@@ -40,9 +40,9 @@ function ClientSearch() {
 
   return (
     <div className="relative hidden max-w-md sm:block">
-      <label className="island h-12 w-full gap-2.5 pl-4 pr-2 focus-within:ring-2 focus-within:ring-pine/30">
+      <label className="island h-12 w-full gap-2.5 pl-4 pr-2 focus-within:shadow-[0_0_0_1px_var(--pine)]">
         <span className="sr-only">Zoek een cliënt</span>
-        <Search className="pointer-events-none size-4 shrink-0 stroke-[1.75] text-faint" />
+        <Search className="pointer-events-none size-4 shrink-0 stroke-[1.25] text-faint" />
         <input
           ref={input}
           type="search"
@@ -66,7 +66,7 @@ function ClientSearch() {
           placeholder="Zoek een cliënt"
           className="h-full min-w-0 flex-1 bg-transparent text-[14px] text-text outline-none placeholder:text-faint [&::-webkit-search-cancel-button]:hidden"
         />
-        <kbd aria-hidden className="hidden shrink-0 rounded-full bg-surface-2/80 px-2.5 py-1 font-sans text-[11px] font-semibold text-muted md:block">
+        <kbd aria-hidden className="hidden shrink-0 rounded-full bg-surface-2/80 px-2.5 py-1 font-sans text-[11px] text-muted md:block">
           ⌘K
         </kbd>
       </label>

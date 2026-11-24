@@ -45,7 +45,7 @@ export function Avatar({
     <span
       aria-hidden
       className={cn(
-        "inline-flex shrink-0 select-none items-center justify-center rounded-full font-semibold tracking-wide",
+        "inline-flex shrink-0 select-none items-center justify-center rounded-full font-medium tracking-wide",
         tone === "client" ? clientTint(name) : tones[tone],
         sizes[size],
         className

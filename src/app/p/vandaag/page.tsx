@@ -24,7 +24,9 @@ import {
   useVisit,
   type Activity,
 } from "@/lib/data";
-import { formatLongDate, formatTime, greeting, plural } from "@/lib/format";
+import { capitalize, formatLongDate, formatTime, greeting, plural } from "@/lib/format";
+
+const joinList = (xs: string[]) => (xs.length < 2 ? xs.join("") : `${xs.slice(0, -1).join(", ")} en ${xs[xs.length - 1]}`);
 import type { Appointment } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -49,7 +51,7 @@ function DayAgenda({ appointments, onOpen }: { appointments: Appointment[]; onOp
         return (
           <li key={a.id} className={cn("flex items-center gap-2 rounded-2xl pr-2 transition-colors hover:bg-oat-soft", current && "bg-sun-soft hover:bg-sun-soft")}>
             <button onClick={() => onOpen(a)} className="flex min-w-0 flex-1 items-center gap-4 rounded-xl px-2 py-3 text-left">
-              <span className={cn("w-14 shrink-0 font-display text-[19px] tabular-nums", done && !current && "text-faint")}>{formatTime(start)}</span>
+              <span className={cn("w-14 shrink-0 font-display text-[21px] tabular-nums", done && !current && "text-faint")}>{formatTime(start)}</span>
               {c && <Avatar name={`${c.firstName} ${c.lastName}`} tone="client" size="sm" />}
               <span className="min-w-0 flex-1">
                 <span className={cn("block truncate text-[14px] font-medium", a.status === "geannuleerd" && "text-faint line-through")}>
@@ -137,36 +139,25 @@ export default function Vandaag() {
   return (
     <>
       <PageHeader
-        image={beelden.kamer}
-        eyebrow={formatLongDate(new Date())}
-        title={`${greeting()}, ${psy.firstName}`}
+        image={beelden.vaas}
+        detail={beelden.schaduw}
+        eyebrow={capitalize(formatLongDate(new Date()))}
+        title={
+          <>
+            {greeting()}, <span className="italic">{psy.firstName}</span>
+          </>
+        }
         actions={
-          <Button variant="sun" onClick={() => setCreating(true)}>
+          <Button onClick={() => setCreating(true)}>
             <Plus /> Afspraak
           </Button>
         }
       >
         {today.length ? `Vandaag ${plural(today.length, "afspraak", "afspraken")}.` : "Geen afspraken vandaag."}{" "}
-        {summary.length ? "Dit is er nieuw sinds je laatste bezoek." : "Sinds je laatste bezoek is er niets nieuws."}
+        {summary.length ? `Sinds je laatste bezoek: ${joinList(summary as string[])}.` : "Sinds je laatste bezoek is er niets nieuws."}
       </PageHeader>
 
-      <dl className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">
-        {(
-          [
-            ["Afspraken vandaag", today.length, "bg-pine text-on-accent", "text-on-accent/75"],
-            ["Gedeelde notities", counts.notitie, "bg-clay-soft text-clay-ink", "text-clay-ink/80"],
-            ["Afgewerkte opdrachten", counts.opdracht, "bg-moss text-pine", "text-pine/80"],
-            ["Voor volgende keer", counts.agenda, "bg-sun-soft text-sun-ink", "text-sun-ink/80"],
-          ] as const
-        ).map(([label, n, tone, sub]) => (
-          <div key={label} className={cn("flex flex-col justify-between gap-3 rounded-[20px] px-4 py-4 md:gap-6 md:px-5", tone)}>
-            <dt className={cn("text-[13px] font-medium", sub)}>{label}</dt>
-            <dd className="font-display text-[32px] leading-none tabular-nums md:text-[40px]">{n}</dd>
-          </div>
-        ))}
-      </dl>
-
-      <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
+      <div className="mt-10 grid grid-cols-1 gap-5 md:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
         <div className="flex flex-col gap-5">
           <Panel title="Vandaag" href="/p/agenda" hrefLabel="Agenda" bodyClassName="pt-1">
             {today.length ? <DayAgenda appointments={today} onOpen={setOpen} /> : <p className="py-3 text-[14px] text-muted">Een dag zonder sessies.</p>}
@@ -189,7 +180,7 @@ export default function Vandaag() {
                 const rest = items.length - shown.length;
                 return (
                   <section key={clientId}>
-                    <Link href={`/p/clienten/${clientId}?tab=logboek`} className="mb-1 flex items-center gap-2.5 px-2 text-[15px] font-semibold hover:underline hover:decoration-surface-2 hover:underline-offset-4">
+                    <Link href={`/p/clienten/${clientId}?tab=logboek`} className="mb-1 flex items-center gap-2.5 px-2 text-[15px] font-medium hover:underline hover:decoration-surface-2 hover:underline-offset-4">
                       <Avatar name={`${c.firstName} ${c.lastName}`} tone="client" size="sm" />
                       {c.firstName} {c.lastName}
                     </Link>

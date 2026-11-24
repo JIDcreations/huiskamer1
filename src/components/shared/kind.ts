@@ -1,4 +1,4 @@
-/** Eén vaste tint per soort, overal dezelfde: check-in is zon, opdracht is groen, notitie is klei. */
+/** Eén vaste tint per soort, overal dezelfde: check-in is latte, opdracht is salie, notitie is terracotta. */
 export const kindTone = {
   checkin: "bg-sun-soft text-sun-ink",
   opdracht: "bg-moss text-pine",
@@ -17,4 +17,11 @@ export const taskKindTone = {
   tekst: "bg-clay-soft text-clay-ink",
   schaal: "bg-sky-soft text-sky-ink",
   meditatie: "bg-plum-soft text-plum-ink",
+} as const;
+
+/** Het bolletje per soort, voor een label zonder vlak. */
+export const kindDot = {
+  checkin: "bg-sun",
+  opdracht: "bg-mood-4",
+  notitie: "bg-clay",
 } as const;

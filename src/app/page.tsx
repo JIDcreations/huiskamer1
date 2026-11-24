@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { beelden } from "@/lib/beelden";
+import { beelden, type Beeld } from "@/lib/beelden";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input, Label } from "@/components/ui/input";
 import { Mark, Wordmark } from "@/components/shell/platform-shell";
@@ -16,6 +17,14 @@ const demo: Record<Role, { email: string; home: string }> = {
   psy: { email: "sarah@praktijkdelinde.be", home: "/p/vandaag" },
 };
 
+function Pin({ beeld, className, priority }: { beeld: Beeld; className?: string; priority?: boolean }) {
+  return (
+    <div className={cn("relative overflow-hidden rounded-[22px] bg-surface-2", className)}>
+      <Image src={beeld.src} alt={beeld.alt} placeholder="blur" priority={priority} fill sizes="28vw" className="photo-grade object-cover" />
+    </div>
+  );
+}
+
 export default function Login() {
   const router = useRouter();
   const [role, setRole] = useState<Role>("client");
@@ -24,13 +33,14 @@ export default function Login() {
     <main className="grid min-h-dvh lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
       <div className="flex flex-col px-5 py-8 md:px-12 lg:py-10">
         <div className="flex items-center gap-2.5">
-          <Mark className="size-9" />
-          <Wordmark className="text-[26px]" />
+          <Mark className="size-8" />
+          <Wordmark className="text-[28px]" />
         </div>
 
         <div className="mx-auto flex w-full max-w-[400px] flex-1 flex-col justify-center py-12">
-          <p className="eyebrow mb-4 text-clay-ink">Welkom terug</p>
-          <h1 className="type-hero">Een rustige plek, ook tussen de sessies door.</h1>
+          <h1 className="type-hero">
+            Een rustige plek, <span className="italic">ook tussen de sessies door.</span>
+          </h1>
           <p className="mt-4 text-[16px] text-muted">Afspraken, opdrachten en je logboek, samen met je psycholoog.</p>
 
           <form
@@ -65,24 +75,25 @@ export default function Login() {
         </div>
       </div>
 
-      <div className="relative isolate hidden overflow-hidden bg-pine-deep lg:block">
-        <Image
-          src={beelden.login.src}
-          alt={beelden.login.alt}
-          placeholder="blur"
-          priority
-          fill
-          sizes="55vw"
-          className="-z-20 object-cover"
-        />
-        <div aria-hidden className="photo-veil absolute inset-0 -z-10" />
-        <figure className="absolute inset-x-14 bottom-14 max-w-lg text-on-accent">
-          <p className="font-display text-[40px] leading-[1.04]">Schrijf wanneer het past. Deel enkel wat je wil delen.</p>
-          <figcaption className="mt-4 flex items-center gap-2 text-[14px] text-on-accent/80">
-            <span aria-hidden className="size-2 rounded-full bg-sun" />
-            Wat je voor jezelf houdt, ziet niemand anders.
-          </figcaption>
-        </figure>
+      {/* Een moodboard: beelden als pins in twee kolommen, met één geschreven kaart ertussen. */}
+      <div className="relative hidden overflow-hidden border-l border-edge bg-side p-6 lg:block">
+        <div className="grid h-full grid-cols-2 gap-4">
+          <div className="flex flex-col gap-4">
+            <Pin beeld={beelden.pampas} className="h-[58%] rounded-t-full" priority />
+            <figure className="rounded-[22px] bg-surface p-7 shadow-[0_0_0_1px_var(--edge)]">
+              <p className="font-display text-[30px] leading-[1.08]">
+                Schrijf wanneer het past. <span className="italic">Deel enkel wat je wil delen.</span>
+              </p>
+              <figcaption className="mt-4 text-[14px] text-muted">Wat je voor jezelf houdt, ziet niemand anders.</figcaption>
+            </figure>
+            <Pin beeld={beelden.schaduw} className="min-h-0 flex-1" />
+          </div>
+          <div className="-mt-16 flex flex-col gap-4">
+            <Pin beeld={beelden.latte} className="h-[44%]" priority />
+            <Pin beeld={beelden.ochtend} className="h-[36%] rounded-t-full" />
+            <Pin beeld={beelden.linnen} className="min-h-0 flex-1" />
+          </div>
+        </div>
       </div>
       <Toaster />
     </main>

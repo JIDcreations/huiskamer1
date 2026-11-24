@@ -1,63 +1,65 @@
 @import "tailwindcss";
 
-/* Huiskamer: Milk, Oat, Taupe. Eén lichte uitstraling. */
-/* Huiskamer: dennengroen, klei en zon op warm papier. */
+/* Huiskamer: latte, linnen en espresso. Eén tonale familie, geen felle kleur. */
 :root {
-  --paper: #f4efe6;
-  --cream: #fffdf8;
-  --sand: #e8e0d0;
-  --pine: #1d4535;
-  --pine-deep: #13301f;
-  --moss: #dbe5d3;
-  --clay: #c2582f;
-  --clay-soft: #f6dccd;
-  /* Klei als tekst: donkerder, zodat kleine tekst AA haalt. */
-  --clay-ink: #9a3f1c;
-  --sun: #f1c55a;
-  --sun-soft: #fbedc6;
-  --sun-ink: #6b4d0b;
-  --sky-soft: #dfe5f1;
-  --sky-ink: #33466e;
-  --plum-soft: #ece0ef;
-  --plum-ink: #5f3f66;
-  --ink: #15211b;
+  --paper: #f5f0e8;
+  --cream: #fbf8f3;
+  --sand: #e9e0d3;
+  /* Espresso: knoppen, actieve tabs, de volgende sessie, auteur psycholoog. */
+  --pine: #3b2f28;
+  --pine-deep: #2b221d;
+  /* Salie-haver: opdrachten, zachte knoppen. */
+  --moss: #e2e3d5;
+  /* Terracotta-poeder: notities, auteur cliënt. */
+  --clay: #b07355;
+  --clay-soft: #f0e0d6;
+  --clay-ink: #8a4a30;
+  /* Latte: check-ins, de lichte actieknop. */
+  --sun: #d9bc8c;
+  --sun-soft: #f1e6d2;
+  --sun-ink: #6a4e2c;
+  --sky-soft: #e2e4e3;
+  --sky-ink: #4a5560;
+  --plum-soft: #ece0de;
+  --plum-ink: #6e4e52;
+  --ink: #2e2520;
 
   --bg: var(--paper);
   --surface: var(--cream);
   --surface-2: var(--sand);
-  --oat-soft: #efe8dc;
+  --oat-soft: #efe8de;
   --text: var(--ink);
-  --text-muted: #45524b;
-  --text-faint: #5f6a63;
+  --text-muted: #67584c;
+  --text-faint: #766658;
   /* Iconen, randen en bolletjes. */
-  --taupe: #7d8e83;
+  --taupe: #ae9c88;
   --line: var(--sand);
   --accent: var(--pine);
-  --on-accent: #f7f2e8;
+  --on-accent: #f8f3ec;
   --accent-soft: var(--moss);
   --calm: var(--pine);
   --author-psy: var(--pine);
   --author-client: var(--clay);
-  --urgent: var(--clay);
+  --urgent: var(--clay-ink);
 
-  /* Zijbalk */
-  --side: var(--pine-deep);
-  --side-text: #e9efe6;
-  --side-muted: #a9bcae;
-  --side-hover: rgba(233, 239, 230, 0.08);
-  --side-active: rgba(233, 239, 230, 0.14);
+  /* Zijbalk: licht linnen, geen donker vlak. */
+  --side: #efe8dd;
+  --side-text: var(--ink);
+  --side-muted: #6f6054;
+  --side-hover: rgba(46, 37, 32, 0.05);
+  --side-active: rgba(46, 37, 32, 0.07);
 
-  /* Stemming, van zwaar naar licht */
-  --mood-1: #4f6286;
-  --mood-2: #8f6a93;
-  --mood-3: #d08a55;
-  --mood-4: #6f9f7b;
-  --mood-5: #e8b73c;
+  /* Stemming, van zwaar naar licht: mist, lavendel, latte, salie, honing. */
+  --mood-1: #7b8692;
+  --mood-2: #a48795;
+  --mood-3: #c39a7c;
+  --mood-4: #a2a88c;
+  --mood-5: #d9b77a;
 
-  --shadow-soft: 0 1px 2px rgba(21, 33, 27, 0.05), 0 10px 30px -8px rgba(21, 33, 27, 0.12);
-  --edge: rgba(21, 33, 27, 0.09);
-  --edge-strong: rgba(21, 33, 27, 0.18);
-  --glass: rgba(255, 253, 248, 0.82);
+  --shadow-soft: 0 1px 2px rgba(46, 37, 32, 0.04), 0 14px 34px -20px rgba(46, 37, 32, 0.22);
+  --edge: rgba(46, 37, 32, 0.09);
+  --edge-strong: rgba(46, 37, 32, 0.2);
+  --glass: var(--cream);
 
   /* Oude namen, nog gebruikt in het merkteken en de editor. */
   --milk: var(--cream);
@@ -115,7 +117,7 @@
   --color-edge: var(--edge);
   --color-edge-strong: var(--edge-strong);
 
-  --radius-card: 20px;
+  --radius-card: 22px;
   --radius-sheet: 24px;
 
   --shadow-soft: var(--shadow-soft);
@@ -133,10 +135,9 @@
     background: var(--bg);
     color: var(--text);
     font-family: var(--font-sans);
-    font-size: 15px;
+    font-size: 15.5px;
     line-height: 1.6;
-    letter-spacing: 0.003em;
-    word-spacing: 0.06em;
+    letter-spacing: 0.005em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -144,19 +145,27 @@
 
   @media (min-width: 768px) {
     body {
-      font-size: 16px;
+      font-size: 16.5px;
     }
   }
 
   ::selection {
-    background: var(--sun-soft);
+    background: var(--sun);
     color: var(--ink);
   }
 
+  html {
+    scrollbar-color: var(--taupe) transparent;
+  }
+
+  a {
+    text-underline-offset: 0.22em;
+  }
+
   :focus-visible {
-    outline: 2px solid var(--pine);
-    outline-offset: 2px;
-    border-radius: 6px;
+    outline: 1.5px solid var(--pine);
+    outline-offset: 3px;
+    border-radius: 8px;
   }
 
   h1,
@@ -166,52 +175,62 @@
   }
 }
 
-/* Koppen en paginatitels: Fraunces, zacht en redactioneel. Alles wat bediend wordt: Plus Jakarta Sans. */
+/* Koppen: Bodoni Moda, modetijdschrift. Alles wat bediend wordt: Jost. */
 @utility font-display {
   font-family: var(--font-serif);
-  font-weight: 420;
-  letter-spacing: -0.02em;
-  font-variation-settings: "opsz" 72, "SOFT" 60, "WONK" 0;
+  font-weight: 450;
+  letter-spacing: -0.005em;
+  font-variation-settings: "opsz" 18;
+  font-variant-numeric: lining-nums;
 }
 
 /* Typeschaal. Eén set maten, overal dezelfde. */
 @utility type-hero {
   font-family: var(--font-serif);
-  font-weight: 380;
-  letter-spacing: -0.035em;
-  font-variation-settings: "opsz" 144, "SOFT" 80, "WONK" 0;
-  font-size: 44px;
-  line-height: 0.98;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  font-variation-settings: "opsz" 72;
+  font-size: 46px;
+  line-height: 1;
   @media (min-width: 768px) {
-    font-size: 68px;
+    font-size: 76px;
   }
 }
 @utility type-title {
   font-family: var(--font-serif);
-  font-weight: 400;
-  letter-spacing: -0.03em;
-  font-variation-settings: "opsz" 120, "SOFT" 70, "WONK" 0;
+  font-weight: 420;
+  letter-spacing: -0.015em;
+  font-variation-settings: "opsz" 40;
   font-size: 34px;
-  line-height: 1.02;
+  line-height: 1.04;
+  hyphens: auto;
   @media (min-width: 768px) {
-    font-size: 46px;
+    font-size: 50px;
   }
 }
 @utility type-subtitle {
   font-family: var(--font-serif);
-  font-weight: 450;
-  letter-spacing: -0.015em;
-  font-variation-settings: "opsz" 36, "SOFT" 50, "WONK" 0;
-  font-size: 23px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  font-variation-settings: "opsz" 14;
+  font-size: 25px;
   line-height: 1.15;
 }
 
-/* Klein label boven een kop. */
+/* Klein bijschrift: rustig, geen hoofdletters. Nooit boven een kop. */
 @utility eyebrow {
   font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* Spatieerde kapitalen, enkel voor het merk en de praktijknaam. */
+@utility caps {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -220,41 +239,29 @@
   margin-inline: calc(50% - 50cqw);
 }
 
-/* Kaart: crème op papier, fijne rand en een zachte schaduw. */
+/* Kaart: linnen op papier, een haarlijn, geen gloed. */
 @utility card {
   background: var(--surface);
   border-radius: var(--radius-card);
-  box-shadow:
-    0 0 0 1px var(--edge),
-    0 1px 2px rgba(21, 33, 27, 0.04),
-    0 8px 24px -12px rgba(21, 33, 27, 0.1);
+  box-shadow: 0 0 0 1px var(--edge);
 }
 
-/* Eiland: een zwevende pil voor de topbalk, crème met een fijne rand. */
+/* Een losse pil in de topbalk. Vlak, met een haarlijn. */
 @utility island {
   display: inline-flex;
   align-items: center;
   border-radius: 999px;
-  background: rgba(255, 253, 248, 0.92);
-  box-shadow:
-    0 0 0 1px rgba(21, 33, 27, 0.07),
-    0 1px 1px rgba(21, 33, 27, 0.04),
-    0 12px 32px -12px rgba(21, 33, 27, 0.28);
-  backdrop-filter: blur(16px) saturate(1.3);
-  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  background: var(--surface);
+  box-shadow: 0 0 0 1px var(--edge);
 }
 
-/* Beeld met een donkere waas onderaan, zodat tekst erop leesbaar blijft. */
-@utility photo-veil {
-  background-image:
-    linear-gradient(180deg, rgba(19, 48, 31, 0.35) 0%, rgba(19, 48, 31, 0) 28%),
-    linear-gradient(180deg, rgba(19, 48, 31, 0) 35%, rgba(19, 48, 31, 0.5) 72%, rgba(19, 48, 31, 0.82) 100%);
+/* Beeld in de moodboard-stijl: warm, iets gedempt, alles in dezelfde toon. */
+@utility photo-grade {
+  filter: sepia(0.14) saturate(0.82) contrast(0.96) brightness(1.02);
 }
 
 @utility glass {
-  background: var(--glass);
-  backdrop-filter: saturate(1.2) blur(20px);
-  -webkit-backdrop-filter: saturate(1.2) blur(20px);
+  background: var(--surface);
 }
 
 @theme {

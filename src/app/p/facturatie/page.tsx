@@ -47,7 +47,7 @@ function InvoiceSheet({ invoice, onClose }: { invoice: Invoice; onClose: () => v
           <span>Vrijgesteld van btw</span>
           <span />
         </div>
-        <div className="mt-4 flex justify-between border-t border-surface-2 pt-4 font-semibold">
+        <div className="mt-4 flex justify-between border-t border-surface-2 pt-4 font-medium">
           <span>Totaal</span>
           <span className="tabular-nums">{formatMoney(invoice.amount)}</span>
         </div>

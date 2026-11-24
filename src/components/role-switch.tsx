@@ -41,7 +41,7 @@ export function RoleSwitch({
         className
       )}
     >
-      {floating && <span className="pl-2.5 pr-1.5 text-[11px] tracking-wide text-faint uppercase">Demo</span>}
+      {floating && <span className="pl-2.5 pr-1.5 text-[12px] text-faint">demo</span>}
       {roles.map((r) => {
         const active = r.value === current;
         return (

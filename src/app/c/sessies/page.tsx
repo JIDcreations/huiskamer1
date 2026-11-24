@@ -32,21 +32,17 @@ function NextSession({ appointment, onFlow }: { appointment: Appointment; onFlow
   const Icon = appointment.mode === "online" ? Video : MapPin;
   return (
     <div className="text-on-accent">
-      <p className="eyebrow inline-flex items-center gap-2 text-sun">
-        <span aria-hidden className="size-1.5 rounded-full bg-sun" />
-        Volgende sessie
-      </p>
-      <p className="mt-2 type-title text-on-accent">
+      <p className="type-title italic text-on-accent">
         {/^(vandaag|morgen)$/.test(formatRelativeDay(appointment.start))
           ? `${capitalize(formatRelativeDay(appointment.start))}, ${formatDayMonth(appointment.start)}`
           : capitalize(formatLongDate(appointment.start))}
       </p>
-      <p className="mt-2 text-[15px] tabular-nums">
+      <p className="mt-3 text-[15px] tabular-nums">
         {formatTime(appointment.start)} tot {formatTime(appointment.end)}
         <span className="text-on-accent/75"> bij {psy.name}</span>
       </p>
       <p className="mt-1 inline-flex items-center gap-1.5 text-[14px] text-on-accent/75">
-        <Icon className="size-4 shrink-0 stroke-[1.5] text-sun" />
+        <Icon className="size-4 shrink-0 stroke-[1.25] text-sun" />
         {appointment.mode === "online" ? "Online. De link verschijnt hier 10 minuten op voorhand." : psy.address}
       </p>
 
@@ -86,7 +82,8 @@ export default function Sessies() {
   return (
     <>
       <PageHeader
-        image={beelden.thee}
+        image={beelden.fauteuil}
+        detail={beelden.ochtend}
         title="Sessies"
         eyebrow={`Bij ${psy.name}`}
         actions={
@@ -97,7 +94,7 @@ export default function Sessies() {
         }
       />
 
-      <div className="mt-8 grid grid-cols-1 items-start gap-6 lg:mt-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-8">
+      <div className="mt-10 grid grid-cols-1 items-start gap-6 md:mt-14 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-8">
         <div className="flex min-w-0 flex-col gap-6">
           <Panel className={cn(next && "bg-pine")} bodyClassName="p-6 md:p-8">
             {next ? (
@@ -130,14 +127,14 @@ export default function Sessies() {
                   return (
                     <li key={a.id}>
                       <Link href={`/c/sessies/${a.id}`} className="group flex items-center gap-4 px-5 py-5 transition-colors hover:bg-oat-soft/60 md:px-7">
-                        <div className="flex size-12 shrink-0 flex-col items-center justify-center rounded-2xl bg-sky-soft text-sky-ink">
-                          <p className="text-[10px] font-semibold leading-none tracking-wide uppercase">{formatLongDate(a.start).slice(0, 2)}</p>
-                          <p className="font-display text-[20px] leading-tight tabular-nums">{new Date(a.start).getDate()}</p>
+                        <div className="flex h-14 w-12 shrink-0 flex-col items-center justify-center rounded-t-full rounded-b-xl bg-sky-soft pt-1.5 text-sky-ink">
+                          <p className="text-[11px] leading-none">{formatLongDate(a.start).slice(0, 2)}</p>
+                          <p className="font-display text-[22px] leading-tight tabular-nums">{new Date(a.start).getDate()}</p>
                         </div>
                         <div className="min-w-0 flex-1">
                           <p className="flex items-center gap-2 text-[15px] font-medium">
                             {capitalize(formatLongDate(a.start))}
-                            {fresh > 0 && <span className="rounded-full bg-clay-ink px-1.5 py-px text-[10px] font-semibold text-on-accent">Nieuw</span>}
+                            {fresh > 0 && <span className="rounded-full bg-clay-ink px-1.5 py-px text-[10px] font-medium text-on-accent">Nieuw</span>}
                           </p>
                           <p className={cn("truncate text-[13px]", text ? "text-muted" : "text-faint")}>
                             {text || (a.type === "intake" ? "Intake" : "Nog geen samenvatting")}

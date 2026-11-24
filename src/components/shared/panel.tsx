@@ -25,26 +25,26 @@ export function Panel({
   return (
     <section className={cn("card", className)}>
       {(title || href || action) && (
-        <header className="flex items-start justify-between gap-4 px-5 pt-5 md:px-6">
+        <header className="flex items-start justify-between gap-4 px-5 pt-6 md:px-7">
           <div className="min-w-0">
             {title && <h2 className="type-subtitle">{title}</h2>}
-            {description && <p className="mt-0.5 text-[13px] text-muted">{description}</p>}
+            {description && <p className="mt-1 text-[13.5px] text-muted">{description}</p>}
           </div>
           {action}
           {href && (
-            <Link href={href} className="inline-flex shrink-0 items-center gap-0.5 rounded-full bg-moss/70 px-3 py-1 text-[13px] font-medium text-pine transition-colors hover:bg-moss">
+            <Link href={href} className="inline-flex shrink-0 items-center gap-0.5 text-[14px] text-muted underline decoration-taupe decoration-1 underline-offset-4 transition-colors hover:text-text hover:decoration-pine">
               {hrefLabel}
-              <ChevronRight className="size-3.5 stroke-[1.5]" />
+              <ChevronRight className="size-3.5 stroke-[1.25]" />
             </Link>
           )}
         </header>
       )}
-      <div className={cn("px-5 pb-5 pt-3 md:px-6", bodyClassName)}>{children}</div>
+      <div className={cn("px-5 pb-6 pt-3 md:px-7", bodyClassName)}>{children}</div>
     </section>
   );
 }
 
 /** Kleine sectiekop boven een lijst. */
 export function SectionLabel({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <h2 className={cn("mb-3 text-[12px] font-semibold tracking-[0.06em] text-clay-ink uppercase", className)}>{children}</h2>;
+  return <h2 className={cn("mb-3 font-display text-[21px] italic leading-tight text-ink", className)}>{children}</h2>;
 }

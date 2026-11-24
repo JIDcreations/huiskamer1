@@ -141,7 +141,7 @@ export function ActivityItem({
         <span className="flex items-baseline justify-between gap-3">
           <span className="min-w-0 text-[14px] text-text">{title}</span>
           <span className="flex shrink-0 items-center gap-1.5 text-[12px] text-faint">
-            {isNew && <span className="rounded-full bg-clay-ink px-1.5 py-px text-[10px] font-semibold text-on-accent">Nieuw</span>}
+            {isNew && <span className="rounded-full bg-clay-ink px-1.5 py-px text-[10px] font-medium text-on-accent">Nieuw</span>}
             {timeOnly ? formatTime(a.at) : formatWhen(a.at)}
           </span>
         </span>

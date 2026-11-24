@@ -60,7 +60,7 @@ function AppointmentBlock({ a, name, onOpen }: { a: Appointment; name: string; o
             : cn(clientTint(name), a.mode === "online" && "ring-[1.5px] ring-inset ring-current/40")
       )}
     >
-      <span className={cn("block truncate font-semibold", cancelled && "line-through")}>{name}</span>
+      <span className={cn("block truncate font-medium", cancelled && "line-through")}>{name}</span>
       <span className="block truncate opacity-80">
         {formatTime(s)}
         {a.type === "intake" ? ", intake" : ""}
@@ -118,8 +118,8 @@ export default function Agenda() {
     <>
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="mb-1 text-[13px] text-muted">{count ? plural(count, "afspraak", "afspraken") : "Niets gepland"}</p>
           <h1 className="type-title">{title}</h1>
+          <p className="mt-2 font-display text-[18px] text-muted">{count ? plural(count, "afspraak", "afspraken") : "Niets gepland"}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <Segmented
@@ -164,10 +164,10 @@ export default function Agenda() {
                 }}
                 className="flex flex-col items-center gap-0.5 py-3 transition-colors hover:bg-oat-soft/50"
               >
-                <span className="text-[11px] font-medium tracking-wide text-faint uppercase">{format(d, "EEEEEE", { locale: nlBE }).replace(".", "")}</span>
+                <span className="text-[12px] text-faint">{format(d, "EEEEEE", { locale: nlBE }).replace(".", "")}</span>
                 <span
                   className={cn(
-                    "flex size-8 items-center justify-center rounded-full text-[15px] font-semibold tabular-nums",
+                    "flex size-8 items-center justify-center rounded-full text-[15px] font-medium tabular-nums",
                     today ? "bg-accent text-on-accent" : "text-text"
                   )}
                 >

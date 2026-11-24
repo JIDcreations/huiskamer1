@@ -5,20 +5,20 @@ import "./globals.css";
 // Zelf gehost (geen verzoek naar Google): sneller, en geen gegevens naar derden.
 const sans = localFont({
   src: [
-    { path: "../../node_modules/@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2", style: "normal" },
-    { path: "../../node_modules/@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-italic.woff2", style: "italic" },
+    { path: "../../node_modules/@fontsource-variable/jost/files/jost-latin-wght-normal.woff2", style: "normal" },
+    { path: "../../node_modules/@fontsource-variable/jost/files/jost-latin-wght-italic.woff2", style: "italic" },
   ],
-  weight: "200 800",
+  weight: "100 900",
   variable: "--font-sans-body",
   display: "swap",
 });
 
 const display = localFont({
   src: [
-    { path: "../../node_modules/@fontsource-variable/fraunces/files/fraunces-latin-full-normal.woff2", style: "normal" },
-    { path: "../../node_modules/@fontsource-variable/fraunces/files/fraunces-latin-full-italic.woff2", style: "italic" },
+    { path: "../../node_modules/@fontsource-variable/bodoni-moda/files/bodoni-moda-latin-opsz-normal.woff2", style: "normal" },
+    { path: "../../node_modules/@fontsource-variable/bodoni-moda/files/bodoni-moda-latin-opsz-italic.woff2", style: "italic" },
   ],
-  weight: "100 900",
+  weight: "400 900",
   variable: "--font-display",
   display: "swap",
 });
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#F4EFE6",
+  themeColor: "#F6F1EA",
   colorScheme: "light",
   viewportFit: "cover",
 };
