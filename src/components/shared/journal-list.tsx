@@ -135,9 +135,9 @@ export function JournalRow({
         compact ? "bg-bg px-5 py-4" : "bg-surface p-5 md:p-6"
       )}
     >
-      <div className="flex items-center gap-2 pr-10 text-[13px] text-muted md:pr-24">
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 pr-10 text-[13px] text-muted md:pr-24">
         <span aria-hidden className={cn("size-2 shrink-0 rounded-full", kindDot[entry.kind])} />
-        <span className="truncate">{label}</span>
+        <span className="min-w-0">{label}</span>
         <span aria-hidden className="text-taupe">·</span>
         <span className="shrink-0 tabular-nums">{formatTime(entry.createdAt)}</span>
         {viewer === "client" && (
