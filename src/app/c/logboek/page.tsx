@@ -39,7 +39,7 @@ export default function Logboek() {
               Deze week
             </h2>
             <WeekStrip entries={entries} compact />
-            <p className="mt-4 text-[13px] text-muted">Geel gemarkeerd: een check-in. Elk streepje is een afgewerkte opdracht.</p>
+            <p className="mt-4 text-[13px] text-muted">Geel gemarkeerd: een dag met een check-in.</p>
           </section>
           <Link
             href="/c/privacy"

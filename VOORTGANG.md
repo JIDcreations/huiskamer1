@@ -9,7 +9,7 @@ Stap voor stap vanaf `main`, elke stap apart gecommit.
 - Weg: eyebrows, labels in hoofdletters, sierbolletjes, de zwevende pil rechtsboven, cijfertegels (Vandaag psycholoog, Facturatie), het kaartenraster van de opdrachtenbibliotheek.
 - Fris wit in plaats van beige.
 - Handgetekende iconen (Doodle Icons, CC0) in `src/components/icons.tsx`.
-- Potloodlaag: vandaag omcirkeld, check-ins gemarkeerd, opdrachten als turfstreepjes, een vinkje dat zich tekent, kanttekeningen in rode pen met een krul.
+- Potloodlaag: vandaag omcirkeld, check-ins gemarkeerd, een vinkje dat zich tekent, kanttekeningen in rode pen met een krul.
 - Stemming als weer, ook als weerkaart in het dossier.
 - Logboek als één bladzijde met een kantlijn.
 - PLAN.md sectie 7 herschreven.

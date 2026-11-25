@@ -74,20 +74,7 @@ function Highlight() {
   );
 }
 
-/** Turfstreepjes: één per afgewerkte opdracht, de vijfde schuin erdoor. */
-function Tally({ count, className }: { count: number; className?: string }) {
-  const n = Math.min(count, 5);
-  return (
-    <svg aria-hidden viewBox="0 0 22 10" className={cn("h-2.5 w-[22px] overflow-visible", className)} fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round">
-      {Array.from({ length: Math.min(n, 4) }, (_, k) => (
-        <path key={k} d={`M${4 + k * 4.6} ${1.2 + (k % 2) * 0.4}c.2 2.6.1 5.1-.3 7.6`} />
-      ))}
-      {n === 5 && <path d="M1.5 7.6c5.6-1.8 12.2-4 18.6-6" />}
-    </svg>
-  );
-}
-
-/** De enige plek met weekvoortgang: markeerstift voor de check-in, turfstreepjes voor opdrachten, vandaag omcirkeld. */
+/** De week in één oogopslag: markeerstift voor de check-in, vandaag omcirkeld. */
 export function WeekStrip({ entries, compact, className }: { entries: JournalEntry[]; compact?: boolean; className?: string }) {
   const days = weekStrip(entries);
   return (
@@ -96,7 +83,7 @@ export function WeekStrip({ entries, compact, className }: { entries: JournalEnt
         <li
           key={d.day}
           className={cn("flex flex-col items-center gap-2", compact ? "py-1.5" : "py-3")}
-          aria-label={`${formatLongDate(d.date)}${d.isToday ? ", vandaag" : ""}: ${d.checkin ? "check-in gedaan" : "geen check-in"}, ${d.tasks} ${d.tasks === 1 ? "opdracht" : "opdrachten"}`}
+          aria-label={`${formatLongDate(d.date)}${d.isToday ? ", vandaag" : ""}: ${d.checkin ? "check-in gedaan" : "geen check-in"}`}
         >
           <span className={cn("text-[11px] leading-none", d.isToday ? "font-semibold text-text" : "text-faint")}>{letters[i]}</span>
           <span
@@ -111,7 +98,6 @@ export function WeekStrip({ entries, compact, className }: { entries: JournalEnt
             {d.date.getDate()}
             {d.isToday && <PencilCircle className="-inset-1 text-clay" delay={0.25} />}
           </span>
-          <Tally count={d.tasks} className={d.tasks ? "text-pine" : "invisible"} />
         </li>
       ))}
     </ol>
