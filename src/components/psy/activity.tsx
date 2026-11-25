@@ -3,17 +3,19 @@
 import Link from "next/link";
 import { CalendarDays, CalendarPlus, CheckCircle2, Lock, MessagesSquare, NotebookPen, Sun } from "@/components/icons";
 import { entrySummary } from "@/components/shared/journal-list";
-import { MoodMark, moodLabel } from "@/components/shared/mood";
+import { MoodMark, moodIcons, moodLabel } from "@/components/shared/mood";
 import { statusLabel, typeLabel } from "@/lib/appointments";
 import { excerpt, usePersonName, useTask, type Activity } from "@/lib/data";
 import { formatDayMonth, formatTime, formatWhen, plural } from "@/lib/format";
 import { cn } from "@/lib/utils";
-import { kindTone } from "@/components/shared/kind";
 
 function ActivityIcon({ activity: a }: { activity: Activity }) {
-  const cls = "size-4 stroke-[1.75]";
+  const cls = "size-[22px]";
   if (a.kind === "journal") {
-    if (a.entry.kind === "checkin") return <Sun className={cls} />;
+    if (a.entry.kind === "checkin") {
+      const Weather = a.entry.mood ? moodIcons[a.entry.mood] : Sun;
+      return <Weather className={cls} />;
+    }
     if (a.entry.kind === "opdracht") return <CheckCircle2 className={cls} />;
     return <NotebookPen className={cls} />;
   }
@@ -38,6 +40,17 @@ export function activityHref(a: Activity) {
       return a.note.appointmentId ? `${base}/sessies/${a.note.appointmentId}` : `${base}?tab=sessies`;
   }
 }
+
+/** Iconen zonder tegel, enkel een eigen inktkleur per soort. */
+const iconTone: Record<string, string> = {
+  checkin: "text-pine",
+  opdracht: "text-pine",
+  notitie: "text-clay-ink",
+  session: "text-sky-ink",
+  agenda: "text-plum-ink",
+  note: "text-taupe",
+  appointment: "text-taupe",
+};
 
 /** Eén regel in een tijdlijn of overzicht. */
 export function ActivityItem({
@@ -134,14 +147,14 @@ export function ActivityItem({
 
   return (
     <Link href={activityHref(a)} className="group flex gap-3.5 rounded-xl px-2 py-3 transition-colors hover:bg-oat-soft">
-      <span className={cn("mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-xl", kindTone[a.kind === "journal" ? a.entry.kind : a.kind])}>
+      <span className={cn("mt-px flex size-7 shrink-0 items-center justify-center", iconTone[a.kind === "journal" ? a.entry.kind : a.kind])}>
         <ActivityIcon activity={a} />
       </span>
       <span className="min-w-0 flex-1">
         <span className="flex items-baseline justify-between gap-3">
           <span className="min-w-0 text-[14px] text-text">{title}</span>
           <span className="flex shrink-0 items-center gap-1.5 text-[12px] text-faint">
-            {isNew && <span className="rounded-full bg-clay-ink px-1.5 py-px text-[10px] font-semibold text-on-accent">Nieuw</span>}
+            {isNew && <span className="font-medium text-clay-ink">nieuw,</span>}
             {timeOnly ? formatTime(a.at) : formatWhen(a.at)}
           </span>
         </span>

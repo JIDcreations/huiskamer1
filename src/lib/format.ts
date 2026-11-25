@@ -100,6 +100,12 @@ export function plainText(html: string) {
     .trim();
 }
 
+/** "a", "a en b", "a, b en c" */
+export function joinList(items: string[]) {
+  if (items.length < 2) return items.join("");
+  return `${items.slice(0, -1).join(", ")} en ${items[items.length - 1]}`;
+}
+
 export function plural(n: number, one: string, many: string) {
   return `${n} ${n === 1 ? one : many}`;
 }

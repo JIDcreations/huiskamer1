@@ -24,7 +24,7 @@ import {
   useVisit,
   type Activity,
 } from "@/lib/data";
-import { capitalize, formatLongDate, formatTime, greeting, plural } from "@/lib/format";
+import { capitalize, formatLongDate, formatTime, greeting, joinList, plural } from "@/lib/format";
 import type { Appointment } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -47,8 +47,8 @@ function DayAgenda({ appointments, onOpen }: { appointments: Appointment[]; onOp
         const done = end <= now || a.status !== "gepland";
         const points = a.status === "gepland" && !done ? agendaFor(agenda, all, journal, a.clientId, { forPsy: true }).items.length : 0;
         return (
-          <li key={a.id} className={cn("flex items-center gap-2 rounded-2xl pr-2 transition-colors hover:bg-oat-soft", current && "bg-sun-soft hover:bg-sun-soft")}>
-            <button onClick={() => onOpen(a)} className="flex min-w-0 flex-1 items-center gap-4 rounded-xl px-2 py-3 text-left">
+          <li key={a.id} className={cn("rounded-2xl transition-colors hover:bg-oat-soft", current && "bg-sun-soft hover:bg-sun-soft")}>
+            <button onClick={() => onOpen(a)} className="flex w-full min-w-0 items-center gap-4 rounded-xl px-2 py-3 text-left">
               <span className={cn("w-14 shrink-0 font-display text-[19px] tabular-nums", done && !current && "text-faint")}>{formatTime(start)}</span>
               {c && <Avatar name={`${c.firstName} ${c.lastName}`} tone="client" size="sm" />}
               <span className="min-w-0 flex-1">
@@ -64,9 +64,9 @@ function DayAgenda({ appointments, onOpen }: { appointments: Appointment[]; onOp
             {a.status === "gepland" && !done && (
               <Link
                 href={`/p/clienten/${a.clientId}#voor-volgende-keer`}
-                className="shrink-0 rounded-full bg-plum-soft px-2.5 py-1 text-[12px] font-medium text-plum-ink transition-colors hover:bg-plum-ink hover:text-on-accent"
+                className="-mt-2 mb-2.5 ml-[124px] inline-block text-[13px] text-plum-ink underline decoration-plum-ink/30 underline-offset-4 hover:decoration-plum-ink"
               >
-                Voor volgende keer{points ? ` (${points})` : ""}
+                {points ? `Voor volgende keer: ${plural(points, "punt", "punten")}` : "Voor volgende keer"}
               </Link>
             )}
           </li>
@@ -146,27 +146,13 @@ export default function Vandaag() {
         }
       >
         {capitalize(formatLongDate(new Date()))}.{" "}
-        {today.length ? `Vandaag ${plural(today.length, "afspraak", "afspraken")}.` : "Geen afspraken vandaag."}{" "}
-        {summary.length ? "Dit is er nieuw sinds je laatste bezoek." : "Sinds je laatste bezoek is er niets nieuws."}
+        {today.length
+          ? `${capitalize(plural(today.length, "afspraak", "afspraken"))}, de eerste om ${formatTime(today[0].start)}.`
+          : "Geen afspraken vandaag."}{" "}
+        {summary.length ? `Sinds je laatste bezoek: ${joinList(summary as string[])}.` : "Sinds je laatste bezoek is er niets nieuws."}
       </PageHeader>
 
-      <dl className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">
-        {(
-          [
-            ["Afspraken vandaag", today.length, "bg-pine text-on-accent", "text-on-accent/75"],
-            ["Gedeelde notities", counts.notitie, "bg-clay-soft text-clay-ink", "text-clay-ink/80"],
-            ["Afgewerkte opdrachten", counts.opdracht, "bg-moss text-pine", "text-pine/80"],
-            ["Voor volgende keer", counts.agenda, "bg-sun-soft text-sun-ink", "text-sun-ink/80"],
-          ] as const
-        ).map(([label, n, tone, sub]) => (
-          <div key={label} className={cn("flex flex-col justify-between gap-3 rounded-[20px] px-4 py-4 md:gap-6 md:px-5", tone)}>
-            <dt className={cn("text-[13px] font-medium", sub)}>{label}</dt>
-            <dd className="font-display text-[32px] leading-none tabular-nums md:text-[40px]">{n}</dd>
-          </div>
-        ))}
-      </dl>
-
-      <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
+      <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
         <div className="flex flex-col gap-5">
           <Panel title="Vandaag" href="/p/agenda" hrefLabel="Agenda" bodyClassName="pt-1">
             {today.length ? <DayAgenda appointments={today} onOpen={setOpen} /> : <p className="py-3 text-[14px] text-muted">Een dag zonder sessies.</p>}
