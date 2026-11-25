@@ -23,7 +23,7 @@ export default function Login() {
   return (
     <main className="grid min-h-dvh lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
       <div className="flex flex-col px-5 py-8 md:px-12 lg:py-10">
-        <div className="flex items-center gap-2.5">
+        <div className="mx-auto flex w-full max-w-[400px] items-center gap-2.5">
           <Mark className="size-9" />
           <Wordmark className="text-[26px]" />
         </div>

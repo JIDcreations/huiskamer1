@@ -46,12 +46,6 @@
   --side-hover: rgba(233, 239, 230, 0.08);
   --side-active: rgba(233, 239, 230, 0.14);
 
-  /* Stemming, van zwaar naar licht */
-  --mood-1: #4f6286;
-  --mood-2: #8f6a93;
-  --mood-3: #d08a55;
-  --mood-4: #6f9f7b;
-  --mood-5: #e8b73c;
 
   --shadow-soft: 0 1px 2px rgba(21, 33, 27, 0.05), 0 10px 30px -8px rgba(21, 33, 27, 0.12);
   --edge: rgba(21, 33, 27, 0.09);
@@ -103,11 +97,6 @@
   --color-side-muted: var(--side-muted);
   --color-side-hover: var(--side-hover);
   --color-side-active: var(--side-active);
-  --color-mood-1: var(--mood-1);
-  --color-mood-2: var(--mood-2);
-  --color-mood-3: var(--mood-3);
-  --color-mood-4: var(--mood-4);
-  --color-mood-5: var(--mood-5);
 
   --font-sans: var(--font-sans-body), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-serif: var(--font-display), "Iowan Old Style", Georgia, serif;

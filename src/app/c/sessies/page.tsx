@@ -125,14 +125,14 @@ export default function Sessies() {
                   return (
                     <li key={a.id}>
                       <Link href={`/c/sessies/${a.id}`} className="group flex items-center gap-4 px-5 py-5 transition-colors hover:bg-oat-soft/60 md:px-7">
-                        <div className="flex size-12 shrink-0 flex-col items-center justify-center rounded-2xl bg-sky-soft text-sky-ink">
-                          <p className="text-[10px] font-semibold leading-none tracking-wide uppercase">{formatLongDate(a.start).slice(0, 2)}</p>
-                          <p className="font-display text-[20px] leading-tight tabular-nums">{new Date(a.start).getDate()}</p>
+                        <div className="flex w-10 shrink-0 flex-col items-center">
+                          <p className="text-[12px] leading-none text-faint">{formatLongDate(a.start).slice(0, 2)}</p>
+                          <p className="font-display text-[26px] leading-tight tabular-nums">{new Date(a.start).getDate()}</p>
                         </div>
                         <div className="min-w-0 flex-1">
                           <p className="flex items-center gap-2 text-[15px] font-medium">
                             {capitalize(formatLongDate(a.start))}
-                            {fresh > 0 && <span className="rounded-full bg-clay-ink px-1.5 py-px text-[10px] font-semibold text-on-accent">Nieuw</span>}
+                            {fresh > 0 && <span className="text-[13px] font-normal text-clay-ink">nieuwe reactie</span>}
                           </p>
                           <p className={cn("truncate text-[13px]", text ? "text-muted" : "text-faint")}>
                             {text || (a.type === "intake" ? "Intake" : "Nog geen samenvatting")}

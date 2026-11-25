@@ -18,3 +18,11 @@ export const taskKindTone = {
   schaal: "bg-sky-soft text-sky-ink",
   meditatie: "bg-plum-soft text-plum-ink",
 } as const;
+
+/** Dezelfde tinten als inkt, voor tekst zonder vlak erachter. */
+export const taskKindInk = {
+  afvinken: "text-pine",
+  tekst: "text-clay-ink",
+  schaal: "text-sky-ink",
+  meditatie: "text-plum-ink",
+} as const;

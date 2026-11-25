@@ -110,7 +110,7 @@ export default function Welkom() {
         <div className="flex items-center justify-between">
           <ol aria-label={`Stap ${step + 1} van ${steps.length}`} className="flex gap-1.5">
             {steps.map((_, i) => (
-              <li key={i} className={cn("h-1 rounded-full transition-all duration-300", i === step ? "w-8 bg-clay" : i < step ? "w-1.5 bg-pine" : "w-1.5 bg-surface-2")} />
+              <li key={i} className={cn("h-1 rounded-full transition-all duration-300", i === step ? "w-8 bg-clay" : i < step ? "w-1.5 bg-pine" : "w-1.5 bg-taupe/45")} />
             ))}
           </ol>
           <div className="flex items-center gap-1">

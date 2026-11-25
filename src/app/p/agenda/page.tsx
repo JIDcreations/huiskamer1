@@ -1,5 +1,6 @@
 "use client";
 
+import { PencilCircle } from "@/components/shared/pencil";
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { addDays, addMinutes, format, isSameDay, parseISO, startOfDay, startOfWeek } from "date-fns";
@@ -118,8 +119,8 @@ export default function Agenda() {
     <>
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="mb-1 text-[13px] text-muted">{count ? plural(count, "afspraak", "afspraken") : "Niets gepland"}</p>
           <h1 className="type-title">{title}</h1>
+          <p className="mt-2 text-[15px] text-muted">{count ? plural(count, "afspraak", "afspraken") : "Niets gepland"}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <Segmented
@@ -164,14 +165,10 @@ export default function Agenda() {
                 }}
                 className="flex flex-col items-center gap-0.5 py-3 transition-colors hover:bg-oat-soft/50"
               >
-                <span className="text-[11px] font-medium tracking-wide text-faint uppercase">{format(d, "EEEEEE", { locale: nlBE }).replace(".", "")}</span>
-                <span
-                  className={cn(
-                    "flex size-8 items-center justify-center rounded-full text-[15px] font-semibold tabular-nums",
-                    today ? "bg-accent text-on-accent" : "text-text"
-                  )}
-                >
+                <span className={cn("text-[12px]", today ? "font-semibold text-text" : "text-faint")}>{format(d, "EEEEEE", { locale: nlBE }).replace(".", "")}</span>
+                <span className="relative flex size-8 items-center justify-center text-[15px] font-semibold tabular-nums text-text">
                   {d.getDate()}
+                  {today && <PencilCircle className="-inset-0.5 text-clay" draw={false} />}
                 </span>
               </button>
             );

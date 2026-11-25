@@ -50,7 +50,7 @@ export function SessionsTab({ client, onPlan }: { client: Client; onPlan: () => 
                     <div className="min-w-0 flex-1">
                       <p className="flex items-center gap-2 text-[15px] font-medium">
                         {capitalize(formatLongDate(a.start))}
-                        {fresh > 0 && <span aria-label="Nieuwe reactie" className="size-2 rounded-full bg-accent" />}
+                        {fresh > 0 && <span className="text-[13px] font-normal text-clay-ink">nieuwe reactie</span>}
                       </p>
                       <p className={cn("truncate text-[13px]", text ? "text-muted" : "text-faint")}>
                         {text || `${typeLabel[a.type]}, nog geen samenvatting`}

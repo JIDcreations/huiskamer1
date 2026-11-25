@@ -166,10 +166,10 @@ export function SessionView({
       <div className={cn(aside && "grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_340px]")}>
         <article className="hk-tafel min-w-0 card px-5 pb-8 pt-7 sm:px-8 md:px-10 md:pt-9">
           <header>
-            <p className="text-[13px] text-muted">{appointment.type === "intake" ? "Intake" : "Sessie"}</p>
-            <h1 className="mt-1 type-title">{capitalize(formatLongDate(appointment.start))}</h1>
-            <p className="mt-2 inline-flex items-center gap-1.5 text-[13px] text-muted tabular-nums">
-              <Icon className="size-3.5 stroke-[1.5] text-taupe" />
+            <h1 className="type-title">{capitalize(formatLongDate(appointment.start))}</h1>
+            <p className="mt-2 inline-flex items-center gap-1.5 text-[14px] text-muted tabular-nums">
+              <Icon className="size-4 text-taupe" />
+              {appointment.type === "intake" ? "Intake, " : ""}
               {formatTime(appointment.start)} tot {formatTime(appointment.end)}, {appointment.mode === "online" ? "online" : "in de praktijk"}
             </p>
           </header>

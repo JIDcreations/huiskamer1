@@ -5,14 +5,14 @@ import { Plus, Trash2 } from "@/components/icons";
 import { PageHeader } from "@/components/page-header";
 import { AssignTaskSheet } from "@/components/psy/assign-task";
 import { FormActions, kindLabel, TaskFields, type TaskDraft } from "@/components/psy/task-form";
-import { Badge } from "@/components/ui/badge";
-import { taskKindTone } from "@/components/shared/kind";
+import { taskKindInk } from "@/components/shared/kind";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/sheet";
 import { toast } from "@/components/ui/toast";
 import { actions, rhythmLabel, useTasks, useTemplates } from "@/lib/data";
 import { plural } from "@/lib/format";
 import type { TaskTemplate } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 function TemplateSheet({ template, onClose }: { template: TaskTemplate | "nieuw"; onClose: () => void }) {
   const existing = template === "nieuw" ? null : template;
@@ -78,22 +78,28 @@ export default function Bibliotheek() {
         }
       />
 
-      <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <ul className="mt-8 card divide-y divide-edge overflow-hidden">
         {templates.map((t) => {
           const inUse = new Set(tasks.filter((x) => x.templateId === t.id).map((x) => x.clientId)).size;
           return (
-            <article key={t.id} className="card flex flex-col p-5">
-              <div className="flex items-start justify-between gap-3">
+            <li key={t.id} className="grid grid-cols-1 gap-x-8 gap-y-3 px-5 py-5 md:grid-cols-[minmax(0,1fr)_minmax(0,15rem)_auto] md:items-center md:px-6">
+              <div className="min-w-0">
                 <h2 className="text-[16px] font-semibold">{t.title}</h2>
-                <Badge className={taskKindTone[t.kind]}>{kindLabel[t.kind]}</Badge>
+                <p className="mt-1 max-w-[60ch] text-[14px] leading-relaxed text-muted">{t.description}</p>
               </div>
-              <p className="mt-2 flex-1 text-[14px] leading-relaxed text-muted">{t.description}</p>
-              <p className="mt-4 text-[12px] text-faint">
+              <p className="text-[13px] leading-relaxed text-muted">
+                <span className={cn("font-medium", taskKindInk[t.kind])}>{kindLabel[t.kind]}</span>
+                <br />
                 {t.defaultRhythm ? rhythmLabel(t.defaultRhythm) : "Ritme kies je bij het geven"}
                 {t.minutes ? `, ${t.minutes} minuten` : ""}
-                {inUse ? `, in gebruik bij ${plural(inUse, "cliënt", "cliënten")}` : ""}
+                {inUse ? (
+                  <>
+                    <br />
+                    In gebruik bij {plural(inUse, "cliënt", "cliënten")}
+                  </>
+                ) : null}
               </p>
-              <div className="mt-4 flex gap-2 border-t border-surface-2 pt-4">
+              <div className="flex gap-1 md:justify-end">
                 <Button size="sm" variant="secondary" onClick={() => setAssign(t.id)}>
                   Geef aan cliënt
                 </Button>
@@ -101,10 +107,10 @@ export default function Bibliotheek() {
                   Bewerken
                 </Button>
               </div>
-            </article>
+            </li>
           );
         })}
-      </div>
+      </ul>
 
       {editing && <TemplateSheet key={editing === "nieuw" ? "nieuw" : editing.id} template={editing} onClose={() => setEditing(null)} />}
       {assign && <AssignTaskSheet open onOpenChange={(o) => !o && setAssign(null)} templateId={assign} />}
