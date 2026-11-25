@@ -1,11 +1,10 @@
 @import "tailwindcss";
 
-/* Huiskamer: Milk, Oat, Taupe. Eén lichte uitstraling. */
-/* Huiskamer: dennengroen, klei en zon op warm papier. */
+/* Huiskamer: dennengroen, klei en zon op fris wit. */
 :root {
-  --paper: #f4efe6;
-  --cream: #fffdf8;
-  --sand: #e8e0d0;
+  --paper: #f7f8f6;
+  --cream: #ffffff;
+  --sand: #e6e9e5;
   --pine: #1d4535;
   --pine-deep: #13301f;
   --moss: #dbe5d3;
@@ -25,7 +24,7 @@
   --bg: var(--paper);
   --surface: var(--cream);
   --surface-2: var(--sand);
-  --oat-soft: #efe8dc;
+  --oat-soft: #f0f2ef;
   --text: var(--ink);
   --text-muted: #45524b;
   --text-faint: #5f6a63;
@@ -33,7 +32,7 @@
   --taupe: #7d8e83;
   --line: var(--sand);
   --accent: var(--pine);
-  --on-accent: #f7f2e8;
+  --on-accent: #fbfbf9;
   --accent-soft: var(--moss);
   --calm: var(--pine);
   --author-psy: var(--pine);
@@ -57,7 +56,7 @@
   --shadow-soft: 0 1px 2px rgba(21, 33, 27, 0.05), 0 10px 30px -8px rgba(21, 33, 27, 0.12);
   --edge: rgba(21, 33, 27, 0.09);
   --edge-strong: rgba(21, 33, 27, 0.18);
-  --glass: rgba(255, 253, 248, 0.82);
+  --glass: rgba(255, 255, 255, 0.85);
 
   /* Oude namen, nog gebruikt in het merkteken en de editor. */
   --milk: var(--cream);
@@ -226,7 +225,7 @@
   display: inline-flex;
   align-items: center;
   border-radius: 999px;
-  background: rgba(255, 253, 248, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   box-shadow:
     0 0 0 1px rgba(21, 33, 27, 0.07),
     0 1px 1px rgba(21, 33, 27, 0.04),
