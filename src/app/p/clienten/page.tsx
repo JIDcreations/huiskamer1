@@ -81,7 +81,6 @@ export default function Clienten() {
     <>
       <PageHeader
         title="Cliënten"
-        eyebrow={`${count("actief")} actief`}
         actions={
           <Button onClick={() => setCreating(true)}>
             <Plus /> Nieuwe cliënt

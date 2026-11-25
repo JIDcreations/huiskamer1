@@ -28,7 +28,7 @@ export default function Herinneringen() {
 
   return (
     <div className="mx-auto max-w-[680px]">
-      <PageHeader title="Herinneringen" eyebrow="Rustig, en enkel wat je zelf wil" />
+      <PageHeader title="Herinneringen" />
 
       <Panel className="mt-8">
         <ReminderPicker value={prefs.checkinReminder} onChange={(v) => save({ checkinReminder: v })} />

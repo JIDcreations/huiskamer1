@@ -71,7 +71,6 @@ export default function Bibliotheek() {
     <>
       <PageHeader
         title="Opdrachtenbibliotheek"
-        eyebrow="Herbruikbare sjablonen"
         actions={
           <Button onClick={() => setEditing("nieuw")}>
             <Plus /> Nieuw sjabloon

@@ -32,11 +32,8 @@ function NextSession({ appointment, onFlow }: { appointment: Appointment; onFlow
   const Icon = appointment.mode === "online" ? Video : MapPin;
   return (
     <div className="text-on-accent">
-      <p className="eyebrow inline-flex items-center gap-2 text-sun">
-        <span aria-hidden className="size-1.5 rounded-full bg-sun" />
-        Volgende sessie
-      </p>
-      <p className="mt-2 type-title text-on-accent">
+      <p className="text-[14px] text-on-accent/75">Volgende sessie</p>
+      <p className="mt-1 type-title text-on-accent">
         {/^(vandaag|morgen)$/.test(formatRelativeDay(appointment.start))
           ? `${capitalize(formatRelativeDay(appointment.start))}, ${formatDayMonth(appointment.start)}`
           : capitalize(formatLongDate(appointment.start))}
@@ -74,7 +71,6 @@ function NextSession({ appointment, onFlow }: { appointment: Appointment; onFlow
 }
 
 export default function Sessies() {
-  const psy = usePsychologist();
   const appointments = useAppointments(CURRENT_CLIENT_ID);
   const next = upcoming(appointments)[0];
   const later = upcoming(appointments).slice(1);
@@ -88,7 +84,6 @@ export default function Sessies() {
       <PageHeader
         image={beelden.thee}
         title="Sessies"
-        eyebrow={`Bij ${psy.name}`}
         actions={
           <Button variant="sun" onClick={() => setFlow({ kind: "book" })}>
             <Plus /> <span className="hidden sm:inline">Nieuwe afspraak boeken</span>

@@ -34,12 +34,11 @@ export default function Welkom() {
           <p>Een rustige plek voor jou en {psy.firstName}, tussen de sessies door.</p>
           <ul className="mt-6 flex flex-col gap-3 text-[15px]">
             {[
-              ["Vandaag", "Hoe het gaat, en wat je vandaag doet.", "bg-sun"],
-              ["Logboek", "Alles wat je schrijft, op één plek.", "bg-clay"],
-              ["Sessies", "Wat jullie bespraken, en wat je wil meenemen.", "bg-pine"],
-            ].map(([t, d, dot]) => (
-              <li key={t} className="flex gap-3">
-                <span aria-hidden className={cn("mt-2 size-2.5 shrink-0 rounded-full", dot)} />
+              ["Vandaag", "Hoe het gaat, en wat je vandaag doet."],
+              ["Logboek", "Alles wat je schrijft, op één plek."],
+              ["Sessies", "Wat jullie bespraken, en wat je wil meenemen."],
+            ].map(([t, d]) => (
+              <li key={t}>
                 <span>
                   <span className="font-medium text-text">{t}.</span> {d}
                 </span>

@@ -33,7 +33,7 @@ import { cn } from "@/lib/utils";
 function SectionTitle({ children, hint }: { children: React.ReactNode; hint?: React.ReactNode }) {
   return (
     <div className="mb-3 flex items-baseline justify-between gap-3">
-      <h2 className="text-[12px] font-semibold tracking-[0.06em] text-clay-ink uppercase">{children}</h2>
+      <h2 className="text-[15px] font-semibold text-text">{children}</h2>
       {hint}
     </div>
   );
@@ -70,13 +70,6 @@ export function SessionTaskRow({ task, journal, action }: { task: Task; journal:
           : "";
   return (
     <li className="flex items-center gap-3 py-3">
-      <span
-        aria-hidden
-        className={cn(
-          "size-2.5 shrink-0 rounded-full",
-          state === "gedaan" ? "bg-pine" : state === "open" ? "bg-sun" : "bg-surface-2"
-        )}
-      />
       <div className="min-w-0 flex-1">
         <p className={cn("truncate text-[15px] font-medium", (state === "niet gedaan" || state === "afgelopen") && "text-muted")}>{task.title}</p>
         <RhythmLabel rhythm={task.rhythm} />

@@ -80,7 +80,7 @@ function Brand({ href, context, compact }: { href: string; context: string; comp
       <Mark inverted className="size-9" />
       <span className="leading-tight">
         <Wordmark className="block text-[25px] text-side-text" />
-        <span className="mt-1.5 block text-[11px] font-medium tracking-[0.14em] text-side-muted uppercase">{context}</span>
+        <span className="mt-1 block text-[13px] text-side-muted">{context}</span>
       </span>
     </Link>
   );
@@ -116,7 +116,7 @@ function SidebarContent({ homeHref, context, nav, footerNav, sidebarFooter }: Om
         {nav.map((group, i) => (
           <div key={group.label ?? i} className={cn(i > 0 && "mt-6")}>
             {group.label && (
-              <p className="mb-1.5 px-3 text-[11px] font-medium tracking-[0.08em] text-side-muted uppercase">
+              <p className="mb-1.5 px-3 text-[13px] text-side-muted">
                 {group.label}
               </p>
             )}
@@ -180,7 +180,7 @@ function UserMenu({ user }: { user: ShellUser }) {
           })}
           <DropdownMenu.Separator className="mx-1 my-1 h-px bg-surface-2" />
           <div className="px-3 pb-2 pt-1.5 md:hidden">
-            <p className="mb-2 text-[11px] font-medium tracking-[0.08em] text-faint uppercase">Demo: bekijk als</p>
+            <p className="mb-2 text-[13px] text-muted">Demo: bekijk als</p>
             <RoleSwitch className="flex w-full" />
           </div>
           <DropdownMenu.Separator className="mx-1 my-1 h-px bg-surface-2 md:hidden" />
@@ -275,7 +275,7 @@ function MobileDrawer({
                     <SidebarContent {...sidebar} />
                   </div>
                   <div className="border-t border-white/10 bg-surface px-4 py-4 md:hidden">
-                    <p className="mb-2 text-[11px] font-medium tracking-[0.08em] text-faint uppercase">Demo: bekijk als</p>
+                    <p className="mb-2 text-[13px] text-muted">Demo: bekijk als</p>
                     <RoleSwitch className="flex w-full" />
                     <DemoReset className="mt-3" />
                   </div>

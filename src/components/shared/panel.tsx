@@ -46,5 +46,5 @@ export function Panel({
 
 /** Kleine sectiekop boven een lijst. */
 export function SectionLabel({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <h2 className={cn("mb-3 text-[12px] font-semibold tracking-[0.06em] text-clay-ink uppercase", className)}>{children}</h2>;
+  return <h2 className={cn("mb-3 text-[15px] font-semibold text-text", className)}>{children}</h2>;
 }

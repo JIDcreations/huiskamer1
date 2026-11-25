@@ -62,7 +62,7 @@ export default function Opdrachten() {
 
   return (
     <div className="mx-auto max-w-[760px]">
-      <PageHeader title="Alle opdrachten" eyebrow="Wat je vandaag doet, staat in Vandaag" />
+      <PageHeader title="Alle opdrachten" />
       {empty ? (
         <div className="mt-8 card">
           <EmptyState title="Nog geen opdrachten" description="Opdrachten spreek je samen af in een sessie. Ze verschijnen dan hier en in Vandaag." />

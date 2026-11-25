@@ -24,7 +24,7 @@ import {
   useVisit,
   type Activity,
 } from "@/lib/data";
-import { formatLongDate, formatTime, greeting, plural } from "@/lib/format";
+import { capitalize, formatLongDate, formatTime, greeting, plural } from "@/lib/format";
 import type { Appointment } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -138,7 +138,6 @@ export default function Vandaag() {
     <>
       <PageHeader
         image={beelden.kamer}
-        eyebrow={formatLongDate(new Date())}
         title={`${greeting()}, ${psy.firstName}`}
         actions={
           <Button variant="sun" onClick={() => setCreating(true)}>
@@ -146,6 +145,7 @@ export default function Vandaag() {
           </Button>
         }
       >
+        {capitalize(formatLongDate(new Date()))}.{" "}
         {today.length ? `Vandaag ${plural(today.length, "afspraak", "afspraken")}.` : "Geen afspraken vandaag."}{" "}
         {summary.length ? "Dit is er nieuw sinds je laatste bezoek." : "Sinds je laatste bezoek is er niets nieuws."}
       </PageHeader>

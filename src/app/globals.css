@@ -206,15 +206,6 @@
   line-height: 1.15;
 }
 
-/* Klein label boven een kop. */
-@utility eyebrow {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
 /* Laat een element tot aan de randen van de inhoudskolom lopen, los van de max-breedte. */
 @utility bleed {
   margin-inline: calc(50% - 50cqw);

@@ -22,13 +22,11 @@ const badgeVariants = cva(
 function Badge({
   className,
   tone,
-  dot,
   children,
   ...props
-}: React.ComponentProps<"span"> & VariantProps<typeof badgeVariants> & { dot?: boolean }) {
+}: React.ComponentProps<"span"> & VariantProps<typeof badgeVariants>) {
   return (
     <span className={cn(badgeVariants({ tone }), className)} {...props}>
-      {dot && <span className="size-1.5 rounded-full bg-current" />}
       {children}
     </span>
   );

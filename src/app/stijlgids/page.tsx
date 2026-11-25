@@ -110,7 +110,7 @@ export default function Stijlgids() {
                 <p className="text-[14px] font-medium">Sarah Peeters</p>
                 <p className="text-[13px] text-muted">Opvolging, 50 min</p>
               </div>
-              <Badge tone="calm" dot>
+              <Badge tone="calm">
                 Fysiek
               </Badge>
             </CardContent>

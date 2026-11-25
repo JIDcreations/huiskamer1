@@ -25,7 +25,6 @@ export default function Logboek() {
       <PageHeader
         image={beelden.boek}
         title="Logboek"
-        eyebrow="Alles wat je schrijft, op één plek"
         actions={
           <Button variant="sun" onClick={write}>
             <PenLine /> Schrijf iets
@@ -46,8 +45,8 @@ export default function Logboek() {
             href="/c/privacy"
             className="group block rounded-card bg-moss p-6 text-pine transition-transform duration-500 ease-out-soft hover:-translate-y-0.5"
           >
-            <p className="eyebrow">Wat ziet {psy.firstName}?</p>
-            <p className="mt-3 font-display text-[22px] leading-snug">Enkel wat je deelt. Wat je voor jezelf houdt, ziet niemand anders.</p>
+            <p className="text-[14px] font-medium">Wat ziet {psy.firstName}?</p>
+            <p className="mt-2 font-display text-[22px] leading-snug">Enkel wat je deelt. Wat je voor jezelf houdt, ziet niemand anders.</p>
             <span className="mt-4 inline-flex items-center gap-1 text-[13px] font-semibold">
               Privacy <ChevronRight className="size-4 stroke-[1.75] transition-transform group-hover:translate-x-0.5" />
             </span>

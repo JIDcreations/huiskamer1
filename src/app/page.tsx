@@ -29,7 +29,6 @@ export default function Login() {
         </div>
 
         <div className="mx-auto flex w-full max-w-[400px] flex-1 flex-col justify-center py-12">
-          <p className="eyebrow mb-4 text-clay-ink">Welkom terug</p>
           <h1 className="type-hero">Een rustige plek, ook tussen de sessies door.</h1>
           <p className="mt-4 text-[16px] text-muted">Afspraken, opdrachten en je logboek, samen met je psycholoog.</p>
 
@@ -78,8 +77,7 @@ export default function Login() {
         <div aria-hidden className="photo-veil absolute inset-0 -z-10" />
         <figure className="absolute inset-x-14 bottom-14 max-w-lg text-on-accent">
           <p className="font-display text-[40px] leading-[1.04]">Schrijf wanneer het past. Deel enkel wat je wil delen.</p>
-          <figcaption className="mt-4 flex items-center gap-2 text-[14px] text-on-accent/80">
-            <span aria-hidden className="size-2 rounded-full bg-sun" />
+          <figcaption className="mt-4 text-[14px] text-on-accent/80">
             Wat je voor jezelf houdt, ziet niemand anders.
           </figcaption>
         </figure>

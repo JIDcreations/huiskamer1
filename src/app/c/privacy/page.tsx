@@ -18,7 +18,7 @@ export default function Privacy() {
 
   return (
     <div className="mx-auto max-w-[680px]">
-      <PageHeader title="Privacy" eyebrow="Wat je schrijft, is van jou" />
+      <PageHeader title="Privacy" />
 
       <Panel className="mt-8" title={`Wat ${psy.firstName} ziet`}>
         <ul className="flex flex-col gap-3 text-[14px] leading-relaxed">
@@ -36,8 +36,7 @@ export default function Privacy() {
               <span className="text-muted">{psy.firstName} ziet ze nergens, ook niet hoeveel het er zijn.</span>
             </span>
           </li>
-          <li className="flex gap-3 text-muted">
-            <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-taupe" />
+          <li className="text-muted">
             Wat je op een sessiepagina schrijft, lezen jullie allebei. De werknotities van {psy.firstName} zijn van haar alleen.
           </li>
         </ul>

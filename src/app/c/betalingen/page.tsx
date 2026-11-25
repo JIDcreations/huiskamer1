@@ -8,7 +8,7 @@ import { AttestButton, InvoiceStatus } from "@/components/shared/invoice";
 import { Panel, SectionLabel } from "@/components/shared/panel";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/sheet";
-import { actions, CURRENT_CLIENT_ID, useAppointments, useInvoices, usePsychologist } from "@/lib/data";
+import { actions, CURRENT_CLIENT_ID, useAppointments, useInvoices } from "@/lib/data";
 import { formatDayMonth, formatMoney, formatRelativeDay } from "@/lib/format";
 import type { Invoice } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -90,7 +90,6 @@ function PaySheet({ invoice, onClose }: { invoice: Invoice | null; onClose: () =
 }
 
 export default function Betalingen() {
-  const psy = usePsychologist();
   const invoices = useInvoices(CURRENT_CLIENT_ID);
   const appointments = useAppointments(CURRENT_CLIENT_ID);
   const [paying, setPaying] = useState<Invoice | null>(null);
@@ -100,7 +99,7 @@ export default function Betalingen() {
 
   return (
     <>
-      <PageHeader title="Betalingen" eyebrow={`Facturen van ${psy.practiceName}`} />
+      <PageHeader title="Betalingen" />
 
       <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
         <div className="flex flex-col gap-5">

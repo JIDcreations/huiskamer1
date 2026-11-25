@@ -23,7 +23,7 @@ import {
   usePsychologist,
   useTasks,
 } from "@/lib/data";
-import { formatDayMonth, formatLongDate, formatMoney, formatRelativeDay, formatTime, greeting } from "@/lib/format";
+import { capitalize, formatDayMonth, formatLongDate, formatMoney, formatRelativeDay, formatTime, greeting } from "@/lib/format";
 
 /** De volgende sessie, als donkergroene kaart. Zonder sessie: een openstaande factuur, anders niets. */
 function NextUp() {
@@ -38,12 +38,10 @@ function NextUp() {
         href="/c/sessies"
         className="group relative block overflow-hidden rounded-card bg-pine p-6 text-on-accent transition-transform duration-500 ease-out-soft hover:-translate-y-0.5 md:p-7"
       >
-        <span aria-hidden className="absolute -right-10 -top-10 size-40 rounded-full bg-sun/15 blur-2xl" />
-        <p className="eyebrow flex items-center gap-2 text-sun">
-          <span aria-hidden className="size-1.5 rounded-full bg-sun" />
+        <p className="text-[14px] text-on-accent/75">
           {soon ? "Binnenkort" : "Volgende sessie"}
         </p>
-        <p className="mt-4 font-display text-[34px] leading-[1.02] first-letter:uppercase">{formatRelativeDay(next.start)}</p>
+        <p className="mt-1 font-display text-[34px] leading-[1.02] first-letter:uppercase">{formatRelativeDay(next.start)}</p>
         <p className="mt-1 text-[15px] text-on-accent/80">
           {formatDayMonth(next.start)} om {formatTime(next.start)} bij {psy.firstName}
           {next.mode === "online" ? ", online" : ""}
@@ -62,8 +60,8 @@ function NextUp() {
   return (
     <Link href="/c/betalingen" className="group flex items-center justify-between gap-3 rounded-card bg-sun-soft p-6 text-sun-ink">
       <span>
-        <span className="eyebrow block">Betalingen</span>
-        <span className="mt-2 block font-display text-[26px] leading-tight">Er staat nog {formatMoney(total)} open</span>
+        <span className="block text-[14px]">Betalingen</span>
+        <span className="mt-1 block font-display text-[26px] leading-tight">Er staat nog {formatMoney(total)} open</span>
       </span>
       <ChevronRight className="size-5 shrink-0 stroke-[1.75] transition-transform group-hover:translate-x-0.5" />
     </Link>
@@ -80,7 +78,9 @@ export default function Vandaag() {
 
   return (
     <>
-      <PageHeader image={beelden.heuvels} eyebrow={formatLongDate(new Date())} title={`${greeting()}, ${client.firstName}`} className="pb-24 md:pb-28" />
+      <PageHeader image={beelden.heuvels} title={`${greeting()}, ${client.firstName}`} className="pb-24 md:pb-28">
+        {capitalize(formatLongDate(new Date()))}
+      </PageHeader>
 
       <div className="relative -mt-20 grid grid-cols-1 items-start gap-5 md:-mt-24 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-6">
         <div className="flex flex-col gap-5 lg:gap-6">
