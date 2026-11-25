@@ -16,6 +16,14 @@ export const moods: { value: Mood; label: string; icon: Icon }[] = [
 
 export const moodLabel = (m?: Mood) => moods.find((x) => x.value === m)?.label;
 export const moodIcons: Record<Mood, Icon> = { 1: WeatherRain, 2: WeatherWind, 3: WeatherCloud, 4: WeatherSunCloud, 5: WeatherSun };
+/** Eén gedempte kleur per weer: regen blauw, wind pruim, bewolkt grijs, opklaring groen, zon amber. */
+export const moodTone: Record<Mood, string> = {
+  1: "text-weather-1",
+  2: "text-weather-2",
+  3: "text-weather-3",
+  4: "text-weather-4",
+  5: "text-weather-5",
+};
 
 /** Klein weerbeeldje met het woord erbij, voor in lijsten. */
 export function MoodMark({ value, className }: { value?: Mood; className?: string }) {
@@ -23,7 +31,7 @@ export function MoodMark({ value, className }: { value?: Mood; className?: strin
   const Weather = moodIcons[value];
   return (
     <span className={cn("inline-flex items-center gap-1.5 text-[13px] text-muted", className)}>
-      <Weather className="size-[18px] text-pine" />
+      <Weather className={cn("size-[18px]", moodTone[value])} />
       {moodLabel(value)}
     </span>
   );
@@ -52,7 +60,8 @@ export function MoodPicker({ value, onChange, className }: { value?: Mood; onCha
               <Weather
                 className={cn(
                   "size-8 transition-transform duration-300 ease-out-soft sm:size-9",
-                  active ? "text-pine" : "text-pine/70 group-hover:-translate-y-0.5 group-hover:text-pine"
+                  moodTone[m.value],
+                  !active && "group-hover:-translate-y-0.5"
                 )}
               />
               {active && <PencilCircle key={m.value} className="-inset-1 text-clay" />}

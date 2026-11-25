@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { MoodPicker, moodIcons, moodLabel } from "@/components/shared/mood";
+import { MoodPicker, moodIcons, moodLabel, moodTone } from "@/components/shared/mood";
 import { ShareSwitch } from "@/components/shared/share";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/input";
@@ -90,7 +90,7 @@ export function CheckIn({ clientId, today }: { clientId: ID; today?: JournalEntr
           className="flex flex-wrap items-center justify-between gap-3"
         >
           <div className="flex min-w-0 items-center gap-3.5">
-            {TodayWeather && <TodayWeather className="size-10 shrink-0 text-pine" />}
+            {TodayWeather && <TodayWeather className={`size-10 shrink-0 ${moodTone[today!.mood!]}`} />}
             <div className="min-w-0">
               <p className="text-[15px]">
                 <span className="text-muted">Vandaag: </span>

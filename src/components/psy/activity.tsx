@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { CalendarDays, CalendarPlus, CheckCircle2, Lock, MessagesSquare, NotebookPen, Sun } from "@/components/icons";
 import { entrySummary } from "@/components/shared/journal-list";
-import { MoodMark, moodIcons, moodLabel } from "@/components/shared/mood";
+import { MoodMark, moodIcons, moodLabel, moodTone } from "@/components/shared/mood";
 import { statusLabel, typeLabel } from "@/lib/appointments";
 import { excerpt, usePersonName, useTask, type Activity } from "@/lib/data";
 import { formatDayMonth, formatTime, formatWhen, plural } from "@/lib/format";
@@ -13,8 +13,9 @@ function ActivityIcon({ activity: a }: { activity: Activity }) {
   const cls = "size-[22px]";
   if (a.kind === "journal") {
     if (a.entry.kind === "checkin") {
-      const Weather = a.entry.mood ? moodIcons[a.entry.mood] : Sun;
-      return <Weather className={cls} />;
+      if (!a.entry.mood) return <Sun className={cls} />;
+      const Weather = moodIcons[a.entry.mood];
+      return <Weather className={cn(cls, moodTone[a.entry.mood])} />;
     }
     if (a.entry.kind === "opdracht") return <CheckCircle2 className={cls} />;
     return <NotebookPen className={cls} />;

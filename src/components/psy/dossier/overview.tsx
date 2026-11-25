@@ -6,7 +6,7 @@ import { parseISO } from "date-fns";
 import { AgendaList } from "@/components/sessions/agenda-list";
 import { SessionTaskRow } from "@/components/sessions/session-view";
 import { minutesOf, typeLabel } from "@/lib/appointments";
-import { moodIcons, moodLabel } from "@/components/shared/mood";
+import { moodIcons, moodLabel, moodTone } from "@/components/shared/mood";
 import { Panel } from "@/components/shared/panel";
 import { Button } from "@/components/ui/button";
 import { moodStrip, pastSessions, taskState, upcoming, useAppointments, useJournal, useTasks } from "@/lib/data";
@@ -32,7 +32,7 @@ export function MoodStrip({ clientId }: { clientId: string }) {
             <li key={d.day} className="relative flex-1" title={label} aria-label={label}>
               {Weather ? (
                 <Weather
-                  className="absolute left-1/2 size-6 -translate-x-1/2 text-pine"
+                  className={cn("absolute left-1/2 size-6 -translate-x-1/2", moodTone[d.mood!])}
                   style={{ bottom: `calc(${((d.mood! - 1) / 4) * 100}% - ${((d.mood! - 1) / 4) * 24}px)` }}
                 />
               ) : (

@@ -19,6 +19,12 @@
   --sky-ink: #33466e;
   --plum-soft: #ece0ef;
   --plum-ink: #5f3f66;
+  /* Het weer van de dag: gedempt, maar elk herkenbaar. Minstens 3:1 op wit. */
+  --weather-1: #4a6390;
+  --weather-2: #85618d;
+  --weather-3: #6c7f8a;
+  --weather-4: #4f8a6a;
+  --weather-5: #c07a12;
   --ink: #15211b;
 
   --bg: var(--paper);
@@ -92,6 +98,11 @@
   --color-sky-ink: var(--sky-ink);
   --color-plum-soft: var(--plum-soft);
   --color-plum-ink: var(--plum-ink);
+  --color-weather-1: var(--weather-1);
+  --color-weather-2: var(--weather-2);
+  --color-weather-3: var(--weather-3);
+  --color-weather-4: var(--weather-4);
+  --color-weather-5: var(--weather-5);
   --color-side: var(--side);
   --color-side-text: var(--side-text);
   --color-side-muted: var(--side-muted);

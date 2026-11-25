@@ -159,7 +159,7 @@ Vaste tint per soort (`src/components/shared/kind.ts`): check-in zon, opdracht m
 
 ### Iconen en stemming
 - Handgetekende iconen: Doodle Icons van Khushmeen Sidhu (CC0), als eigen SVG in `src/components/icons.tsx`, zonder pakket. Plus, min en citaat zijn in dezelfde hand bijgetekend.
-- Stemming is het weer van de dag: zwaar is regen, onrustig wind, gaat wel bewolkt, rustig zon achter een wolk, licht zon. In het dossier staat het als weerkaart: hoe lichter de dag, hoe hoger.
+- Stemming is het weer van de dag, elk met een eigen gedempte kleur: zwaar is regen (blauw), onrustig wind (pruim), gaat wel bewolkt (grijs), rustig zon achter een wolk (groen), licht zon (amber). Tokens `--weather-1` tot `--weather-5`. In het dossier staat het als weerkaart: hoe lichter de dag, hoe hoger.
 
 ### Typografie
 - Koppen en woordmerk: **Fraunces** (`type-hero`, `type-title`, `type-subtitle`). Tekst: **Plus Jakarta Sans**.
