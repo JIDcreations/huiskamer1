@@ -71,7 +71,7 @@ function Brand({ href, context, compact }: { href: string; context: string; comp
     return (
       <Link href={href} className="flex items-center gap-2" aria-label="Huiskamer">
         <Mark className="size-7" />
-        <Wordmark className="text-[23px] text-text" />
+        <Wordmark className="text-[23px] text-(--topbar-fg) transition-colors duration-500" />
       </Link>
     );
   }
@@ -321,12 +321,17 @@ export function PlatformShell({ user, topbarStart, topbarEnd, mobileTabs, childr
           )}
         >
           {mobileTabs ? (
-            <div className="island h-11 px-3 lg:hidden">
+            <div className="lg:hidden">
               <Brand href={sidebar.homeHref} context={sidebar.context} compact />
             </div>
           ) : (
-            <button type="button" className="island size-11 justify-center lg:hidden" aria-label="Menu" onClick={() => setDrawerOpen(true)}>
-              <Menu className="size-[18px] stroke-[1.75]" />
+            <button
+              type="button"
+              className="-ml-2.5 flex size-11 items-center justify-center rounded-full text-(--topbar-fg) outline-none transition-colors duration-300 hover:bg-(--topbar-fg)/10 focus-visible:ring-2 focus-visible:ring-pine lg:hidden"
+              aria-label="Menu"
+              onClick={() => setDrawerOpen(true)}
+            >
+              <Menu className="size-6" />
             </button>
           )}
           <div className="min-w-0 flex-1">{topbarStart}</div>
