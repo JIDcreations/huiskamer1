@@ -2,6 +2,18 @@
 
 _Stand van 26 september 2026. Fase 1 staat op `main`; de dagrun van 26 september (UX-herwerking, verfijnde UI, rijkere demo) staat op de branch `dagrun-26sep`. Zie SUMMARY.md en DECISIONS.md op die branch._
 
+## Een schrift dat je deelt (25 november 2026, branch `design-stap-voor-stap`)
+
+Stap voor stap vanaf `main`, elke stap apart gecommit.
+
+- Weg: eyebrows, labels in hoofdletters, sierbolletjes, de zwevende pil rechtsboven, cijfertegels (Vandaag psycholoog, Facturatie), het kaartenraster van de opdrachtenbibliotheek.
+- Fris wit in plaats van beige.
+- Handgetekende iconen (Doodle Icons, CC0) in `src/components/icons.tsx`.
+- Potloodlaag: vandaag omcirkeld, check-ins gemarkeerd, opdrachten als turfstreepjes, een vinkje dat zich tekent, kanttekeningen in rode pen met een krul.
+- Stemming als weer, ook als weerkaart in het dossier.
+- Logboek als één bladzijde met een kantlijn.
+- PLAN.md sectie 7 herschreven.
+
 ## Premium-ronde (11 oktober 2026, branch `premium`)
 
 - Fotobanden van rand tot rand, de topbalk zweeft erover als losse pillen en wordt glas bij scrollen. Zoeken voor de psycholoog met Cmd+K.

@@ -131,57 +131,52 @@ type Invoice      = { id; clientId; appointmentId; amount; issuedAt; dueAt; stat
 
 Mockdata: 1 psycholoog, **8 cliënten** met fictieve Vlaamse namen, 3 weken aan afspraken, sessiepagina's met blokken van beide auteurs en gelinkte opdrachten, logboekentries (check-ins, notities, opdracht-antwoorden, mix gedeeld en niet gedeeld), een gevulde "Voor volgende keer". Alles in `/lib/mock/` met een in-memory store (Zustand) zodat acties (afvinken, schrijven, delen) tijdens een demo meteen overal zichtbaar zijn.
 
-## 7. Design direction: dennengroen, klei en zon
+## 7. Design direction: een schrift dat je deelt
 
-> Herzien op 11 oktober 2026. Het eerste palet (Milk, Oat, Taupe) voelde als een mid-fi: alles beige, weinig contrast. Dit is de nieuwe richting.
+> Herzien op 25 november 2026. Basis blijft dennengroen, klei en zon, nu op fris wit en met een eigen hand: alles wat iemand doet, wordt getekend. Eerdere versies: beige (oktober), Pinterest-latte (november, verlaten, staat op de branch `pinterest-latte`).
 
-**Gevoel**: een warme huiskamer met planten en daglicht. Rustig, maar met karakter en duidelijk contrast. Licht papier als basis, één diepgroene identiteit, en een paar warme kleuren die iets betekenen.
+**Gevoel**: een schrift dat cliënt en psycholoog samen bijhouden. Rustig, wit papier, één diepgroene identiteit, en een potloodlaag die laat zien waar een mens iets deed.
+
+### Het idee: drie pennen
+- **Potlood (den)** is van de cliënt: afvinken, het weer van vandaag kiezen.
+- **Rode pen (klei)** is van de psycholoog: kanttekeningen in de marge, vandaag omcirkeld.
+- **Markeerstift (zon)** is de check-in: de dag in het weekstrookje is geel gemarkeerd.
+
+Getekende lijnen (`src/components/shared/pencil.tsx`) verschijnen enkel waar iemand iets deed. Ze tekenen zich één keer, bij die handeling, en staan er gewoon bij het laden. Nooit als versiering.
 
 ### Palet
 | Naam | Hex | Rol |
 |---|---|---|
-| **Papier** | `#F4EFE6` | Achtergrond |
-| **Crème** | `#FFFDF8` | Kaarten |
-| **Zand** | `#E8E0D0` | Vlakken, lijnen, privénotities |
-| **Den** | `#1D4535` | Primaire knoppen, actieve tabs, volgende sessie, auteur psycholoog |
-| **Diepe den** | `#13301F` | Zijbalk |
-| **Mos** | `#DBE5D3` | Zachte knoppen, opdrachten, gedeeld |
-| **Klei** | `#C2582F` (tekst `#9A3F1C`) | Notities, "Nieuw", nood-link, auteur cliënt |
-| **Zon** | `#F1C55A` | Check-ins, actief item, highlight-knoppen |
+| **Papier** | `#F7F8F6` | Achtergrond, fris wit met een koele toets |
+| **Wit** | `#FFFFFF` | Kaarten, de bladzijde van het logboek |
+| **Lijn** | `#E6E9E5` | Vlakken, lijnen |
+| **Den** | `#1D4535` | Knoppen, potlood, zijbalk (diep `#13301F`) |
+| **Klei** | `#C2582F` (tekst `#9A3F1C`) | Rode pen: kanttekeningen, kantlijn, omcirkelen, "nieuw" |
+| **Zon** | `#F1C55A` | Markeerstift: check-ins |
 | **Inkt** | `#15211B` | Tekst |
 
-Vaste betekenis per soort, overal dezelfde (`src/components/shared/kind.ts`): check-in is zon, opdracht is mos, notitie is klei, reactie bij een sessie is blauw, "Voor volgende keer" is pruim. Elke cliënt heeft een vaste tint voor avatar en agendablok. Stemmingen hebben elk een kleur, van schemerblauw (zwaar) tot zon (licht).
+Vaste tint per soort (`src/components/shared/kind.ts`): check-in zon, opdracht mos, notitie klei, reactie blauw, "Voor volgende keer" pruim.
 
-Regels:
-- Grote vlakken zijn papier of crème. De zijbalk is donkergroen, net als de kaart van de volgende sessie: dat zijn de bewuste donkere accenten.
-- Kleine tekst haalt altijd AA. Klei als tekst gebruikt de donkere variant.
-- Status toon je met kleur en vorm samen, nooit met kleur alleen.
-
-### Beeld
-- Sfeerfoto's (Unsplash via Picsum, zelf gehost in `src/assets/beelden`) als fotoband van rand tot rand bovenaan Vandaag, Logboek en Sessies, en als halve pagina bij het aanmelden en in de kennismaking.
-- Altijd met een groene waas onderaan zodat de titel leesbaar blijft, en met een beschrijvende alt-tekst.
-- Geen stockfoto's van mensen in therapie. Natuur, licht, thee, een kamer.
+### Iconen en stemming
+- Handgetekende iconen: Doodle Icons van Khushmeen Sidhu (CC0), als eigen SVG in `src/components/icons.tsx`, zonder pakket. Plus, min en citaat zijn in dezelfde hand bijgetekend.
+- Stemming is het weer van de dag: zwaar is regen, onrustig wind, gaat wel bewolkt, rustig zon achter een wolk, licht zon. In het dossier staat het als weerkaart: hoe lichter de dag, hoe hoger.
 
 ### Typografie
-- Koppen en woordmerk: **Fraunces** (zacht, redactioneel; `type-hero`, `type-title`, `type-subtitle`).
-- UI en tekst: **Plus Jakarta Sans**, 15-16px, ruime regelhoogte (1.6 in de editor). Kleine labels als `eyebrow`: hoofdletters met ruime spatiëring.
-
-### Merk
-- Merkteken: een boograam met een lage zon (`Mark` in `platform-shell.tsx`). Woordmerk "Huiskamer" in Fraunces.
+- Koppen en woordmerk: **Fraunces** (`type-hero`, `type-title`, `type-subtitle`). Tekst: **Plus Jakarta Sans**.
+- Geen labels boven een kop, geen hoofdletters als label, geen cursief als stijl.
 
 ### Vorm en ruimte
-- Fotobanden lopen van rand tot rand (`bleed`), de topbalk zweeft erover als losse pillen ("eilanden") en wordt glas zodra je scrolt.
-- Inhoud tot 1280px breed. Op desktop staan de cliëntpagina's in twee kolommen: het werk links, context (volgende sessie, deze week) rechts.
-- Radius: 20px kaarten, 999px knoppen en eilanden.
-- Kaarten: fijne rand plus een zachte, groen getinte schaduw.
-- Iconen: Lucide, stroke 1.5 tot 1.75, functioneel.
+- Het logboek is één witte bladzijde met een kantlijn in rode pen; de tijd staat ervoor, de dagen zijn koppen in de bladzijde.
+- Geen cijfertegels: aantallen en bedragen staan in een gewone zin onder de titel (Vandaag bij de psycholoog, Facturatie).
+- Lijsten liever als één vlak met lijnen dan als een raster van gelijke kaarten.
+- Fotoband bovenaan Vandaag, Logboek en Sessies. Rechtsboven geen pil: "Hulp nodig?" als link en de avatar, licht op een foto en donker op papier.
+- Radius 20px kaarten, 999px knoppen.
 
 ### Beweging
-- Framer Motion, kort en zacht (200-300ms, ease-out). Afvinken krijgt één subtiele animatie, geen confetti.
+- Kort en zacht. Het eigen moment: een vinkje of cirkel die zich tekent als jij iets doet. Reduced motion toont de lijn meteen.
 
 ### Copy
-- Nederlands, Vlaams, **je/jij**, kort en warm: "Goeiemorgen, Lotte", "Hoe gaat het vandaag?", "Voor volgende keer", "Gedeeld met Sarah".
-- Leeg-states rustig en zonder schuldgevoel: "Nog niets geschreven deze week. Geen druk."
+- Nederlands, Vlaams, **je/jij**, kort en warm. Geen emoji's, geen decoratieve iconen, geen em dashes.
 
 ## 8. Tech stack
 
