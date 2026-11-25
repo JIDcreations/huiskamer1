@@ -1,5 +1,6 @@
 "use client";
 
+import { MarginNote } from "@/components/shared/pencil";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { BlocksView } from "@/components/editor/blocks-view";
@@ -11,12 +12,11 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Textarea } from "@/components/ui/input";
 import { Sheet } from "@/components/ui/sheet";
 import { toast } from "@/components/ui/toast";
-import { actions, journalKindLabel, useJournal, usePsychologist, useTask } from "@/lib/data";
+import { actions, journalKindLabel, useJournal, useTask } from "@/lib/data";
 import { capitalize, formatLongDate, formatTime, formatWhen } from "@/lib/format";
 import type { Client, JournalEntry } from "@/lib/types";
 
 function NoteEditor({ entry, client }: { entry: JournalEntry; client: Client }) {
-  const psy = usePsychologist();
   const [editing, setEditing] = useState(false);
   const [text, setText] = useState(entry.psychologistNote?.text ?? "");
 
@@ -48,16 +48,18 @@ function NoteEditor({ entry, client }: { entry: JournalEntry; client: Client }) 
 
   if (entry.psychologistNote) {
     return (
-      <div className="mt-4 rounded-xl bg-oat-soft px-4 py-3">
-        <p className="text-[12px] text-muted">
-          Jouw kanttekening, {formatWhen(entry.psychologistNote.createdAt)}
-          <button className="ml-2 underline decoration-surface-2 underline-offset-2 hover:text-text" onClick={() => setEditing(true)}>
+      <MarginNote
+        className="mt-4"
+        author="Jouw kanttekening"
+        when={formatWhen(entry.psychologistNote.createdAt)}
+        action={
+          <button className="ml-2 underline decoration-clay/40 underline-offset-2 hover:decoration-clay" onClick={() => setEditing(true)}>
             Aanpassen
           </button>
-        </p>
-        <p className="mt-1 text-[14px] leading-relaxed">{entry.psychologistNote.text}</p>
-        <span className="sr-only">{psy.name}</span>
-      </div>
+        }
+      >
+        {entry.psychologistNote.text}
+      </MarginNote>
     );
   }
 

@@ -1,10 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Check } from "@/components/icons";
+import { PencilRing, PencilTick } from "@/components/shared/pencil";
 import { cn } from "@/lib/utils";
 
-/** Rond afvinkvak met één zachte animatie. */
+/** Getekend rondje; afvinken tekent een vinkje dat net over de rand schiet. */
 export function Checkbox({
   checked,
   onChange,
@@ -19,6 +20,8 @@ export function Checkbox({
   className?: string;
 }) {
   const s = size === "sm" ? "size-5" : "size-6";
+  // Wat al afgevinkt was bij het laden, staat er gewoon. Enkel jouw eigen vinkje tekent zich.
+  const [wasChecked] = useState(checked);
   return (
     <motion.button
       type="button"
@@ -26,19 +29,15 @@ export function Checkbox({
       aria-checked={checked}
       aria-label={label}
       onClick={() => onChange(!checked)}
-      whileTap={{ scale: 0.88 }}
+      whileTap={{ scale: 0.9 }}
       className={cn(
-        "inline-flex shrink-0 items-center justify-center rounded-full outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-pine focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-40",
+        "group relative inline-flex shrink-0 items-center justify-center rounded-full outline-none focus-visible:ring-2 focus-visible:ring-pine focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-40",
         s,
-        checked ? "bg-pine text-sun" : "bg-surface ring-[1.5px] ring-inset ring-taupe hover:ring-pine",
         className
       )}
     >
-      {checked && (
-        <motion.span initial={{ scale: 0.4, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.22 }}>
-          <Check className={cn("stroke-[2.5]", size === "sm" ? "size-3" : "size-3.5")} />
-        </motion.span>
-      )}
+      <PencilRing className={cn("absolute inset-0 size-full transition-colors duration-200", checked ? "text-pine/45" : "text-taupe group-hover:text-pine")} />
+      {checked && <PencilTick draw={!wasChecked} className="absolute -right-1 -top-1.5 size-[125%] text-pine" />}
     </motion.button>
   );
 }

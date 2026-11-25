@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronRight, Pause, Play } from "@/components/icons";
+import { PencilRing } from "@/components/shared/pencil";
 import { RhythmLabel } from "@/components/shared/rhythm";
 import { ShareSwitch } from "@/components/shared/share";
 import { Button } from "@/components/ui/button";
@@ -227,7 +228,7 @@ export function TaskRow({ item }: { item: TaskToday }) {
           }}
         />
       ) : (
-        <span aria-hidden className="block size-6 shrink-0 rounded-full ring-[1.5px] ring-inset ring-taupe/70" />
+        <PencilRing className="size-6 shrink-0 text-taupe/80" />
       )}
 
       <button type="button" onClick={() => setOpen(true)} className="group min-w-0 flex-1 text-left">

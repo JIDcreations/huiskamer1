@@ -39,7 +39,7 @@ export default function Logboek() {
               Deze week
             </h2>
             <WeekStrip entries={entries} compact />
-            <p className="mt-4 text-[13px] text-muted">Een geel bolletje is een check-in. De stipjes zijn afgewerkte opdrachten.</p>
+            <p className="mt-4 text-[13px] text-muted">Geel gemarkeerd: een check-in. Elk streepje is een afgewerkte opdracht.</p>
           </section>
           <Link
             href="/c/privacy"

@@ -1,5 +1,6 @@
 "use client";
 
+import { MarginNote } from "@/components/shared/pencil";
 import { use, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -217,12 +218,9 @@ export default function Entry({ params }: { params: Promise<{ id: string }> }) {
       </div>
 
       {entry.psychologistNote && (
-        <div className="mt-4 rounded-card bg-oat-soft px-5 py-4">
-          <p className="text-[13px] text-muted">
-            Kanttekening van {psy.firstName}, {formatWhen(entry.psychologistNote.createdAt)}
-          </p>
-          <p className="mt-1 text-[15px] leading-relaxed">{entry.psychologistNote.text}</p>
-        </div>
+        <MarginNote className="mt-5 pl-2" author={`Kanttekening van ${psy.firstName}`} when={formatWhen(entry.psychologistNote.createdAt)}>
+          {entry.psychologistNote.text}
+        </MarginNote>
       )}
     </div>
   );

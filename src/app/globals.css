@@ -382,26 +382,24 @@
 }
 
 .hk-prose ul[data-type="taskList"] > li input[type="checkbox"] {
+  /* Getekend rondje, zoals de afvinkvakjes elders. */
   appearance: none;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   margin: 0;
-  border-radius: 6px;
-  border: 1.5px solid var(--taupe);
-  background: var(--surface);
+  border: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-2 -4 28 28' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12.4 2.7c5 .1 9 4 8.9 9.2-.1 5.2-4.2 9.3-9.3 9.2-5.1-.1-9-4.2-8.9-9.3.1-4.9 3.9-8.9 8.6-9.1' stroke='%237d8e83' stroke-width='1.6'/%3E%3C/svg%3E") center / contain no-repeat;
   cursor: pointer;
-  transition:
-    background-color 200ms var(--ease-out-soft),
-    border-color 200ms var(--ease-out-soft);
+}
+
+.hk-prose ul[data-type="taskList"] > li input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--pine);
+  outline-offset: 2px;
+  border-radius: 999px;
 }
 
 .hk-prose ul[data-type="taskList"] > li input[type="checkbox"]:checked {
-  border-color: var(--mocha);
-  background-color: var(--mocha);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FBF7F4' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
-  background-size: 12px;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-2 -4 28 28' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12.4 2.7c5 .1 9 4 8.9 9.2-.1 5.2-4.2 9.3-9.3 9.2-5.1-.1-9-4.2-8.9-9.3.1-4.9 3.9-8.9 8.6-9.1' stroke='%231d4535' stroke-opacity='.45' stroke-width='1.6'/%3E%3Cpath d='M5.2 12.6c1.5 1.2 3 2.9 4.2 4.8 2.9-5.5 7-10.3 12.4-14' stroke='%231d4535' stroke-width='2.2'/%3E%3C/svg%3E");
   animation: hk-tick 260ms var(--ease-out-soft);
 }
 
@@ -539,5 +537,27 @@ blockquote .hk-author {
     --topbar-fg: var(--on-accent);
     --topbar-help: var(--on-accent);
     --topbar-ring: color-mix(in srgb, var(--on-accent) 55%, transparent);
+  }
+}
+
+/* Het logboek als schrift: witte bladzijde, een kantlijn in rode pen, de tijd staat ervoor. */
+@utility notebook {
+  --margin: 60px;
+  position: relative;
+  background: var(--surface);
+  border-radius: var(--radius-card, 22px);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  &::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    left: var(--margin);
+    width: 1px;
+    background: color-mix(in srgb, var(--clay) 40%, transparent);
+    pointer-events: none;
+  }
+  @media (width >= 48rem) {
+    --margin: 76px;
   }
 }

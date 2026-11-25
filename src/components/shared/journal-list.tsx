@@ -4,8 +4,9 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { isToday, isYesterday, parseISO } from "date-fns";
 import { AnimatePresence, motion } from "framer-motion";
-import { CalendarCheck, CalendarPlus, CalendarX, MessageSquareText, MoreHorizontal } from "@/components/icons";
+import { CalendarCheck, CalendarPlus, CalendarX, MoreHorizontal } from "@/components/icons";
 import { MoodDots } from "@/components/shared/mood";
+import { MarginNote, PencilCircle } from "@/components/shared/pencil";
 import { ShareBadge, ShareIcon } from "@/components/shared/share";
 import { Button } from "@/components/ui/button";
 import { Segmented } from "@/components/ui/segmented";
@@ -23,7 +24,7 @@ import {
   useTask,
   weekStrip,
 } from "@/lib/data";
-import { capitalize, formatDayMonth, formatLongDate, formatTime } from "@/lib/format";
+import { capitalize, formatDayMonth, formatLongDate, formatTime, formatWhen } from "@/lib/format";
 import type { JournalEntry, JournalKind, Task } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { kindTone } from "@/components/shared/kind";
@@ -64,32 +65,53 @@ export function entrySummary(entry: JournalEntry, task?: Task) {
 
 const letters = ["ma", "di", "wo", "do", "vr", "za", "zo"];
 
-/** De enige plek met weekvoortgang: per dag een bolletje voor de check-in en stipjes voor opdrachten. */
+/** Markeerstift achter de datum: een check-in die dag. Licht scheef, nooit een perfecte cirkel. */
+function Highlight() {
+  return (
+    <svg aria-hidden viewBox="0 0 32 32" className="absolute inset-0 -z-10 size-full -rotate-6 text-sun">
+      <path d="M6.5 9.2c4.6-4.4 13.7-5.6 18.6-1.4 4.6 3.9 4.4 11.6.4 15.9-4.2 4.6-12.4 5.3-17.2 1.6C3.6 21.6 2.6 13 6.5 9.2Z" fill="currentColor" opacity=".85" />
+    </svg>
+  );
+}
+
+/** Turfstreepjes: één per afgewerkte opdracht, de vijfde schuin erdoor. */
+function Tally({ count, className }: { count: number; className?: string }) {
+  const n = Math.min(count, 5);
+  return (
+    <svg aria-hidden viewBox="0 0 22 10" className={cn("h-2.5 w-[22px] overflow-visible", className)} fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round">
+      {Array.from({ length: Math.min(n, 4) }, (_, k) => (
+        <path key={k} d={`M${4 + k * 4.6} ${1.2 + (k % 2) * 0.4}c.2 2.6.1 5.1-.3 7.6`} />
+      ))}
+      {n === 5 && <path d="M1.5 7.6c5.6-1.8 12.2-4 18.6-6" />}
+    </svg>
+  );
+}
+
+/** De enige plek met weekvoortgang: markeerstift voor de check-in, turfstreepjes voor opdrachten, vandaag omcirkeld. */
 export function WeekStrip({ entries, compact, className }: { entries: JournalEntry[]; compact?: boolean; className?: string }) {
   const days = weekStrip(entries);
   return (
-    <ol aria-label="Deze week" className={cn("grid grid-cols-7", compact ? "gap-1" : "gap-1.5 md:gap-2", className)}>
+    <ol aria-label="Deze week" className={cn("grid grid-cols-7", compact ? "gap-0.5" : "gap-1.5 md:gap-2", className)}>
       {days.map((d, i) => (
         <li
           key={d.day}
-          className={cn("flex flex-col items-center gap-2 rounded-2xl", compact ? "py-2.5" : "py-4", d.isToday ? "bg-pine text-on-accent" : "bg-surface shadow-[inset_0_0_0_1px_var(--edge)]")}
-          aria-label={`${formatLongDate(d.date)}: ${d.checkin ? "check-in gedaan" : "geen check-in"}, ${d.tasks} ${d.tasks === 1 ? "opdracht" : "opdrachten"}`}
+          className={cn("flex flex-col items-center gap-2", compact ? "py-1.5" : "py-3")}
+          aria-label={`${formatLongDate(d.date)}${d.isToday ? ", vandaag" : ""}: ${d.checkin ? "check-in gedaan" : "geen check-in"}, ${d.tasks} ${d.tasks === 1 ? "opdracht" : "opdrachten"}`}
         >
-          <span className={cn("text-[11px] font-medium leading-none", d.isToday ? "text-on-accent/80" : "text-faint")}>{letters[i]}</span>
+          <span className={cn("text-[11px] leading-none", d.isToday ? "font-semibold text-text" : "text-faint")}>{letters[i]}</span>
           <span
             aria-hidden
             className={cn(
-              "flex size-7 items-center justify-center rounded-full text-[12px] tabular-nums transition-colors",
-              d.checkin ? "bg-sun font-semibold text-ink" : d.future ? (d.isToday ? "text-on-accent" : "text-faint") : d.isToday ? "text-on-accent ring-1 ring-inset ring-on-accent/40" : "text-muted ring-1 ring-inset ring-surface-2"
+              "relative isolate flex size-8 items-center justify-center text-[13px] tabular-nums",
+              d.checkin ? "font-semibold text-ink" : d.future ? "text-faint" : "text-muted",
+              d.isToday && "font-semibold text-text"
             )}
           >
+            {d.checkin && <Highlight />}
             {d.date.getDate()}
+            {d.isToday && <PencilCircle className="-inset-1 text-clay" delay={0.25} />}
           </span>
-          <span aria-hidden className="flex h-1 gap-[3px]">
-            {Array.from({ length: Math.min(d.tasks, 4) }, (_, k) => (
-              <span key={k} className={cn("size-1 rounded-full", d.isToday ? "bg-on-accent" : "bg-pine")} />
-            ))}
-          </span>
+          <Tally count={d.tasks} className={d.tasks ? "text-pine" : "invisible"} />
         </li>
       ))}
     </ol>
@@ -124,9 +146,9 @@ export function JournalRow({
   }
 
   return (
-    <li className="group relative flex gap-4 px-5 py-4 transition-colors hover:bg-oat-soft/40 md:px-6">
-      <span className="w-11 shrink-0 pt-px text-[12px] tabular-nums text-faint">{formatTime(entry.createdAt)}</span>
-      <div className="min-w-0 flex-1">
+    <li className="group relative flex border-t border-edge py-4 pr-4 transition-colors first:border-t-0 hover:bg-oat-soft/40 md:pr-6">
+      <span className="w-(--margin) shrink-0 pr-3 pt-px text-right text-[12px] tabular-nums text-faint">{formatTime(entry.createdAt)}</span>
+      <div className="min-w-0 flex-1 pl-4 md:pl-5">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <span className={cn("rounded-md px-2 py-0.5 text-[12px] font-medium", kindTone[entry.kind])}>{label}</span>
           {entry.mood && <MoodDots value={entry.mood} />}
@@ -147,13 +169,12 @@ export function JournalRow({
               Mee naar de sessie van {formatDayMonth(onAgenda.appointment.start)}
             </span>
           )}
-          {entry.psychologistNote && (
-            <span className="inline-flex items-center gap-1.5 text-[12px] text-muted">
-              <MessageSquareText className="size-3.5 stroke-[1.5] text-taupe" />
-              {viewer === "client" ? `${psy.firstName} schreef een kanttekening` : "Jouw kanttekening"}
-            </span>
-          )}
         </div>
+        {entry.psychologistNote && (
+          <MarginNote className="mt-3" author={viewer === "client" ? psy.firstName : "Jouw kanttekening"} when={formatWhen(entry.psychologistNote.createdAt)}>
+            <span className="line-clamp-3">{entry.psychologistNote.text}</span>
+          </MarginNote>
+        )}
       </div>
 
       {viewer === "client" && (
@@ -239,23 +260,32 @@ export function JournalTimeline({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-5 flex flex-col gap-6"
+          className="mt-5"
         >
-          {groups.length === 0 && empty}
-          {groups.map((g) => (
-            <section key={g.day} aria-label={dayHeading(g.day)}>
-              <h2 className="mb-2 px-1 text-[13px] font-medium text-muted">{dayHeading(g.day)}</h2>
-              <ul className="divide-y divide-surface-2/70 overflow-hidden card">
-                {g.items.map((e) => (
-                  <JournalRow key={e.id} entry={e} viewer={viewer} href={hrefFor(e)} />
-                ))}
-              </ul>
-            </section>
-          ))}
-          {allGroups.length > days && (
-            <Button variant="soft" size="sm" className="self-center" onClick={() => setDays((d) => d + DAYS_PER_PAGE)}>
-              Oudere dagen tonen
-            </Button>
+          {groups.length === 0 ? (
+            empty
+          ) : (
+            <div className="notebook pb-2">
+              {groups.map((g) => (
+                <section key={g.day} aria-label={dayHeading(g.day)}>
+                  <h2 className="pb-1 pl-[calc(var(--margin)+1rem)] pr-4 pt-6 font-display text-[19px] leading-tight md:pl-[calc(var(--margin)+1.25rem)]">
+                    {dayHeading(g.day)}
+                  </h2>
+                  <ul>
+                    {g.items.map((e) => (
+                      <JournalRow key={e.id} entry={e} viewer={viewer} href={hrefFor(e)} />
+                    ))}
+                  </ul>
+                </section>
+              ))}
+              {allGroups.length > days && (
+                <div className="border-t border-edge py-4 pl-[calc(var(--margin)+1rem)] md:pl-[calc(var(--margin)+1.25rem)]">
+                  <Button variant="quiet" size="sm" className="-ml-3" onClick={() => setDays((d) => d + DAYS_PER_PAGE)}>
+                    Oudere dagen tonen
+                  </Button>
+                </div>
+              )}
+            </div>
           )}
         </motion.div>
       </AnimatePresence>
