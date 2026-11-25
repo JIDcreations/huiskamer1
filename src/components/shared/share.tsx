@@ -1,6 +1,6 @@
 "use client";
 
-import { Eye, Lock } from "lucide-react";
+import { Eye, Lock } from "@/components/icons";
 import { Toggle } from "@/components/ui/toggle";
 import { usePsychologist } from "@/lib/data";
 import { cn } from "@/lib/utils";

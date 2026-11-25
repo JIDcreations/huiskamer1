@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { addDays, addMinutes, format, isSameDay, parseISO, startOfDay, startOfWeek } from "date-fns";
 import { nlBE } from "date-fns/locale";
-import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus } from "@/components/icons";
 import { AppointmentDetailSheet, NewAppointmentSheet } from "@/components/psy/appointment-sheet";
 import { Button } from "@/components/ui/button";
 import { Segmented } from "@/components/ui/segmented";

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { CalendarDays, CalendarPlus, CheckCircle2, Lock, MessagesSquare, NotebookPen, Sun } from "lucide-react";
+import { CalendarDays, CalendarPlus, CheckCircle2, Lock, MessagesSquare, NotebookPen, Sun } from "@/components/icons";
 import { entrySummary } from "@/components/shared/journal-list";
 import { MoodDots, moodLabel } from "@/components/shared/mood";
 import { statusLabel, typeLabel } from "@/lib/appointments";

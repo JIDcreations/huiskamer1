@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { Archive, MoreHorizontal, Plus, RotateCcw } from "lucide-react";
+import { Archive, MoreHorizontal, Plus, RotateCcw } from "@/components/icons";
 import { AssignTaskSheet } from "@/components/psy/assign-task";
 import { kindLabel } from "@/components/psy/task-form";
 import { entrySummary } from "@/components/shared/journal-list";

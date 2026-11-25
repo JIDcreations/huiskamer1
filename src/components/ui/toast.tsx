@@ -2,7 +2,7 @@
 
 import { create } from "zustand";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check } from "@/components/icons";
 
 type Toast = { id: number; text: string };
 const useToasts = create<{ toasts: Toast[] }>(() => ({ toasts: [] }));

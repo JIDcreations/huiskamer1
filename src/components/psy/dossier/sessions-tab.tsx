@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronRight, Lock } from "lucide-react";
+import { ChevronRight, Lock } from "@/components/icons";
 import { AgendaList } from "@/components/sessions/agenda-list";
 import { typeLabel } from "@/lib/appointments";
 import { Panel } from "@/components/shared/panel";

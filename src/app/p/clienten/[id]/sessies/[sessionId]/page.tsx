@@ -1,7 +1,7 @@
 "use client";
 
 import { use, useState } from "react";
-import { Lock, Plus } from "lucide-react";
+import { Lock, Plus } from "@/components/icons";
 import { Editor } from "@/components/editor/editor";
 import { AssignTaskSheet } from "@/components/psy/assign-task";
 import { SessionView } from "@/components/sessions/session-view";

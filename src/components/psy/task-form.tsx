@@ -1,7 +1,7 @@
 "use client";
 
 import { addDays, format } from "date-fns";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input, Label, Textarea } from "@/components/ui/input";
 import { Segmented } from "@/components/ui/segmented";

@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { addDays, isSameDay, parseISO, subDays } from "date-fns";
-import { Plus } from "lucide-react";
+import { Plus } from "@/components/icons";
 import { PageHeader } from "@/components/page-header";
 import { beelden } from "@/lib/beelden";
 import { ActivityItem } from "@/components/psy/activity";

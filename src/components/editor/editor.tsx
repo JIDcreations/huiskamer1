@@ -6,7 +6,7 @@ import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { TaskItem, TaskList } from "@tiptap/extension-list";
 import { Placeholder } from "@tiptap/extensions";
-import { Lock } from "lucide-react";
+import { Lock } from "@/components/icons";
 import { Authorship, type EditorAuthor, type Highlight } from "@/components/editor/authorship";
 import { blocksToHTML, editorToBlocks } from "@/components/editor/blocks";
 import { FormatBubble } from "@/components/editor/bubble";

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "@/components/icons";
 import { Editor } from "@/components/editor/editor";
 import type { EditorAuthor } from "@/components/editor/authorship";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";

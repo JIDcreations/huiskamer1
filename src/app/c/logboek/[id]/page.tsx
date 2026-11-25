@@ -3,7 +3,7 @@
 import { use, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, CalendarCheck, CalendarPlus, Check, MoreHorizontal, Trash2 } from "lucide-react";
+import { ArrowLeft, CalendarCheck, CalendarPlus, Check, MoreHorizontal, Trash2 } from "@/components/icons";
 import { Editor } from "@/components/editor/editor";
 import { MoodPicker } from "@/components/shared/mood";
 import { RhythmLabel } from "@/components/shared/rhythm";

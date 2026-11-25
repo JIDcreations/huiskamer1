@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search } from "lucide-react";
+import { Search } from "@/components/icons";
 import { Avatar } from "@/components/ui/avatar";
 import { useClients, usePsychologist } from "@/lib/data";
 import { cn } from "@/lib/utils";

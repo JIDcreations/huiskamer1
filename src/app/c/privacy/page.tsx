@@ -1,6 +1,6 @@
 "use client";
 
-import { Download } from "lucide-react";
+import { Download } from "@/components/icons";
 import { PageHeader } from "@/components/page-header";
 import { Panel } from "@/components/shared/panel";
 import { ShareIcon, ShareSwitch } from "@/components/shared/share";

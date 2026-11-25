@@ -1,14 +1,14 @@
 import { Extension, type Editor, type Range } from "@tiptap/core";
 import Suggestion from "@tiptap/suggestion";
 import { PluginKey } from "@tiptap/pm/state";
-import { Heading2, Heading3, ListChecks, Minus, Quote, Type, type LucideIcon } from "lucide-react";
+import { Heading2, Heading3, ListChecks, Minus, Quote, Type, type Icon } from "@/components/icons";
 
 export type SlashCommand = {
   id: string;
   label: string;
   hint: string;
   keywords: string;
-  icon: LucideIcon;
+  icon: Icon;
   run: (editor: Editor, range: Range) => void;
 };
 

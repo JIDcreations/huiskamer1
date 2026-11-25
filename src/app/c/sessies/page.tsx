@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronRight, MapPin, Plus, Video } from "lucide-react";
+import { ChevronRight, MapPin, Plus, Video } from "@/components/icons";
 import { PageHeader } from "@/components/page-header";
 import { beelden } from "@/lib/beelden";
 import { AgendaList } from "@/components/sessions/agenda-list";

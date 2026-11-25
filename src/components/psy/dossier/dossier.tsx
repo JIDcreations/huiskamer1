@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowLeft, ChevronDown, Lock, Mail, Phone } from "lucide-react";
+import { ArrowLeft, ChevronDown, Lock, Mail, Phone } from "@/components/icons";
 import { AssignTaskSheet } from "@/components/psy/assign-task";
 import { NewAppointmentSheet } from "@/components/psy/appointment-sheet";
 import { ClientStatusBadge, clientStatusLabel } from "@/components/psy/client-status";

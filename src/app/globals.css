@@ -528,3 +528,17 @@ blockquote .hk-author {
 .hk-prose input[type="checkbox"]:disabled {
   cursor: default;
 }
+
+/* Topbalk: inkt op papier, licht zolang hij over een fotoband ligt en je nog niet gescrold hebt. */
+@layer components {
+  .topbar {
+    --topbar-fg: var(--text);
+    --topbar-help: var(--clay-ink);
+    --topbar-ring: transparent;
+  }
+  .topbar-host:has([data-banner]) > .topbar:not([data-scrolled]) {
+    --topbar-fg: var(--on-accent);
+    --topbar-help: var(--on-accent);
+    --topbar-ring: color-mix(in srgb, var(--on-accent) 55%, transparent);
+  }
+}

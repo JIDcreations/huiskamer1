@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Dialog, DropdownMenu } from "radix-ui";
-import { ChevronDown, LogOut, Menu, X } from "lucide-react";
+import { LogOut, Menu, X } from "@/components/icons";
 import { Avatar } from "@/components/ui/avatar";
 import { RoleSwitch } from "@/components/role-switch";
 import { DemoReset } from "@/components/demo-reset";
@@ -147,15 +147,10 @@ function UserMenu({ user }: { user: ShellUser }) {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger
-        aria-label="Account"
-        className="group flex h-10 items-center gap-2.5 rounded-full pl-1 pr-1 outline-none transition-colors duration-300 ease-out-soft hover:bg-oat-soft focus-visible:ring-2 focus-visible:ring-pine data-[state=open]:bg-oat-soft md:pr-3.5"
+        aria-label={`Account van ${user.name}`}
+        className="rounded-full outline-none ring-2 ring-(--topbar-ring) transition-[box-shadow,opacity] duration-300 ease-out-soft hover:opacity-90 focus-visible:ring-pine data-[state=open]:ring-(--topbar-fg)"
       >
-        <Avatar name={user.name} tone={user.tone} size="sm" className="size-8" />
-        <span className="hidden text-left leading-tight md:block">
-          <span className="block text-[13px] font-semibold">{user.name}</span>
-          <span className="block text-[11px] text-faint">{user.tone === "psy" ? "Psycholoog" : "Mijn account"}</span>
-        </span>
-        <ChevronDown className="hidden size-3.5 stroke-[1.75] text-faint transition-transform duration-300 ease-out-soft group-data-[state=open]:rotate-180 md:block" />
+        <Avatar name={user.name} tone={user.tone} size="md" />
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content
@@ -316,11 +311,12 @@ export function PlatformShell({ user, topbarStart, topbarEnd, mobileTabs, childr
       </aside>
       {!mobileTabs && <MobileDrawer open={drawerOpen} onOpenChange={setDrawerOpen} {...sidebar} />}
 
-      <div className="@container relative">
+      <div className="topbar-host @container relative">
         <div ref={sentinel} aria-hidden className="absolute inset-x-0 top-0 h-px" />
         <header
+          data-scrolled={scrolled ? "" : undefined}
           className={cn(
-            "sticky top-0 z-20 flex h-[72px] items-center gap-3 px-4 transition-[background-color,box-shadow] duration-500 ease-out-soft md:px-8",
+            "topbar sticky top-0 z-20 flex h-[72px] items-center gap-3 px-4 transition-[background-color,box-shadow] duration-500 ease-out-soft md:px-8",
             scrolled ? "bg-bg/80 shadow-[0_1px_0_var(--edge)] backdrop-blur-xl" : "bg-transparent"
           )}
         >
@@ -334,9 +330,8 @@ export function PlatformShell({ user, topbarStart, topbarEnd, mobileTabs, childr
             </button>
           )}
           <div className="min-w-0 flex-1">{topbarStart}</div>
-          <div className="island h-12 gap-1 p-1">
+          <div className="flex items-center gap-5">
             {topbarEnd}
-            {topbarEnd && <span aria-hidden className="mx-0.5 h-6 w-px bg-surface-2" />}
             <UserMenu user={user} />
           </div>
         </header>

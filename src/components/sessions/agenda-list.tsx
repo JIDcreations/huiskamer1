@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { Plus, X } from "lucide-react";
+import { Plus, X } from "@/components/icons";
 import { entryLabel, entrySummary } from "@/components/shared/journal-list";
 import { ShareIcon } from "@/components/shared/share";
 import { Avatar } from "@/components/ui/avatar";

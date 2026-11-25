@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Plus, Search } from "lucide-react";
+import { Plus, Search } from "@/components/icons";
 import { PageHeader } from "@/components/page-header";
 import { ClientStatusBadge } from "@/components/psy/client-status";
 import { useClientMeta } from "@/components/psy/client-meta";

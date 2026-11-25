@@ -2,7 +2,7 @@
 
 import { useMemo, useRef } from "react";
 import Link from "next/link";
-import { ArrowLeft, Check, MapPin, PenLine, Video } from "lucide-react";
+import { ArrowLeft, Check, MapPin, PenLine, Video } from "@/components/icons";
 import { BlocksView } from "@/components/editor/blocks-view";
 import { Editor, type EditorApi } from "@/components/editor/editor";
 import { entryLabel } from "@/components/shared/journal-list";

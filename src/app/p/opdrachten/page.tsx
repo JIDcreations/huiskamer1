@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2 } from "@/components/icons";
 import { PageHeader } from "@/components/page-header";
 import { AssignTaskSheet } from "@/components/psy/assign-task";
 import { FormActions, kindLabel, TaskFields, type TaskDraft } from "@/components/psy/task-form";

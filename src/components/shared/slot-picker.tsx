@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { addWeeks, format, startOfWeek } from "date-fns";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { freeSlots, useAppointments, usePsychologist } from "@/lib/data";
 import { capitalize, formatDayMonth, formatLongDate, formatTime } from "@/lib/format";

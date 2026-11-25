@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { differenceInCalendarDays, parseISO } from "date-fns";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight } from "@/components/icons";
 import { AnimatePresence, motion } from "framer-motion";
 import { PageHeader } from "@/components/page-header";
 import { beelden } from "@/lib/beelden";

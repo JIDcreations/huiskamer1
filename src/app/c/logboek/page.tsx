@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ChevronRight, PenLine } from "lucide-react";
+import { ChevronRight, PenLine } from "@/components/icons";
 import { PageHeader } from "@/components/page-header";
 import { beelden } from "@/lib/beelden";
 import { JournalTimeline, WeekStrip } from "@/components/shared/journal-list";

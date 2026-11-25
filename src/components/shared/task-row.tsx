@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronRight, Pause, Play } from "lucide-react";
+import { ChevronRight, Pause, Play } from "@/components/icons";
 import { RhythmLabel } from "@/components/shared/rhythm";
 import { ShareSwitch } from "@/components/shared/share";
 import { Button } from "@/components/ui/button";

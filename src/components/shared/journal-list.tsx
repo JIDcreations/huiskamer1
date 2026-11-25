@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { isToday, isYesterday, parseISO } from "date-fns";
 import { AnimatePresence, motion } from "framer-motion";
-import { CalendarCheck, CalendarPlus, CalendarX, MessageSquareText, MoreHorizontal } from "lucide-react";
+import { CalendarCheck, CalendarPlus, CalendarX, MessageSquareText, MoreHorizontal } from "@/components/icons";
 import { MoodDots } from "@/components/shared/mood";
 import { ShareBadge, ShareIcon } from "@/components/shared/share";
 import { Button } from "@/components/ui/button";

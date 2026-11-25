@@ -9,10 +9,10 @@ import {
   Sun,
   UserRound,
   Users,
-  type LucideIcon,
-} from "lucide-react";
+  type Icon,
+} from "@/components/icons";
 
-export type NavItem = { href: string; label: string; icon: LucideIcon };
+export type NavItem = { href: string; label: string; icon: Icon };
 export type NavGroup = { label?: string; items: NavItem[] };
 
 export const psyNav: NavGroup[] = [

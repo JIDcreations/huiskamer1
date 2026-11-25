@@ -3,7 +3,7 @@
 import type { Editor } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
 import { useEditorState } from "@tiptap/react";
-import { Bold, Heading2, Italic, Quote, Strikethrough } from "lucide-react";
+import { Bold, Heading2, Italic, Quote, Strikethrough } from "@/components/icons";
 import { cn } from "@/lib/utils";
 
 function Btn({

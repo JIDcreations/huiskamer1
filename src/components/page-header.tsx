@@ -20,6 +20,7 @@ export function PageHeader({
   if (image) {
     return (
       <header
+        data-banner
         className={cn(
           "bleed relative isolate -mt-[calc(72px+1.5rem)] flex min-h-[400px] flex-col justify-end overflow-hidden bg-pine-deep md:-mt-[calc(72px+2rem)] md:min-h-[480px]",
           className

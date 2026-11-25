@@ -3,7 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/components/ui/toast";
 import { Button } from "@/components/ui/button";
-import { FileDown } from "lucide-react";
+import { FileDown } from "@/components/icons";
 import type { Invoice } from "@/lib/types";
 
 export const invoiceStatusLabel = { open: "Open", betaald: "Betaald", vervallen: "Vervallen" } as const;

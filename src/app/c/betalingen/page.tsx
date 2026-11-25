@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, CreditCard, Smartphone } from "lucide-react";
+import { Check, CreditCard, Smartphone } from "@/components/icons";
 import { PageHeader } from "@/components/page-header";
 import { AttestButton, InvoiceStatus } from "@/components/shared/invoice";
 import { Panel, SectionLabel } from "@/components/shared/panel";
