@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { BlocksView } from "@/components/editor/blocks-view";
 import { JournalTimeline, WeekStrip } from "@/components/shared/journal-list";
-import { MoodDots } from "@/components/shared/mood";
+import { MoodMark } from "@/components/shared/mood";
 import { Panel } from "@/components/shared/panel";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -107,7 +107,7 @@ export function JournalTab({ client }: { client: Client }) {
       >
         {open && (
           <div>
-            {open.mood && <MoodDots value={open.mood} className="mb-3" />}
+            {open.mood && <MoodMark value={open.mood} className="mb-3" />}
             {open.kind === "opdracht" && task?.kind === "schaal" && open.scale && (
               <p className="mb-3 text-[15px]">
                 {task.scaleLabel ?? "Score"}: <span className="font-semibold tabular-nums">{open.scale}</span> op 10

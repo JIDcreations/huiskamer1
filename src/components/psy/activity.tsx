@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { CalendarDays, CalendarPlus, CheckCircle2, Lock, MessagesSquare, NotebookPen, Sun } from "@/components/icons";
 import { entrySummary } from "@/components/shared/journal-list";
-import { MoodDots, moodLabel } from "@/components/shared/mood";
+import { MoodMark, moodLabel } from "@/components/shared/mood";
 import { statusLabel, typeLabel } from "@/lib/appointments";
 import { excerpt, usePersonName, useTask, type Activity } from "@/lib/data";
 import { formatDayMonth, formatTime, formatWhen, plural } from "@/lib/format";
@@ -94,7 +94,7 @@ export function ActivityItem({
         body = (
           <>
             <span className="line-clamp-2">{excerpt(e.blocks, 220)}</span>
-            {e.mood && <MoodDots value={e.mood} className="mt-1.5" />}
+            {e.mood && <MoodMark value={e.mood} className="mt-1.5" />}
           </>
         );
       }

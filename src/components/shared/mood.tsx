@@ -1,45 +1,41 @@
 "use client";
 
+import { WeatherCloud, WeatherRain, WeatherSun, WeatherSunCloud, WeatherWind, type Icon } from "@/components/icons";
+import { PencilCircle } from "@/components/shared/pencil";
 import type { Mood } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-export const moods: { value: Mood; label: string }[] = [
-  { value: 1, label: "Zwaar" },
-  { value: 2, label: "Onrustig" },
-  { value: 3, label: "Gaat wel" },
-  { value: 4, label: "Rustig" },
-  { value: 5, label: "Licht" },
+/** Een stemming is het weer van die dag: zwaar is regen, licht is zon. */
+export const moods: { value: Mood; label: string; icon: Icon }[] = [
+  { value: 1, label: "Zwaar", icon: WeatherRain },
+  { value: 2, label: "Onrustig", icon: WeatherWind },
+  { value: 3, label: "Gaat wel", icon: WeatherCloud },
+  { value: 4, label: "Rustig", icon: WeatherSunCloud },
+  { value: 5, label: "Licht", icon: WeatherSun },
 ];
 
 export const moodLabel = (m?: Mood) => moods.find((x) => x.value === m)?.label;
+export const moodIcons: Record<Mood, Icon> = { 1: WeatherRain, 2: WeatherWind, 3: WeatherCloud, 4: WeatherSunCloud, 5: WeatherSun };
 
-/** Elke stemming een eigen kleur, van schemerblauw (zwaar) naar zon (licht). */
-export const moodColor = (m: Mood) => `var(--mood-${m})`;
-
-/** Vijf bolletjes, gevuld tot de stemming, in de kleur van die stemming. */
-export function MoodDots({ value, className }: { value?: Mood; className?: string }) {
+/** Klein weerbeeldje met het woord erbij, voor in lijsten. */
+export function MoodMark({ value, className }: { value?: Mood; className?: string }) {
   if (!value) return null;
+  const Weather = moodIcons[value];
   return (
-    <span className={cn("inline-flex items-center gap-2 text-[12px] font-medium text-muted", className)}>
-      <span aria-hidden className="inline-flex gap-[3px]">
-        {moods.map((m) => (
-          <span
-            key={m.value}
-            className="size-[7px] rounded-full"
-            style={{ background: m.value <= value ? moodColor(value) : "var(--sand)" }}
-          />
-        ))}
-      </span>
+    <span className={cn("inline-flex items-center gap-1.5 text-[13px] text-muted", className)}>
+      <Weather className="size-[18px] text-pine" />
       {moodLabel(value)}
     </span>
   );
 }
 
+/** Kies het weer van vandaag. Wat je kiest, wordt met potlood omcirkeld. */
 export function MoodPicker({ value, onChange, className }: { value?: Mood; onChange: (m: Mood | undefined) => void; className?: string }) {
   return (
-    <div role="radiogroup" aria-label="Hoe voel je je?" className={cn("grid grid-cols-5 gap-2", className)}>
+    <div role="radiogroup" aria-label="Hoe voel je je?" className={cn("grid grid-cols-5 gap-1 sm:gap-2", className)}>
       {moods.map((m) => {
         const active = m.value === value;
+        const Weather = m.icon;
         return (
           <button
             key={m.value}
@@ -47,21 +43,20 @@ export function MoodPicker({ value, onChange, className }: { value?: Mood; onCha
             role="radio"
             aria-checked={active}
             onClick={() => onChange(active ? undefined : m.value)}
-            style={{ "--m": moodColor(m.value) } as React.CSSProperties}
             className={cn(
-              "group flex min-w-0 flex-col items-center justify-center gap-2 rounded-2xl px-0.5 py-3.5 text-[11px] font-medium whitespace-nowrap tracking-[-0.01em] outline-none transition-[background-color,box-shadow,transform] duration-200 focus-visible:ring-2 focus-visible:ring-pine active:scale-[0.97] sm:text-[13px]",
-              active
-                ? "bg-[color-mix(in_srgb,var(--m)_16%,var(--cream))] text-text shadow-[inset_0_0_0_2px_var(--m)]"
-                : "bg-surface text-muted shadow-[inset_0_0_0_1px_var(--edge)] hover:bg-[color-mix(in_srgb,var(--m)_9%,var(--cream))] hover:text-text"
+              "group flex min-w-0 flex-col items-center gap-2.5 rounded-2xl px-0.5 pb-3 pt-4 text-[12px] whitespace-nowrap outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-pine sm:text-[14px]",
+              active ? "font-medium text-text" : "text-muted hover:bg-oat-soft hover:text-text"
             )}
           >
-            <span
-              aria-hidden
-              className={cn(
-                "size-6 rounded-full bg-(--m) shadow-[inset_0_-3px_6px_rgba(0,0,0,0.12)] transition-transform duration-300 ease-out-soft sm:size-8",
-                active ? "scale-110" : "group-hover:scale-105"
-              )}
-            />
+            <span className="relative flex size-11 items-center justify-center sm:size-12">
+              <Weather
+                className={cn(
+                  "size-8 transition-transform duration-300 ease-out-soft sm:size-9",
+                  active ? "text-pine" : "text-pine/70 group-hover:-translate-y-0.5 group-hover:text-pine"
+                )}
+              />
+              {active && <PencilCircle key={m.value} className="-inset-1 text-clay" />}
+            </span>
             {m.label}
           </button>
         );

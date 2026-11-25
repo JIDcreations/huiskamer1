@@ -5,7 +5,7 @@ import Link from "next/link";
 import { isToday, isYesterday, parseISO } from "date-fns";
 import { AnimatePresence, motion } from "framer-motion";
 import { CalendarCheck, CalendarPlus, CalendarX, MoreHorizontal } from "@/components/icons";
-import { MoodDots } from "@/components/shared/mood";
+import { MoodMark } from "@/components/shared/mood";
 import { MarginNote, PencilCircle } from "@/components/shared/pencil";
 import { ShareBadge, ShareIcon } from "@/components/shared/share";
 import { Button } from "@/components/ui/button";
@@ -151,7 +151,7 @@ export function JournalRow({
       <div className="min-w-0 flex-1 pl-4 md:pl-5">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <span className={cn("rounded-md px-2 py-0.5 text-[12px] font-medium", kindTone[entry.kind])}>{label}</span>
-          {entry.mood && <MoodDots value={entry.mood} />}
+          {entry.mood && <MoodMark value={entry.mood} />}
         </div>
         <Link href={href} className="mt-1 block outline-none after:absolute after:inset-0 after:content-[''] focus-visible:after:rounded-card focus-visible:after:ring-2 focus-visible:after:ring-taupe">
           {entry.title && <span className="block text-[15px] font-semibold">{entry.title}</span>}

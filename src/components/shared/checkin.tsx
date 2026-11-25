@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { MoodPicker, moodLabel } from "@/components/shared/mood";
+import { MoodPicker, moodIcons, moodLabel } from "@/components/shared/mood";
 import { ShareSwitch } from "@/components/shared/share";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/input";
@@ -23,6 +23,7 @@ export function CheckIn({ clientId, today }: { clientId: ID; today?: JournalEntr
   const [shared, setShared] = useState(today?.sharedWithPsychologist ?? prefs.defaultShare);
 
   const open = !today || editing;
+  const TodayWeather = today?.mood ? moodIcons[today.mood] : null;
 
   function save() {
     if (!mood) return;
@@ -88,12 +89,15 @@ export function CheckIn({ clientId, today }: { clientId: ID; today?: JournalEntr
           transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-wrap items-center justify-between gap-3"
         >
-          <div className="min-w-0">
-            <p className="text-[15px]">
-              <span className="text-muted">Vandaag: </span>
-              <span className="font-medium">{moodLabel(today!.mood)}</span>
-            </p>
-            {today!.blocks.length > 0 && <p className="mt-0.5 truncate text-[13px] text-muted">{excerpt(today!.blocks, 90)}</p>}
+          <div className="flex min-w-0 items-center gap-3.5">
+            {TodayWeather && <TodayWeather className="size-10 shrink-0 text-pine" />}
+            <div className="min-w-0">
+              <p className="text-[15px]">
+                <span className="text-muted">Vandaag: </span>
+                <span className="font-medium">{moodLabel(today!.mood)?.toLowerCase()}</span>
+              </p>
+              {today!.blocks.length > 0 && <p className="mt-0.5 truncate text-[13px] text-muted">{excerpt(today!.blocks, 90)}</p>}
+            </div>
           </div>
           <div className="flex items-center gap-1">
             <Button variant="quiet" size="sm" asChild>

@@ -6,7 +6,7 @@ import { parseISO } from "date-fns";
 import { AgendaList } from "@/components/sessions/agenda-list";
 import { SessionTaskRow } from "@/components/sessions/session-view";
 import { minutesOf, typeLabel } from "@/lib/appointments";
-import { moodLabel, moods, moodColor } from "@/components/shared/mood";
+import { moodIcons, moodLabel } from "@/components/shared/mood";
 import { Panel } from "@/components/shared/panel";
 import { Button } from "@/components/ui/button";
 import { moodStrip, pastSessions, taskState, upcoming, useAppointments, useJournal, useTasks } from "@/lib/data";
@@ -21,28 +21,28 @@ export function MoodStrip({ clientId }: { clientId: string }) {
 
   if (!days.some((d) => d.mood)) return <p className="py-2 text-[14px] text-muted">Nog geen check-ins gedeeld.</p>;
 
+  // Een weerkaart: hoe lichter de dag, hoe hoger het weerbeeldje staat.
   return (
-    <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-3">
-      <div aria-hidden className="flex h-24 flex-col justify-between py-0.5 text-right text-[11px] leading-none text-faint">
-        <span>{moods[4].label}</span>
-        <span>{moods[0].label}</span>
-      </div>
-      <div className="flex h-24 items-end gap-1.5" role="img" aria-label="Stemming uit gedeelde check-ins, laatste twee weken">
-        {days.map((d) => (
-          <div
-            key={d.day}
-            className="flex h-full flex-1 flex-col items-center justify-end"
-            title={d.mood ? `${formatShortDate(d.date)}: ${moodLabel(d.mood)}` : `${formatShortDate(d.date)}: geen check-in`}
-          >
-            {d.mood ? (
-              <span className="w-full max-w-5 rounded-full" style={{ height: `${d.mood * 18}%`, background: moodColor(d.mood) }} />
-            ) : (
-              <span className="size-1.5 rounded-full bg-surface-2" />
-            )}
-          </div>
-        ))}
-      </div>
-      <div className="col-start-2 mt-2 flex justify-between text-[11px] text-faint">
+    <div>
+      <ol className="flex h-28 items-stretch gap-0.5" aria-label="Stemming uit gedeelde check-ins, laatste twee weken">
+        {days.map((d) => {
+          const Weather = d.mood ? moodIcons[d.mood] : null;
+          const label = d.mood ? `${formatShortDate(d.date)}: ${moodLabel(d.mood)}` : `${formatShortDate(d.date)}: geen check-in`;
+          return (
+            <li key={d.day} className="relative flex-1" title={label} aria-label={label}>
+              {Weather ? (
+                <Weather
+                  className="absolute left-1/2 size-6 -translate-x-1/2 text-pine"
+                  style={{ bottom: `calc(${((d.mood! - 1) / 4) * 100}% - ${((d.mood! - 1) / 4) * 24}px)` }}
+                />
+              ) : (
+                <span aria-hidden className="absolute bottom-2.5 left-1/2 h-px w-2.5 -translate-x-1/2 bg-taupe/50" />
+              )}
+            </li>
+          );
+        })}
+      </ol>
+      <div className="mt-2 flex justify-between border-t border-edge pt-2 text-[12px] text-faint">
         <span>2 weken geleden</span>
         <span>Vandaag</span>
       </div>
